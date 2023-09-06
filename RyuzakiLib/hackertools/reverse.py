@@ -4,7 +4,7 @@ import requests
 import json
 from serpapi import GoogleSearch
 
-class GoogleRevergeImage:
+class GoogleReverseImage:
     def __init__(self, image_url, apikey):
         self.image_url = image_url
         self.apikey = apikey
@@ -20,17 +20,3 @@ class GoogleRevergeImage:
         search = GoogleSearch(params) # where data extraction happens on the SerpApi backend
         results = search.get_dict() # JSON -> Python dictionary
         return results
-
-"""
-example
-apikey = "..."
-image_url = "..."
-check = GoogleRevergeImage(image_url, apikey)
-results = check.get_reverse()
-print(results)
-
-parameter 
-google_url = results["search_metadata"]["google_reverse_image"]
-"""
-
-    

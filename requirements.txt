@@ -1,0 +1,4 @@
+git+https://github.com/null-nick/PyrogramMod
+requests
+bs4
+google-search-results

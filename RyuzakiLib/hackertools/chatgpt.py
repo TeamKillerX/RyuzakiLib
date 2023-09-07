@@ -22,6 +22,9 @@
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
+import base64
+from base64 import b64decode as idk
+import os
 
 def knowledge_hack(text_code):
     you_dont_know = "".join(text_code)

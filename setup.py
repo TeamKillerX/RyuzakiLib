@@ -12,7 +12,7 @@ from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
 
-with open("pykillerx/__init__.py", encoding="utf-8") as f:
+with open("RyuzakiLib/__init__.py", encoding="utf-8") as f:
     version = re.findall(r"__version__ = \"(.+)\"", f.read())[0]
 
 
@@ -61,7 +61,7 @@ class UploadCommand(Command):
 setup(
     name="RyuzakiLib",
     version=version,
-    description="Api Tools Powerfull base on Pyrogram",
+    description="RyuzakiLib Powerfull base on Pyrogram",
     long_description=readme,
     long_description_content_type='text/markdown',
     author="TeamKillerX",

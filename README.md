@@ -39,6 +39,26 @@ response = GoogleReverseImage(url, apikey)
 results = response.get_reverse()
 print(results)
 ```
+### New Features
+```python
+# Create by @xtdevs
+# Prefixes Custom
+
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+from RyuzakiLib.hacktools import set_prefixes
+from pymongo import MongoClient
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["your_database_name"]
+collection = db["your_collection_name"]
+
+user_id = message.from_user.id
+prefix = "."
+set_handler = set_prefixes(user_id, prefix, collection)
+prefixes_new = set_handler.add_prefixes()
+```
 
 # License 
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)   

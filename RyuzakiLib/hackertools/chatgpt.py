@@ -27,21 +27,21 @@ from base64 import b64decode as idk
 import os
 import json
 
-def knowledge_hack(text_code):
-    you_dont_know = "".join(text_code)
-    number = you_dont_know.split()
-    decode_string = ""
-    for binary in number:
-        decimal_value = int(binary, 2)
-        decode_string += chr(decimal_value)
-    return decode_string
-
 class RendyDevChat:
     def __init__(self, query):
         self.query = query
 
     @staticmethod
-    def get_blacklist_from_file():
+    def knowledge_hack(text_code):
+        you_dont_know = "".join(text_code)
+        number = you_dont_know.split()
+        decode_string = ""
+        for binary in number:
+            decimal_value = int(binary, 2)
+            decode_string += chr(decimal_value)
+        return decode_string
+
+    def get_blacklist_from_file(self):
         try:
             with open("blacklist.json", "r") as file:
                 blacklist = json.load(file)
@@ -57,7 +57,7 @@ class RendyDevChat:
         superskill = (
             "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01101101 01100101 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100"
         )
-        response_url = knowledge_hack(superskill)
+        response_url = self.knowledge_hack(superskill)
         payloads = {
             "message": self.query,
             "chat_mode": "assistant",

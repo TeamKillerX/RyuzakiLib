@@ -54,10 +54,13 @@ client = MongoClient("mongodb://localhost:27017/")
 db = client["your_database_name"]
 collection = db["your_collection_name"]
 
+db_name = "custom_prefixes"
 user_id = message.from_user.id
-prefix = "."
-set_handler = set_prefixes(user_id, prefix, collection)
-prefixes_new = set_handler.add_prefixes()
+prefix = [".", "+", "-"]
+set_handler = custom_prefixes(db_name, user_id, prefix, collection)
+set_handler.add_prefixes()
+now_show_prefix = set_handler.get_prefix()
+print(now_show_prefix)
 ```
 
 # License 

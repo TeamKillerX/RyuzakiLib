@@ -62,6 +62,7 @@ set_handler.add_prefixes()
 now_show_prefix = set_handler.get_prefix()
 print(now_show_prefix)
 ```
+* you can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
 # License 
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)   
@@ -83,4 +84,3 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 # Credits 
 * [![TeamKillerX-Devs](https://img.shields.io/static/v1?label=TeamkillerX&message=devs&color=critical)](https://t.me/xtdevs)
 * Pyrogram by : [Dan](https://github.com/pyrogram/pyrogram)
-* Api tools by : unknown 

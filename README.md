@@ -31,8 +31,7 @@ from pyrogram.types import Message
 from RyuzakiLib.hacktools import RendyDevChat, GoogleReverseImage
 
 query = "Hello World"
-chat = RendyDevChat(query)
-response = chat.get_response()
+response = RendyDevChat(query).get_response(message)
 await message.reply(response)
 ```
 

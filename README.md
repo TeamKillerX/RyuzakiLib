@@ -47,7 +47,7 @@ print(results)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hacktools import set_prefixes
+from RyuzakiLib.hacktools import custom_prefixes
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")

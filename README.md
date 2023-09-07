@@ -57,7 +57,7 @@ collection = db["your_collection_name"]
 db_name = "custom_prefixes"
 user_id = message.from_user.id
 prefix = [".", "+", "-"]
-set_handler = custom_prefixes(db_name, user_id, prefix, collection)
+set_handler = custom_prefixes(db_name, user_id, prefix, collection, True) # parameter upsert using set True or False
 set_handler.add_prefixes()
 now_show_prefix = set_handler.get_prefix()
 print(now_show_prefix)

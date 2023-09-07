@@ -67,7 +67,7 @@ setup(
     author="TeamKillerX",
     author_email="killerx@randydev.my.id",
     python_requires="~=3.9, ~=3.10",
-    url="https://github.com/TeamKillerX/RendyDev",
+    url="https://github.com/TeamKillerX/",
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
 
     install_requires=requires,

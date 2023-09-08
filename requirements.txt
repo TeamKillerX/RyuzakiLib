@@ -2,3 +2,4 @@ pyrogram
 requests
 bs4
 google-search-results
+httpx[http2]

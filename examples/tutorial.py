@@ -14,8 +14,7 @@ def add_set_prefix(db_name, user_id, prefix, collection):
 
 def get_prefix(db_name, user_id, collection):
     set_handler = custom_prefixes(db_name, user_id, None, collection, True)
-    now_show_prefix = set_handler.get_prefix()
-    return now_show_prefix
+    return set_handler.get_prefix()
 
 @Client.on_message(filters.command("setprefix", prefixes=".") & filters.me)
 async def set_prefix(client, message):
@@ -31,7 +30,7 @@ async def get_current_prefix(client, message):
     user_id = message.from_user.id
     current_prefix = get_prefix("handler", user_id, collection)
     if message.text.lower() == f"{current_prefix}ping":
-        await message.reply_text(f"Pong!!........")
+        await message.reply_text("Pong!!........")
         return
 
 

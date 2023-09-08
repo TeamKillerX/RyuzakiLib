@@ -34,11 +34,11 @@ class RemoveBg:
         payload = {"size": "auto"}
         with open(f"{self.image}", "rb") as image_file:
             response = requests.post(endpoint, data=payload, headers={"X-Api-Key": self.apikey}, files={"image_file": image_file}, stream=True)
-            
+
         with open("output.png", "wb") as out_file:
             shutil.copyfileobj(response.raw, out_file)
         del response
         try:
             return "output.png"
         except Exception as e:
-            return "Error {}".format(e)
+            return f"Error {e}"

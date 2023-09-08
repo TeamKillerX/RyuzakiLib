@@ -38,8 +38,6 @@ class UploadCommand(Command):
         pass
 
     def finalize_options(self):
-        pass
-
         self.status('installation requirements..')
         os.system('pip3 install -e .')
 

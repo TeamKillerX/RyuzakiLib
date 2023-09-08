@@ -43,11 +43,7 @@ class AnimeStyled:
         headers = {"Authorization": f"Bearer {self.apikey}"}
         payload = {"inputs": f"{self.input}"}
         response = requests.post(rendydev_code, headers=headers, json=payload)
-        if response.status_code == 200:
-            image_data = response.content
-            return image_data
-        else:
-            return "Api Invalid"
+        return response.content if response.status_code == 200 else "Api Invalid"
 
     def NowSendImage(self):
         image_bytes = self.HuggingTokenAnime()

@@ -23,7 +23,7 @@ from pyrogram.types import Message
 from httpx import AsyncClient
 import os
 
-class github_username:
+class GithubUsername:
     def __init__(self, username):
         self.username = username
         

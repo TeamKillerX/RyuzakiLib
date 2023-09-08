@@ -23,6 +23,22 @@ Never ever abuse this repository
 git+https://github.com/TeamKillerX/RyuzakiLib/
 ```
 
+### Learn Python 
+```python
+import asyncio
+
+class example_python:
+      def __init__(self):
+         pass
+
+      def hello_world(self):
+          asyncio.sleep(5)
+
+# examples usage
+ok = example_python()
+test = ok.hello_world()
+```
+
 ### Example Chatgpt
 ```python
 from pyrogram import Client, filters

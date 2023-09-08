@@ -41,4 +41,4 @@ class RemoveBG:
         try:
             return "output.png"
         except Exception as e:
-            return "Error {}".format(e))
+            return "Error {}".format(e)

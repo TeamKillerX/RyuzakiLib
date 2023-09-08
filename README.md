@@ -45,6 +45,8 @@ from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 from RyuzakiLib.hackertools.api_github import GithubUsername
 from RyuzakiLib.hackertools.rmbg import RemoveBg
 from RyuzakiLib.hackertools.reverse import GoogleReverseImage
+from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
+from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
 ```
 
 ### Example Chatgpt

@@ -24,7 +24,7 @@ import os
 import requests
 import shutil
 
-class RemoveBG:
+class RemoveBg:
     def __init__(self, apikey, image):
         self.apikey = apikey
         self.image = image

@@ -1,4 +1,4 @@
-git+https://github.com/null-nick/PyrogramMod
+pyrogram
 requests
 bs4
 google-search-results

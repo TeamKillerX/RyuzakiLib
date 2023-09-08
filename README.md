@@ -44,7 +44,7 @@ test = ok.hello_world()
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hacktools import RendyDevChat, GoogleReverseImage
+from RyuzakiLib.hackertools import RendyDevChat, GoogleReverseImage
 
 query = "Hello World"
 response = RendyDevChat(query).get_response(message)
@@ -56,7 +56,7 @@ await message.reply(response)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hacktools import RendyDevChat, GoogleReverseImage
+from RyuzakiLib.hackertools import RendyDevChat, GoogleReverseImage
 
 url = "https://example/jpg"
 apikey = "api key token"
@@ -72,7 +72,7 @@ print(results)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hacktools import custom_prefixes
+from RyuzakiLib.hackertools import custom_prefixes
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")

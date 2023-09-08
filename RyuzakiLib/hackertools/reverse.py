@@ -38,5 +38,4 @@ class GoogleReverseImage:
             "gl": "us"
         }
         search = GoogleSearch(params) # where data extraction happens on the SerpApi backend
-        results = search.get_dict() # JSON -> Python dictionary
-        return results
+        return search.get_dict()

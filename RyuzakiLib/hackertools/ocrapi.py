@@ -48,8 +48,7 @@ class OcrApiUrl:
             test_url = self.ocr_space_url()
             parsed_response = json.loads(test_url)
             if "ParsedResults" in parsed_response and len(parsed_response["ParsedResults"]) > 0:
-                parsed_text = parsed_response["ParsedResults"][0]["ParsedText"]
-                return parsed_text
+                return parsed_response["ParsedResults"][0]["ParsedText"]
             else:
                 return "No text found in the image."
         except (json.JSONDecodeError, KeyError):

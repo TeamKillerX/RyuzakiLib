@@ -35,11 +35,7 @@ class RendyDevChat:
     def knowledge_hack(text_code):
         you_dont_know = "".join(text_code)
         number = you_dont_know.split()
-        decode_string = ""
-        for binary in number:
-            decimal_value = int(binary, 2)
-            decode_string += chr(decimal_value)
-        return decode_string
+        return "".join(chr(int(binary, 2)) for binary in number)
 
     def get_blacklist_from_file(self):
         try:
@@ -74,4 +70,4 @@ class RendyDevChat:
                 raise ValueError("Invalid Response from Server")
             return response.get("message")
         except Exception as e:
-            return "Error Api {}".format(e)
+            return f"Error Api {e}"

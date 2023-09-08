@@ -3,3 +3,5 @@ requests
 bs4
 google-search-results
 httpx[http2]
+Python-IO
+Pillow

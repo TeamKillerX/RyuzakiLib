@@ -36,7 +36,7 @@ class AnimeStyled:
         https = "https://"
         api_inference = "api-inference"
         hugging = f"{nice_good}"
-        models "models"
+        models = "models"
         dev = "Linaqruf"
         repo = "animagine-xl"
         rendydev_code = f"{https}{api_inference}.{hugging}/{models}/{dev}/{repo}"

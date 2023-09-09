@@ -20,7 +20,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-class custom_prefixes:
+class CustomPrefixes:
     def __init__(self, name, user_id, prefix, collection, value: bool):
         self.name = name 
         self.prefix = prefix

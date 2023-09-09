@@ -47,6 +47,7 @@ from RyuzakiLib.hackertools.rmbg import RemoveBg
 from RyuzakiLib.hackertools.reverse import GoogleReverseImage
 from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
 from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
+from RyuzakiLib.hackertools.custom_prefixes import custom_prefixes
 ```
 
 ### Example Chatgpt
@@ -54,7 +55,7 @@ from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools import RendyDevChat, GoogleReverseImage
+from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
 response = RendyDevChat(query).get_response(message)
@@ -66,7 +67,7 @@ await message.reply(response)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools import RendyDevChat, GoogleReverseImage
+from RyuzakiLib.hackertools.reverse import GoogleReverseImage
 
 url = "https://example/jpg"
 apikey = "api key token"
@@ -82,7 +83,7 @@ print(results)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools import custom_prefixes
+from RyuzakiLib.hackertools.custom_prefixes import custom_prefixes
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")

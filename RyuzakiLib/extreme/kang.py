@@ -8,10 +8,10 @@ from pyrogram.errors import *
 from pyrogram.types import *
 
 class Media_Info:
-    def data(media: str) -> dict:
+    def data(self) -> dict:
         "Get downloaded media's information"
         found = False
-        media_info = MediaInfo.parse(media)
+        media_info = MediaInfo.parse(self)
         for track in media_info.tracks:
             if track.track_type == "Video":
                 found = True
@@ -43,7 +43,7 @@ class Media_Info:
                     else None
                 )
 
-        dict_ = (
+        return (
             {
                 "media_type": type_,
                 "format": format_,
@@ -60,7 +60,6 @@ class Media_Info:
             if found
             else None
         )
-        return dict_
 
 
 class KangingSticker:

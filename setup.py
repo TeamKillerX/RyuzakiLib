@@ -15,8 +15,7 @@ from setuptools import find_packages, setup, Command
 def my_test_suite():
     import unittest
     test_loader = unittest.TestLoader()
-    test_suite = test_loader.discover('tests', pattern='test*.py')
-    return test_suite
+    return test_loader.discover('tests', pattern='test*.py')
 
 with open("RyuzakiLib/__init__.py", encoding="utf-8") as f:
     version = re.findall(r"__version__ = \"(.+)\"", f.read())[0]

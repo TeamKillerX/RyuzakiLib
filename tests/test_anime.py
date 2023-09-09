@@ -55,3 +55,9 @@ class TestAnimeStyled:
             return output_buffer
         except Exception as e:
             return f"Error: {e}"
+
+def test_anime():
+    apikey = None
+    input = None
+
+    test = TestAnimeStyled(apikey, input)

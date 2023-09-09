@@ -57,7 +57,7 @@ class TestAnimeStyled:
             return f"Error: {e}"
 
 def test_anime():
-    apikey = None
-    input = None
+    apikey = "none"
+    input = "none"
 
     test = TestAnimeStyled(apikey, input)

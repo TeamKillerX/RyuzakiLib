@@ -58,6 +58,7 @@ class TestAnimeStyled:
 
 def test_anime():
     apikey = "none"
-    input = "none"
+    input = "red hair face"
 
     test = TestAnimeStyled(apikey, input)
+    test_now = test.test_NowSendImage()

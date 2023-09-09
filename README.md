@@ -42,12 +42,12 @@ test = ok.hello_world()
 ### Import Here 
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
-from RyuzakiLib.hackertools.api_github import GithubUsername
+from RyuzakiLib.hackertools.github import GithubUsername
 from RyuzakiLib.hackertools.rmbg import RemoveBg
 from RyuzakiLib.hackertools.reverse import GoogleReverseImage
 from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
 from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
-from RyuzakiLib.hackertools.custom_prefixes import custom_prefixes
+from RyuzakiLib.hackertools.prefixes import CustomPrefixes
 ```
 
 ### Example Chatgpt
@@ -83,7 +83,7 @@ print(results)
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools.custom_prefixes import custom_prefixes
+from RyuzakiLib.hackertools.prefixes import CustomPrefixes
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")
@@ -93,7 +93,7 @@ collection = db["your_collection_name"]
 db_name = "custom_prefixes"
 user_id = message.from_user.id
 prefix = [".", "+", "-"]
-set_handler = custom_prefixes(db_name, user_id, prefix, collection, True) # parameter upsert using set True or False
+set_handler = CustomPrefixes(db_name, user_id, prefix, collection, True) # parameter upsert using set True or False
 set_handler.add_prefixes()
 now_show_prefix = set_handler.get_prefix()
 print(now_show_prefix)

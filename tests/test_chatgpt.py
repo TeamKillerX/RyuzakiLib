@@ -19,6 +19,7 @@
 
 # original api credits : 01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01101101 01100101 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100
 
+import pytest
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -27,17 +28,17 @@ from base64 import b64decode as idk
 import os
 import json
 
-class RendyDevChat:
+class TestRendyDevChat:
     def __init__(self, query):
         self.query = query
 
     @staticmethod
-    def knowledge_hack(text_code):
+    def test_knowledge_hack(text_code):
         you_dont_know = "".join(text_code)
         number = you_dont_know.split()
         return "".join(chr(int(binary, 2)) for binary in number)
 
-    def get_blacklist_from_file(self):
+    def test_get_blacklist_from_file(self):
         try:
             with open("blacklist.json", "r") as file:
                 blacklist = json.load(file)
@@ -45,7 +46,7 @@ class RendyDevChat:
         except FileNotFoundError:
             return set()
 
-    def get_response(self, message):
+    def test_get_response(self, message):
         if isinstance(message, Message):
             blacklist = self.get_blacklist_from_file()
             if message.from_user.id in blacklist:

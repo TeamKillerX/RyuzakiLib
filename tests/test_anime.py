@@ -57,8 +57,9 @@ class TestAnimeStyled:
             return f"Error: {e}"
 
 def test_anime():
-    apikey = "none"
+    apikey = "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"
     input = "red hair face"
 
     test = TestAnimeStyled(apikey, input)
     test_now = test.test_NowSendImage()
+    print(test_now)

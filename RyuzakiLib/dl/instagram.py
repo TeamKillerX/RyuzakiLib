@@ -34,18 +34,17 @@ class InstagramUrl:
         querystring = {"url": self.link}
         headers = {"X-RapidAPI-Key": self.apikey, "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com"}
         response = requests.get(url, headers=headers, params=querystring)
-        if response.status_code != 200:
-            dataig = response.json()
-            try:
-                igdownloader = dataig["media"]
-            except Exception as e:
-                return f"Error request {e}"
-            if igdownloader:
-                try:
-                    return igdownloader
-                except Exception as e:
-                    return f"Error request. {e}"
-            else:
-                return "Failed to api Instagram please try again"
-        else:
+        if response.status_code == 200:
             return "Failed api please try again"
+        dataig = response.json()
+        try:
+            igdownloader = dataig["media"]
+        except Exception as e:
+            return f"Error request {e}"
+        if igdownloader:
+            try:
+                return igdownloader
+            except Exception as e:
+                return f"Error request. {e}"
+        else:
+            return "Failed to api Instagram please try again"

@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools import custom_prefixes
+from RyuzakiLib.hackertools import CustomPrefixes
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")
@@ -9,11 +9,11 @@ db = client["your_database_name"]
 collection = db["your_collection_name"]
 
 def add_set_prefix(db_name, user_id, prefix, collection):
-    set_handler = custom_prefixes(db_name, user_id, prefix, collection, True)
+    set_handler = CustomPrefixes(db_name, user_id, prefix, collection, True)
     set_handler.add_prefixes()
 
 def get_prefix(db_name, user_id, collection):
-    set_handler = custom_prefixes(db_name, user_id, None, collection, True)
+    set_handler = CustomPrefixes(db_name, user_id, None, collection, True)
     return set_handler.get_prefix()
 
 @Client.on_message(filters.command("setprefix", prefixes=".") & filters.me)

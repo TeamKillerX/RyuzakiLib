@@ -1,4 +1,5 @@
 import asyncio
+import os
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 from pymediainfo import MediaInfo

@@ -5,3 +5,4 @@ google-search-results
 httpx[http2]
 Python-IO
 Pillow
+opencv-python

@@ -6,3 +6,4 @@ httpx[http2]
 Python-IO
 Pillow
 opencv-python
+openai

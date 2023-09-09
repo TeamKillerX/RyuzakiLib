@@ -67,6 +67,7 @@ setup(
     python_requires="~=3.9, ~=3.10",
     url="https://github.com/TeamKillerX/RyuzakiLib/",
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    test_suite="setup.my_test_suite",
 
     install_requires=requires,
     include_package_data=True,

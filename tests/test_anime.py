@@ -46,7 +46,7 @@ class TestAnimeStyled:
         return response.content if response.status_code == 200 else "Api Invalid"
 
     def test_NowSendImage(self):
-        image_bytes = self.HuggingTokenAnime()
+        image_bytes = self.test_HuggingTokenAnime()
         try:
             with Image.open(BytesIO(image_bytes)) as img:
                 output_buffer = BytesIO()

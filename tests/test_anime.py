@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
+import pytest
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from io import BytesIO
@@ -26,12 +26,12 @@ import requests
 import os
 from base64 import b64decode as what
 
-class AnimeStyled:
+class TestAnimeStyled:
     def init(self, apikey, input):
         self.apikey = apikey
         self.input = input
         
-    def HuggingTokenAnime(self):
+    def test_HuggingTokenAnime(self):
         nice_good = what("aHVnZ2luZ2ZhY2UuY28=").decode("utf-8")
         https = "https://"
         api_inference = "api-inference"
@@ -45,7 +45,7 @@ class AnimeStyled:
         response = requests.post(rendydev_code, headers=headers, json=payload)
         return response.content if response.status_code == 200 else "Api Invalid"
 
-    def NowSendImage(self):
+    def test_NowSendImage(self):
         image_bytes = self.HuggingTokenAnime()
         try:
             with Image.open(BytesIO(image_bytes)) as img:

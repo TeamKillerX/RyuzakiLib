@@ -1,5 +1,7 @@
 import asyncio
 from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+from pymediainfo import MediaInfo
 from pyrogram.raw.functions.messages import GetStickerSet
 from pyrogram.raw.types import InputStickerSetShortName
 from pyrogram.enums import ParseMode

@@ -55,11 +55,3 @@ class TestAnimeStyled:
             return output_buffer
         except Exception as e:
             return f"Error: {e}"
-
-def test_anime():
-    apikey = "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"
-    input = "red hair face"
-
-    test = TestAnimeStyled(apikey, input)
-    test_now = test.test_NowSendImage()
-    print(test_now)

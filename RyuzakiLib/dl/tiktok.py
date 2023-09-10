@@ -39,13 +39,10 @@ class TiktokUrl:
         results = response.json()
         is_video_and_music = self.value
         try:
+            caption = results["result"]["desc"]
             if is_video_and_music:
-                without_watermark_video = results["result"]["withoutWaterMarkVideo"]
-                caption = results["result"]["desc"]
-                return [without_watermark_video, caption]
-            else:
-                music_mp3 = results["result"]["music"]
-                caption = results["result"]["desc"]
-                return [music_mp3, caption]
+                return [results["result"]["withoutWaterMarkVideo"], caption]
+            music_mp3 = results["result"]["music"]
+            return [music_mp3, caption]
         except Exception as e:
             return f"Error request {e}"

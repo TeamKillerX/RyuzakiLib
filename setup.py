@@ -61,6 +61,13 @@ class UploadCommand(Command):
 
         sys.exit()
 
+
+project_urls = {
+    "Bug Tracker": "https://github.com/TeamKillerX/RyuzakiLib/issues",
+    "Documentation": "https://ryuzakidev.vercel.app/",
+    "Source Code": "https://github.com/TeamKillerX/RyuzakiLib",
+}
+
 setup(
     name="RyuzakiLib",
     version=version,
@@ -71,6 +78,7 @@ setup(
     author_email="killerx@randydev.my.id",
     python_requires="~=3.9, ~=3.10",
     url="https://github.com/TeamKillerX/RyuzakiLib/",
+    project_urls=project_urls,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     test_suite="setup.my_test_suite",
 

@@ -34,15 +34,23 @@ class TiktokUrl:
         parameter = f"tiktok?url={tiktok_url}"
         api_url = f"{api_devs}/{parameter}"
         response = requests.get(api_url)
+        
         if response.status_code != 200:
-            return "Error requests api"
-        results = response.json()
-        is_video_and_music = self.value
+            return "Error: Unable to fetch data from the TikTok API"
+            
         try:
-            caption = results["result"]["desc"]
-            if is_video_and_music:
-                return [results["result"]["withoutWaterMarkVideo"], caption]
-            music_mp3 = results["result"]["music"]
-            return [music_mp3, caption]
+            results = response.json()
+            caption = results.get("result", {}).get("desc", "")
+            
+            if self.value:
+                video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
+                if video_url:
+                    return [video_url, caption]
+            else:
+                music_mp3 = results.get("result", {}).get("music", "")
+                if music_mp3:
+                    return [music_mp3, caption]
+                    
+            return "Error: TikTok data not found or unsupported format"
         except Exception as e:
-            return f"Error request {e}"
+            return f"Error: {e}"

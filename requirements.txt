@@ -7,4 +7,5 @@ Python-IO
 Pillow
 opencv-python
 openai
+tqdm
 

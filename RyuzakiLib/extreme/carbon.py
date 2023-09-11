@@ -26,12 +26,25 @@ from pyrogram.types import Message
 aiosession = ClientSession()
 
 class CarbonSuper:
-    def __init__(self, code):
+    def __init__(
+        self,
+        code,
+        color=None,
+        value: bool=None
+    ):
         self.code = code
+        self.color = color
+        self.value = value
         
     async def make_carbon(self):
         url = "https://carbonara.solopov.dev/api/cook"
-        async with aiosession.post(url, json={"code": self.code}) as resp:
-            image = BytesIO(await resp.read())
-        image.name = "carbon.png"
-        return image
+        if self.value:
+            async with aiosession.post(url, json={"code": self.code, "backgroundColor": self.color}) as resp:
+                image = BytesIO(await resp.read())
+            image.name = "carbon.png"
+            return image
+        else:
+            async with aiosession.post(url, json={"code": self.code}) as resp:
+                image = BytesIO(await resp.read())
+            image.name = "carbon.png"
+            return image

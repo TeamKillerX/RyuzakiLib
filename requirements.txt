@@ -8,4 +8,5 @@ Pillow
 opencv-python
 openai
 tqdm
+pre-commit
 

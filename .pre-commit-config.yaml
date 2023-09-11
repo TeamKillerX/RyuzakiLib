@@ -1,0 +1,7 @@
+repos:
+-   repo: https://github.com/TeamKillerX/RyuzakiLib
+    rev: v4.4.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml

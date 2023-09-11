@@ -64,7 +64,7 @@ class UploadCommand(Command):
 
 project_urls = {
     "Bug Tracker": "https://github.com/TeamKillerX/RyuzakiLib/issues",
-    "Documentation": "https://ryuzakidev.vercel.app/",
+    "Documentation": "https://docs.randydev.my.id/",
     "Source Code": "https://github.com/TeamKillerX/RyuzakiLib",
 }
 

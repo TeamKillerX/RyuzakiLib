@@ -1,7 +1,8 @@
 repos:
--   repo: https://github.com/TeamKillerX/RyuzakiLib
-    rev: v0.2.1
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
     -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black

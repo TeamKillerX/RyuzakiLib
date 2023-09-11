@@ -20,7 +20,7 @@ class FacebookUrl:
     def __init__(self, apikey, link):
         self.apikey = apikey
         self.link = link
-        
+
     def facebook_downloader(self):
         url = "https://facebook-video-and-reel-downloader.p.rapidapi.com/"
         querystring = {"url": self.link}

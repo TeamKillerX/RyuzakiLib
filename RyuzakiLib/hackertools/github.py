@@ -26,7 +26,7 @@ import os
 class GithubUsername:
     def __init__(self, username):
         self.username = username
-        
+
     async def get_github_data(self):
         base_msg = ""
         async with AsyncClient() as gpx:

@@ -23,7 +23,7 @@ import requests
 class WtfBro:
     def __init__(self):
         pass
-        
+
     def bullying(self):
         x = requests.get("https://api.safone.me/bully")
         if x.status_code != 200:

@@ -22,12 +22,12 @@ from pyrogram.types import Message
 
 class CustomPrefixes:
     def __init__(self, name, user_id, prefix, collection, value: bool):
-        self.name = name 
+        self.name = name
         self.prefix = prefix
         self.user_id = user_id
         self.collection = collection
         self.value = value
-        
+
     def add_prefixes(self):
         add_handler = {f"{self.name}": self.prefix}
         return self.collection.update_one(

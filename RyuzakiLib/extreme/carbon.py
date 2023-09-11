@@ -35,7 +35,7 @@ class CarbonSuper:
         self.code = code
         self.color = color
         self.value = value
-        
+
     async def make_carbon(self):
         url = "https://carbonara.solopov.dev/api/cook"
         if self.value:

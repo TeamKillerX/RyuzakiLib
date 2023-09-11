@@ -1,6 +1,6 @@
 # RyuzakiLib
 
-[![pykillerx - Version](https://img.shields.io/pypi/v/RyuzakiLib?style=round)](https://pypi.org/project/RyuzakiLib)    
+[![pykillerx - Version](https://img.shields.io/pypi/v/RyuzakiLib?style=round)](https://pypi.org/project/RyuzakiLib)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pykillerx?label=DOWNLOADS&style=round)](https://pypi.org/project/RyuzakiLib)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/TeamKillerX/RyuzakiLib/graphs/commit-activity)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/TeamKillerX/RyuzakiLib)
@@ -15,17 +15,17 @@ RyuzakiLib is used to help your account activities on Telegram
 We are not responsible for what you misuse in this repository
 !  Be careful when using this repository!
 If one of the members misuses this repository, we are forced to ban you
-Never ever abuse this repository 
+Never ever abuse this repository
 ```
 
-# Installing 
+# Installing
 * `pip3 install -U RyuzakiLib`
 * add your in requirements.txt
 ```
 git+https://github.com/TeamKillerX/RyuzakiLib/
 ```
 
-### Learn Python 
+### Learn Python
 ```python
 import asyncio
 
@@ -41,7 +41,7 @@ ok = example_python()
 test = ok.hello_world()
 ```
 
-### Import Here 
+### Import Here
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 from RyuzakiLib.hackertools.github import GithubUsername
@@ -102,8 +102,8 @@ print(now_show_prefix)
 ```
 * you can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
-# License 
-[![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)   
+# License
+[![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.
 
 <h4 align="center">Copyright (C) 2019 - 2023 <a href="https://github.com/TeamKillerX">TeamKillerX</a></h4>
@@ -119,6 +119,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Credits 
+# Credits
 * [![TeamKillerX-Devs](https://img.shields.io/static/v1?label=TeamkillerX&message=devs&color=critical)](https://t.me/xtdevs)
 * Pyrogram by : [Dan](https://github.com/pyrogram/pyrogram)

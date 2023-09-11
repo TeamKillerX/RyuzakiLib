@@ -29,7 +29,7 @@ import os
 class WhoisIpHacker:
     def __init__(self, address):
         self.address = address
-        
+
     def get_ipaddres_data(self):
         apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
         location_link = "https"

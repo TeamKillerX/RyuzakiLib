@@ -24,25 +24,25 @@ from random import choice
 
 class SendWaifuRandom:
     def __init__(self):
-        pass 
-        
+        pass
+
     def send_waifu_pics(self):
         LIST_SFW_JPG = ["neko", "waifu", "megumin"]
         waifu_api = "https://api.waifu.pics/sfw"
         waifu_category = choice(LIST_SFW_JPG)
         waifu_param = f"{waifu_api}/{waifu_category}"
-        
+
         response = requests.get(waifu_param)
-        
+
         if response.status_code != 200:
             return "Sorry, there was an error processing your request. Please try again later"
-        
+
         data_waifu = response.json()
         try:
             waifu_image_url = data_waifu["url"]
         except Exception as e:
             return f"Error request {e}"
-        
+
         if waifu_image_url:
             try:
                 return waifu_image_url

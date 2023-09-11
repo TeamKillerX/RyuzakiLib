@@ -25,7 +25,7 @@ from pyrogram.types import Message
 class FaceDark:
     def __init__(self, file_path):
         self.file_path = file_path
-        
+
     def check_detect(self):
         try:
             img = cv2.imread(self.file_path)

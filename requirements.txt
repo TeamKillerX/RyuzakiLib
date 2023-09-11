@@ -9,4 +9,3 @@ opencv-python
 openai
 tqdm
 pre-commit
-

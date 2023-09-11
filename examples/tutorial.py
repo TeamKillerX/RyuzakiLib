@@ -32,5 +32,3 @@ async def get_current_prefix(client, message):
     if message.text.lower() == f"{current_prefix}ping":
         await message.reply_text("Pong!!........")
         return
-
-

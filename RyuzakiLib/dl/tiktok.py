@@ -27,21 +27,21 @@ class TiktokUrl:
     def __init__(self, url, value: bool):
         self.url = url
         self.value = value
-        
+
     def tiktok_downloader(self):
         tiktok_url = self.url
         api_devs = "https://api.sdbots.tech"
         parameter = f"tiktok?url={tiktok_url}"
         api_url = f"{api_devs}/{parameter}"
         response = requests.get(api_url)
-        
+
         if response.status_code != 200:
             return "Error: Unable to fetch data from the TikTok API"
-            
+
         try:
             results = response.json()
             caption = results.get("result", {}).get("desc", "")
-            
+
             if self.value:
                 video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
                 if video_url:
@@ -50,7 +50,7 @@ class TiktokUrl:
                 music_mp3 = results.get("result", {}).get("music", "")
                 if music_mp3:
                     return [music_mp3, caption]
-                    
+
             return "Error: TikTok data not found or unsupported format"
         except Exception as e:
             return f"Error: {e}"

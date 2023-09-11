@@ -28,12 +28,12 @@ class OcrApiUrl:
         self.api_key = api_key
         self.url = url
         self.language = language
-        
-    def ocr_space_url(self, overlay=False): 
+
+    def ocr_space_url(self, overlay=False):
         payload = {
-            "url": self.url, 
-            "isOverlayRequired": overlay, 
-            "apikey": self.api_key, 
+            "url": self.url,
+            "isOverlayRequired": overlay,
+            "apikey": self.api_key,
             "language": self.language
         }
         try:

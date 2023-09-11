@@ -28,7 +28,7 @@ class RemoveBg:
     def __init__(self, apikey, image):
         self.apikey = apikey
         self.image = image
-        
+
     def remove_background(self):
         endpoint = "https://api.remove.bg/v1.0/removebg"
         payload = {"size": "auto"}

@@ -33,7 +33,7 @@ class GoogleReverseImage:
         params = {
             "api_key": self.apikey,
             "engine": "google_reverse_image",
-            "image_url": self.image_url, 
+            "image_url": self.image_url,
             "hl": "en",
             "gl": "us"
         }

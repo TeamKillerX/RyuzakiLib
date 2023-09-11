@@ -30,7 +30,7 @@ class AnimeStyled:
     def init(self, apikey, input):
         self.apikey = apikey
         self.input = input
-        
+
     def HuggingTokenAnime(self):
         nice_good = what("aHVnZ2luZ2ZhY2UuY28=").decode("utf-8")
         https = "https://"

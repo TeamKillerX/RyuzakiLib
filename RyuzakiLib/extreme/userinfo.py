@@ -23,7 +23,7 @@ from pyrogram.types import Message
 class TelegramUserInfo:
     def __init__(self, info_id):
         self.info_id = info_id
-        
+
     async def who_is(self, client: Client):
         try:
             user = await client.get_users(self.info_id)

@@ -28,7 +28,7 @@ class InstagramUrl:
     def __init__(self, apikey, link):
         self.apikey = apikey
         self.link = link
-        
+
     def instagram_downloader(self):
         url = "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/index"
         querystring = {"url": self.link}

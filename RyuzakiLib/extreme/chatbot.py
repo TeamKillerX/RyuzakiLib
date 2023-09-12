@@ -43,7 +43,7 @@ class ChatbotAi:
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL2NoYXRib3Q=").decode("utf-8")
         x = requests.get(
             f"{api_url}",
-            json{
+            json={
                 "query": self.query,
                 "user_id": self.user_id,
                 "bot_name": self.bot_name,

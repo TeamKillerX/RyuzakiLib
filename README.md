@@ -7,7 +7,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 ![Codeql](https://github.com/TeamKillerX/RyuzakiLib/actions/workflows/codeql.yml/badge.svg)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/TeamKillerX/RyuzakiLib/dev.svg)](https://results.pre-commit.ci/latest/github/TeamKillerX/RyuzakiLib/dev)
-[![Auto commit](https://github.com/TeamKillerX/RyuzakiLib/workflows/Auto%20commit/badge.svg)](https://github.com/TeamKillerX/RyuzakiLib/actions?query=workflow%3A%22Auto+commit%22)
 
 # Disclaimer
 ```

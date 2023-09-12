@@ -20,7 +20,7 @@ response = RendyDevChat(query).get_response(message)
 await message.reply(response)
 ```
 
-### Example Reverse 
+### Example Reverse
 ```python
 from pyrogram import Client, filters
 from pyrogram.types import Message

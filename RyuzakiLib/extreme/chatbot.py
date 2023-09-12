@@ -41,15 +41,13 @@ class ChatbotAi:
 
     def get_response_ai(self):
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL2NoYXRib3Q=").decode("utf-8")
-        x = requests.get(
-            f"{api_url}",
-            json={
-                "query": self.query,
-                "user_id": self.user_id,
-                "bot_name": self.bot_name,
-                "bot_master": self.bot_master
-            }
-        )
+        params = {
+            "query": self.query,
+            "user_id": self.user_id,
+            "bot_name": self.bot_name,
+            "bot_master": self.bot_master
+        }
+        x = requests.get(f"{api_url}", params=params)
         if x.status_code != 200:
             return "Error api request"
         try:

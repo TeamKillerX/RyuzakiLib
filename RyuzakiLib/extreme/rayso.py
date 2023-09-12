@@ -57,8 +57,8 @@ class CarbonRaySo:
             data = x.json()
             try:
                 image_data = base64.b64decode(data["image"])
-                with BytesIO(image_data) as f:
-                    f.name = "ray.jpg"
+                f = BytesIO(image_data)
+                f.name = "ray.jpg"
                 return f
             except Exception as e:
                 return f"Error: {e}"
@@ -77,8 +77,8 @@ class CarbonRaySo:
             data = x.json()
             try:
                 image_data = base64.b64decode(data["image"])
-                with BytesIO(image_data) as f:
-                    f.name = "ray.jpg"
+                f = BytesIO(image_data)
+                f.name = "ray.jpg"
                 return f
             except Exception as e:
                 return f"Error: {e}"

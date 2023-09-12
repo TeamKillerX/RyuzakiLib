@@ -81,4 +81,4 @@ class CarbonRaySo:
                     f.name = "ray.jpg"
                 return f
             except Exception as e:
-                return f"Error: {e}" 
+                return f"Error: {e}"

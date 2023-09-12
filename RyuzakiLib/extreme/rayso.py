@@ -27,26 +27,39 @@ import requests
 import base64
 from io import BytesIO
 
+from gpytranslate import SyncTranslator
+
 class CarbonRaySo:
     def __init__(
         self,
-        code,
+        code=None,
         title="Ryuzaki Dev",
         theme=None,
+        setlang="en",
+        auto_translate: bool=None,
         ryuzaki: bool=None
     ):
         self.code = code
         self.title = title
         self.theme = theme
+        self.setlang = setlang
+        self.auto_translate = auto_translate
         self.ryuzaki = ryuzaki
 
     def make_carbon_rayso(self):
+        trans = SyncTranslator()
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3JheXNv").decode("utf-8")
+        if self.auto_translate:
+            source = trans.detect(self.code)
+            translation = trans(self.code, sourcelang=source, targetlang=self.setlang)
+            code = translation.text
+        else:
+            code = self.code
         if self.ryuzaki:
             x = requests.post(
                 f"{api_url}",
                 json={
-                    "code": self.code,
+                    "code": code,
                     "title": self.title,
                     "theme": self.theme,
                     "darkMode": True
@@ -66,7 +79,7 @@ class CarbonRaySo:
             x = requests.post(
                 f"{api_url}",
                 json={
-                    "code": self.code,
+                    "code": code,
                     "title": self.title,
                     "theme": "breeze",
                     "darkMode": True

@@ -85,6 +85,7 @@ setup(
     install_requires=requires,
     include_package_data=True,
     license='MIT',
+    zip_safe=False,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -108,7 +109,6 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Software Development :: Libraries :: Application Frameworks"
     ],
-    # $ setup.py publish support.
     cmdclass={
         'upload': UploadCommand,
     },

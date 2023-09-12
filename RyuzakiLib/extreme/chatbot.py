@@ -38,7 +38,7 @@ class ChatbotAi:
         self.user_id = user_id
         self.bot_name = bot_name
         self.bot_master = bot_master
-        
+
     def get_response_ai(self):
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL2NoYXRib3Q=").decode("utf-8")
         x = requests.get(

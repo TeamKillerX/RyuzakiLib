@@ -35,5 +35,6 @@ class WebShotUrl:
                 return "Error request:"
             try:
                 y = x.json()
+                return y
             except Exception:
                 pass

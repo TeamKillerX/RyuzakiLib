@@ -37,6 +37,7 @@ class CarbonRaySo:
         theme=None,
         setlang="en",
         auto_translate: bool=None,
+        check_sticker: bool=None,
         ryuzaki: bool=None
     ):
         self.code = code
@@ -44,11 +45,16 @@ class CarbonRaySo:
         self.theme = theme
         self.setlang = setlang
         self.auto_translate = auto_translate
+        self.check_sticker = check_sticker
         self.ryuzaki = ryuzaki
 
     def make_carbon_rayso(self):
         trans = SyncTranslator()
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3JheXNv").decode("utf-8")
+        if self.check_sticker:
+            filename = "rayso.webp"
+        else:
+            filename = "rayso.jpg"
         if self.auto_translate:
             source = trans.detect(self.code)
             translation = trans(self.code, sourcelang=source, targetlang=self.setlang)
@@ -91,7 +97,7 @@ class CarbonRaySo:
             try:
                 image_data = base64.b64decode(data["image"])
                 f = BytesIO(image_data)
-                f.name = "ray.jpg"
+                f.name = filename
                 return f
             except Exception as e:
                 return f"Error: {e}"

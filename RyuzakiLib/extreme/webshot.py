@@ -26,7 +26,6 @@ from base64 import b64decode
 import requests
 import base64
 from io import BytesIO
-import requests
 
 class WebShotUrl:
     def __init__(

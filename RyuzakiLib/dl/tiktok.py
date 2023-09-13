@@ -24,9 +24,13 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 class TiktokUrl:
-    def __init__(self, url, value: bool):
+    def __init__(
+        self,
+        url,
+        ryuzaki: bool=None
+    ):
         self.url = url
-        self.value = value
+        self.ryuzaki = ryuzaki
 
     def tiktok_downloader(self):
         tiktok_url = self.url
@@ -42,7 +46,7 @@ class TiktokUrl:
             results = response.json()
             caption = results.get("result", {}).get("desc", "")
 
-            if self.value:
+            if self.ryuzaki:
                 video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
                 if video_url:
                     return [video_url, caption]

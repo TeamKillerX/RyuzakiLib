@@ -28,3 +28,20 @@ user_id = 123456
 hacking = await TelegramUserInfo(user_id).who_is(client)
 if hacking[0]: # using photo
    # code here
+```
+
+### Website Screenshot Url
+```python
+# < class RyuzakiLib.extreme.webshot.WebShotUrl >
+
+url = "https://google.com"
+code = WebShotUrl(url)
+img = code.send_screenshot()
+```
+* <b>Parameter</b>
+- `url: "string"` <b>[Required]</b>
+- `width: integers` <b>[Optional]</b>
+- `height: integers` <b>[Optional]</b>
+- `scale: integers` <b>[Optional]</b>
+- `delay: integers` <b>[Optional]</b>
+- `screenshot_full: boolean` <b>[Optional]</b>

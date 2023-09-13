@@ -77,7 +77,7 @@ class CarbonRaySo:
             try:
                 image_data = base64.b64decode(data["image"])
                 f = BytesIO(image_data)
-                f.name = "ray.jpg"
+                f.name = filename
                 return f
             except Exception as e:
                 return f"Error: {e}"

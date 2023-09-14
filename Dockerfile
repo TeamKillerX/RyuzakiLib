@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright 2020-2023 (c) Randy W @xtdevs, @xtsea
@@ -21,8 +22,11 @@ FROM rendyprojects/python:latest
 
 WORKDIR /app/
 
- RUN apt -qq update
- RUN apt -qq install -y --no-install-recommends \
+# Update package list
+RUN apt-get -qq update
+
+# Install required packages
+RUN apt-get -qq install -y --no-install-recommends \
     curl \
     git \
     gnupg2 \
@@ -36,5 +40,8 @@ COPY . .
 
 RUN pip3 install --upgrade pip setuptools
 RUN pip3 install -r requirements.txt
+
+# Expose a TCP port to communicate with the container
+EXPOSE 80
 
 CMD [ "python3", "-m", "buildbot" ]

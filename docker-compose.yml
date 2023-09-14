@@ -6,4 +6,4 @@ services:
         context: https://github.com/TeamKillerX/RyuzakiLib.git#dev
       restart: on-failure
       env_file:
-        - buildbot/.env
+        - buildbot/secrets/.env

@@ -3,7 +3,7 @@ import logging
 import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
-# from buildbot.secrets.env.py import *
+from buildbot.secrets.env import *
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 logging.basicConfig(level=logging.INFO)

@@ -9,7 +9,7 @@ send_image = CarbonSuper(write)
 ```python
 # < class RyuzakiLib.extreme.rayso.CarbonRaySo >
 write = "Hello World"
-code = CarbonRaySo()
+code = CarbonRaySo(code=write) # parameter
 img = code.make_carbon_rayso()
 ```
 * <b>Parameter</b>

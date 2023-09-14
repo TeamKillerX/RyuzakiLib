@@ -38,6 +38,7 @@ async def startwb(client: Client, message: Message):
         await client.send_message(
             message.chat.id,
             text=text,
+            reply_markup=bttn,
             reply_to_message_id=message.id
         )
     except Exception as e:

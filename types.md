@@ -20,12 +20,3 @@ code = SendWaifuRandom()
 image_url = code.send_waifu_pics()
 # logic code here
 ```
-
-### Face Dark
-```python
-# import here
-# < class RyuzakiLib.types.facedark.FaceDark >
-
-code = FaceDark(file_path)
-image_url = code.check_detect()
-# logic code here

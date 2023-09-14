@@ -6,7 +6,7 @@
 # from : https://github.com/TeamKillerX
 # Channel : @RendyProjects
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as published by
+# it under the terms of the GNU as Affero General Public License published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
@@ -20,28 +20,33 @@
 
 FROM rendyprojects/python:latest
 
+# Set the working directory to /app/
 WORKDIR /app/
 
-# Update package list
-RUN apt-get -qq update
-
-# Install required packages
-RUN apt-get -qq install -y --no-install-recommends \
+# Update package list and install required packages
+RUN apt-get -qq update && \
+    apt-get -qq install -y --no-install-recommends \
     curl \
     git \
     gnupg2 \
-    unzip \
+ unzip    \
     wget \
     python3-pip \
     ffmpeg \
-    neofetch
+    neofetch && \
+    rm -rf /var/lib/apt/lists/*  # Remove the package lists after installation to reduce Docker image size
 
+# Copy the current directory contents into the container at /app/
 COPY . .
 
+# Upgrade pip and setuptools
 RUN pip3 install --upgrade pip setuptools
+
+# Install required Python packages using the requirements.txt file
 RUN pip3 install -r requirements.txt
 
-# Expose a TCP port to communicate with the container
+# Expose port 80 for communication with the container
 EXPOSE 80
 
+# Set the command to run the buildbot program
 CMD [ "python3", "-m", "buildbot" ]

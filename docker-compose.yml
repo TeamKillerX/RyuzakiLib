@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  ryuzaki:
+      build:
+        context: https://github.com/TeamKillerX/RyuzakiLib.git#dev
+      restart: on-failure
+      env_file:
+        - buildbot/.env

@@ -10,8 +10,6 @@ logging.basicConfig(level=logging.INFO)
 
 LOGS = logging.getLogger(__name__)
 
-build_run = []
-
 def LOGGER(name: str) -> logging.Logger:
     return logging.getLogger(name)
 
@@ -26,4 +24,3 @@ client = Client(
     plugins=dict(root="buildbot.modules"),
     in_memory=True,
 )
-build_run.append(client)

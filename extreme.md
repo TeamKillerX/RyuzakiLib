@@ -18,6 +18,7 @@ img = code.make_carbon_rayso()
 - `theme: "string"`
 - `setlang: "language code"` <b>[Optional]</b>
 - `auto_translate: boolean` <b>[Optional]</b>
+- `check_sticker: boolean` <b>[Optional]</b>
 - `ryuzaki: boolean` <b>[Optional]</b>
 
 ### Telegram User Info

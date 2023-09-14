@@ -12,7 +12,7 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FOR A PARTICULAR PURPOSE FITNESS.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
@@ -29,7 +29,7 @@ RUN apt-get -qq update && \
     curl \
     git \
     gnupg2 \
- unzip    \
+    unzip \
     wget \
     python3-pip \
     ffmpeg \
@@ -48,5 +48,6 @@ RUN pip3 install -r requirements.txt
 # Expose port 80 for communication with the container
 EXPOSE 80
 
-# Set the command to run the buildbot program
-CMD [ "python3", "-m", "buildbot" ]
+# Set the command to run the buildbot program with -t flag
+CMD [ "python3", "-m", "buildbot", "-t" ]
+# Fix: Added "-t" flag to the command to specify the number of seconds to wait for the application to become healthy

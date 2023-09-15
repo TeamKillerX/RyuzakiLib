@@ -3,8 +3,8 @@
 from RyuzakiLib.api.req import RequestsUrl
 
 url = "your api here"
-
-code = RequestsUrl(url, 200)
+params = {}
+code = RequestsUrl(url, params=params, 200)
 response = code.geturl() # parameter posturl()
 if isinstance(response, str):
     print(response)

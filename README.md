@@ -109,7 +109,7 @@ print(now_show_prefix)
 - git clone https://github.com/TeamKillerX/RyuzakiLib
 - cd RyuzakiLib
 - pip3 install -r ryuzaki.txt
-- nano buildbot/secrets/config.py
+- nano buildbot/secrets/env.py
 - ctrl s + x to save
 - bash start.sh
 ```

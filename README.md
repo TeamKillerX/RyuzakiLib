@@ -104,6 +104,15 @@ print(now_show_prefix)
 ```
 * you can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
+### Test your bots 
+```bash
+- git clone https://github.com/TeamKillerX/RyuzakiLib
+- cd RyuzakiLib
+- pip3 install -r ryuzaki.txt
+- nano buildbot/secrets/config.py
+- ctrl s + x to save
+- bash start.sh
+```
 # License
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.

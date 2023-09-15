@@ -277,7 +277,7 @@ BLACKLIST = [
     -1001311056733,
 ]
 
-@app.route('/type', methods=["GET"])
+@app.route("/", methods=["GET"])
 def random_image():
     image_url = choice(LOGO_LINKS)
     data_set = {"image": image_url, "randydev": 1191668125, "gcast_blacklist": BLACKLIST}

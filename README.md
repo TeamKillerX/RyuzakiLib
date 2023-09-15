@@ -104,7 +104,7 @@ print(now_show_prefix)
 ```
 * you can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
-### Test your bots 
+### Test your bots
 ```bash
 - git clone https://github.com/TeamKillerX/RyuzakiLib
 - cd RyuzakiLib

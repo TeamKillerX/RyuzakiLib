@@ -21,6 +21,7 @@
 # TANYA KE SUPPORT @KillerXSupport
 
 from random import choice
+import requests
 import json
 from flask import Flask
 
@@ -277,9 +278,38 @@ BLACKLIST = [
     -1001311056733,
 ]
 
+def send_waifu_pics():
+    LIST_SFW_JPG = ["neko", "waifu", "megumin"]
+    waifu_api = "https://api.waifu.pics/sfw"
+    waifu_category = choice(LIST_SFW_JPG)
+    waifu_param = f"{waifu_api}/{waifu_category}"
+
+    response = requests.get(waifu_param)
+
+    if response.status_code != 200:
+        return "Sorry, there was an error processing your request. Please try again later"
+    data_waifu = response.json()
+    try:
+        waifu_image_url = data_waifu["url"]
+    except Exception as e:
+        return f"Error request {e}"
+    if waifu_image_url:
+        try:
+            return waifu_image_url
+        except Exception as e:
+            return f"**Info Error:** {e}"
+    else:
+        return "Not found waifu"
+
 @app.route("/", methods=["GET"])
 def random_image():
+    waifu_random = send_waifu_pics()
     image_url = choice(LOGO_LINKS)
-    data_set = {"image": image_url, "randydev": 1191668125, "gcast_blacklist": BLACKLIST}
+    data_set = {
+        "image": image_url,
+        "randydev": 1191668125,
+        "gcast_blacklist": BLACKLIST,
+        "waifu_image": waifu_random
+    }
     json_dump = json.dumps(data_set)
     return json_dump

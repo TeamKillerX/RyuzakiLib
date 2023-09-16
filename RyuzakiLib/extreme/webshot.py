@@ -27,9 +27,13 @@ import requests
 import base64
 from io import BytesIO
 
+from RyuzakiLib.db.pymongo import MongoConnect
+
 class WebShotUrl:
     def __init__(
         self,
+        user_id: int,
+        mongo_url=None,
         url=None,
         width: int=1280,
         height: int=720,
@@ -40,8 +44,11 @@ class WebShotUrl:
         pixels="1024",
         cast="Z100",
         author="@xtdevs",
-        screenshot_full: bool=None
+        screenshot_full: bool=None,
+        now_connect_db: bool=None
     ):
+        self.user_id = user_id
+        self.mongo_url = mongo_url
         self.url = url
         self.width = width
         self.height = height
@@ -53,12 +60,34 @@ class WebShotUrl:
         self.cast = cast
         self.author = author
         self.screenshot_full = screenshot_full
+        self.now_connect_db = now_connect_db
 
     def send_screenshot_quality(self):
+        if self.now_connect_db:
+            try:
+                collection = MongoConnect(self.mongo_url)
+            except Exception as e:
+                return f"Error connection {e}"
+        else:
+            return False
         try:
-            required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
-            caption = f"Powered By {self.author}"
-            return [required_url, caption]
+            if collection:
+                required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
+                caption = f"Powered By {self.author}"
+                json_up = {
+                    "user_id": self.user_id,
+                    "screenshot_url": required_url
+                }
+                collection.update_one(
+                    {"user_id": self.user_id},
+                    {"$set": json_up},
+                    upsert=True
+                )
+                return [required_url, caption]
+            else:
+                required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
+                caption = f"Powered By {self.author}"
+                return [required_url, caption]
         except Exception as e:
             return f"Error screenshot {e}"
 

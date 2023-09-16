@@ -67,7 +67,6 @@ class WebShotUrl:
             try:
                 code = MongoConnect(mongo_url=self.mongo_url, mongodb_connect=False)
                 collection = code.get_collection()
-                return collection
             except Exception as e:
                 return f"Error connection {e}"
         else:

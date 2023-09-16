@@ -53,7 +53,7 @@ class WebShotUrl:
         self.cast = cast
         self.author = author
         self.screenshot_full = screenshot_full
-        
+
     def send_screenshot_quality(self):
         try:
             required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"

@@ -67,12 +67,6 @@ class WebShotUrl:
             try:
                 code = MongoConnect(mongo_url=self.mongo_url, mongodb_connect=False)
                 collection = code.get_collection()
-            except Exception as e:
-                return f"Error connection {e}"
-        else:
-            collection = None
-        try:
-            if collection:
                 required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
                 caption = f"Powered By {self.author}"
                 json_up = {
@@ -85,12 +79,12 @@ class WebShotUrl:
                     upsert=True
                 )
                 return [required_url, caption]
-            else:
-                required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
-                caption = f"Powered By {self.author}"
-                return [required_url, caption]
-        except Exception as e:
-            return f"Error screenshot {e}"
+            except Exception as e:
+                return f"Error connection {e}"
+        else:
+            required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
+            caption = f"Powered By {self.author}"
+            return [required_url, caption]
 
     def send_screenshot(self):
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3dlYnNob3Q=").decode("utf-8")

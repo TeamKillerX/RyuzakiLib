@@ -32,7 +32,7 @@ from RyuzakiLib.db.pymongo import MongoConnect
 class WebShotUrl:
     def __init__(
         self,
-        user_id: int,
+        user_id: int=None,
         mongo_url=None,
         url=None,
         width: int=1280,
@@ -65,11 +65,13 @@ class WebShotUrl:
     def send_screenshot_quality(self):
         if self.now_connect_db:
             try:
-                collection = MongoConnect(self.mongo_url)
+                code = MongoConnect(mongo_url=self.mongo_url, mongodb_connect=False)
+                collection = code.get_collection()
+                return collection
             except Exception as e:
                 return f"Error connection {e}"
         else:
-            return False
+            collection = None
         try:
             if collection:
                 required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"

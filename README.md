@@ -24,7 +24,7 @@ Never ever abuse this repository
 * `pip3 install -U RyuzakiLib`
 * add your in requirements.txt
 ```
-git+https://github.com/TeamKillerX/RyuzakiLib/
+git+https://github.com/TeamKillerX/RyuzakiLib/archive/refs/heads/dev.zip
 ```
 
 ### Learn Python

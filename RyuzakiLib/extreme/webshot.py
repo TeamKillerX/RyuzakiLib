@@ -35,6 +35,11 @@ class WebShotUrl:
         height: int=720,
         scale: int=1,
         delay: int=0,
+        quality="1920x1080",
+        type_mine="JPEG",
+        pixels="1024",
+        cast="Z100",
+        author="@xtdevs",
         screenshot_full: bool=None
     ):
         self.url = url
@@ -42,7 +47,20 @@ class WebShotUrl:
         self.height = height
         self.scale = scale
         self.delay = delay
+        self.quality = quality
+        self.type_mine = type_mine
+        self.pixels = pixels
+        self.cast = cast
+        self.author = author
         self.screenshot_full = screenshot_full
+        
+    def send_screenshot_quality(self):
+        try:
+            required_url = f"https://mini.s-shot.ru/{self.quality}/{self.type_mine}/{self.pixels}/{self.cast}/?{self.url}"
+            caption = f"Powered By {self.author}"
+            return [required_url, caption]
+        except Exception as e:
+            return f"Error screenshot {e}"
 
     def send_screenshot(self):
         api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3dlYnNob3Q=").decode("utf-8")

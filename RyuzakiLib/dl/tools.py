@@ -36,7 +36,7 @@ class CustomUrl:
         self.website = website
 
     def tools_downloader(self):
-        parameter = b64decode("aHR0cHM6Ly9kZGwtYXBpLmN5Y25vLnJlcGwuY28=").decode("utf-8")
+        parameter = b64decode("aHR0cDovL2Rvd25sb2FkLnJhbmR5ZGV2Lm15Lmlk").decode("utf-8")
         api_url = f"{parameter}/{self.website}?link={self.url}"
         x = requests.get(api_url)
         if x.status_code != 200:

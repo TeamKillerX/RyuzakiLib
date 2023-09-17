@@ -26,7 +26,7 @@ from base64 import b64decode
 import requests
 import base64
 
-class MediaFireUrl:
+class CustomUrl:
     def __init__(
         self,
         url=None,
@@ -35,7 +35,7 @@ class MediaFireUrl:
         self.url = url
         self.website = website
 
-    def mediafire_downloader(self):
+    def tools_downloader(self):
         parameter = b64decode("aHR0cHM6Ly9kZGwtYXBpLmN5Y25vLnJlcGwuY28=").decode("utf-8")
         api_url = f"{parameter}/{self.website}?link={self.url}"
         x = requests.get(api_url)

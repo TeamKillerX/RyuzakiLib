@@ -29,6 +29,10 @@ from io import BytesIO
 
 from gpytranslate import SyncTranslator
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.common.by import By
+
 class CarbonRaySo:
     def __init__(
         self,
@@ -38,7 +42,8 @@ class CarbonRaySo:
         setlang="en",
         auto_translate: bool=None,
         check_sticker: bool=None,
-        ryuzaki: bool=None
+        ryuzaki: bool=None,
+        chrome_options=None
     ):
         self.code = code
         self.title = title
@@ -47,6 +52,26 @@ class CarbonRaySo:
         self.auto_translate = auto_translate
         self.check_sticker = check_sticker
         self.ryuzaki = ryuzaki
+
+    def start_driver(self):
+        if Config.CHROME_BIN is None:
+            return None, "Need to install Google Chrome or Chromium. Module Stopping."
+        try:
+            chrome_options = ChromeOptions()
+            chrome_options.binary_location = Config.CHROME_BIN
+            chrome_options.add_argument("--ignore-certificate-errors")
+            chrome_options.add_argument("--test-type")
+            chrome_options.add_argument("--headless=new")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--window-size=1920x1080")
+            chrome_options.add_argument("--disable-gpu")
+            prefs = {"download.default_directory": "./"}
+            chrome_options.add_experimental_option("prefs", prefs)
+            driver = webdriver.Chrome(options=chrome_options)
+            return driver, None
+        except Exception as err:
+            return None, str(err)
 
     def make_carbon_rayso(self):
         trans = SyncTranslator()
@@ -61,6 +86,19 @@ class CarbonRaySo:
             code = translation.text
         else:
             code = self.code
+        if self.chrome_options:
+            url = f'https://ray.so/#code={base64.b64encode(inputstr.encode()).decode().replace("+","-")}&title={self.title}&theme={self.theme}&padding=64&darkMode=True&language=python'
+            driver, error = self.start_driver()
+            if error:
+                return None, error
+            driver.set_window_size(2000, 20000)
+            driver.get(url)
+            element = driver.find_element(By.CLASS_NAME, "Controls_controls__kwzcE")
+            driver.execute_script("arguments[0].style.display = 'none';", element)
+            frame = driver.find_element(By.CLASS_NAME, "Frame_frame__Dmfe9")
+            frame.screenshot(file_name)
+            driver.quit()
+            return file_name, None
         if self.ryuzaki:
             x = requests.post(
                 f"{api_url}",

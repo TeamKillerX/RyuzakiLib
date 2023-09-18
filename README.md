@@ -43,6 +43,9 @@ ok = example_python()
 test = ok.hello_world()
 ```
 
+### Api Endpoint
+[`https://download.randydev.my.id`](https://download.randydev.my.id)
+
 ### Import Here
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat

@@ -37,7 +37,7 @@ class FullStackDev:
     def domain_urls(self):
         request_url = self.domain_url
         return request_url
-        
+
     def ryuzaki_get(self):
         request_url = self.domain_urls()
         if self.re_json:
@@ -55,7 +55,7 @@ class FullStackDev:
         else:
             req = requests.post(request_url, headers=self.headers, json=self.json_data)
             return req
-            
+
     def fastapi_get(self):
         request_url = self.domain_urls()
         if self.re_json:

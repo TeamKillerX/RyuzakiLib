@@ -46,7 +46,7 @@ class FullStackDev:
         else:
             req = requests.get(request_url, headers=self.headers, params=self.params)
             return req
-            
+
     def ryuzaki_post(self):
         request_url = self.domain_urls()
         if self.re_json:

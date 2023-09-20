@@ -43,15 +43,6 @@ ok = example_python()
 test = ok.hello_world()
 ```
 
-### Api Endpoint
-[`https://download.randydev.my.id`](https://download.randydev.my.id)
-
-### Access Token
-```python
-access_token = "randydev"
-headers = {"Authorization": f"Bearer {access_token}"}
-```
-
 ### Import Here
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat

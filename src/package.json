@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "grammy": "^1.18.3"
+  }
+}

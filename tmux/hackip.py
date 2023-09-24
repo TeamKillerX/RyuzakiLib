@@ -21,11 +21,11 @@ def Loading(text):
         sleep(random.random() * 0.05)
 
 def Developed():
-    Loading(""+Loading+"""
+    Loading(''+Yellow+'''
 Github : TeamKillerX
 Developer: t.me/xtdevs
 Hacking : tools all
-""")
+'''+Write+'Now Hacking tools all')
     
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")

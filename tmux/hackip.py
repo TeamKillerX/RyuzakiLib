@@ -3,7 +3,30 @@ import os
 from time import sleep
 from base64 import b64decode as kc
 import asyncio
+import random
 
+Red = "\33[0;31m"
+Green = "\33[0;32m"
+Yellow = "\33[0;33m"
+Purple = "\33[0;34m"
+Pink = "\33[0;35m"
+Cyan = "\33[0;36m"
+White = "\33[0;37m"
+Normal = "\33[0m"
+
+def Loading(text):
+    for x in text + '\n':
+        sys.stdout.write(x)
+        sys.stdout.flush()
+        sleep(random.random() * 0.05)
+
+def Developed():
+    Loading(""+Loading+"""
+Github : TeamKillerX
+Developer: t.me/xtdevs
+Hacking : tools all
+""")
+    
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
     location_link = "https"
@@ -54,6 +77,9 @@ def get_ipaddres_data(input):
 async def now_tracking():
     os.system("clear")
     print("Loading........")
+    print
+    Developed()
+    print
     sleep(2)
     print("Hacker by @xtdevs")
     ipaddress = input("You enter the tracking IP: ")

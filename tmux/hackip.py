@@ -1,6 +1,7 @@
 import requests
 import os
 from time import sleep
+from base64 import b64decode as kc
 
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")

@@ -100,7 +100,7 @@ bot.command("ipcheck", async (ctx) => {
         const bttn = InlineKeyboard().url("Channel", "https://t.me/RendyProjects");
 
         if (region && language_code && zip_code && as) {
-            await ctx.reply(`**Region Name**: `${region}`\n**Language Code**: `${region}`\n**AS**: `${as}``, {
+            await ctx.reply(`<b>Region Name</b>: <code>${region}</code>\n<b>Language Code</b>: <code>${region}</code>\n<b>AS</b>: <code>${as}</code>`, {
                 reply_to_message_id: ctx.msg.message_id,
                 parse_mode: 'Markdown',
                 reply_markup: bttn,

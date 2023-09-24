@@ -47,7 +47,7 @@ def get_ipaddres_data():
         location_target += f"<b>Zip code:</b> {location_zip}\n"
         location_target += f"<b>Time Zone:</b> {location_zone}\n"
         location_target += f"<b>Data card:</b> {location_card}\n"
-        print(f"{location_target}\n"
+        print(f"{location_target}\n")
     else:
         print("Not data ip address")
 

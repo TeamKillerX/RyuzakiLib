@@ -15,7 +15,7 @@ async def download_save_tiktok():
     link = input("Enter your TikTok link: ")
     video = link_tiktok(str(link))
     save_to = DOWNLOAD / video
-    print("Successfully Tiktok Downloader")
+    print(f"Successfully Tiktok Downloader: {save_to}")
 
 if __name__ == "__main__":
     asyncio.run(download_save_tiktok())

@@ -77,6 +77,11 @@ def get_ipaddres_data(input):
 
 async def now_tracking():
     os.system("clear")
+    try:
+        import requests
+    except:
+        os.system("pip install requests")
+    sleep(2)
     print(""+Yellow+"Loading........")
     print
     Developed()

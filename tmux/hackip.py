@@ -77,18 +77,17 @@ def get_ipaddres_data(input):
 
 async def now_tracking():
     os.system("clear")
-    print("Loading........")
+    print(""+Yellow+"Loading........")
     print
     Developed()
     print
     sleep(2)
-    print("Hacker by @xtdevs")
-    ipaddress = input("You enter the tracking IP: ")
+    ipaddress = input(""+White+"You enter the tracking IP: ")
     hack = get_ipaddres_data(ipaddress)
     try:
-        print("Now tracking loading.......")
+        print(""+Yellow+"Now tracking loading.......")
         sleep(3)
-        print(f"{hack}\n")
+        print(""+Yellow+f"{hack}\n")
     except:
         print("fixed connection")
 

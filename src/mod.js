@@ -20,10 +20,10 @@
 **/
 
 const { Bot, InlineKeyboard } = require("grammy");
-const { BOT_TOKEN } = require('./env.js')
+// const { BOT_TOKEN } = require('./env.js')
 const axios = require("axios");
 
-const bot = new Bot(BOT_TOKEN);
+const bot = new Bot("your bot token here");
 
 const randydev = new InlineKeyboard().url("channel Projects", "https://t.me/RendyProjects");
 const photo = "https://telegra.ph/file/059480066c992e16c0915.jpg"

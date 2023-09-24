@@ -79,9 +79,9 @@ async def now_tracking():
     os.system("clear")
     try:
         import requests
-    except:
-        os.system("pip install requests")
-    sleep(2)
+    except ImportError:
+        print("Requests library not found. Installing...")
+        return
     print
     Loading(""+Yellow+"Loading........")
     print
@@ -102,4 +102,5 @@ async def now_tracking():
     except:
         print("fixed connection")
 
-asyncio.run(now_tracking())
+if __name__ == "__main__":
+    asyncio.run(now_tracking())

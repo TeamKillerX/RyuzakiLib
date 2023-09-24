@@ -25,7 +25,7 @@ def Developed():
 Github : TeamKillerX
 Developer: t.me/xtdevs
 Hacking : tools all
-'''+Write+'Now Hacking tools all')
+'''+White+'Now Hacking tools all')
     
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")

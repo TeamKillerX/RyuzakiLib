@@ -82,7 +82,9 @@ async def now_tracking():
     except:
         os.system("pip install requests")
     sleep(2)
-    print(""+Yellow+"Loading........")
+    print
+    Loading(""+Yellow+"Loading........")
+    print
     print
     Developed()
     print
@@ -90,9 +92,13 @@ async def now_tracking():
     ipaddress = input(""+White+"You enter the tracking IP: ")
     hack = get_ipaddres_data(ipaddress)
     try:
-        print(""+Yellow+"Now tracking loading.......")
+        print
+        Loading(""+Yellow+"Now tracking loading.......")
+        print
         sleep(3)
-        print(""+Yellow+f"{hack}\n")
+        print
+        Loading(""+Yellow+f"{hack}\n")
+        print
     except:
         print("fixed connection")
 

@@ -27,26 +27,35 @@ def setting_telegram():
     API_HASH = input("Enter your API HASH: ")
     return API_ID, API_HASH
 
-def starting_account():
+async def starting_account():
     API_ID, API_HASH = setting_telegram()
-    client = Client(":memory", api_id=API_ID, api_hash=API_HASH)
+    client = Client(":memory:", api_id=API_ID, api_hash=API_HASH)
     return client
 
 async def export_session_all():
     os.system("clear")
     PYROGRAM = "Pyrogram Session Generate\n"
-    client = starting_account()
     try:
         from pyrogram import Client
-    except:
-        os.system("pip3 install -U pyrogram")
-    sleep(3)
-    await client.start()
+    except ImportError:
+        print("Pyrogram library not found. Installing...")
+        await asyncio.sleep(3)
+        try:
+            await asyncio.to_thread(lambda: os.system("pip3 install -U pyrogram"))
+            print("Pyrogram library installed successfully.")
+        except:
+            print("Error installing Pyrogram library.")
+            return
+    client = await starting_account()
     try:
+        await client.start()
         s = await client.export_session_string()
         await client.send_message("me", f"{PYROGRAM}\n\n{s}")
         print(f"SESSION PYROGRAM:\n\n{s}")
-    except:
-        print("Error not responding")
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        await client.stop()
 
-asyncio.run(export_session_all())
+if __name__ == "__main__":
+    asyncio.run(export_session_all())

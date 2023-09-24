@@ -1,6 +1,7 @@
 # credits @xtdevs
 
 import asyncio
+import requests
 from RyuzakiLib.dl.tiktok import TiktokUrl
 
 def link_tiktok(input):

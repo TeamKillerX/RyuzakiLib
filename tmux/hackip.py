@@ -2,6 +2,7 @@ import requests
 import os
 from time import sleep
 from base64 import b64decode as kc
+import asyncio
 
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
@@ -64,5 +65,4 @@ def now_tracking():
     except:
         print("fixed connection")
 
-if __name__ == "___main__":
-    now_tracking()
+asyncio.run(now_tracking())

@@ -6,7 +6,7 @@ def runner_up():
 
 async def setting_github():
     USER_GMAIL = input("you enter global config gmail from github: ")
-    USER_GMAIL = input("you enter global config username from github: ")
+    USER_USERNAME = input("you enter global config username from github: ")
     try:
         os.system(f"git config --global user.email '{USER_GMAIL}'")
         os.system(f"git config --global user.username '{USER_USERNAME}'")

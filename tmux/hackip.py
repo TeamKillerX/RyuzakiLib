@@ -1,15 +1,13 @@
 import requests
 import os
+from time import sleep
 
-os.system("clear")
-
-def get_ipaddres_data():
-    hackerip = input("You enter the tracking IP: ")
+def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
     location_link = "https"
     location_api = "api.ip2location.io"
     location_key = f"key={apikey}"
-    location_search = f"ip={hackerip}"
+    location_search = f"ip={input}"
     location_param = (
         f"{location_link}://{location_api}/?{location_key}&{location_search}"
     )
@@ -47,10 +45,23 @@ def get_ipaddres_data():
         location_target += f"<b>Zip code:</b> {location_zip}\n"
         location_target += f"<b>Time Zone:</b> {location_zone}\n"
         location_target += f"<b>Data card:</b> {location_card}\n"
-        print(f"{location_target}\n")
+        return location_target
     else:
-        print("Not data ip address")
+        return "Not data ip address"
 
+def now_tracking():
+    os.system("clear")
+    print("Loading........")
+    sleep(2)
+    print("Hacker by @xtdevs")
+    ipaddress = input("You enter the tracking IP: ")
+    hack = get_ipaddres_data(ipaddress)
+    try:
+        print("Now tracking loading.......")
+        sleep(3)
+        print(f"{hack}\n")
+    except:
+        print("fixed connection")
 
 if __name__ == "___main__":
-    get_ipaddres_data()
+    now_tracking()

@@ -29,7 +29,7 @@ def setting_telegram():
 
 def starting_account():
     API_ID, API_HASH = setting_telegram()
-    client = Client(":memory", API_ID, API_HASH)
+    client = Client(":memory", api_id=API_ID, api_hash=API_HASH)
     return client
 
 async def export_session_all():

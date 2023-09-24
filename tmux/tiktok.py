@@ -1,23 +1,21 @@
 # credits @xtdevs
 
 import asyncio
-from os import mkdir
 from RyuzakiLib.dl.tiktok import TiktokUrl
-from pathlib import Path
-
-DOWNLOAD = Path() / "download"
 
 def link_tiktok(input):
     code = TiktokUrl(input, ryuzaki=True)
     video = code.tiktok_downloader()
-    return video[0]
+    url = video[0]
+    r = requests.get(url, allow_redirects=True)
+    filename = "tiktok.mp3"
+    saved = open(filename, "wb").write(r.content)
+    return saved
 
 async def download_save_tiktok():
     link = input("Enter your TikTok link: ")
     video = link_tiktok(str(link))
-    save_to = DOWNLOAD / video
-    mkdir(f"tiktok/{save_to}")
-    print(f"Successfully Tiktok Downloader: {save_to}")
+    print(f"Successfully Tiktok Downloader")
 
 if __name__ == "__main__":
     asyncio.run(download_save_tiktok())

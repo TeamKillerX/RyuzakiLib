@@ -39,14 +39,14 @@ def get_ipaddres_data(input):
         and location_card
     ):
         location_target = ""
-        location_target += f"<b>IP Address:</b> {location_ip}\n"
-        location_target += f"<b>Country code:</b> {location_code}\n"
-        location_target += f"<b>Country name:</b> {location_name}\n"
-        location_target += f"<b>Region name:</b> {location_region}\n"
-        location_target += f"<b>City name:</b> {location_city}\n"
-        location_target += f"<b>Zip code:</b> {location_zip}\n"
-        location_target += f"<b>Time Zone:</b> {location_zone}\n"
-        location_target += f"<b>Data card:</b> {location_card}\n"
+        location_target += f"IP Address: {location_ip}\n"
+        location_target += f"Country code: {location_code}\n"
+        location_target += f"Country name: {location_name}\n"
+        location_target += f"Region name: {location_region}\n"
+        location_target += f"City name: {location_city}\n"
+        location_target += f"Zip code: {location_zip}\n"
+        location_target += f"Time Zone: {location_zone}\n"
+        location_target += f"Data card: {location_card}\n"
         return location_target
     else:
         return "Not data ip address"

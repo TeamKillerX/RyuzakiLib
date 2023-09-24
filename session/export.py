@@ -44,7 +44,7 @@ async def export_session_all():
     await client.start()
     try:
         s = await client.export_session_string()
-        await client.send_message("me", f"{PYROGRAM}\n\n:{s}")
+        await client.send_message("me", f"{PYROGRAM}\n\n{s}")
         print(f"SESSION PYROGRAM:\n\n{s}")
     except:
         print("Error not responding")

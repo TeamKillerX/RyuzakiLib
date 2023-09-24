@@ -51,7 +51,7 @@ def get_ipaddres_data(input):
     else:
         return "Not data ip address"
 
-def now_tracking():
+async def now_tracking():
     os.system("clear")
     print("Loading........")
     sleep(2)

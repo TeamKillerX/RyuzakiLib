@@ -32,12 +32,8 @@ def install_termux_required():
     os.system("pkg update -y && pkg upgrade -y && pkg install python-pip -y && pkg install git curl wget python3 -y && pkg install nodejs -y")
 
 def uninstall_ryuzakilib():
-    git_clone = "git clone https://github.com/TeamKillerX/RyuzakiLib"
-    sdcard = "cd RyuzakiLib"
-    move_home = "mv *src $HOME && cd ~ && rm -rf RyuzakiLib"
-    os.system(git_clone)
-    os.system(sdcard)
-    os.system(move_home)
+    full_install = "git clone https://github.com/TeamKillerX/RyuzakiLib && cd RyuzakiLib && mv *src $HOME && cd ~ && rm -rf RyuzakiLib && cd src && npm install grammy axios"
+    os.system(full_install)
 
 async def now_running_up():
     os.system("clear")
@@ -54,7 +50,6 @@ async def now_running_up():
     print
     uninstall_ryuzakilib()
     sleep(2)
-    os.system("cd src && npm install grammy axios")
     print
     Loading(""+Yellow+"Now Installing Done")
     print

@@ -39,27 +39,27 @@ class SettingPyrogram:
         self.api_id = api_id
         self.api_hash = api_hash
         self.bot_token = bot_token
-        self.string_session = string_session
+        self.session_string = session_string
         self.setting_telegram = setting_telegram
 
     async def telegram_original(self):
         if self.setting_telegram:
             client = Client(
                 self.name,
-                self.app_version,
-                self.device_model,
-                self.system_model,
-                self.api_id,
-                self.api_hash,
-                self.string_session
+                app_version=self.app_version,
+                device_model=self.device_model,
+                system_model=self.system_model,
+                api_id=self.api_id,
+                api_hash=self.api_hash,
+                session_string=self.session_string
             )
             return client
         else:
             client = Client(
                 self.name,
-                self.api_id,
-                self.api_hash,
-                self.bot_token
+                api_id=self.api_id,
+                api_hash=self.api_hash,
+                bot_token=self.bot_token
             )
             return client
 

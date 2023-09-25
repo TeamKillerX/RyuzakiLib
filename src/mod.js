@@ -97,13 +97,11 @@ bot.command("ipcheck", async (ctx) => {
         const zip_code = data.zip_code;
         const as = data.as;
 
-        const bttn = InlineKeyboard().url("Channel", "https://t.me/RendyProjects");
-
         if (region && language_code && zip_code && as) {
             await ctx.reply(`<b>Region Name</b>: <code>${region}</code>\n<b>Language Code</b>: <code>${region}</code>\n<b>AS</b>: <code>${as}</code>`, {
                 reply_to_message_id: ctx.msg.message_id,
                 parse_mode: 'Html',
-                reply_markup: bttn,
+                reply_markup: randydev,
             });
         } else {
             await ctx.reply("ip address not found.");

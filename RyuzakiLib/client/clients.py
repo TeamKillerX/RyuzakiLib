@@ -29,7 +29,7 @@ class SettingPyrogram:
         api_id: int=None,
         api_hash: str=None,
         bot_token: str=None,
-        string_session: str=None,
+        session_string: str=None,
         setting_telegram: bool=None
     ):
         self.name = name
@@ -48,12 +48,11 @@ class SettingPyrogram:
                 self.name,
                 app_version=self.app_version,
                 device_model=self.device_model,
-                system_model=self.system_model,
+                system_version=self.system_version,
                 api_id=self.api_id,
                 api_hash=self.api_hash,
                 session_string=self.session_string
             )
-            return client
         else:
             client = Client(
                 self.name,
@@ -61,8 +60,4 @@ class SettingPyrogram:
                 api_hash=self.api_hash,
                 bot_token=self.bot_token
             )
-            return client
-
-    async def start(self):
-        client = await self.telegram_original()
         return client

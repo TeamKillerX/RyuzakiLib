@@ -1,8 +1,6 @@
-import requests
 import os
 import sys
 from time import sleep
-from base64 import b64decode as kc
 import asyncio
 import random
 
@@ -16,7 +14,7 @@ White = "\33[0;37m"
 Normal = "\33[0m"
 
 def Loading(text):
-    for x in text + '\n':
+    for x in text + "\n":
         sys.stdout.write(x)
         sys.stdout.flush()
         sleep(random.random() * 0.05)
@@ -32,7 +30,7 @@ def install_termux_required():
     os.system("pkg update -y && pkg upgrade -y && pkg install python-pip -y && pkg install git curl wget python3 -y && pkg install nodejs -y")
 
 def uninstall_ryuzakilib():
-    full_install = "git clone https://github.com/TeamKillerX/RyuzakiLib && cd RyuzakiLib && mv *src $HOME && cd ~ && rm -rf RyuzakiLib && cd src && npm install grammy axios"
+    full_install = "git clone https://github.com/TeamKillerX/RyuzakiLib && cd RyuzakiLib && mv *src $HOME && cd ~ && rm -rf RyuzakiLib mod.py && cd src && npm install grammy axios && export DEBUG='grammy*'"
     os.system(full_install)
 
 async def now_running_up():
@@ -52,6 +50,12 @@ async def now_running_up():
     sleep(2)
     print
     Loading(""+Yellow+"Now Installing Done")
+    print
+    print
+    Loading(""+Yellow+"You can type cd src && nano mod.js")
+    print
+    print
+    Loading(""+Yello+"Your bot token here")
     print
 
 if __name__ == "__main__":

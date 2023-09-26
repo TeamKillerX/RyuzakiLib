@@ -26,13 +26,17 @@ class FullStackDev:
         headers=None,
         params: str=None,
         json_data=None,
-        re_json: bool=None
+        re_json: bool=None,
+        type_mode: str="wb",
+        filename: str=None
     ):
         self.headers = headers
         self.domain_url = domain_url
         self.params = params
         self.json_data = json_data
         self.re_json = re_json
+        self.type_mode = type_mode
+        self.filename = filename
 
     def domain_urls(self):
         request_url = self.domain_url
@@ -55,6 +59,12 @@ class FullStackDev:
         else:
             req = requests.post(request_url, headers=self.headers, json=self.json_data)
             return req
+
+    def faster_downloader(self):
+        requests_url = self.domain_urls()
+        req = requests.get(required_url, allow_redirects=True)
+        saved = open(self.filename, self.type_mode).write(req.content)
+        return saved
 
     def fastapi_get(self):
         request_url = self.domain_urls()

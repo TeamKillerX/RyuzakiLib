@@ -2,7 +2,7 @@
 ```python
 from RyuzakiLib.api.fullstack import FullStackDev
 
-- Supported jpg, mp4, mp3
+# - Supported jpg, mp4, mp3
 
 link_url = "https://example.jpg"
 

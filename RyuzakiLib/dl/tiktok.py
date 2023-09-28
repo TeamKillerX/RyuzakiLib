@@ -23,6 +23,8 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from RyuzakiLib.api.fullstack import FullStackDev
+
 class TiktokUrl:
     def __init__(
         self,
@@ -58,3 +60,12 @@ class TiktokUrl:
             return "Error: TikTok data not found or unsupported format"
         except Exception as e:
             return f"Error: {e}"
+
+def faster_tiktok_downloader(link: str=None, ryuzaki="ryuzaki.mp4"):
+    obj = TiktokUrl(url=link, ryuzaki=True).tiktok_downloader()
+    super = FullStackDev(
+        domain_url=obj[0],
+        filename=ryuzaki,
+        type_mode="wb"
+    )
+    return super.faster_downloader()

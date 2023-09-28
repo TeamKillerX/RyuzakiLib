@@ -62,11 +62,16 @@ class TiktokUrl:
             return f"Error: {e}"
 
 def faster_tiktok_downloader(link: str=None, ryuzaki_default: str="ryuzaki.mp4"):
-    obj = TiktokUrl(url=link, ryuzaki=True).tiktok_downloader()
-    super = FullStackDev(
-        domain_url=obj[0],
-        filename=ryuzaki_default,
-        type_mode="wb"
-    )
-    saved = super.faster_downloader()
-    return saved
+    if not link:
+        return "Missing Tiktok Link"
+    try:
+        obj = TiktokUrl(url=link, ryuzaki=True).tiktok_downloader()
+        super = FullStackDev(
+            domain_url=obj[0],
+            filename=ryuzaki_default,
+            type_mode="wb"
+        )
+        saved = super.faster_downloader()
+        return saved
+    except Exception as e:
+        return f"Error: {e}"

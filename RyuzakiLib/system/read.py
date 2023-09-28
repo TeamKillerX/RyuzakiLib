@@ -27,7 +27,7 @@ class OpenReadSystem:
     ):
         self.code_system = code_system
         self.read_system = read_system
-        
+
     def show(self):
         if self.read_system:
             res = os.popen(self.code_system).read()
@@ -35,6 +35,6 @@ class OpenReadSystem:
         else:
             res = os.popen(self.code_system)
             return res
-            
+
     def remover(self):
         return os.remove(self.code_system)

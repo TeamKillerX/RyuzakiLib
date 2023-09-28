@@ -63,8 +63,9 @@ class FullStackDev:
     def faster_downloader(self):
         request_url = self.domain_urls()
         req = requests.get(request_url, allow_redirects=True)
-        saved = open(self.filename, self.type_mode).write(req.content)
-        return saved
+        with open(self.filename, self.type_mode) as file:
+            file.write(req.content)
+        return self.filename
 
     def fastapi_get(self):
         request_url = self.domain_urls()

@@ -76,7 +76,7 @@ class QouteSticker:
             return is_avatar
         else:
             is_avatar = False
-            return is_avtar
+            return is_avatar
         data = {
             "type": self.type,
             "format": self.format,

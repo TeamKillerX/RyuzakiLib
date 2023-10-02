@@ -16,11 +16,9 @@ class MongoConnect:
     def get_collection(self):
         if self.mongodb_connect:
             client_mongo = MongoClient(self.mongo_url)
-            db = client_mongo[self.client]
-            collection = db[self.database]
-            return collection
+            db = client_mongo[self.client][self.database]
+            return db[self.collection_name]
         else:
             client_mongo = MongoClient(self.mongo_url)
-            db = client_mongo["tiktokbot"]
-            collection = db["ryuzakilib"]
-            return collection
+            db = client_mongo["tiktokbot"]["ryuzakilib"]
+            return db[self.collection_name]

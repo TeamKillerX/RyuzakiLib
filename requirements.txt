@@ -11,3 +11,4 @@ pre-commit
 gpytranslate
 Flask
 pymongo
+streamlit-nightly

@@ -21,3 +21,4 @@ __version__ = "0.4.3"
 
 from . import *
 from .pushdb import *
+from .hide_streamlit import *

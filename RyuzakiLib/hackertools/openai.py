@@ -41,3 +41,8 @@ class OpenAiToken:
     def photo_output(self, query):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
+
+    def audio_transcribe(self, file_path):
+        with open(file_path, "rb") as path:
+            transcript = openai.Audio.transcribe("whisper-1", path)
+        return transcript

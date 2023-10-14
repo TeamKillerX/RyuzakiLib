@@ -31,16 +31,18 @@ class ChatbotAi:
         self,
         query,
         user_id: int=None,
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9jaGF0Ym90",
         bot_name="Ryuzaki Dev",
         bot_master="@Randydev_bot"
     ):
         self.query = query
         self.user_id = user_id
+        self.base = base
         self.bot_name = bot_name
         self.bot_master = bot_master
 
     def get_response_ai(self):
-        api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL2NoYXRib3Q=").decode("utf-8")
+        api_url = b64decode(self.base).decode("utf-8")
         params = {
             "query": self.query,
             "user_id": self.user_id,

@@ -31,6 +31,7 @@ class WebShotUrl:
     def __init__(
         self,
         url=None,
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi93ZWJzaG90",
         width: int=1280,
         height: int=720,
         scale: int=1,
@@ -63,7 +64,7 @@ class WebShotUrl:
             return f"Error {e}"
 
     def send_screenshot(self):
-        api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3dlYnNob3Q=").decode("utf-8")
+        api_url = b64decode(self.base).decode("utf-8")
         if self.screenshot_full:
             data = {
                 "url": self.url,

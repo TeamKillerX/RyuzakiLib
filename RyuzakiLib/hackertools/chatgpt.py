@@ -17,8 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# original api credits : 01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01101101 01100101 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100
-
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -28,8 +26,14 @@ import os
 import json
 
 class RendyDevChat:
-    def __init__(self, query):
+    def __init__(
+        self,
+        query
+        binary="01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100",
+    ):
         self.query = query
+        self.binary = binary
+        
 
     @staticmethod
     def knowledge_hack(text_code):
@@ -50,12 +54,10 @@ class RendyDevChat:
             blacklist = self.get_blacklist_from_file()
             if message.from_user.id in blacklist:
                 return "Blocked User"
-        superskill = (
-            "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01101101 01100101 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100"
-        )
-        response_url = self.knowledge_hack(superskill)
+        response_url = self.knowledge_hack(self.binary)
         payloads = {
             "message": self.query,
+            "version": 3,
             "chat_mode": "assistant",
             "dialog_messages": "[{'bot': '', 'user': ''}]"
         }

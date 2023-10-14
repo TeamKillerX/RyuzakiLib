@@ -36,6 +36,7 @@ class CarbonRaySo:
         title="Ryuzaki Dev",
         theme=None,
         setlang="en",
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw==",
         auto_translate: bool=None,
         check_sticker: bool=None,
         ryuzaki: bool=None
@@ -44,13 +45,14 @@ class CarbonRaySo:
         self.title = title
         self.theme = theme
         self.setlang = setlang
+        self.base = base
         self.auto_translate = auto_translate
         self.check_sticker = check_sticker
         self.ryuzaki = ryuzaki
 
     def make_carbon_rayso(self):
         trans = SyncTranslator()
-        api_url = b64decode("aHR0cHM6Ly9hcGkuc2Fmb25lLm1lL3JheXNv").decode("utf-8")
+        api_url = b64decode(self.base).decode("utf-8")
         if self.check_sticker:
             filename = "rayso.webp"
         else:

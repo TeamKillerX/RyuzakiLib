@@ -33,7 +33,6 @@ class RendyDevChat:
     ):
         self.query = query
         self.binary = binary
-        
 
     @staticmethod
     def knowledge_hack(text_code):

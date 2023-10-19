@@ -17,26 +17,45 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 import requests
 
-class ImageVectorizer:
-    BASE_URL = "https://api.picsart.io/tools/1.0/vectorizer"
+class PicsArtAI:
+    developers_url = "https://api.picsart.io/tools/1.0"
 
     def __init__(
         self,
+        endpoint: str="removebg",
         api_key: str=None,
         file_image=None,
         image_url: str=None,
         image_id: str=None,
         downscale_to: int=2048,
+        output_type: str="cutout",
+        bg_image: str=None,
+        bg_image_url: str=None,
+        bg_image_id: str=None,
+        bg_color: str=None,
+        bg_blur: int=None,
+        bg_width: int=None,
+        bg_height: int=None,
+        format: str="PNG",
         allow_image_id: bool=None
     ):
+        self.endpoint = endpoint
         self.api_key = api_key
         self.file_image = file_image
         self.image_url = image_url
         self.image_id = image_id
         self.downscale_to = downscale_to
+        self.output_type = output_type
+        self.bg_image = bg_image
+        self.bg_image_url = bg_image_url
+        self.bg_image_id = bg_image_id
+        self.bg_color = bg_color
+        self.bg_blur = bg_blur
+        self.bg_width = bg_width
+        self.bg_height = bg_height
+        self.format = format
         self.allow_image_id = allow_image_id
 
     def vectorize_image(self):
@@ -57,8 +76,38 @@ class ImageVectorizer:
                 "image_url": self.image_url,
                 "downscale_to": self.downscale_to
             }
+    
+    def remove_background(self):
+        headers = {
+            "accept": "application/json",
+            "X-Picsart-API-Key": self.api_key
+        }
+
+        if self.allow_image_id:
+            with open(self.file_image, "rb") as path:
+                payload = {
+                    "image": path,
+                    "image_id": self.image_id,
+                    "output_type": self.output_type,
+                    "bg_image": self.bg_image,
+                    "bg_image_url": self.bg_image_url,
+                    "bg_image_id": self.bg_image_id,
+                    "bg_color": self.bg_color,
+                    "bg_blur": self.bg_blur,
+                    "bg_width": self.bg_width,
+                    "bg_height": self.bg_height,
+                    "format": self.format
+                    
+                }
+        else:
+            payload = {
+                "image_url": self.image_url,
+                "downscale_to": self.downscale_to
+            }
+    
+    def picsart_now(self):
         try:
-            response = requests.post(self.BASE_URL, headers=headers, data=payload)
+            response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
             response_data = response.json()
             return response_data
         except Exception as e:

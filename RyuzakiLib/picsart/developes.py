@@ -84,7 +84,7 @@ class PicsArtAI:
         except Exception as e:
             print(f"Error: {e}")
             return None
-    
+
     def remove_background(self):
         headers = {
             "accept": "application/json",
@@ -115,7 +115,7 @@ class PicsArtAI:
                 "scale": self.scale,
                 "format": self.format
             }
-            
+  
         try:
             response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
             response_data = response.json()

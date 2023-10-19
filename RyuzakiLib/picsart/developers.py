@@ -106,7 +106,6 @@ class PicsArtAI:
                     "bg_height": self.bg_height,
                     "scale": self.scale,
                     "format": self.format
-                    
                 }
         else:
             payload = {

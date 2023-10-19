@@ -24,8 +24,8 @@ class PicsArtAI:
 
     def __init__(
         self,
-        endpoint: str=None,
         api_key: str=None,
+        endpoint: str=None,
         file_image=None,
         image_url: str=None,
         image_id: str=None,
@@ -39,10 +39,11 @@ class PicsArtAI:
         bg_width: int=None,
         bg_height: int=None,
         format: str="PNG",
+        scale: str="fit",
         allow_image_id: bool=None
     ):
-        self.endpoint = endpoint
         self.api_key = api_key
+        self.endpoint = endpoint
         self.file_image = file_image
         self.image_url = image_url
         self.image_id = image_id
@@ -103,6 +104,7 @@ class PicsArtAI:
                     "bg_blur": self.bg_blur,
                     "bg_width": self.bg_width,
                     "bg_height": self.bg_height,
+                    "scale": self.scale,
                     "format": self.format
                     
                 }
@@ -110,6 +112,7 @@ class PicsArtAI:
             payload = {
                 "image_url": self.image_url,
                 "output_type": self.output_type,
+                "scale": self.scale,
                 "format": self.format
             }
             

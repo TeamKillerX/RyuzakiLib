@@ -24,7 +24,7 @@ class PicsArtAI:
 
     def __init__(
         self,
-        endpoint: str="removebg",
+        endpoint: str=None,
         api_key: str=None,
         file_image=None,
         image_url: str=None,
@@ -76,6 +76,13 @@ class PicsArtAI:
                 "image_url": self.image_url,
                 "downscale_to": self.downscale_to
             }
+        try:
+            response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
+            response_data = response.json()
+            return response_data
+        except Exception as e:
+            print(f"Error: {e}")
+            return None
     
     def remove_background(self):
         headers = {
@@ -102,10 +109,10 @@ class PicsArtAI:
         else:
             payload = {
                 "image_url": self.image_url,
-                "downscale_to": self.downscale_to
+                "output_type": self.output_type,
+                "format": self.format
             }
-    
-    def picsart_now(self):
+            
         try:
             response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
             response_data = response.json()

@@ -20,8 +20,6 @@
 # JANGAN COPAS INI LU KEK KONTOL
 # TANYA KE SUPPORT @KillerXSupport
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from base64 import b64decode
 import requests
 import base64
@@ -40,8 +38,7 @@ class WebShotUrl:
         type_mine="JPEG",
         pixels="1024",
         cast="Z100",
-        author="@xtdevs",
-        screenshot_full: bool=None
+        author="@xtdevs"
     ):
         self.url = url
         self.width = width
@@ -53,7 +50,6 @@ class WebShotUrl:
         self.pixels = pixels
         self.cast = cast
         self.author = author
-        self.screenshot_full = screenshot_full
 
     def send_screenshot_quality(self):
         try:
@@ -63,9 +59,9 @@ class WebShotUrl:
         except Exception as e:
             return f"Error {e}"
 
-    def send_screenshot(self):
+    def send_screenshot(self, screenshot_full: bool=None):
         api_url = b64decode(self.base).decode("utf-8")
-        if self.screenshot_full:
+        if screenshot_full:
             data = {
                 "url": self.url,
                 "width": self.width,

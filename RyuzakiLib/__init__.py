@@ -17,7 +17,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = "0.4.6"
+__version__ = "0.4.7"
 
 from . import *
 from .pushdb import *
+from .reminder import *

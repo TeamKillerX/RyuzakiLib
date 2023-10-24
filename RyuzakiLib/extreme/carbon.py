@@ -30,15 +30,13 @@ class CarbonSuper:
         self,
         code,
         color=None,
-        ryuzaki: bool=None
     ):
         self.code = code
         self.color = color
-        self.ryuzaki = ryuzaki
 
-    async def make_carbon(self):
+    async def make_carbon(self, ryuzaki: bool=None):
         url = "https://carbonara.solopov.dev/api/cook"
-        if self.ryuzaki:
+        if ryuzaki:
             async with aiosession.post(url, json={"code": self.code, "backgroundColor": self.color}) as resp:
                 image = BytesIO(await resp.read())
             image.name = "carbon.png"

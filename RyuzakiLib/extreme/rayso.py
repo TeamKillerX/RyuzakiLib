@@ -20,8 +20,6 @@
 # JANGAN COPAS INI LU KEK KONTOL
 # TANYA KE SUPPORT @KillerXSupport
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from base64 import b64decode
 import requests
 import base64

@@ -36,41 +36,41 @@ class CarbonRaySo:
         title="Ryuzaki Dev",
         theme=None,
         setlang="en",
-        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw==",
-        auto_translate: bool=None,
-        check_sticker: bool=None,
-        ryuzaki: bool=None
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw=="
     ):
         self.code = code
         self.title = title
         self.theme = theme
         self.setlang = setlang
         self.base = base
-        self.auto_translate = auto_translate
-        self.check_sticker = check_sticker
-        self.ryuzaki = ryuzaki
 
-    def make_carbon_rayso(self):
+    def make_carbon_rayso(
+        self,
+        auto_translate: bool=None,
+        check_sticker: bool=None,
+        darkmode: bool=None,
+        ryuzaki: bool=None
+    ):
         trans = SyncTranslator()
         api_url = b64decode(self.base).decode("utf-8")
-        if self.check_sticker:
+        if check_sticker:
             filename = "rayso.webp"
         else:
             filename = "rayso.jpg"
-        if self.auto_translate:
+        if auto_translate:
             source = trans.detect(self.code)
             translation = trans(self.code, sourcelang=source, targetlang=self.setlang)
             code = translation.text
         else:
             code = self.code
-        if self.ryuzaki:
+        if ryuzaki:
             x = requests.post(
                 f"{api_url}",
                 json={
                     "code": code,
                     "title": self.title,
                     "theme": self.theme,
-                    "darkMode": True
+                    "darkMode": darkmode
                 }
             )
             if x.status_code != 200:
@@ -90,7 +90,7 @@ class CarbonRaySo:
                     "code": code,
                     "title": self.title,
                     "theme": "breeze",
-                    "darkMode": True
+                    "darkMode": darkmode
                 }
             )
             if x.status_code != 200:

@@ -33,7 +33,6 @@ class FullStackDev:
         self.domain_url = domain_url
         self.params = params
         self.json_data = json_data
-        self.re_json = re_json
         self.type_mode = type_mode
         self.filename = filename
 

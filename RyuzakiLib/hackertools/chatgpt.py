@@ -48,27 +48,36 @@ class RendyDevChat:
         except FileNotFoundError:
             return set()
 
-    def get_response(self, message):
+    def get_response(
+        self,
+        message,
+        version: int=3,
+        chat_mode: str="assistant",
+        latest_version: bool=None
+    ):
         if isinstance(message, Message):
             blacklist = self.get_blacklist_from_file()
             if message.from_user.id in blacklist:
                 return "Blocked User"
-        response_url = self.knowledge_hack(self.binary)
-        payloads = {
-            "message": self.query,
-            "version": 3,
-            "chat_mode": "assistant",
-            "dialog_messages": "[{'bot': '', 'user': ''}]"
-        }
-        try:
-            response = requests.post(
-                f"{response_url}",
-                json=payloads,
-                headers={"Content-Type": "application/json"}
-            ).json()
-            if not (response and "message" in response):
-                print(response)
-                raise ValueError("Invalid Response from Server")
-            return response.get("message")
-        except Exception as e:
-            return f"Error Api {e}"
+        if latest_version:
+            response_url = self.knowledge_hack(self.binary)
+            payloads = {
+                "message": self.query,
+                "version": version,
+                "chat_mode": chat_mode,
+                "dialog_messages": "[{'bot': '', 'user': ''}]"
+            }
+            try:
+                response = requests.post(
+                    f"{response_url}",
+                    json=payloads,
+                    headers={"Content-Type": "application/json"}
+                ).json()
+                if not (response and "message" in response):
+                    print(response)
+                    raise ValueError("Invalid Response from Server")
+                return response.get("message")
+            except Exception as e:
+                return f"Error Api {e}"
+        else:
+            return f"WTF THIS {self.query}"

@@ -26,7 +26,6 @@ class FullStackDev:
         headers=None,
         params: str=None,
         json_data=None,
-        re_json: bool=None,
         type_mode: str="wb",
         filename: str=None
     ):
@@ -42,18 +41,18 @@ class FullStackDev:
         request_url = self.domain_url
         return request_url
 
-    def ryuzaki_get(self):
+    def ryuzaki_get(self, re_json: bool=None):
         request_url = self.domain_urls()
-        if self.re_json:
+        if re_json:
             req = requests.get(request_url, headers=self.headers, params=self.params).json()
             return req
         else:
             req = requests.get(request_url, headers=self.headers, params=self.params)
             return req
 
-    def ryuzaki_post(self):
+    def ryuzaki_post(self, re_json: bool=None):
         request_url = self.domain_urls()
-        if self.re_json:
+        if re_json:
             req = requests.post(request_url, headers=self.headers, params=self.json_data).json()
             return req
         else:
@@ -67,9 +66,9 @@ class FullStackDev:
             file.write(req.content)
         return self.filename
 
-    def fastapi_get(self):
+    def fastapi_get(self, re_json: bool=None):
         request_url = self.domain_urls()
-        if self.re_json:
+        if re_json:
             req = requests.get(request_url, headers=self.headers, params=self.json_data).json()
             if req.status_code != 200:
                 return "Not Responding"

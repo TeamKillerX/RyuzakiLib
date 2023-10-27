@@ -39,8 +39,7 @@ class PicsArtAI:
         bg_width: int=None,
         bg_height: int=None,
         format: str="PNG",
-        scale: str="fit",
-        allow_image_id: bool=None
+        scale: str="fit"
     ):
         self.api_key = api_key
         self.endpoint = endpoint
@@ -57,15 +56,14 @@ class PicsArtAI:
         self.bg_width = bg_width
         self.bg_height = bg_height
         self.format = format
-        self.allow_image_id = allow_image_id
 
-    def vectorize_image(self):
+    def vectorize_image(self, allow_image_id: bool=None):
         headers = {
             "accept": "application/json",
             "X-Picsart-API-Key": self.api_key
         }
 
-        if self.allow_image_id:
+        if allow_image_id:
             with open(self.file_image, "rb") as path:
                 payload = {
                     "image": path,
@@ -85,13 +83,13 @@ class PicsArtAI:
             print(f"Error: {e}")
             return None
 
-    def remove_background(self):
+    def remove_background(self, allow_image_id: bool=None):
         headers = {
             "accept": "application/json",
             "X-Picsart-API-Key": self.api_key
         }
 
-        if self.allow_image_id:
+        if allow_image_id:
             with open(self.file_image, "rb") as path:
                 payload = {
                     "image": path,

@@ -29,8 +29,7 @@ class SettingPyrogram:
         api_id: int=None,
         api_hash: str=None,
         bot_token: str=None,
-        session_string: str=None,
-        setting_telegram: bool=None
+        session_string: str=None
     ):
         self.name = name
         self.app_version = app_version
@@ -40,10 +39,9 @@ class SettingPyrogram:
         self.api_hash = api_hash
         self.bot_token = bot_token
         self.session_string = session_string
-        self.setting_telegram = setting_telegram
 
-    async def telegram_original(self):
-        if self.setting_telegram:
+    async def telegram_original(self, setting_telegram: bool=None):
+        if setting_telegram:
             client = Client(
                 self.name,
                 app_version=self.app_version,

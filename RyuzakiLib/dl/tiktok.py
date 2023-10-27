@@ -28,13 +28,11 @@ from RyuzakiLib.api.fullstack import FullStackDev
 class TiktokUrl:
     def __init__(
         self,
-        url,
-        ryuzaki: bool=None
+        url
     ):
         self.url = url
-        self.ryuzaki = ryuzaki
 
-    def tiktok_downloader(self):
+    def tiktok_downloader(self, ryuzaki: bool=None):
         tiktok_url = self.url
         api_devs = "https://api.sdbots.tech"
         parameter = f"tiktok?url={tiktok_url}"
@@ -48,7 +46,7 @@ class TiktokUrl:
             results = response.json()
             caption = results.get("result", {}).get("desc", "")
 
-            if self.ryuzaki:
+            if ryuzaki:
                 video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
                 if video_url:
                     return [video_url, caption]
@@ -65,7 +63,7 @@ def faster_tiktok_downloader(link: str=None, ryuzaki_default: str="ryuzaki.mp4")
     if not link:
         return "Missing Tiktok Link"
     try:
-        obj = TiktokUrl(url=link, ryuzaki=True).tiktok_downloader()
+        obj = TiktokUrl(url=link).tiktok_downloader(ryuzaki=True)
         super = FullStackDev(
             domain_url=obj[0],
             filename=ryuzaki_default,

@@ -5,16 +5,14 @@ class MongoConnect:
         self,
         mongo_url=None,
         client=None,
-        database=None,
-        mongodb_connect: bool=None
+        database=None
     ):
         self.mongo_url = mongo_url
         self.client = client
         self.database = database
-        self.mongodb_connect = mongodb_connect
 
-    def get_collection(self):
-        if self.mongodb_connect:
+    def get_collection(self, mongodb_dev: bool=None):
+        if mongodb_dev:
             client_mongo = MongoClient(self.mongo_url)
             db = client_mongo[self.client][self.database]
             return db[self.collection_name]

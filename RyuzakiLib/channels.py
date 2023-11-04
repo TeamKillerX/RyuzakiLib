@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from typing import Union
+from typing import Union, Tuple
 
 class ChannelCopy:
     def __init__(

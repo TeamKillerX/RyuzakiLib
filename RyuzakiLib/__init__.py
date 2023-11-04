@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-__version__ = "0.4.8"
+__version__ = "0.4.9"
 
 from . import *
 from .pushdb import *
@@ -25,3 +25,4 @@ from .reminder import *
 from .story import *
 from .quote import *
 from .tr import *
+from .channels import *

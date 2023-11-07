@@ -1,4 +1,24 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright 2020-2023 (c) Randy W @xtdevs, @xtsea
+#
+# from : https://github.com/TeamKillerX
+# Channel : @RendyProjects
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import requests
+from typing import Union
 
 class API:
     def __init__(
@@ -7,22 +27,26 @@ class API:
     ):
         self.bot_token = bot_token
 
+    def telegram(self, method):
+        url = f"https://api.telegram.org/bot{self.bot_token}/{method}"
+        return url
+    
     def get_me(self, re_json: bool=False):
-        url = f"https://api.telegram.org/bot{self.bot_token}/getMe"
+        urls = self.telegram("getMe")
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)"
         }
         if re_json:
-            response = requests.post(url, headers=headers).json()
+            response = requests.post(urls, headers=headers).json()
             return response
         else:
-            response = requests.post(url, headers=headers)
+            response = requests.post(urls, headers=headers)
             return response
 
     def send_message(
         self,
-        chat_id: str=None,
+        chat_id: Union[str, int] = None,
         text: str=None,
         disable_web_page_preview: bool=False,
         disable_notification: bool=False,
@@ -30,7 +54,7 @@ class API:
         parse_mode=None,
         re_json: bool=False
     ):
-        url = f"https://api.telegram.org/bot{self.bot_token}/sendMessage"
+        urls = self.telegram("sendMessage")
         payload = {
             "text": text,
             "parse_mode": parse_mode,
@@ -45,8 +69,8 @@ class API:
             "content-type": "application/json"
         }
         if re_json:
-            response = requests.post(url, json=payload, headers=headers).json()
+            response = requests.post(urls, json=payload, headers=headers).json()
             return response
         else:
-            response = requests.post(url, json=payload, headers=headers)
+            response = requests.post(urls, json=payload, headers=headers)
             return response

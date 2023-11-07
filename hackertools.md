@@ -16,7 +16,7 @@ from pyrogram.types import Message
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
-response = RendyDevChat(query).get_response(message)
+response = RendyDevChat(query).get_response(message, latest_version=True)
 await message.reply(response)
 ```
 

@@ -61,7 +61,7 @@ api.forward_message()
 # you can pass
 sent_message = api.send_message(chat_id=chat_id, text=text)
 
-sent_sticker = api.send_sticker(chat_id=chat_id sticker=sticker)
+sent_sticker = api.send_sticker(chat_id=chat_id, sticker=sticker)
 
 # your own developer
 urls = api.telegram("SendMessage")

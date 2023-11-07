@@ -30,7 +30,7 @@ class API:
     def telegram(self, method):
         url = f"https://api.telegram.org/bot{self.bot_token}/{method}"
         return url
-    
+
     def get_me(self, re_json: bool=False):
         urls = self.telegram("getMe")
         headers = {
@@ -42,6 +42,33 @@ class API:
             return response
         else:
             response = requests.post(urls, headers=headers)
+            return response
+
+    def forward_message(
+        self,
+        chat_id: Union[str, int] = None,
+        from_chat_id: Union[str, int] = None,
+        disable_notification: bool=False,
+        message_id: int=None,
+        re_json: bool=False
+    ):
+        urls = self.telegram("forwardMessage")
+        payload = {
+            "chat_id": chat_id,
+            "from_chat_id": from_chat_id,
+            "message_id": message_id,
+            "disable_notification": disable_notification
+        }
+        headers = {
+            "accept": "application/json",
+            "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
+            "content-type": "application/json"
+        }
+        if re_json:
+            response = requests.post(urls, json=payload, headers=headers).json()
+            return response
+        else:
+            response = requests.post(urls, json=payload, headers=headers)
             return response
 
     def send_message(

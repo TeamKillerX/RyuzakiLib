@@ -81,7 +81,7 @@ class API:
     ):
         urls = self.telegram("sendPhoto")
         payload = {
-            "chat_id": chat_id, 
+            "chat_id": chat_id,
             "photo": photo,
             "caption": caption,
             "disable_notification": disable_notification,

@@ -71,6 +71,34 @@ class API:
             response = requests.post(urls, json=payload, headers=headers)
             return response
 
+    def send_photo(
+        self,
+        chat_id: Union[str, int] = None,
+        photo: Union[str, None] = None,
+        caption: str=None,
+        disable_notification: bool=False,
+        reply_to_message_id: int=None
+    ):
+        urls = self.telegram("sendPhoto")
+        payload = {
+            "chat_id": chat_id, 
+            "photo": photo,
+            "caption": caption,
+            "disable_notification": disable_notification,
+            "reply_to_message_id": reply_to_message_id
+        }
+        headers = {
+            "accept": "application/json",
+            "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
+            "content-type": "application/json"
+        }
+        if re_json:
+            response = requests.post(urls, json=payload, headers=headers).json()
+            return response
+        else:
+            response = requests.post(urls, json=payload, headers=headers)
+            return response
+
     def send_message(
         self,
         chat_id: Union[str, int] = None,

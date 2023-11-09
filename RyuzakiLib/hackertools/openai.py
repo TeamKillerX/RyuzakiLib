@@ -18,8 +18,6 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import openai
-from pyrogram import Client, filters
-from pyrogram.types import Message
 
 class OpenAiToken:
     def __init__(self, apikey):

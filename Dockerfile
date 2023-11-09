@@ -41,13 +41,6 @@ COPY . .
 
 # Upgrade pip and setuptools
 RUN pip3 install --upgrade pip setuptools
-
-# Install required Python packages using the requirements.txt file
 RUN pip3 install -r requirements.txt
 
-# Expose port 80 for communication with the container
-EXPOSE 80
-
-# Set the command to run the buildbot program with -t flag
-CMD [ "python3", "-m", "buildbot", "-t" ]
-# Fix: Added "-t" flag to the command to specify the number of seconds to wait for the application to become healthy
+CMD [ "python3", "-m", "buildbot"]

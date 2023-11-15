@@ -6,7 +6,7 @@ class RyuzakiPowers:
     def __init__(self):
         pass
 
-    def ryuzaki_ban(self, blacklist: Union[int, list] = None, func):
+    def ryuzaki_ban(self, blacklist: Union[int, list] = None, func=None):
         def wrapper(client: Client, message: Message):
             user_id = message.from_user.id if message.from_user else None
             if user_id in blacklist:
@@ -15,7 +15,7 @@ class RyuzakiPowers:
                 return func(client, message)
         return wrapper
 
-    def ryuzaki_owner(self, user: Union[int, list] = None, sudo: bool = None):
+    def ryuzaki_owner(self, user: Union[int, list] = None, sudo: bool = None, func=None):
         def wrapper(client: Client, message: Message):
             if sudo:
                 user_id = message.from_user.id if message.from_user else None

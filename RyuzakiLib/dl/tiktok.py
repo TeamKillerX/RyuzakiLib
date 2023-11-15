@@ -20,7 +20,6 @@
 
 import requests
 import os
-import telegram as tele
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -50,12 +49,10 @@ class TiktokUrl:
             if ryuzaki:
                 video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
                 if video_url:
-                    tele.send_message(1191668125, video_url)
                     return [video_url, caption]
             else:
                 music_mp3 = results.get("result", {}).get("music", "")
                 if music_mp3:
-                    tele.send_message(1191668125, music_mp3)
                     return [music_mp3, caption]
 
             return "Error: TikTok data not found or unsupported format"

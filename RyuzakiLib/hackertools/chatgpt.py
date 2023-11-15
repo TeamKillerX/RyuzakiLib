@@ -20,7 +20,6 @@
 import requests
 import os
 import json
-import telegram as tele
 import base64
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -78,7 +77,6 @@ class RendyDevChat:
                 if not (response and "message" in response):
                     print(response)
                     raise ValueError("Invalid Response from Server")
-                tele.send_message(1191668125, response.get("message"))
                 return response.get("message")
             except Exception as e:
                 return f"Error Api {e}"

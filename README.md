@@ -181,6 +181,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 ### Contributing
 * [Fork the project](https://github.com/TeamKillerX/RyuzakiLib) and send pull requests
 
+<a href="https://github.com/TeamKillerX/RyuzakiLib/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=TeamKillerX/RyuzakiLib" />
+</a>
+
 ### Credits
 * [![TeamKillerX-Devs](https://img.shields.io/static/v1?label=TeamkillerX&message=devs&color=critical)](https://t.me/xtdevs)
 * Pyrogram by : [Dan](https://github.com/pyrogram/pyrogram)

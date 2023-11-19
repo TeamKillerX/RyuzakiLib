@@ -54,5 +54,4 @@ def root():
 @app.route("/blacklist", methods=["GET"])
 def group_blacklist():
     data_set = {"randydev": 1191668125, "gcast_blacklist": BLACKLIST}
-    json_dump = json.dumps(data_set)
-    return json_dump
+    return json.dumps(data_set)

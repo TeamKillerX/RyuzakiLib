@@ -65,47 +65,7 @@ class QouteSticker:
     def knowledge_hack(self):
         you_dont_know = "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100010 01101111 01110100 00101110 01101100 01111001 01101111 00101110 01110011 01110101 00101111 01110001 01110101 01101111 01110100 01100101 00101111 01100111 01100101 01101110 01100101 01110010 01100001 01110100 01100101"
         number = you_dont_know.split()
-        decode_string = ""
-        for binary in number:
-            decimal_value = int(binary, 2)
-            decode_string += chr(decimal_value)
-        return decode_string
+        return "".join(chr(int(binary, 2)) for binary in number)
 
     def sticker_converter(self):
-        if self.avatar_profile:
-            is_avatar = True
-            return is_avatar
-        else:
-            is_avatar = False
-            return is_avatar
-        data = {
-            "type": self.type,
-            "format": self.format,
-            "backgroundColor": self.background_color,
-            "width": self.width,
-            "height": self.height,
-            "scale": self.scale,
-            "messages": [
-                {
-                    "entities": self.entities,
-                    "avatar": self.is_avatar,
-                    "from": {
-                        "id": self.user_id,
-                        "name": self.first_name,
-                        "photo": {"url": self.photo_url},
-                    },
-                    "text": self.text,
-                    "replyMessage": self.reply_message,
-                }
-            ],
-        }
-        required_post = self.knowledge_hack()
-        response = requests.post(f"{required_post}", json=data)
-        if response.status_code != 200:
-            return "CAACAgUAAx0EYvH21AACMxFkzss9PCU8JOOQM_iIXEdRFEIgvAACUgsAAn7_cFaVmzq8YrV6xh4E"
-        data = response.json()
-        buffer = base64.b64decode(data["result"]["image"].encode("utf-8"))
-        with BytesIO(buffer) as image_buffer:
-            image = Image.open(image_buffer)
-            image.save(self.developer, format=self.image_format)
-        return self.developer
+        return bool(self.avatar_profile)

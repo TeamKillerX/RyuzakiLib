@@ -26,8 +26,7 @@ class API:
         self.bot_token = bot_token
 
     def telegram(self, method):
-        url = f"https://api.telegram.org/bot{self.bot_token}/{method}"
-        return url
+        return f"https://api.telegram.org/bot{self.bot_token}/{method}"
 
     def get_me(self, re_json: bool = False):
         urls = self.telegram("getMe")
@@ -35,12 +34,11 @@ class API:
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
         }
-        if re_json:
-            response = requests.post(urls, headers=headers).json()
-            return response
-        else:
-            response = requests.post(urls, headers=headers)
-            return response
+        return (
+            requests.post(urls, headers=headers).json()
+            if re_json
+            else requests.post(urls, headers=headers)
+        )
 
     def forward_message(
         self,
@@ -62,12 +60,11 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers).json()
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return (
+            requests.post(urls, json=payload, headers=headers).json()
+            if re_json
+            else requests.post(urls, json=payload, headers=headers)
+        )
 
     def send_photo(
         self,
@@ -90,12 +87,11 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers).json()
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return (
+            requests.post(urls, json=payload, headers=headers).json()
+            if re_json
+            else requests.post(urls, json=payload, headers=headers)
+        )
 
     def send_audio(
         self,
@@ -123,12 +119,7 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return requests.post(urls, json=payload, headers=headers)
 
     def send_document(
         self,
@@ -152,12 +143,7 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return requests.post(urls, json=payload, headers=headers)
 
     def send_sticker(
         self,
@@ -181,12 +167,7 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return requests.post(urls, json=payload, headers=headers)
 
     def send_message(
         self,
@@ -212,9 +193,8 @@ class API:
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
             "content-type": "application/json",
         }
-        if re_json:
-            response = requests.post(urls, json=payload, headers=headers).json()
-            return response
-        else:
-            response = requests.post(urls, json=payload, headers=headers)
-            return response
+        return (
+            requests.post(urls, json=payload, headers=headers).json()
+            if re_json
+            else requests.post(urls, json=payload, headers=headers)
+        )

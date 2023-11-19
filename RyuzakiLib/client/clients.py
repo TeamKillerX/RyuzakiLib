@@ -42,8 +42,8 @@ class SettingPyrogram:
         self.session_string = session_string
 
     async def telegram_original(self, setting_telegram: bool = None):
-        if setting_telegram:
-            client = Client(
+        return (
+            Client(
                 self.name,
                 app_version=self.app_version,
                 device_model=self.device_model,
@@ -52,11 +52,11 @@ class SettingPyrogram:
                 api_hash=self.api_hash,
                 session_string=self.session_string,
             )
-        else:
-            client = Client(
+            if setting_telegram
+            else Client(
                 self.name,
                 api_id=self.api_id,
                 api_hash=self.api_hash,
                 bot_token=self.bot_token,
             )
-        return client
+        )

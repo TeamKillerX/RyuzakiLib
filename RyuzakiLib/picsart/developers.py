@@ -74,8 +74,7 @@ class PicsArtAI:
             response = requests.post(
                 f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload
             )
-            response_data = response.json()
-            return response_data
+            return response.json()
         except Exception as e:
             print(f"Error: {e}")
             return None
@@ -111,8 +110,7 @@ class PicsArtAI:
             response = requests.post(
                 f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload
             )
-            response_data = response.json()
-            return response_data
+            return response.json()
         except Exception as e:
             print(f"Error: {e}")
             return None

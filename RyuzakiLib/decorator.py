@@ -23,10 +23,7 @@ class RyuzakiPowers:
         def wrapper(client: Client, message: Message):
             if sudo:
                 user_id = message.from_user.id if message.from_user else None
-                if user_id != user:
-                    return func(client, message)
-                else:
-                    return "Only Developed"
+                return func(client, message) if user_id != user else "Only Developed"
             else:
                 return "Something error"
 

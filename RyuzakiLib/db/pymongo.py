@@ -8,11 +8,10 @@ class MongoConnect:
         self.database = database
 
     def get_collection(self, mongodb_dev: bool = None):
+        client_mongo = MongoClient(self.mongo_url)
         if mongodb_dev:
-            client_mongo = MongoClient(self.mongo_url)
             db = client_mongo[self.client][self.database]
-            return db[self.collection_name]
         else:
-            client_mongo = MongoClient(self.mongo_url)
             db = client_mongo["tiktokbot"]["ryuzakilib"]
-            return db[self.collection_name]
+
+        return db[self.collection_name]

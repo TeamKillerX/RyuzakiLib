@@ -32,15 +32,13 @@ class Stories:
         story_ids: Union[int, list] = None,
     ):
         if isinstance(client, Client):
-            user = await client.get_stories(from_id=from_id, story_ids=story_ids)
-            return user
+            return await client.get_stories(from_id=from_id, story_ids=story_ids)
 
     async def export_link(
         self, client: Client, from_id: Union[int, str] = None, story_id: int = None
     ):
         if isinstance(client, Client):
-            user = await client.export_story_link(from_id=from_id, story_id=story_id)
-            return user
+            return await client.export_story_link(from_id=from_id, story_id=story_id)
 
     async def get_all_story(self, client: Client):
         if isinstance(client, Client):

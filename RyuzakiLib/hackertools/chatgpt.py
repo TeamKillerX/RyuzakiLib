@@ -60,28 +60,27 @@ class RendyDevChat:
             blacklist = self.get_blacklist_from_file()
             if message.from_user.id in blacklist:
                 return "Blocked User"
-        if latest_version:
-            response_url = self.knowledge_hack(self.binary)
-            payloads = {
-                "message": self.query,
-                "version": version,
-                "chat_mode": chat_mode,
-                "dialog_messages": "[{'bot': '', 'user': ''}]",
-            }
-            try:
-                response = requests.post(
-                    f"{response_url}",
-                    json=payloads,
-                    headers={"Content-Type": "application/json"},
-                ).json()
-                if not (response and "message" in response):
-                    print(response)
-                    raise ValueError("Invalid Response from Server")
-                return response.get("message")
-            except Exception as e:
-                return f"Error Api {e}"
-        else:
+        if not latest_version:
             return f"WTF THIS {self.query}"
+        response_url = self.knowledge_hack(self.binary)
+        payloads = {
+            "message": self.query,
+            "version": version,
+            "chat_mode": chat_mode,
+            "dialog_messages": "[{'bot': '', 'user': ''}]",
+        }
+        try:
+            response = requests.post(
+                f"{response_url}",
+                json=payloads,
+                headers={"Content-Type": "application/json"},
+            ).json()
+            if not response or "message" not in response:
+                print(response)
+                raise ValueError("Invalid Response from Server")
+            return response.get("message")
+        except Exception as e:
+            return f"Error Api {e}"
 
     async def get_response_beta(self, joke: bool = None):
         url = "https://freegptapi.hop.sh/neural/api"
@@ -90,9 +89,7 @@ class RendyDevChat:
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
-        if joke:
-            check_response = response.json()
-            answer = check_response.get("answer")
-            return answer
-        else:
+        if not joke:
             return f"WTF THIS {self.query}"
+        check_response = response.json()
+        return check_response.get("answer")

@@ -55,7 +55,6 @@ class ChatbotAi:
             return "Error api request"
         try:
             y = x.json()
-            response = y["response"]
-            return response
+            return y["response"]
         except Exception as e:
             return f"Error {e}"

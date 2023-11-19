@@ -40,7 +40,7 @@ async def setting_github():
     try:
         user_gmail_and_username(user_gmail)
     except Exception as e:
-        print(str(e))
+        print(e)
         return
     runner_up()
 

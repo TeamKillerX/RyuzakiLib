@@ -25,12 +25,11 @@ class OpenReadSystem:
         self.code_system = code_system
 
     def show(self, read_system: bool = None):
-        if read_system:
-            res = os.popen(self.code_system).read()
-            return res
-        else:
-            res = os.popen(self.code_system)
-            return res
+        return (
+            os.popen(self.code_system).read()
+            if read_system
+            else os.popen(self.code_system)
+        )
 
     def remover(self):
         return os.remove(self.code_system)

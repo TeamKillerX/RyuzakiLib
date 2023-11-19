@@ -50,23 +50,23 @@ async def now_running_up():
     Developed()
     print
     print
-    Loading("" + Yellow + "Installing Termux First")
+    Loading(f"{Yellow}Installing Termux First")
     print
     install_termux_required()
     sleep(3)
     print
-    Loading("" + Yellow + "Uninstall RyuzakiLib Loading.....")
+    Loading(f"{Yellow}Uninstall RyuzakiLib Loading.....")
     print
     uninstall_ryuzakilib()
     sleep(2)
     print
-    Loading("" + Yellow + "Now Installing Done")
+    Loading(f"{Yellow}Now Installing Done")
     print
     print
-    Loading("" + Yellow + "You can type cd src && nano mod.js")
+    Loading(f"{Yellow}You can type cd src && nano mod.js")
     print
     print
-    Loading("" + Yello + "Your bot token here")
+    Loading(f"{Yello}Your bot token here")
     print
 
 

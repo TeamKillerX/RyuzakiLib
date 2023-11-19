@@ -38,30 +38,31 @@ class FullStackDev:
         self.filename = filename
 
     def domain_urls(self):
-        request_url = self.domain_url
-        return request_url
+        return self.domain_url
 
     def ryuzaki_get(self, re_json: bool = None):
         request_url = self.domain_urls()
-        if re_json:
-            req = requests.get(
+        return (
+            requests.get(
                 request_url, headers=self.headers, params=self.params
             ).json()
-            return req
-        else:
-            req = requests.get(request_url, headers=self.headers, params=self.params)
-            return req
+            if re_json
+            else requests.get(
+                request_url, headers=self.headers, params=self.params
+            )
+        )
 
     def ryuzaki_post(self, re_json: bool = None):
         request_url = self.domain_urls()
-        if re_json:
-            req = requests.post(
+        return (
+            requests.post(
                 request_url, headers=self.headers, params=self.json_data
             ).json()
-            return req
-        else:
-            req = requests.post(request_url, headers=self.headers, json=self.json_data)
-            return req
+            if re_json
+            else requests.post(
+                request_url, headers=self.headers, json=self.json_data
+            )
+        )
 
     def faster_downloader(self):
         request_url = self.domain_urls()
@@ -76,17 +77,11 @@ class FullStackDev:
             req = requests.get(
                 request_url, headers=self.headers, params=self.json_data
             ).json()
-            if req.status_code != 200:
-                return "Not Responding"
-            try:
-                return req
-            except Exception as e:
-                return {"status": "false", "message": f"error {e}"}
         else:
             req = requests.get(request_url, headers=self.headers, json=self.json_data)
-            if req.status_code != 200:
-                return "Not Responding"
-            try:
-                return req
-            except Exception as e:
-                return {"status": "false", "message": f"error {e}"}
+        if req.status_code != 200:
+            return "Not Responding"
+        try:
+            return req
+        except Exception as e:
+            return {"status": "false", "message": f"error {e}"}

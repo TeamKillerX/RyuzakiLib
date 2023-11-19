@@ -42,10 +42,9 @@ class CarbonSuper:
                 url, json={"code": self.code, "backgroundColor": self.color}
             ) as resp:
                 image = BytesIO(await resp.read())
-            image.name = "carbon.png"
-            return image
         else:
             async with aiosession.post(url, json={"code": self.code}) as resp:
                 image = BytesIO(await resp.read())
-            image.name = "carbon.png"
-            return image
+
+        image.name = "carbon.png"
+        return image

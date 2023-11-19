@@ -52,10 +52,7 @@ class CarbonRaySo:
     ):
         trans = SyncTranslator()
         api_url = b64decode(self.base).decode("utf-8")
-        if check_sticker:
-            filename = "rayso.webp"
-        else:
-            filename = "rayso.jpg"
+        filename = "rayso.webp" if check_sticker else "rayso.jpg"
         if auto_translate:
             source = trans.detect(self.code)
             translation = trans(self.code, sourcelang=source, targetlang=self.setlang)
@@ -72,16 +69,6 @@ class CarbonRaySo:
                     "darkMode": darkmode,
                 },
             )
-            if x.status_code != 200:
-                return "Error api Gay"
-            data = x.json()
-            try:
-                image_data = base64.b64decode(data["image"])
-                f = BytesIO(image_data)
-                f.name = filename
-                return f
-            except Exception as e:
-                return f"Error: {e}"
         else:
             x = requests.post(
                 f"{api_url}",
@@ -92,13 +79,13 @@ class CarbonRaySo:
                     "darkMode": darkmode,
                 },
             )
-            if x.status_code != 200:
-                return "Error api Gay"
-            data = x.json()
-            try:
-                image_data = base64.b64decode(data["image"])
-                f = BytesIO(image_data)
-                f.name = filename
-                return f
-            except Exception as e:
-                return f"Error: {e}"
+        if x.status_code != 200:
+            return "Error api Gay"
+        data = x.json()
+        try:
+            image_data = base64.b64decode(data["image"])
+            f = BytesIO(image_data)
+            f.name = filename
+            return f
+        except Exception as e:
+            return f"Error: {e}"

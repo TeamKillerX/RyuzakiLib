@@ -71,17 +71,6 @@ class WebShotUrl:
                 "delay": self.delay,
                 "full": True,
             }
-            x = requests.post(f"{api_url}", json=data)
-            if x.status_code != 200:
-                return "Error request:"
-            try:
-                y = x.json()
-                iseeyou = base64.b64decode(y["image"])
-                hack = BytesIO(iseeyou)
-                hack.name = "screenshot.jpg"
-                return hack
-            except Exception as e:
-                return f"Error: {e}"
         else:
             data = {
                 "url": self.url,
@@ -91,14 +80,14 @@ class WebShotUrl:
                 "delay": self.delay,
                 "full": False,
             }
-            x = requests.post(f"{api_url}", json=data)
-            if x.status_code != 200:
-                return "Error request:"
-            try:
-                y = x.json()
-                iseeyou = base64.b64decode(y["image"])
-                hack = BytesIO(iseeyou)
-                hack.name = "screenshot.jpg"
-                return hack
-            except Exception as e:
-                return f"Error: {e}"
+        x = requests.post(f"{api_url}", json=data)
+        if x.status_code != 200:
+            return "Error request:"
+        try:
+            y = x.json()
+            iseeyou = base64.b64decode(y["image"])
+            hack = BytesIO(iseeyou)
+            hack.name = "screenshot.jpg"
+            return hack
+        except Exception as e:
+            return f"Error: {e}"

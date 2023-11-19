@@ -11,14 +11,13 @@ def link_tiktok(input):
     url = video[0]
     r = requests.get(url, allow_redirects=True)
     filename = "tiktok.mp3"
-    saved = open(filename, "wb").write(r.content)
-    return saved
+    return open(filename, "wb").write(r.content)
 
 
 async def download_save_tiktok():
     link = input("Enter your TikTok link: ")
     video = link_tiktok(str(link))
-    print(f"Successfully Tiktok Downloader")
+    print("Successfully Tiktok Downloader")
 
 
 if __name__ == "__main__":

@@ -3,8 +3,7 @@ from config import BOT_ID, TOKEN
 
 
 def bot_token_acces(bot_id, token):
-    url = f"https://api.telegram.org/bot{bot_id}{token}/sendMessage"
-    return url
+    return f"https://api.telegram.org/bot{bot_id}{token}/sendMessage"
 
 
 def send_message(user_id, text):

@@ -93,21 +93,21 @@ async def now_tracking():
         print("Requests library not found. Installing...")
         return
     print
-    Loading("" + Yellow + "Loading........")
+    Loading(f"{Yellow}Loading........")
     print
     print
     Developed()
     print
     sleep(2)
-    ipaddress = input("" + White + "You enter the tracking IP: ")
+    ipaddress = input(f"{White}You enter the tracking IP: ")
     hack = get_ipaddres_data(ipaddress)
     try:
         print
-        Loading("" + Yellow + "Now tracking loading.......")
+        Loading(f"{Yellow}Now tracking loading.......")
         print
         sleep(3)
         print
-        Loading("" + Yellow + f"{hack}\n")
+        Loading(f"{Yellow}" + f"{hack}\n")
         print
     except:
         print("fixed connection")

@@ -45,13 +45,12 @@ class TiktokUrl:
             caption = results.get("result", {}).get("desc", "")
 
             if ryuzaki:
-                video_url = results.get("result", {}).get("withoutWaterMarkVideo", "")
-                if video_url:
+                if video_url := results.get("result", {}).get(
+                    "withoutWaterMarkVideo", ""
+                ):
                     return [video_url, caption]
-            else:
-                music_mp3 = results.get("result", {}).get("music", "")
-                if music_mp3:
-                    return [music_mp3, caption]
+            elif music_mp3 := results.get("result", {}).get("music", ""):
+                return [music_mp3, caption]
 
             return "Error: TikTok data not found or unsupported format"
         except Exception as e:
@@ -66,7 +65,6 @@ def faster_tiktok_downloader(link: str = None, ryuzaki_default: str = "ryuzaki.m
         super = FullStackDev(
             domain_url=obj[0], filename=ryuzaki_default, type_mode="wb"
         )
-        saved = super.faster_downloader()
-        return saved
+        return super.faster_downloader()
     except Exception as e:
         return f"Error: {e}"

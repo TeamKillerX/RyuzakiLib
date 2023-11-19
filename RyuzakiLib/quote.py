@@ -33,8 +33,7 @@ class QuoteRandom:
         if response.status_code != 200:
             return f"Error status {response.status_code}"
         results = response.json()
-        if check_for:
-            for x in results:
-                return x
-        else:
+        if not check_for:
             return results
+        for x in results:
+            return x

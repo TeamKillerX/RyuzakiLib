@@ -31,7 +31,6 @@ class WtfBro:
             return "Error api gay"
         try:
             wtf = x.json()
-            quotes = wtf["bully"]
-            return quotes
+            return wtf["bully"]
         except Exception as e:
             return f"Error api gay : {e}"

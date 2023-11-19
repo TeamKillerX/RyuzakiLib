@@ -22,14 +22,14 @@ from pyrogram.types import Message
 from pyrogram import *
 from pyrogram.types import *
 
+
 @Client.on_message(filters.command("start"))
 async def startwb(client: Client, message: Message):
     text = "Welcome to Ryuzaki Library"
     keyboard = [
         [
             InlineKeyboardButton(
-                text="Ryuzaki Library",
-                url="https://docs.randydev.my.id"
+                text="Ryuzaki Library", url="https://docs.randydev.my.id"
             )
         ]
     ]
@@ -39,7 +39,7 @@ async def startwb(client: Client, message: Message):
             message.chat.id,
             text=text,
             reply_markup=bttn,
-            reply_to_message_id=message.id
+            reply_to_message_id=message.id,
         )
     except Exception as e:
         await message.reply_text(str(e))

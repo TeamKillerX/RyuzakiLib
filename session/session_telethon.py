@@ -24,15 +24,18 @@ from telethon.sessions import StringSession
 from telethon.sync import TelegramClient
 from time import sleep
 
+
 def setting_telegram():
     API_ID = input("Enter your API ID: ")
     API_HASH = input("Enter your API HASH: ")
     return API_ID, API_HASH
 
+
 async def starting_account():
     API_ID, API_HASH = setting_telegram()
     with TelegramClient(StringSession(), API_ID, API_HASH) as ubot:
         return ubot
+
 
 async def export_session_all():
     os.system("clear")
@@ -57,6 +60,7 @@ async def export_session_all():
         print(f"Error: {e}")
     finally:
         await ubot.stop()
+
 
 if __name__ == "__main__":
     asyncio.run(export_session_all())

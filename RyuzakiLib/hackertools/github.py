@@ -23,6 +23,7 @@ from pyrogram.types import Message
 from httpx import AsyncClient
 import os
 
+
 class GithubUsername:
     def __init__(self, username):
         self.username = username
@@ -30,10 +31,12 @@ class GithubUsername:
     async def get_github_data(self):
         base_msg = ""
         async with AsyncClient() as gpx:
-            req = (await gpx.get(f"https://api.github.com/users/{self.username}")).json()
+            req = (
+                await gpx.get(f"https://api.github.com/users/{self.username}")
+            ).json()
             try:
                 avatar = req["avatar_url"]
-                twitter = req['twitter_username']
+                twitter = req["twitter_username"]
                 base_msg += "**❆ Gitub Information ❆** \n\n"
                 base_msg += f"**Profile Url:** {req['html_url']} \n"
                 base_msg += f"**Name:** `{req['name']}` \n"

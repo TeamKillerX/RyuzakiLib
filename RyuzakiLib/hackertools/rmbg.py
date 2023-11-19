@@ -24,6 +24,7 @@ import os
 import requests
 import shutil
 
+
 class RemoveBg:
     def __init__(self, apikey, image):
         self.apikey = apikey
@@ -33,7 +34,13 @@ class RemoveBg:
         endpoint = "https://api.remove.bg/v1.0/removebg"
         payload = {"size": "auto"}
         with open(f"{self.image}", "rb") as image_file:
-            response = requests.post(endpoint, data=payload, headers={"X-Api-Key": self.apikey}, files={"image_file": image_file}, stream=True)
+            response = requests.post(
+                endpoint,
+                data=payload,
+                headers={"X-Api-Key": self.apikey},
+                files={"image_file": image_file},
+                stream=True,
+            )
 
         with open("output.png", "wb") as out_file:
             shutil.copyfileobj(response.raw, out_file)

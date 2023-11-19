@@ -27,6 +27,7 @@ from io import BytesIO
 
 from gpytranslate import SyncTranslator
 
+
 class CarbonRaySo:
     def __init__(
         self,
@@ -34,7 +35,7 @@ class CarbonRaySo:
         title="Ryuzaki Dev",
         theme=None,
         setlang="en",
-        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw=="
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw==",
     ):
         self.code = code
         self.title = title
@@ -44,10 +45,10 @@ class CarbonRaySo:
 
     def make_carbon_rayso(
         self,
-        auto_translate: bool=None,
-        check_sticker: bool=None,
-        darkmode: bool=None,
-        ryuzaki: bool=None
+        auto_translate: bool = None,
+        check_sticker: bool = None,
+        darkmode: bool = None,
+        ryuzaki: bool = None,
     ):
         trans = SyncTranslator()
         api_url = b64decode(self.base).decode("utf-8")
@@ -68,8 +69,8 @@ class CarbonRaySo:
                     "code": code,
                     "title": self.title,
                     "theme": self.theme,
-                    "darkMode": darkmode
-                }
+                    "darkMode": darkmode,
+                },
             )
             if x.status_code != 200:
                 return "Error api Gay"
@@ -88,8 +89,8 @@ class CarbonRaySo:
                     "code": code,
                     "title": self.title,
                     "theme": "breeze",
-                    "darkMode": darkmode
-                }
+                    "darkMode": darkmode,
+                },
             )
             if x.status_code != 200:
                 return "Error api Gay"

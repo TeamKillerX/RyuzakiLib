@@ -24,6 +24,7 @@ import requests
 import json
 from serpapi import GoogleSearch
 
+
 class GoogleReverseImage:
     def __init__(self, image_url, apikey):
         self.image_url = image_url
@@ -35,7 +36,9 @@ class GoogleReverseImage:
             "engine": "google_reverse_image",
             "image_url": self.image_url,
             "hl": "en",
-            "gl": "us"
+            "gl": "us",
         }
-        search = GoogleSearch(params) # where data extraction happens on the SerpApi backend
+        search = GoogleSearch(
+            params
+        )  # where data extraction happens on the SerpApi backend
         return search.get_dict()

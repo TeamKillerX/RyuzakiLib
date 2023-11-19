@@ -25,20 +25,21 @@ import requests
 import base64
 from io import BytesIO
 
+
 class WebShotUrl:
     def __init__(
         self,
         url=None,
         base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi93ZWJzaG90",
-        width: int=1280,
-        height: int=720,
-        scale: int=1,
-        delay: int=0,
+        width: int = 1280,
+        height: int = 720,
+        scale: int = 1,
+        delay: int = 0,
         quality="1920x1080",
         type_mine="JPEG",
         pixels="1024",
         cast="Z100",
-        author="@xtdevs"
+        author="@xtdevs",
     ):
         self.url = url
         self.width = width
@@ -59,7 +60,7 @@ class WebShotUrl:
         except Exception as e:
             return f"Error {e}"
 
-    def send_screenshot(self, screenshot_full: bool=None):
+    def send_screenshot(self, screenshot_full: bool = None):
         api_url = b64decode(self.base).decode("utf-8")
         if screenshot_full:
             data = {
@@ -68,7 +69,7 @@ class WebShotUrl:
                 "height": self.height,
                 "scale": self.scale,
                 "delay": self.delay,
-                "full": True
+                "full": True,
             }
             x = requests.post(f"{api_url}", json=data)
             if x.status_code != 200:
@@ -88,7 +89,7 @@ class WebShotUrl:
                 "height": self.height,
                 "scale": self.scale,
                 "delay": self.delay,
-                "full": False
+                "full": False,
             }
             x = requests.post(f"{api_url}", json=data)
             if x.status_code != 200:

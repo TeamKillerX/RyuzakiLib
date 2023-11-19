@@ -4,6 +4,7 @@ import asyncio
 import requests
 from RyuzakiLib.dl.tiktok import TiktokUrl
 
+
 def link_tiktok(input):
     code = TiktokUrl(input, ryuzaki=True)
     video = code.tiktok_downloader()
@@ -13,10 +14,12 @@ def link_tiktok(input):
     saved = open(filename, "wb").write(r.content)
     return saved
 
+
 async def download_save_tiktok():
     link = input("Enter your TikTok link: ")
     video = link_tiktok(str(link))
     print(f"Successfully Tiktok Downloader")
+
 
 if __name__ == "__main__":
     asyncio.run(download_save_tiktok())

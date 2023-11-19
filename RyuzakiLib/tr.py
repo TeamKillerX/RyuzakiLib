@@ -19,11 +19,12 @@
 
 from gpytranslate import SyncTranslator
 
+
 class Translator:
-    def __init__(self, text: str=None):
+    def __init__(self, text: str = None):
         self.text = text
 
-    def to_s(self, setlang: str=None):
+    def to_s(self, setlang: str = None):
         trans = SyncTranslator()
         source = trans.detect(self.text)
         translation = trans(self.text, sourcelang=source, targetlang=setlang)

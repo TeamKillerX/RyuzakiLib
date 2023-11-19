@@ -19,6 +19,7 @@
 
 import openai
 
+
 class OpenAiToken:
     def __init__(self, apikey):
         self.apikey = apikey

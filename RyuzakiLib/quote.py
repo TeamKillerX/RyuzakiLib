@@ -20,12 +20,14 @@
 
 import requests
 
+
 class QuoteRandom:
     endpoint_url = "https://api.quotable.io"
+
     def __init__(self):
         pass
 
-    def get_results(self, parameter: str="/quotes/random", check_for: bool=None):
+    def get_results(self, parameter: str = "/quotes/random", check_for: bool = None):
         api_url = self.endpoint_url
         response = requests.get(api_url + parameter)
         if response.status_code != 200:

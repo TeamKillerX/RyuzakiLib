@@ -23,15 +23,17 @@ SOFTWARE.
 import os
 import asyncio
 
-def runner_up():
-    os.system("pip3 install -r req* && python3 setup.py build && python3 setup.py install && python3 setup.py upload")
 
-def user_gmail_and_username(
-    user_gmail: str=None,
-    user_username: str="TeamKillerX"
-):
+def runner_up():
+    os.system(
+        "pip3 install -r req* && python3 setup.py build && python3 setup.py install && python3 setup.py upload"
+    )
+
+
+def user_gmail_and_username(user_gmail: str = None, user_username: str = "TeamKillerX"):
     os.system(f"git config --global user.email '{user_gmail}'")
     os.system(f"git config --global user.username '{user_username}'")
+
 
 async def setting_github():
     user_gmail = input("enter your gmail: ")
@@ -41,6 +43,7 @@ async def setting_github():
         print(str(e))
         return
     runner_up()
+
 
 if __name__ == "__main__":
     asyncio.run(setting_github())

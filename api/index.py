@@ -45,15 +45,14 @@ BLACKLIST = [
     -1001311056733,
 ]
 
+
 @app.route("/", methods=["GET"])
 def root():
     return "Check Api Endpoint: https://download.randydev.my.id"
 
+
 @app.route("/blacklist", methods=["GET"])
 def group_blacklist():
-    data_set = {
-        "randydev": 1191668125,
-        "gcast_blacklist": BLACKLIST
-    }
+    data_set = {"randydev": 1191668125, "gcast_blacklist": BLACKLIST}
     json_dump = json.dumps(data_set)
     return json_dump

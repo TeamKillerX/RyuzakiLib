@@ -19,27 +19,28 @@
 
 import requests
 
+
 class PicsArtAI:
     developers_url = "https://api.picsart.io/tools/1.0"
 
     def __init__(
         self,
-        api_key: str=None,
-        endpoint: str=None,
+        api_key: str = None,
+        endpoint: str = None,
         file_image=None,
-        image_url: str=None,
-        image_id: str=None,
-        downscale_to: int=2048,
-        output_type: str="cutout",
-        bg_image: str=None,
-        bg_image_url: str=None,
-        bg_image_id: str=None,
-        bg_color: str=None,
-        bg_blur: int=None,
-        bg_width: int=None,
-        bg_height: int=None,
-        format: str="PNG",
-        scale: str="fit"
+        image_url: str = None,
+        image_id: str = None,
+        downscale_to: int = 2048,
+        output_type: str = "cutout",
+        bg_image: str = None,
+        bg_image_url: str = None,
+        bg_image_id: str = None,
+        bg_color: str = None,
+        bg_blur: int = None,
+        bg_width: int = None,
+        bg_height: int = None,
+        format: str = "PNG",
+        scale: str = "fit",
     ):
         self.api_key = api_key
         self.endpoint = endpoint
@@ -57,37 +58,30 @@ class PicsArtAI:
         self.bg_height = bg_height
         self.format = format
 
-    def vectorize_image(self, allow_image_id: bool=None):
-        headers = {
-            "accept": "application/json",
-            "X-Picsart-API-Key": self.api_key
-        }
+    def vectorize_image(self, allow_image_id: bool = None):
+        headers = {"accept": "application/json", "X-Picsart-API-Key": self.api_key}
 
         if allow_image_id:
             with open(self.file_image, "rb") as path:
                 payload = {
                     "image": path,
                     "image_id": self.image_id,
-                    "downscale_to": self.downscale_to
+                    "downscale_to": self.downscale_to,
                 }
         else:
-            payload = {
-                "image_url": self.image_url,
-                "downscale_to": self.downscale_to
-            }
+            payload = {"image_url": self.image_url, "downscale_to": self.downscale_to}
         try:
-            response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
+            response = requests.post(
+                f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload
+            )
             response_data = response.json()
             return response_data
         except Exception as e:
             print(f"Error: {e}")
             return None
 
-    def remove_background(self, allow_image_id: bool=None):
-        headers = {
-            "accept": "application/json",
-            "X-Picsart-API-Key": self.api_key
-        }
+    def remove_background(self, allow_image_id: bool = None):
+        headers = {"accept": "application/json", "X-Picsart-API-Key": self.api_key}
 
         if allow_image_id:
             with open(self.file_image, "rb") as path:
@@ -103,18 +97,20 @@ class PicsArtAI:
                     "bg_width": self.bg_width,
                     "bg_height": self.bg_height,
                     "scale": self.scale,
-                    "format": self.format
+                    "format": self.format,
                 }
         else:
             payload = {
                 "image_url": self.image_url,
                 "output_type": self.output_type,
                 "scale": self.scale,
-                "format": self.format
+                "format": self.format,
             }
 
         try:
-            response = requests.post(f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload)
+            response = requests.post(
+                f"{self.developers_url}/{self.endpoint}", headers=headers, data=payload
+            )
             response_data = response.json()
             return response_data
         except Exception as e:

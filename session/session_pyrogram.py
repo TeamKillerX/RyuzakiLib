@@ -22,15 +22,18 @@ import os
 from pyrogram import Client
 from time import sleep
 
+
 def setting_telegram():
     API_ID = input("Enter your API ID: ")
     API_HASH = input("Enter your API HASH: ")
     return API_ID, API_HASH
 
+
 async def starting_account():
     API_ID, API_HASH = setting_telegram()
     client = Client(":memory:", api_id=API_ID, api_hash=API_HASH)
     return client
+
 
 async def export_session_all():
     os.system("clear")
@@ -56,6 +59,7 @@ async def export_session_all():
         print(f"Error: {e}")
     finally:
         await client.stop()
+
 
 if __name__ == "__main__":
     asyncio.run(export_session_all())

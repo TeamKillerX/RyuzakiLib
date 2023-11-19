@@ -20,17 +20,18 @@
 from datetime import datetime as dt, timedelta
 from pytz import timezone
 
+
 class Reminder:
     def __init__(
         self,
-        days: int=None,
-        timezone_str: str=None,
+        days: int = None,
+        timezone_str: str = None,
     ):
         self.days = days
         self.timezone_str = timezone_str
         self.timezone = timezone(timezone_str)
 
-    async def warning_alert(self, check_break: bool=None):
+    async def warning_alert(self, check_break: bool = None):
         if check_break:
             now = dt.now(self.timezone)
             time = now.strftime("%d-%m-%Y")

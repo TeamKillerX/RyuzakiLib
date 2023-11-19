@@ -24,6 +24,7 @@ from pyrogram.types import *
 
 from RyuzakiLib.extreme.chatbot import ChatbotAi
 
+
 @Client.on_message(filters.text & filters.private)
 async def chatbot_assistant(client: Client, message: Message):
     if message.text:
@@ -34,9 +35,7 @@ async def chatbot_assistant(client: Client, message: Message):
             code = ChatbotAi(query=text, user_id=user_id)
             response = code.get_response_ai()
             await client.send_message(
-                chat_id,
-                text=response,
-                reply_to_message_id=message.id
+                chat_id, text=response, reply_to_message_id=message.id
             )
         except Exception as e:
             await message.reply_text(str(e))

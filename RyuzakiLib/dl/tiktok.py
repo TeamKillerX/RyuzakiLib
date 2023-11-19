@@ -25,14 +25,12 @@ from pyrogram.types import Message
 
 from RyuzakiLib.api.fullstack import FullStackDev
 
+
 class TiktokUrl:
-    def __init__(
-        self,
-        url
-    ):
+    def __init__(self, url):
         self.url = url
 
-    def tiktok_downloader(self, ryuzaki: bool=None):
+    def tiktok_downloader(self, ryuzaki: bool = None):
         tiktok_url = self.url
         api_devs = "https://api.sdbots.tech"
         parameter = f"tiktok?url={tiktok_url}"
@@ -59,15 +57,14 @@ class TiktokUrl:
         except Exception as e:
             return f"Error: {e}"
 
-def faster_tiktok_downloader(link: str=None, ryuzaki_default: str="ryuzaki.mp4"):
+
+def faster_tiktok_downloader(link: str = None, ryuzaki_default: str = "ryuzaki.mp4"):
     if not link:
         return "Missing Tiktok Link"
     try:
         obj = TiktokUrl(url=link).tiktok_downloader(ryuzaki=True)
         super = FullStackDev(
-            domain_url=obj[0],
-            filename=ryuzaki_default,
-            type_mode="wb"
+            domain_url=obj[0], filename=ryuzaki_default, type_mode="wb"
         )
         saved = super.faster_downloader()
         return saved

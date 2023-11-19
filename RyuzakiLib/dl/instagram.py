@@ -24,6 +24,7 @@ import requests
 
 # Instagram rapidapi : https://rapidapi.com/maatootz/api/instagram-downloader-download-instagram-videos-stories
 
+
 class InstagramUrl:
     def __init__(self, apikey, link):
         self.apikey = apikey
@@ -32,7 +33,10 @@ class InstagramUrl:
     def instagram_downloader(self):
         url = "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/index"
         querystring = {"url": self.link}
-        headers = {"X-RapidAPI-Key": self.apikey, "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com"}
+        headers = {
+            "X-RapidAPI-Key": self.apikey,
+            "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com",
+        }
         response = requests.get(url, headers=headers, params=querystring)
         if response.status_code != 200:
             return "Failed api please try again"

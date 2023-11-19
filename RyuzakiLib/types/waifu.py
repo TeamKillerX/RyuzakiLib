@@ -22,6 +22,7 @@ from pyrogram.types import Message
 import requests
 from random import choice
 
+
 class SendWaifuRandom:
     def __init__(self):
         pass

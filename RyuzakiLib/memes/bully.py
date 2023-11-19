@@ -20,6 +20,7 @@
 
 import requests
 
+
 class WtfBro:
     def __init__(self):
         pass

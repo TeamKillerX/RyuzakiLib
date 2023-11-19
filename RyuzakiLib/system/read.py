@@ -19,14 +19,12 @@
 
 import os
 
+
 class OpenReadSystem:
-    def __init__(
-        self,
-        code_system: str=None
-    ):
+    def __init__(self, code_system: str = None):
         self.code_system = code_system
 
-    def show(self, read_system: bool=None):
+    def show(self, read_system: bool = None):
         if read_system:
             res = os.popen(self.code_system).read()
             return res

@@ -25,7 +25,10 @@ class FacebookUrl:
         url = "https://facebook-video-and-reel-downloader.p.rapidapi.com/"
         querystring = {"url": self.link}
 
-        headers = {"X-RapidAPI-Key": self.apikey, "X-RapidAPI-Host": "facebook-video-and-reel-downloader.p.rapidapi.com"}
+        headers = {
+            "X-RapidAPI-Key": self.apikey,
+            "X-RapidAPI-Host": "facebook-video-and-reel-downloader.p.rapidapi.com",
+        }
         response = requests.request("GET", url, headers=headers, params=querystring)
 
         if response.status_code != 200:

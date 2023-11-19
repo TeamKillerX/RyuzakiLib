@@ -19,17 +19,18 @@
 
 from pyrogram import Client
 
+
 class SettingPyrogram:
     def __init__(
         self,
-        name: str=None,
-        app_version: str=None,
-        device_model: str=None,
-        system_version: str=None,
-        api_id: int=None,
-        api_hash: str=None,
-        bot_token: str=None,
-        session_string: str=None
+        name: str = None,
+        app_version: str = None,
+        device_model: str = None,
+        system_version: str = None,
+        api_id: int = None,
+        api_hash: str = None,
+        bot_token: str = None,
+        session_string: str = None,
     ):
         self.name = name
         self.app_version = app_version
@@ -40,7 +41,7 @@ class SettingPyrogram:
         self.bot_token = bot_token
         self.session_string = session_string
 
-    async def telegram_original(self, setting_telegram: bool=None):
+    async def telegram_original(self, setting_telegram: bool = None):
         if setting_telegram:
             client = Client(
                 self.name,
@@ -49,13 +50,13 @@ class SettingPyrogram:
                 system_version=self.system_version,
                 api_id=self.api_id,
                 api_hash=self.api_hash,
-                session_string=self.session_string
+                session_string=self.session_string,
             )
         else:
             client = Client(
                 self.name,
                 api_id=self.api_id,
                 api_hash=self.api_hash,
-                bot_token=self.bot_token
+                bot_token=self.bot_token,
             )
         return client

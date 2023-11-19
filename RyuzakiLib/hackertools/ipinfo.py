@@ -26,6 +26,7 @@ import os
 # DO NOT SHARE THIS MODULE
 # THIS DANGER IS TRACKED
 
+
 class WhoisIpHacker:
     def __init__(self, address):
         self.address = address

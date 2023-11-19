@@ -26,24 +26,25 @@ from base64 import b64decode as idk
 from io import BytesIO
 from PIL import Image
 
+
 class QouteSticker:
     def __init__(
         self,
-        type: str="quote",
-        format: str="webp",
-        background_color: str="#1b1429",
-        width: int=512,
-        height: int=768,
-        scale: int=2,
-        developer: str="ryuzaki.webp",
-        image_format: str="WEBP",
+        type: str = "quote",
+        format: str = "webp",
+        background_color: str = "#1b1429",
+        width: int = 512,
+        height: int = 768,
+        scale: int = 2,
+        developer: str = "ryuzaki.webp",
+        image_format: str = "WEBP",
         entities=None,
         reply_message=None,
-        avatar_profile: bool=None,
-        user_id: int=None,
-        first_name: str=None,
-        photo_url: str=None,
-        text: str=None
+        avatar_profile: bool = None,
+        user_id: int = None,
+        first_name: str = None,
+        photo_url: str = None,
+        text: str = None,
     ):
         self.type = type
         self.format = format
@@ -91,14 +92,12 @@ class QouteSticker:
                     "from": {
                         "id": self.user_id,
                         "name": self.first_name,
-                        "photo": {
-                            "url": self.photo_url
-                        }
+                        "photo": {"url": self.photo_url},
                     },
                     "text": self.text,
-                    "replyMessage": self.reply_message
+                    "replyMessage": self.reply_message,
                 }
-            ]
+            ],
         }
         required_post = self.knowledge_hack()
         response = requests.post(f"{required_post}", json=data)

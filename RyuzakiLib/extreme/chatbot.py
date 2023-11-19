@@ -26,14 +26,15 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from base64 import b64decode
 
+
 class ChatbotAi:
     def __init__(
         self,
         query,
-        user_id: int=None,
+        user_id: int = None,
         base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9jaGF0Ym90",
         bot_name="Ryuzaki Dev",
-        bot_master="@Randydev_bot"
+        bot_master="@Randydev_bot",
     ):
         self.query = query
         self.user_id = user_id
@@ -47,7 +48,7 @@ class ChatbotAi:
             "query": self.query,
             "user_id": self.user_id,
             "bot_name": self.bot_name,
-            "bot_master": self.bot_master
+            "bot_master": self.bot_master,
         }
         x = requests.get(f"{api_url}", params=params)
         if x.status_code != 200:

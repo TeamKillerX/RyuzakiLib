@@ -15,18 +15,25 @@ Cyan = "\33[0;36m"
 White = "\33[0;37m"
 Normal = "\33[0m"
 
+
 def Loading(text):
-    for x in text + '\n':
+    for x in text + "\n":
         sys.stdout.write(x)
         sys.stdout.flush()
         sleep(random.random() * 0.05)
 
+
 def Developed():
-    Loading(''+Yellow+'''
+    Loading(
+        ""
+        + Yellow
+        + """
 Github : TeamKillerX
 Developer: t.me/xtdevs
 Hacking : tools all
-''')
+"""
+    )
+
 
 def get_ipaddres_data(input):
     apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
@@ -39,7 +46,9 @@ def get_ipaddres_data(input):
     )
     response = requests.get(location_param)
     if response.status_code != 200:
-        return "Sorry, there was an error processing your request. Please try again later"
+        return (
+            "Sorry, there was an error processing your request. Please try again later"
+        )
     data_location = response.json()
     try:
         location_ip = data_location["ip"]
@@ -75,6 +84,7 @@ def get_ipaddres_data(input):
     else:
         return "Not data ip address"
 
+
 async def now_tracking():
     os.system("clear")
     try:
@@ -83,24 +93,25 @@ async def now_tracking():
         print("Requests library not found. Installing...")
         return
     print
-    Loading(""+Yellow+"Loading........")
+    Loading("" + Yellow + "Loading........")
     print
     print
     Developed()
     print
     sleep(2)
-    ipaddress = input(""+White+"You enter the tracking IP: ")
+    ipaddress = input("" + White + "You enter the tracking IP: ")
     hack = get_ipaddres_data(ipaddress)
     try:
         print
-        Loading(""+Yellow+"Now tracking loading.......")
+        Loading("" + Yellow + "Now tracking loading.......")
         print
         sleep(3)
         print
-        Loading(""+Yellow+f"{hack}\n")
+        Loading("" + Yellow + f"{hack}\n")
         print
     except:
         print("fixed connection")
+
 
 if __name__ == "__main__":
     asyncio.run(now_tracking())

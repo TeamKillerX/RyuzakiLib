@@ -52,9 +52,9 @@ class RendyDevChat:
     def get_response(
         self,
         message,
-        version: int=3,
-        chat_mode: str="assistant",
-        latest_version: bool=None
+        version: int = 3,
+        chat_mode: str = "assistant",
+        latest_version: bool = None,
     ):
         if isinstance(message, Message):
             blacklist = self.get_blacklist_from_file()
@@ -66,13 +66,13 @@ class RendyDevChat:
                 "message": self.query,
                 "version": version,
                 "chat_mode": chat_mode,
-                "dialog_messages": "[{'bot': '', 'user': ''}]"
+                "dialog_messages": "[{'bot': '', 'user': ''}]",
             }
             try:
                 response = requests.post(
                     f"{response_url}",
                     json=payloads,
-                    headers={"Content-Type": "application/json"}
+                    headers={"Content-Type": "application/json"},
                 ).json()
                 if not (response and "message" in response):
                     print(response)
@@ -83,11 +83,9 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    async def get_response_beta(self, joke: bool=None):
+    async def get_response_beta(self, joke: bool = None):
         url = "https://freegptapi.hop.sh/neural/api"
-        params = {
-            "query": self.query
-            }
+        params = {"query": self.query}
         response = requests.get(url, params=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"

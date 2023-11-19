@@ -17,14 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 class PrivateApiUrl:
     def __init__(
         self,
-        url: str="private.randydev.my.id",
-        method: str=None,
-        punctuation: str="?",
-        parameter: str=None,
-        allow_web: str="https"
+        url: str = "private.randydev.my.id",
+        method: str = None,
+        punctuation: str = "?",
+        parameter: str = None,
+        allow_web: str = "https",
     ):
         self.url = url
         self.method = method

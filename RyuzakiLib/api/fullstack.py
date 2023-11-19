@@ -19,15 +19,16 @@
 
 import requests
 
+
 class FullStackDev:
     def __init__(
         self,
-        domain_url: str=None,
+        domain_url: str = None,
         headers=None,
-        params: str=None,
+        params: str = None,
         json_data=None,
-        type_mode: str="wb",
-        filename: str=None
+        type_mode: str = "wb",
+        filename: str = None,
     ):
         self.headers = headers
         self.domain_url = domain_url
@@ -40,19 +41,23 @@ class FullStackDev:
         request_url = self.domain_url
         return request_url
 
-    def ryuzaki_get(self, re_json: bool=None):
+    def ryuzaki_get(self, re_json: bool = None):
         request_url = self.domain_urls()
         if re_json:
-            req = requests.get(request_url, headers=self.headers, params=self.params).json()
+            req = requests.get(
+                request_url, headers=self.headers, params=self.params
+            ).json()
             return req
         else:
             req = requests.get(request_url, headers=self.headers, params=self.params)
             return req
 
-    def ryuzaki_post(self, re_json: bool=None):
+    def ryuzaki_post(self, re_json: bool = None):
         request_url = self.domain_urls()
         if re_json:
-            req = requests.post(request_url, headers=self.headers, params=self.json_data).json()
+            req = requests.post(
+                request_url, headers=self.headers, params=self.json_data
+            ).json()
             return req
         else:
             req = requests.post(request_url, headers=self.headers, json=self.json_data)
@@ -65,10 +70,12 @@ class FullStackDev:
             file.write(req.content)
         return self.filename
 
-    def fastapi_get(self, re_json: bool=None):
+    def fastapi_get(self, re_json: bool = None):
         request_url = self.domain_urls()
         if re_json:
-            req = requests.get(request_url, headers=self.headers, params=self.json_data).json()
+            req = requests.get(
+                request_url, headers=self.headers, params=self.json_data
+            ).json()
             if req.status_code != 200:
                 return "Not Responding"
             try:

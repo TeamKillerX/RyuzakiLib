@@ -25,6 +25,7 @@ from pyrogram.types import Message
 
 aiosession = ClientSession()
 
+
 class CarbonSuper:
     def __init__(
         self,
@@ -34,10 +35,12 @@ class CarbonSuper:
         self.code = code
         self.color = color
 
-    async def make_carbon(self, ryuzaki: bool=None):
+    async def make_carbon(self, ryuzaki: bool = None):
         url = "https://carbonara.solopov.dev/api/cook"
         if ryuzaki:
-            async with aiosession.post(url, json={"code": self.code, "backgroundColor": self.color}) as resp:
+            async with aiosession.post(
+                url, json={"code": self.code, "backgroundColor": self.color}
+            ) as resp:
                 image = BytesIO(await resp.read())
             image.name = "carbon.png"
             return image

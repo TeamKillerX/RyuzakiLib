@@ -26,6 +26,7 @@ import requests
 import os
 from base64 import b64decode as what
 
+
 class AnimeStyled:
     def init(self, apikey, input):
         self.apikey = apikey

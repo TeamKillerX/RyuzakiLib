@@ -20,22 +20,20 @@
 import requests
 from typing import Union
 
+
 class API:
-    def __init__(
-        self,
-        bot_token: str=None
-    ):
+    def __init__(self, bot_token: str = None):
         self.bot_token = bot_token
 
     def telegram(self, method):
         url = f"https://api.telegram.org/bot{self.bot_token}/{method}"
         return url
 
-    def get_me(self, re_json: bool=False):
+    def get_me(self, re_json: bool = False):
         urls = self.telegram("getMe")
         headers = {
             "accept": "application/json",
-            "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)"
+            "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
         }
         if re_json:
             response = requests.post(urls, headers=headers).json()
@@ -48,21 +46,21 @@ class API:
         self,
         chat_id: Union[str, int] = None,
         from_chat_id: Union[str, int] = None,
-        disable_notification: bool=False,
-        message_id: int=None,
-        re_json: bool=False
+        disable_notification: bool = False,
+        message_id: int = None,
+        re_json: bool = False,
     ):
         urls = self.telegram("forwardMessage")
         payload = {
             "chat_id": chat_id,
             "from_chat_id": from_chat_id,
             "message_id": message_id,
-            "disable_notification": disable_notification
+            "disable_notification": disable_notification,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers).json()
@@ -75,9 +73,9 @@ class API:
         self,
         chat_id: Union[str, int] = None,
         photo: Union[str, None] = None,
-        caption: str=None,
-        disable_notification: bool=False,
-        reply_to_message_id: int=None
+        caption: str = None,
+        disable_notification: bool = False,
+        reply_to_message_id: int = None,
     ):
         urls = self.telegram("sendPhoto")
         payload = {
@@ -85,12 +83,12 @@ class API:
             "photo": photo,
             "caption": caption,
             "disable_notification": disable_notification,
-            "reply_to_message_id": reply_to_message_id
+            "reply_to_message_id": reply_to_message_id,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers).json()
@@ -103,12 +101,12 @@ class API:
         self,
         chat_id: Union[str, int] = None,
         audio: Union[str, None] = None,
-        duration: int=None,
+        duration: int = None,
         performer=None,
         track=None,
-        disable_notification: bool=False,
-        reply_to_message_id: int=None,
-        re_json: bool=False
+        disable_notification: bool = False,
+        reply_to_message_id: int = None,
+        re_json: bool = False,
     ):
         urls = self.telegram("sendAudio")
         payload = {
@@ -118,12 +116,12 @@ class API:
             "performer": performer,
             "track": track,
             "disable_notification": disable_notification,
-            "reply_to_message_id": reply_to_message_id
+            "reply_to_message_id": reply_to_message_id,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers)
@@ -136,10 +134,10 @@ class API:
         self,
         chat_id: Union[str, int] = None,
         document: Union[str, None] = None,
-        caption: str=None,
-        disable_notification: bool=False,
-        reply_to_message_id: int=None,
-        re_json: bool=False
+        caption: str = None,
+        disable_notification: bool = False,
+        reply_to_message_id: int = None,
+        re_json: bool = False,
     ):
         urls = self.telegram("sendDocument")
         payload = {
@@ -147,12 +145,12 @@ class API:
             "document": document,
             "caption": caption,
             "disable_notification": disable_notification,
-            "reply_to_message_id": reply_to_message_id
+            "reply_to_message_id": reply_to_message_id,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers)
@@ -165,10 +163,10 @@ class API:
         self,
         chat_id: Union[str, int] = None,
         sticker: Union[str, None] = None,
-        caption: str=None,
-        disable_notification: bool=False,
-        reply_to_message_id: int=None,
-        re_json: bool=False
+        caption: str = None,
+        disable_notification: bool = False,
+        reply_to_message_id: int = None,
+        re_json: bool = False,
     ):
         urls = self.telegram("sendSticker")
         payload = {
@@ -176,12 +174,12 @@ class API:
             "sticker": sticker,
             "caption": caption,
             "disable_notification": disable_notification,
-            "reply_to_message_id": reply_to_message_id
+            "reply_to_message_id": reply_to_message_id,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers)
@@ -193,12 +191,12 @@ class API:
     def send_message(
         self,
         chat_id: Union[str, int] = None,
-        text: str=None,
-        disable_web_page_preview: bool=False,
-        disable_notification: bool=False,
-        reply_to_message_id: int=None,
+        text: str = None,
+        disable_web_page_preview: bool = False,
+        disable_notification: bool = False,
+        reply_to_message_id: int = None,
         parse_mode=None,
-        re_json: bool=False
+        re_json: bool = False,
     ):
         urls = self.telegram("sendMessage")
         payload = {
@@ -207,12 +205,12 @@ class API:
             "disable_web_page_preview": disable_web_page_preview,
             "disable_notification": disable_notification,
             "reply_to_message_id": reply_to_message_id,
-            "chat_id": chat_id
+            "chat_id": chat_id,
         }
         headers = {
             "accept": "application/json",
             "User-Agent": "Telegram Bot SDK - (https://github.com/irazasyed/telegram-bot-sdk)",
-            "content-type": "application/json"
+            "content-type": "application/json",
         }
         if re_json:
             response = requests.post(urls, json=payload, headers=headers).json()

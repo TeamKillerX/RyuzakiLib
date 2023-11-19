@@ -82,7 +82,7 @@ class RendyDevChat:
                 return f"Error Api {e}"
         else:
             return f"WTF THIS {self.query}"
-        
+
     async def get_response_beta(self, joke: bool=None):
         url = "https://freegptapi.hop.sh/neural/api"
         params = {
@@ -91,14 +91,10 @@ class RendyDevChat:
         response = requests.get(url, params=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
-        
+
         if joke:
             check_response = response.json()
             answer = check_response.get("answer")
             return answer
         else:
             return f"WTF THIS {self.query}"
-
-
-
-

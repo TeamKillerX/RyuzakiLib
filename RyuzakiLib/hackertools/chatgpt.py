@@ -96,3 +96,15 @@ class RendyDevChat:
             return answer
         else:
             return f"WTF THIS {self.query}"
+
+    async def get_response_bing(self, bing: bool = None):
+        url = f"https://api.freegpt4.ddns.net/?text={self.query}"
+        response = requests.get(url)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if bing:
+            check_response = response.text
+            return check_response
+        else:
+            return f"WTF THIS {self.query}"

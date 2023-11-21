@@ -4,7 +4,7 @@ class SibylBan:
     def __init__(self):
         pass
 
-    async def add_ban(user_id: int=None, reason: str=None, is_banned: bool=False):
+    async def add_ban(self, user_id: int=None, reason: str=None, is_banned: bool=False):
         if is_banned:
             url = f"https://private.randydev.my.id/ryuzaki/sibylban?user_id={user_id}&reason={reason}"
             try:
@@ -18,7 +18,7 @@ class SibylBan:
         else:
             return "Error required is_banned=True"
 
-    async def get_ban(user_id: int=None, banlist: bool=False):
+    async def get_ban(self, user_id: int=None, banlist: bool=False):
         if banlist:
             url = f"https://private.randydev.my.id/ryuzaki/sibyl?user_id={user_id}"
             try:
@@ -30,3 +30,13 @@ class SibylBan:
                 return f"Error: {e}"
         else:
             return "Error required banlist=True"
+
+    async def get_all_banlist(self):
+        try:
+            url = "https://private.randydev.my.id/ryuzaki/getbanlist"
+            response = requests.get(url).json()
+            if response.status_code != 200:
+                return f"Error request: {response.status_code}"
+            return response
+        except Exception as e:
+            return f"Error: {e}"

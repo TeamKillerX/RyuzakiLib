@@ -1,6 +1,6 @@
 # RyuzakiLib
 
-<img src="RyuzakiLib/pro.png" alt="Hacker"></img>
+![pro](https://github.com/TeamKillerX/RyuzakiLib/assets/90479255/dfa2f321-9b36-4045-a321-bcfdd4366514)
 
 [![pykillerx - Version](https://img.shields.io/pypi/v/RyuzakiLib?style=round)](https://pypi.org/project/RyuzakiLib)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/RyuzakiLib?label=DOWNLOADS&style=round)](https://pypi.org/project/RyuzakiLib)
@@ -42,6 +42,26 @@ class example_python:
 ok = example_python()
 test = ok.hello_world()
 ```
+
+### Spamwatch
+• Example usage
+```python
+from RyuzakiLib.spamwatch.clients import SibylBan
+
+clients = SibylBan()
+
+message = await clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
+await message.reply_text(message)
+
+# Part 2
+showing = await clients.get_ban(user_id=client.me.id, banlist=True)
+print(showing)
+
+# Part 3
+results = await clients.get_all_banlist()
+print(results)
+```
+• Can't Unbanned: ask support [@xtdevs](https://t.me/xtdevs)
 
 ### Learn Telegram Bot API
 ```python

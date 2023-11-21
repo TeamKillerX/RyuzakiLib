@@ -28,8 +28,6 @@ class SibylBan:
             url = f"https://private.randydev.my.id/ryuzaki/sibylban?user_id={user_id}&reason={reason}"
             try:
                 response = requests.post(url).json()
-                if response.status_code != 200:
-                    return f"Error Request: {response.status_code}"
                 message = response["randydev"]["message"] if response else response["message"]
                 return message
             except Exception as e:
@@ -42,8 +40,6 @@ class SibylBan:
             url = f"https://private.randydev.my.id/ryuzaki/sibyl?user_id={user_id}"
             try:
                 response = requests.get(url).json()
-                if response.status_code != 200:
-                    return f"Error Request: {response.status_code}"
                 return response
             except Exception as e:
                 return f"Error: {e}"
@@ -54,8 +50,6 @@ class SibylBan:
         try:
             url = "https://private.randydev.my.id/ryuzaki/getbanlist"
             response = requests.get(url).json()
-            if response.status_code != 200:
-                return f"Error request: {response.status_code}"
             return response
         except Exception as e:
             return f"Error: {e}"

@@ -53,3 +53,14 @@ class SibylBan:
             return response
         except Exception as e:
             return f"Error: {e}"
+
+    async def unban_del(self, user_id: int=None, delete: bool=False):
+        if delete:
+            try:
+                url = f"https://private.randydev.my.id/ryuzaki/sibyldel?user_id={user_id}"
+                response = requests.delete(url).json()
+                return response.get("message")
+            except Exception as e:
+                return f"Error: {e}"
+        else:
+            return "Error required delete=True"

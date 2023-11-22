@@ -3,17 +3,20 @@
 ```python
 from RyuzakiLib.spamwatch.clients import SibylBan
 
-clients = SibylBan()
+clients = SibylBan("your_api_key_here")
 
-message = await clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
+message = clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
 await message.reply_text(message)
 
 # Part 2
-showing = await clients.get_ban(user_id=client.me.id, banlist=True)
+showing = clients.get_ban(user_id=client.me.id, banlist=True)
 print(showing)
 
 # Part 3
-results = await clients.get_all_banlist()
+showing = clients.unban_del(user_id=client.me.id, delete=True)
+print(showing)
+
+# Part 4
+results = clients.get_all_banlist()
 print(results)
 ```
-• Can't Unbanned: ask support [@xtdevs](https://t.me/xtdevs)

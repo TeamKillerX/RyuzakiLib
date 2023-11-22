@@ -18,49 +18,49 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 import requests
+from typing import Optional, Union, List
 
 class SibylBan:
-    def __init__(self):
-        pass
+    def __init__(self, api_key: str = None):
+        self.api_key = api_key
 
-    async def add_ban(self, user_id: int=None, reason: str=None, is_banned: bool=False):
-        if is_banned:
-            url = f"https://private.randydev.my.id/ryuzaki/sibylban?user_id={user_id}&reason={reason}"
-            try:
-                response = requests.post(url).json()
-                message = response["randydev"]["message"] if response else response["message"]
-                return message
-            except Exception as e:
-                return f"Error: {e}"
-        else:
-            return "Error required is_banned=True"
-
-    async def get_ban(self, user_id: int=None, banlist: bool=False):
-        if banlist:
-            url = f"https://private.randydev.my.id/ryuzaki/sibyl?user_id={user_id}"
-            try:
-                response = requests.get(url).json()
-                return response
-            except Exception as e:
-                return f"Error: {e}"
-        else:
-            return "Error required banlist=True"
-
-    async def get_all_banlist(self):
+    def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
+        headers = {
+            "accept": "application/json",
+            "api-key": self.api_key
+        }
         try:
-            url = "https://private.randydev.my.id/ryuzaki/getbanlist"
-            response = requests.get(url).json()
-            return response
-        except Exception as e:
-            return f"Error: {e}"
+            response = requests.request(method, url, headers=headers, params=params, json=json_data)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            raise RuntimeError(f"Request failed: {e}")
 
-    async def unban_del(self, user_id: int=None, delete: bool=False):
-        if delete:
-            try:
-                url = f"https://private.randydev.my.id/ryuzaki/sibyldel?user_id={user_id}"
-                response = requests.delete(url).json()
-                return response.get("message")
-            except Exception as e:
-                return f"Error: {e}"
+    def add_ban(self, user_id: int, reason: str, is_banned: bool = False) -> str:
+        if is_banned:
+            url = "https://private.randydev.my.id/ryuzaki/sibylban"
+            params = {"user_id": user_id, "reason": reason}
+            response = self._make_request("POST", url, params=params)
+            return response.get("randydev", {}).get("message", response.get("message", "Unknown error"))
         else:
-            return "Error required delete=True"
+            raise ValueError("Error: is_banned must be True")
+
+    def get_ban(self, user_id: int, banlist: bool = False) -> Union[dict, str]:
+        if banlist:
+            url = "https://private.randydev.my.id/ryuzaki/sibyl"
+            params = {"user_id": user_id}
+            return self._make_request("GET", url, params=params)
+        else:
+            raise ValueError("Error: banlist must be True")
+
+    def unban_del(self, user_id: int, delete: bool = False) -> Union[dict, str]:
+        if delete:
+            url = "https://private.randydev.my.id/ryuzaki/sibyl"
+            params = {"user_id": user_id}
+            return self._make_request("DELETE", url, params=params)
+        else:
+            raise ValueError("Error: delete must be True")
+
+    def get_all_banlist(self) -> Union[dict, str]:
+        url = "https://private.randydev.my.id/ryuzaki/getbanlist"
+        return self._make_request("GET", url)

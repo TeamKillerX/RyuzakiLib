@@ -55,7 +55,7 @@ class SibylBan:
 
     def unban_del(self, user_id: int, delete: bool = False) -> Union[dict, str]:
         if delete:
-            url = "https://private.randydev.my.id/ryuzaki/sibyl"
+            url = "https://private.randydev.my.id/ryuzaki/sibyldel"
             params = {"user_id": user_id}
             return self._make_request("DELETE", url, params=params)
         else:

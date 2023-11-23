@@ -31,10 +31,9 @@ class SibylBan:
         }
         try:
             response = requests.request(method, url, headers=headers, params=params, json=json_data)
-            response.raise_for_status()
             return response.json()
-        except requests.RequestException as e:
-            raise RuntimeError(f"Request failed: {e}")
+        except requests.RequestException:
+            pass
 
     def add_ban(self, user_id: int, reason: str, is_banned: bool = False) -> str:
         if is_banned:

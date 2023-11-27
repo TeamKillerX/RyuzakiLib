@@ -43,12 +43,30 @@ ok = example_python()
 test = ok.hello_world()
 ```
 
+### Tutorial FastAPI
+```python
+from fastapi import FastAPI
+from RyuzakiLib.hackertools.chatgpt import RendyDevChat
+from RyuzakiLib.hackertools.openai import OpenAiToken
+
+app = FastAPI()
+
+@app.get("/read")
+def hello():
+    return {"message": "Hello World"}
+
+if __name__ == "__main__":
+   uvicorn.run(app, host="0.0.0.0")
+```
+- Like example this [`RyuzakiLib API`](https://private.randydev.my.id)
+* [x] Requirements: `fastapi` and `RyuzakiLib`
+
 ### Spamwatch
 • Example usage
 ```python
 from RyuzakiLib.spamwatch.clients import SibylBan
 
-clients = SibylBan("your_api_key_here")
+clients = SibylBan(api_key="your_api_key_here")
 
 message = clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
 await message.reply_text(message)
@@ -58,10 +76,6 @@ showing = clients.get_ban(user_id=client.me.id, banlist=True)
 print(showing)
 
 # Part 3
-unban_str = clients.unban_del(user_id=client.me.id, delete=True)
-print(unban_str)
-
-# Part 4
 results = clients.get_all_banlist()
 print(results)
 ```

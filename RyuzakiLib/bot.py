@@ -195,7 +195,6 @@ class API:
         disable_web_page_preview: bool = False,
         disable_notification: bool = False,
         reply_to_message_id: int = None,
-        parse_mode=None,
         re_json: bool = False,
     ):
         urls = self.telegram("sendMessage")

@@ -13,10 +13,6 @@ showing = clients.get_ban(user_id=client.me.id, banlist=True)
 print(showing)
 
 # Part 3
-showing = clients.unban_del(user_id=client.me.id, delete=True)
-print(showing)
-
-# Part 4
 results = clients.get_all_banlist()
 print(results)
 ```

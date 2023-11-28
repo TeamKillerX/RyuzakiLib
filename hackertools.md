@@ -29,9 +29,10 @@ from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
 code = RendyDevChat(query)
-message_output = code.get_response(message, latest_version=True) # non-async
-message_output_2 = await code.get_response_beta(joke=True) # async
-message_output_3 = await code.get_response_bing(bing=True) # async
+message_output = code.get_response(message, latest_version=True)
+message_output_2 = code.get_response_beta(joke=True)
+message_output_3 = code.get_response_bing(bing=True)
+message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean 
 ```
 
 ### Example Reverse

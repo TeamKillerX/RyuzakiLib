@@ -25,7 +25,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from base64 import b64decode as idk
 
-
 class RendyDevChat:
     def __init__(
         self,
@@ -83,7 +82,26 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    async def get_response_beta(self, joke: bool = None):
+    def get_response_model(self, model_id: int=None, is_models: bool=False):
+        url = "https://lexica.qewertyy.me/models"
+        if is_models:
+            params = {"model_id": model_id, "prompt": self.query}
+            response = requests.post(url, params=params)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            answer = check_response.get("content")
+            return answer
+        else:
+            params = {"model_id": 5, "prompt": self.query}
+            response = requests.post(url, params=params)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            answer = check_response.get("content")
+            return answer
+
+    def get_response_beta(self, joke: bool = None):
         url = "https://freegptapi.hop.sh/neural/api"
         params = {"query": self.query}
         response = requests.get(url, params=params)
@@ -97,7 +115,7 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    async def get_response_bing(self, bing: bool = None):
+    def get_response_bing(self, bing: bool = None):
         url = f"https://api.freegpt4.ddns.net/?text={self.query}"
         response = requests.get(url)
         if response.status_code != 200:

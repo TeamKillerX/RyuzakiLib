@@ -32,7 +32,7 @@ code = RendyDevChat(query)
 message_output = code.get_response(message, latest_version=True)
 message_output_2 = code.get_response_beta(joke=True)
 message_output_3 = code.get_response_bing(bing=True)
-message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean 
+message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
 ```
 
 ### Example Reverse

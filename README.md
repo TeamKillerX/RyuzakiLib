@@ -27,6 +27,17 @@ Never ever abuse this repository
 git+https://github.com/TeamKillerX/RyuzakiLib/archive/refs/heads/dev.zip
 ```
 
+### Import Here
+```python
+from RyuzakiLib.hackertools.chatgpt import RendyDevChat
+from RyuzakiLib.hackertools.github import GithubUsername
+from RyuzakiLib.hackertools.rmbg import RemoveBg
+from RyuzakiLib.hackertools.reverse import GoogleReverseImage
+from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
+from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
+from RyuzakiLib.hackertools.prefixes import CustomPrefixes
+```
+
 ### Learn Python
 ```python
 import asyncio
@@ -108,15 +119,19 @@ response = requests.post(urls, json=payload, headers=headers)
 print(response.text)
 ```
 
-### Import Here
+### Chatgpt New?
+* Chatgpt's new features are available here
+- parameter
+
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
-from RyuzakiLib.hackertools.github import GithubUsername
-from RyuzakiLib.hackertools.rmbg import RemoveBg
-from RyuzakiLib.hackertools.reverse import GoogleReverseImage
-from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
-from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
-from RyuzakiLib.hackertools.prefixes import CustomPrefixes
+
+query = "Hello World"
+code = RendyDevChat(query)
+message_output = code.get_response(message, latest_version=True)
+message_output_2 = code.get_response_beta(joke=True)
+message_output_3 = code.get_response_bing(bing=True)
+message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean 
 ```
 
 ### Example Chatgpt

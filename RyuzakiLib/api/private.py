@@ -21,7 +21,7 @@
 class PrivateApiUrl:
     def __init__(
         self,
-        url: str = "private.randydev.my.id",
+        url: str = "https://randydev-ryuzaki-api.hf.space",
         method: str = None,
         punctuation: str = "?",
         parameter: str = None,

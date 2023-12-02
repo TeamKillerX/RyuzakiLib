@@ -37,7 +37,7 @@ class SibylBan:
 
     def add_ban(self, user_id: int, reason: str, is_banned: bool = False) -> str:
         if is_banned:
-            url = "https://private.randydev.my.id/ryuzaki/sibylban"
+            url = "https://randydev-ryuzaki-api.hf.space/sibylban"
             params = {"user_id": user_id, "reason": reason}
             response = self._make_request("POST", url, params=params)
             return response.get("randydev", {}).get("message", response.get("message", "Unknown error"))
@@ -46,7 +46,7 @@ class SibylBan:
 
     def get_ban(self, user_id: int, banlist: bool = False) -> Union[dict, str]:
         if banlist:
-            url = "https://private.randydev.my.id/ryuzaki/sibyl"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
             params = {"user_id": user_id}
             return self._make_request("GET", url, params=params)
         else:
@@ -54,12 +54,12 @@ class SibylBan:
 
     def unban_del(self, user_id: int, delete: bool = False) -> Union[dict, str]:
         if delete:
-            url = "https://private.randydev.my.id/ryuzaki/sibyldel"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
             params = {"user_id": user_id}
             return self._make_request("DELETE", url, params=params)
         else:
             raise ValueError("Error: delete must be True")
 
     def get_all_banlist(self) -> Union[dict, str]:
-        url = "https://private.randydev.my.id/ryuzaki/getbanlist"
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/getbanlist"
         return self._make_request("GET", url)

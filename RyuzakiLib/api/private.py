@@ -51,5 +51,5 @@ class WaifuApiUrl:
         self.allow_web = allow_web
 
     def checking(self):
-        api_url = f"{self.allow_web}://{self.url}/{self.punctuation}{self.parameter}"
+        api_url = f"{self.allow_web}://{self.url}/{self.punctuation}/{self.parameter}"
         return api_url

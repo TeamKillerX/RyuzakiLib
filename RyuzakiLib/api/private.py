@@ -41,10 +41,12 @@ class WaifuApiUrl:
     def __init__(
         self,
         url: str = "api.waifu.pics"
+        punctuation: str = None,
         parameter: str = None,
         allow_web: str = "https",
     ):
         self.url = url
+        self.punctuation = punctuation
         self.parameter = parameter
         self.allow_web = allow_web
 

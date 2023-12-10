@@ -139,3 +139,20 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         else:
             return f"WTF THIS {self.query}"
+
+    def get_response_google_ai(self, api_key: str=None, is_google: bool = False):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+        headers = {
+            "accept": "application/json",
+            "api-key": api_key
+        }
+        params = {"query": self.query}
+        response = requests.post(url, headers=headers, params=params)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if is_google:
+            check_response = response.json()
+            return check_response["randydev"]["message"]
+        else:
+            return f"WTF THIS {self.query}"

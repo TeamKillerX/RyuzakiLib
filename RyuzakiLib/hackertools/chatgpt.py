@@ -101,7 +101,7 @@ class RendyDevChat:
             answer = check_response.get("content")
             return answer
 
-    def get_response_beta(self, joke: bool = None):
+    def get_response_beta(self, joke: bool = False):
         url = "https://freegptapi.hop.sh/neural/api"
         params = {"query": self.query}
         response = requests.get(url, params=params)
@@ -115,7 +115,7 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_bing(self, bing: bool = None):
+    def get_response_bing(self, bing: bool = False):
         url = f"https://api.freegpt4.ddns.net/?text={self.query}"
         response = requests.get(url)
         if response.status_code != 200:
@@ -124,5 +124,18 @@ class RendyDevChat:
         if bing:
             check_response = response.text
             return check_response
+        else:
+            return f"WTF THIS {self.query}"
+
+    def get_response_llama(self, llama: bool = False):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
+        params = {"query": self.query}
+        response = requests.get(url)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if llama:
+            check_response = response.json()
+            return check_response["randydev"]["message"]
         else:
             return f"WTF THIS {self.query}"

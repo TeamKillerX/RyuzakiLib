@@ -91,6 +91,19 @@ results = clients.get_all_banlist()
 print(results)
 ```
 
+### Profile Clone
+• Example usage
+```python
+from RyuzakiLib.profile.user import ProfileClone
+
+clients = ProfileClone(api_key="your_api_key_here")
+
+message = clients.add_profile_clone() # need parameter
+
+showing = clients.get_profile_clone() # need parameter
+print(showing)
+```
+
 ### Learn Telegram Bot API
 ```python
 

@@ -140,8 +140,16 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_google_ai(self, api_key: str=None, is_google: bool = False):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+    def get_response_google_ai(
+        self,
+        api_key: str=None,
+        is_chat_bison: bool = False,
+        is_google: bool = False
+    ):
+        if is_chat_bison:
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+        else:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
         headers = {
             "accept": "application/json",
             "api-key": api_key

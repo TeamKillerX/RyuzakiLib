@@ -147,9 +147,9 @@ class RendyDevChat:
         is_google: bool = False
     ):
         if is_chat_bison:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
         else:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
         headers = {
             "accept": "application/json",
             "api-key": api_key

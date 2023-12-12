@@ -140,6 +140,31 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
+    def get_response_gemini_pro(
+        self,
+        api_key: str=None,
+        re_json: bool = False,
+        is_gemini_pro: bool = False
+    ):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+        headers = {
+            "accept": "application/json",
+            "api-key": api_key
+        }
+        params = {"query": self.query}
+        response = requests.post(url, headers=headers, params=params)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if is_gemini_pro:
+            if re_json:
+                check_response = response.json()
+            else:
+                check_response = response
+            return check_response
+        else:
+            return f"WTF THIS {self.query}"
+
     def get_response_google_ai(
         self,
         api_key: str=None,

@@ -168,6 +168,7 @@ class RendyDevChat:
     def get_response_google_ai(
         self,
         api_key: str=None,
+        re_json: bool = False,
         is_chat_bison: bool = False,
         is_google: bool = False
     ):
@@ -185,7 +186,10 @@ class RendyDevChat:
             return f"Error status: {response.status_code}"
 
         if is_google:
-            check_response = response.json()
-            return check_response["randydev"]["message"]
+            if re_json:
+                check_response = response.json()
+            else:
+                check_response = response
+            return check_response
         else:
             return f"WTF THIS {self.query}"

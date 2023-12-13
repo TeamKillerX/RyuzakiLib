@@ -18,12 +18,17 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import openai
-
+from openai import OpenAI
 
 class OpenAiToken:
-    def __init__(self, apikey):
-        self.apikey = apikey
-        openai.api_key = self.apikey
+    def __init__(
+        self,
+        api_key: str=None,
+        organization: str=None
+    ):
+        self.api_key = api_key
+        self.organization = organization
+        openai.api_key = self.api_key
 
     def message_output(self, query):
         response = openai.Completion.create(
@@ -40,6 +45,17 @@ class OpenAiToken:
     def photo_output(self, query):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
+
+    def client_images_generate(query: str):
+        client = OpenAI(organization=self.organization)
+        response = client.images.generate(
+            model="dall-e-3",
+            prompt=query,
+            size="1024x1024",
+            quality="standard",
+            n=1
+        )
+        return response.data[0].url
 
     def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:

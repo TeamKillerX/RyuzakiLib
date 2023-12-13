@@ -46,11 +46,11 @@ class OpenAiToken:
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
-    def client_images_generate(query: str, re_json: bool=False):
+    def client_images_generate(self, query: str, re_json: bool=False):
         url = "https://api.openai.com/v1/images/generations"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}",
+            "Authorization": f"Bearer {self.api_key}",
             "OpenAI-Organization": self.organization
         }
         data = {

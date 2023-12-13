@@ -18,7 +18,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import openai
-from openai import OpenAI
+import requests
 
 class OpenAiToken:
     def __init__(
@@ -46,16 +46,28 @@ class OpenAiToken:
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
-    def client_images_generate(query: str):
-        client = OpenAI(organization=self.organization)
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=query,
-            size="1024x1024",
-            quality="standard",
-            n=1
-        )
-        return response.data[0].url
+    def client_images_generate(query: str, re_json: bool=False):
+        url = "https://api.openai.com/v1/images/generations"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}",
+            "OpenAI-Organization": self.organization
+        }
+        data = {
+            "model": "dall-e-3",
+            "prompt": query,
+            "n": 1,
+            "size": "1024x1024",
+            "quality": "standard"
+        }
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code != 200:
+            return "Error response"
+        if re_json:
+            check_response = response.json()
+        else:
+            check_response = response
+        return check_response
 
     def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:

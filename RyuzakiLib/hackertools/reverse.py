@@ -41,7 +41,5 @@ class GoogleReverseImage:
             "hl": "en",
             "gl": "us",
         }
-        search = GoogleSearch(
-            params
-        )
+        search = GoogleSearch(params)
         return search.get_dict()

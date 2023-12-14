@@ -28,7 +28,7 @@ from base64 import b64decode as idk
 class RendyDevChat:
     def __init__(
         self,
-        query,
+        query: str=None,
         binary="01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100",
     ):
         self.query = query
@@ -53,7 +53,7 @@ class RendyDevChat:
         message,
         version: int = 3,
         chat_mode: str = "assistant",
-        latest_version: bool = None,
+        latest_version: bool = False,
     ):
         if isinstance(message, Message):
             blacklist = self.get_blacklist_from_file()

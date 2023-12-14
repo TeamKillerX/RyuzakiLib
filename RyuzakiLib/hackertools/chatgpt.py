@@ -193,3 +193,23 @@ class RendyDevChat:
             return check_response
         else:
             return f"WTF THIS {self.query}"
+
+    def multi_chat_response(
+        self,
+        api_key: str=None,
+        is_multi_chat: bool = False
+    ):
+        if is_multi_chat:
+            response = self.get_response_gemini_pro(
+                api_key=api_key,
+                re_json=True,
+                is_gemini_pro=True,
+            )
+        else:
+            response = self.get_response_google_ai(
+                api_key=api_key,
+                re_json=True,
+                is_chat_bison=True,
+                is_google=True
+            )
+        return response

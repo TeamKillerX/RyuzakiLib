@@ -82,24 +82,31 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_model(self, model_id: int=None, is_models: bool=False):
-        url = "https://lexica.qewertyy.me/models"
-        if is_models:
-            params = {"model_id": model_id, "prompt": self.query}
-            response = requests.post(url, params=params)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            answer = check_response.get("content")
-            return answer
+    def get_response_model(
+        self,
+        model_id: int=None,
+        is_models: bool=False,
+        re_json: bool=False,
+        status_ok: bool=False
+    ):
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
+        params = {
+            "query": self.query,
+            "model_id": model_id,
+            "is_models": is_models
+        }
+        response = requests.post(url, params=params)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if status_ok:
+            if re_json:
+                check_response = response.json()
+            else:
+                check_response = response
+            return check_response
         else:
-            params = {"model_id": 5, "prompt": self.query}
-            response = requests.post(url, params=params)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            answer = check_response.get("content")
-            return answer
+            return f"WTF THIS {self.query}"
 
     def get_response_beta(self, joke: bool = False):
         url = "https://freegptapi.hop.sh/neural/api"

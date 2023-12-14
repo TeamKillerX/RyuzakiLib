@@ -28,7 +28,7 @@ import os
 
 
 class WhoisIpHacker:
-    def __init__(self, address):
+    def __init__(self, address: str=None):
         self.address = address
 
     def get_ipaddres_data(self):

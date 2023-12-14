@@ -36,8 +36,8 @@ class ProfileClone:
 
     def add_profile_clone(
         self,
-        user_id: int,
-        first_name: str,
+        user_id: int=None,
+        first_name: str=None,
         last_name=None,
         profile_id=None,
         bio=None,
@@ -56,7 +56,7 @@ class ProfileClone:
         else:
             raise ValueError("Error: is_clone must be True")
 
-    def get_profile_clone(self, user_id: int, is_profile_show: bool=False):
+    def get_profile_clone(self, user_id: int=None, is_profile_show: bool=False):
         if is_profile_show:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
             params = {"user_id": user_id}

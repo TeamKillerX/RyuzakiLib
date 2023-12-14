@@ -35,7 +35,7 @@ class SibylBan:
         except requests.RequestException:
             pass
 
-    def add_ban(self, user_id: int, reason: str, is_banned: bool = False) -> str:
+    def add_ban(self, user_id: int=None, reason: str=None, is_banned: bool = False) -> str:
         if is_banned:
             url = "https://randydev-ryuzaki-api.hf.space/sibylban"
             params = {"user_id": user_id, "reason": reason}
@@ -44,7 +44,7 @@ class SibylBan:
         else:
             raise ValueError("Error: is_banned must be True")
 
-    def get_ban(self, user_id: int, banlist: bool = False) -> Union[dict, str]:
+    def get_ban(self, user_id: int=None, banlist: bool = False) -> Union[dict, str]:
         if banlist:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
             params = {"user_id": user_id}
@@ -52,7 +52,7 @@ class SibylBan:
         else:
             raise ValueError("Error: banlist must be True")
 
-    def unban_del(self, user_id: int, delete: bool = False) -> Union[dict, str]:
+    def unban_del(self, user_id: int=None, delete: bool = False) -> Union[dict, str]:
         if delete:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
             params = {"user_id": user_id}

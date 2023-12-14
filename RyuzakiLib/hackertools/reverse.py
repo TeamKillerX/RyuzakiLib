@@ -24,15 +24,18 @@ import requests
 import json
 from serpapi import GoogleSearch
 
-
 class GoogleReverseImage:
-    def __init__(self, image_url, apikey):
+    def __init__(
+        self,
+        image_url: str=None,
+        api_key: str=None
+    ):
         self.image_url = image_url
-        self.apikey = apikey
+        self.api_key = api_key
 
     def get_reverse(self):
         params = {
-            "api_key": self.apikey,
+            "api_key": self.api_key,
             "engine": "google_reverse_image",
             "image_url": self.image_url,
             "hl": "en",
@@ -40,5 +43,5 @@ class GoogleReverseImage:
         }
         search = GoogleSearch(
             params
-        )  # where data extraction happens on the SerpApi backend
+        )
         return search.get_dict()

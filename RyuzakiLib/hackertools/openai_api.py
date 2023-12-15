@@ -54,10 +54,11 @@ class OpenAiToken:
         return chat_completion
 
     def client_images_generate(
-        self, query: str,
+        self,
+        query: str,
         model: str="dall-e-3",
         quality: str="standard",
-        size: str="1024x1024",
+        size: str="1024x1024"
     ):
         chat_image_generate = openai.Images.generate(
             prompt=query,

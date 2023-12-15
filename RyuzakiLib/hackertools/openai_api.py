@@ -53,27 +53,20 @@ class OpenAiToken:
         )
         return chat_completion
 
-    def client_images_generate(self, query: str, re_json: bool=False):
-        url = "https://api.openai.com/v1/images/generations"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        data = {
-            "model": "dall-e-3",
-            "prompt": query,
-            "n": 1,
-            "size": "1024x1024",
-            "quality": "standard"
-        }
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code != 200:
-            return "Error response"
-        if re_json:
-            check_response = response.json()
-        else:
-            check_response = response
-        return check_response
+    def client_images_generate(
+        self, query: str,
+        model: str="dall-e-3",
+        quality: str="standard",
+        size: str="1024x1024",
+    ):
+        chat_image_generate = openai.Images.generate(
+            prompt=query,
+            model=model,
+            quality=standard,
+            size=size,
+            response_format="url",
+        )
+        return chat_image_generate
 
     def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:

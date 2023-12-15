@@ -25,7 +25,7 @@ class OpenAiToken:
         self.api_key = api_key
         openai.api_key = self.api_key
 
-    def message_output(self, query):
+    def message_output(self, query: str=None):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=f"{query}\n:",
@@ -37,25 +37,25 @@ class OpenAiToken:
         )
         return response.choices[0].text
 
-    def photo_output(self, query):
+    def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
     def chat_message_turbo(
         self,
-        nickname: str=None,
         query: str=None,
+        role: str="user",
         model: str="gpt-3.5-turbo"
     ):
         chat_completion = openai.ChatCompletion.create(
-            messages=[{"role": nickname, "content": query}],
+            messages=[{"role": role, "content": query}],
             model=model
         )
         return chat_completion
 
     def client_images_generate(
         self,
-        query: str,
+        query: str=None,
         model: str="dall-e-3",
         quality: str="standard",
         size: str="1024x1024"

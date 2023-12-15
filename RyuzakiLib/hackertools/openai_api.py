@@ -46,6 +46,33 @@ class OpenAiToken:
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
+    def chat_message_turbo(
+        self,
+        user_id: int=None,
+        nickname: str=None,
+        query: str=None,
+        re_json: bool=False,
+        model: str="gpt-3.5-turbo"
+    ):
+        url = "https://api.openai.com/v1/chat/completions"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        data = {
+            "id": user_id,
+            "model": model,
+            "messages": [{"role": nickname, "content": query}]
+        }
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code != 200:
+            return "Error response"
+        if re_json:
+            check_response = response.json()
+        else:
+            check_response = response
+        return check_response
+
     def client_images_generate(self, query: str, re_json: bool=False):
         url = "https://api.openai.com/v1/images/generations"
         headers = {

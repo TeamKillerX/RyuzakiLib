@@ -21,13 +21,8 @@ import openai
 import requests
 
 class OpenAiToken:
-    def __init__(
-        self,
-        api_key: str=None,
-        organization: str=None
-    ):
+    def __init__(self, api_key: str=None):
         self.api_key = api_key
-        self.organization = organization
         openai.api_key = self.api_key
 
     def message_output(self, query):
@@ -48,37 +43,21 @@ class OpenAiToken:
 
     def chat_message_turbo(
         self,
-        user_id: int=None,
         nickname: str=None,
         query: str=None,
-        re_json: bool=False,
         model: str="gpt-3.5-turbo"
     ):
-        url = "https://api.openai.com/v1/chat/completions"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        data = {
-            "id": user_id,
-            "model": model,
-            "messages": [{"role": nickname, "content": query}]
-        }
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code != 200:
-            return "Error response"
-        if re_json:
-            check_response = response.json()
-        else:
-            check_response = response
-        return check_response
+        chat_completion = openai.ChatCompletion.create(
+            messages=[{"role": nickname, "content": query}],
+            model=model
+        )
+        return chat_completion
 
     def client_images_generate(self, query: str, re_json: bool=False):
         url = "https://api.openai.com/v1/images/generations"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}",
-            "OpenAI-Organization": self.organization
+            "Authorization": f"Bearer {self.api_key}"
         }
         data = {
             "model": "dall-e-3",

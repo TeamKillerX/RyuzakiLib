@@ -41,7 +41,7 @@ class OpenAiToken:
             chat_history_user_id = user_data.get("chat_user_id")
             conversation_history = user_data.get("assistant_reply")
             try:
-                response = openai.Completion.create(
+                response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},

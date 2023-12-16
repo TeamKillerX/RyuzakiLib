@@ -40,15 +40,14 @@ class OpenAiToken:
         if user_data:
             chat_history_user_id = user_data.get("chat_user_id")
             conversation_history = user_data.get("assistant_reply")
-            messages = [
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"},
-                {"role": "assistant", "content": conversation_history}
-            ]
             try:
                 response = openai.Completion.create(
                     model="gpt-3.5-turbo",
-                    messages=messages
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant."},
+                        {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"},
+                        {"role": "assistant", "content": conversation_history}
+                    ]
                 )
                 assistant_reply = response["choices"][0]["message"]["content"]
                 collection.update_one(

@@ -47,7 +47,6 @@ class OpenAiToken:
                 conversation = "No conversation history available"
             else:
                 conversation = conversation_history
-            conversation_history = conversation_history or "No conversation history available"
             try:
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",

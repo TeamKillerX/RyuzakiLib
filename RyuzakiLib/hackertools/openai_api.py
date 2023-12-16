@@ -64,7 +64,7 @@ class OpenAiToken:
         chat_image_generate = openai.Image.create(
             prompt=query,
             model=model,
-            quality=standard,
+            quality=quality,
             size=size,
             n=n
         )

@@ -49,6 +49,7 @@ class OpenAiToken:
                         {"role": "assistant", "content": conversation_history}
                     ]
                 )
+
                 assistant_reply = response["choices"][0]["message"]["content"]
                 collection.update_one(
                     {"user_id": user_id},

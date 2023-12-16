@@ -37,17 +37,25 @@ class OpenAiToken:
 
         collection.update_one({"user_id": user_id}, {"$set": update_data}, upsert=True)
         user_data = collection.find_one({"user_id": user_id})
-
+        owner_base = """
+        Your name is Randy Dev. A kind and friendly AI assistant that answers in
+        a short and concise answer. Give short step-by-step reasoning if required.
+        """
         if user_data:
             conversation_history = user_data.get("assistant_reply")
+            if conversation_history is None:
+                conversation = "No conversation history available"
+            else:
+                conversation = conversation_history
             conversation_history = conversation_history or "No conversation history available"
             try:
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
                     messages=[
-                        {"role": "system", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": f"{user_message} Today is {dt.now(): %A %d %B %Y %H:%M}"},
-                        {"role": "assistant", "content": conversation_history}
+                        {"role": "assistant", "content": "You are a helpful assistant."},
+                        {"role": "user", "content": f"{owner_base} Today is {dt.now(): %A %d %B %Y %H:%M}"},
+                        {"role": "assistant", "content": conversation},
+                        {"role": "user", "content": user_message},
                     ]
                 )
                 assistant_reply = response["choices"][0]["message"]["content"]

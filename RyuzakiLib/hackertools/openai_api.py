@@ -52,7 +52,7 @@ class OpenAiToken:
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "assistant", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": f"{owner_base} Today is {dt.now(): %A %d %B %Y %H:%M}"},
+                        {"role": "user", "content": f"{owner_base} Today is {dt.now():%A %d %B %Y %H:%M}"},
                         {"role": "assistant", "content": conversation},
                         {"role": "user", "content": user_message},
                     ]

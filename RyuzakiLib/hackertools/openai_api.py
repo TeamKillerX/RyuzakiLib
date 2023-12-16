@@ -60,7 +60,7 @@ class OpenAiToken:
         quality: str="standard",
         size: str="1024x1024"
     ):
-        chat_image_generate = openai.Images.generate(
+        chat_image_generate = openai.ImagesResponse.generate(
             prompt=query,
             model=model,
             quality=standard,

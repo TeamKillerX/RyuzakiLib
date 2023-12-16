@@ -39,9 +39,11 @@ class OpenAiToken:
 
         if user_data:
             chat_history_user_id = user_data.get("chat_user_id")
-            messages = [
-                {"role": "assistant", "content": "You are a helpful assistant."},
-                {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"},
+            conversation_history = user_data.get("assistant_reply")
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"}
+                {"role": "assistant", "content": conversation_history},
             ]
             try:
                 response = openai.Completion.create(

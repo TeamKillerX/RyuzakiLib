@@ -20,6 +20,7 @@
 import openai
 import requests
 from pymongo import MongoClient
+from datetime import datetime as dt
 
 class OpenAiToken:
     def __init__(self, api_key: str = None, mongo_url: str = None):
@@ -38,7 +39,6 @@ class OpenAiToken:
         user_data = collection.find_one({"user_id": user_id})
 
         if user_data:
-            chat_history_user_id = user_data.get("chat_user_id")
             conversation_history = user_data.get("assistant_reply")
             conversation_history = conversation_history or "No conversation history available"
             try:
@@ -46,7 +46,7 @@ class OpenAiToken:
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"},
+                        {"role": "user", "content": f"{user_message} Today is {dt.now(): %A %d %B %Y %H:%M}"},
                         {"role": "assistant", "content": conversation_history}
                     ]
                 )

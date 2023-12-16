@@ -49,6 +49,10 @@ class OpenAiToken:
                     messages=messages
                 )
                 assistant_reply = response["choices"][0]["message"]["content"]
+                collection.update_one(
+                    {"user_id": user_id},
+                    {"$push": {"conversation_history": {"user_message": user_message, "assistant_reply": assistant_reply}}}
+                )
             except Exception as e:
                 assistant_reply = f"Error processing request: {str(e)}"
         else:

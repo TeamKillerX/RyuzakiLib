@@ -28,7 +28,7 @@ class OpenAiToken:
         openai.api_key = self.api_key
 
     def connect_mongo(self):
-        return MongoClient(self.mongo_url)["tiktok"]["users"]
+        return MongoClient(self.mongo_url)["tiktokbot"]["users"]
 
     def continue_conversation(self, user_id: int = None, user_message: str = None):
         collection = self.connect_mongo()

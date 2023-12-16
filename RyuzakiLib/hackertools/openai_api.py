@@ -58,14 +58,15 @@ class OpenAiToken:
         query: str=None,
         model: str="dall-e-3",
         quality: str="standard",
-        size: str="1024x1024"
+        size: str="1024x1024",
+        n: int=1
     ):
-        chat_image_generate = openai.ImagesResponse.generate(
+        chat_image_generate = openai.Image.create(
             prompt=query,
             model=model,
             quality=standard,
             size=size,
-            response_format="url",
+            n=n
         )
         return chat_image_generate
 

@@ -40,6 +40,7 @@ class OpenAiToken:
         if user_data:
             chat_history_user_id = user_data.get("chat_user_id")
             conversation_history = user_data.get("assistant_reply")
+            conversation_history = conversation_history or "No conversation history available"
             try:
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",

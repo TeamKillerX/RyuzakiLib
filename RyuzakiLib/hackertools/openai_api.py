@@ -22,35 +22,38 @@ import requests
 from pymongo import MongoClient
 
 class OpenAiToken:
-    def __init__(self, api_key: str=None, mongo_url: str=None):
+    def __init__(self, api_key: str = None, mongo_url: str = None):
         self.api_key = api_key
-        openai.api_key = self.api_key
         self.mongo_url = mongo_url
+        openai.api_key = self.api_key
 
-    def connect(self):
-        client_mongo = MongoClient(self.mongo_url)
-        db = client_mongo["tiktok"]
-        collection = db["users"]
-        return collection
+    def connect_mongo(self):
+        return MongoClient(self.mongo_url)["tiktok"]["users"]
 
-    def continue_conversation(
-        self,
-        user_id: int=None,
-        user_message: str=None
-    ):
-        collection = self.connect()
+    def continue_conversation(self, user_id: int = None, user_message: str = None):
+        collection = self.connect_mongo()
+        update_data = {"chat_user_id": user_id}
+
+        collection.update_one({"user_id": user_id}, {"$set": update_data}, upsert=True)
         user_data = collection.find_one({"user_id": user_id})
+
         if user_data:
             chat_history_user_id = user_data.get("chat_user_id")
-        messages = [
-            {"role": "assistant", "content": "You are a helpful assistant."},
-            {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"}
-        ]
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
-        assistant_reply = response["choices"][0]["message"]["content"]
+            messages = [
+                {"role": "assistant", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"},
+            ]
+            try:
+                response = openai.Completion.create(
+                    model="gpt-3.5-turbo",
+                    messages=messages
+                )
+                assistant_reply = response["choices"][0]["message"]["content"]
+            except Exception as e:
+                assistant_reply = f"Error processing request: {str(e)}"
+        else:
+            assistant_reply = "User not found in the database."
+
         return assistant_reply
 
     def message_output(self, query: str=None):

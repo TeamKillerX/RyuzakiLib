@@ -19,11 +19,39 @@
 
 import openai
 import requests
+from pymongo import MongoClient
 
 class OpenAiToken:
-    def __init__(self, api_key: str=None):
+    def __init__(self, api_key: str=None, mongo_url: str=None):
         self.api_key = api_key
         openai.api_key = self.api_key
+        self.mongo_url = mongo_url
+
+    def connect(self):
+        client_mongo = MongoClient(self.mongo_url)
+        db = client_mongo["tiktok"]
+        collection = db["users"]
+        return collection
+
+    def continue_conversation(
+        self,
+        user_id: int=None,
+        user_message: str=None
+    ):
+        collection = self.connect()
+        user_data = collection.find_one({"user_id": user_id})
+        if user_data:
+            chat_history_user_id = user_data.get("chat_user_id")
+        messages = [
+            {"role": "assistant", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"{user_message} (User ID: {chat_history_user_id})"}
+        ]
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        assistant_reply = response["choices"][0]["message"]["content"]
+        return assistant_reply
 
     def message_output(self, query: str=None):
         response = openai.Completion.create(
@@ -37,10 +65,6 @@ class OpenAiToken:
         )
         return response.choices[0].text
 
-    def photo_output(self, query: str=None):
-        response = openai.Image.create(prompt=query, n=1, size="1024x1024")
-        return response["data"][0]["url"]
-
     def chat_message_turbo(
         self,
         query: str=None,
@@ -52,6 +76,10 @@ class OpenAiToken:
             model=model
         )
         return chat_completion
+
+    def photo_output(self, query: str=None):
+        response = openai.Image.create(prompt=query, n=1, size="1024x1024")
+        return response["data"][0]["url"]
 
     def client_images_generate(
         self,

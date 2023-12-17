@@ -31,14 +31,19 @@ class OpenAiToken:
     def connect_mongo(self):
         return MongoClient(self.mongo_url)["tiktokbot"]["users"]
 
-    def continue_conversation(self, user_id: int = None, user_message: str = None):
+    def continue_conversation(
+        self,
+        owner_author: str="Randy Dev",
+        user_id: int = None,
+        user_message: str = None
+    ):
         collection = self.connect_mongo()
         update_data = {"chat_user_id": user_id}
 
         collection.update_one({"user_id": user_id}, {"$set": update_data}, upsert=True)
         user_data = collection.find_one({"user_id": user_id})
         owner_base = f"""
-        Your name is Randy Dev. A kind and friendly AI assistant that answers in
+        Your name is {owner_author}. A kind and friendly AI assistant that answers in
         a short and concise answer. Give short step-by-step reasoning if required.
 
         Today is {dt.now():%A %d %B %Y %H:%M}

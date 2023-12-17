@@ -12,4 +12,4 @@ gpytranslate
 Flask
 pymongo
 pytz
-urllib3==1.25.11
+urllib3

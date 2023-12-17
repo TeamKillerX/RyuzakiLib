@@ -59,7 +59,7 @@ class OpenAiToken:
                     ],
                     model="gpt-3.5-turbo",
                     top_p=0.1,
-                    timeout=2.5,
+                    timeout=2.5
                 )
                 assistant_reply = response["choices"][0]["message"]["content"]
                 collection.update_one(

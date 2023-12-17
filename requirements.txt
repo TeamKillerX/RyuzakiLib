@@ -5,10 +5,11 @@ google-search-results
 httpx[http2]
 Python-IO
 Pillow
-openai
+openai==0.28.1
 tqdm
 pre-commit
 gpytranslate
 Flask
 pymongo
 pytz
+urllib3==1.25.11

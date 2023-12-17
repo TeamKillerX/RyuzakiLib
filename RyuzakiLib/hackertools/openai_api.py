@@ -37,9 +37,11 @@ class OpenAiToken:
 
         collection.update_one({"user_id": user_id}, {"$set": update_data}, upsert=True)
         user_data = collection.find_one({"user_id": user_id})
-        owner_base = """
+        owner_base = f"""
         Your name is Randy Dev. A kind and friendly AI assistant that answers in
         a short and concise answer. Give short step-by-step reasoning if required.
+
+        Today is {dt.now():%A %d %B %Y %H:%M}
         """
         if user_data:
             conversation_history = user_data.get("assistant_reply")
@@ -49,13 +51,15 @@ class OpenAiToken:
                 conversation = conversation_history
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
                     messages=[
                         {"role": "assistant", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": f"{owner_base} Today is {dt.now():%A %d %B %Y %H:%M}"},
+                        {"role": "user", "content": owner_base},
                         {"role": "assistant", "content": conversation},
                         {"role": "user", "content": user_message},
-                    ]
+                    ],
+                    model="gpt-3.5-turbo",
+                    top_p=0.1,
+                    timeout=2.5,
                 )
                 assistant_reply = response["choices"][0]["message"]["content"]
                 collection.update_one(
@@ -89,7 +93,9 @@ class OpenAiToken:
     ):
         chat_completion = openai.ChatCompletion.create(
             messages=[{"role": role, "content": query}],
-            model=model
+            model=model,
+            top_p=0.1,
+            timeout=2.5
         )
         return chat_completion
 

@@ -95,7 +95,7 @@ class RendyDevChat:
             "model_id": model_id,
             "is_models": is_models
         }
-        response = requests.post(url, params=params)
+        response = requests.post(url, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
@@ -137,7 +137,7 @@ class RendyDevChat:
     def get_response_llama(self, llama: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
         params = {"query": self.query}
-        response = requests.get(url,params=params)
+        response = requests.get(url, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
@@ -159,7 +159,7 @@ class RendyDevChat:
             "api-key": api_key
         }
         params = {"query": self.query}
-        response = requests.post(url, headers=headers, params=params)
+        response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
@@ -188,7 +188,7 @@ class RendyDevChat:
             "api-key": api_key
         }
         params = {"query": self.query}
-        response = requests.post(url, headers=headers, params=params)
+        response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 

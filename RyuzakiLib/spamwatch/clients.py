@@ -39,7 +39,7 @@ class SibylBan:
         if is_banned:
             url = "https://randydev-ryuzaki-api.hf.space/sibylban"
             params = {"user_id": user_id, "reason": reason}
-            response = self._make_request("POST", url, params=params)
+            response = self._make_request("POST", url, json=params)
             return response.get("randydev", {}).get("message", response.get("message", "Unknown error"))
         else:
             raise ValueError("Error: is_banned must be True")
@@ -48,7 +48,7 @@ class SibylBan:
         if banlist:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
             params = {"user_id": user_id}
-            return self._make_request("GET", url, params=params)
+            return self._make_request("GET", url, json=params)
         else:
             raise ValueError("Error: banlist must be True")
 
@@ -56,7 +56,7 @@ class SibylBan:
         if delete:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
             params = {"user_id": user_id}
-            return self._make_request("DELETE", url, params=params)
+            return self._make_request("DELETE", url, json=params)
         else:
             raise ValueError("Error: delete must be True")
 

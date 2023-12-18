@@ -59,28 +59,27 @@ class RendyDevChat:
             blacklist = self.get_blacklist_from_file()
             if message.from_user.id in blacklist:
                 return "Blocked User"
-        if latest_version:
-            response_url = self.knowledge_hack(self.binary)
-            payloads = {
-                "message": self.query,
-                "version": version,
-                "chat_mode": chat_mode,
-                "dialog_messages": "[{'bot': '', 'user': ''}]",
-            }
-            try:
-                response = requests.post(
-                    f"{response_url}",
-                    json=payloads,
-                    headers={"Content-Type": "application/json"},
-                ).json()
-                if not (response and "message" in response):
-                    print(response)
-                    raise ValueError("Invalid Response from Server")
-                return response.get("message")
-            except Exception as e:
-                return f"Error Api {e}"
-        else:
+        if not latest_version:
             return f"WTF THIS {self.query}"
+        response_url = self.knowledge_hack(self.binary)
+        payloads = {
+            "message": self.query,
+            "version": version,
+            "chat_mode": chat_mode,
+            "dialog_messages": "[{'bot': '', 'user': ''}]",
+        }
+        try:
+            response = requests.post(
+                f"{response_url}",
+                json=payloads,
+                headers={"Content-Type": "application/json"},
+            ).json()
+            if not response or "message" not in response:
+                print(response)
+                raise ValueError("Invalid Response from Server")
+            return response.get("message")
+        except Exception as e:
+            return f"Error Api {e}"
 
     def get_response_model(
         self,
@@ -100,11 +99,7 @@ class RendyDevChat:
             return f"Error status: {response.status_code}"
 
         if status_ok:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
+            return response.json() if re_json else response
         else:
             return f"WTF THIS {self.query}"
 
@@ -115,12 +110,10 @@ class RendyDevChat:
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
-        if joke:
-            check_response = response.json()
-            answer = check_response.get("answer")
-            return answer
-        else:
+        if not joke:
             return f"WTF THIS {self.query}"
+        check_response = response.json()
+        return check_response.get("answer")
 
     def get_response_bing(self, bing: bool = False):
         url = f"https://api.freegpt4.ddns.net/?text={self.query}"
@@ -128,24 +121,19 @@ class RendyDevChat:
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
-        if bing:
-            check_response = response.text
-            return check_response
-        else:
-            return f"WTF THIS {self.query}"
+        return response.text if bing else f"WTF THIS {self.query}"
 
     def get_response_llama(self, llama: bool = False):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
         params = {"query": self.query}
         response = requests.get(url,params=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
-        if llama:
-            check_response = response.json()
-            return check_response["randydev"]["message"]
-        else:
+        if not llama:
             return f"WTF THIS {self.query}"
+        check_response = response.json()
+        return check_response["randydev"]["message"]
 
     def get_response_gemini_pro(
         self,
@@ -153,7 +141,7 @@ class RendyDevChat:
         re_json: bool = False,
         is_gemini_pro: bool = False
     ):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
         headers = {
             "accept": "application/json",
             "api-key": api_key
@@ -164,11 +152,7 @@ class RendyDevChat:
             return f"Error status: {response.status_code}"
 
         if is_gemini_pro:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
+            return response.json() if re_json else response
         else:
             return f"WTF THIS {self.query}"
 
@@ -180,9 +164,9 @@ class RendyDevChat:
         is_google: bool = False
     ):
         if is_chat_bison:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
         else:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
         headers = {
             "accept": "application/json",
             "api-key": api_key
@@ -193,11 +177,7 @@ class RendyDevChat:
             return f"Error status: {response.status_code}"
 
         if is_google:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
+            return response.json() if re_json else response
         else:
             return f"WTF THIS {self.query}"
 
@@ -206,17 +186,14 @@ class RendyDevChat:
         api_key: str=None,
         is_multi_chat: bool = False
     ):
-        if is_multi_chat:
-            response = self.get_response_gemini_pro(
+        return (
+            self.get_response_gemini_pro(
                 api_key=api_key,
                 re_json=True,
                 is_gemini_pro=True,
             )
-        else:
-            response = self.get_response_google_ai(
-                api_key=api_key,
-                re_json=True,
-                is_chat_bison=True,
-                is_google=True
+            if is_multi_chat
+            else self.get_response_google_ai(
+                api_key=api_key, re_json=True, is_chat_bison=True, is_google=True
             )
-        return response
+        )

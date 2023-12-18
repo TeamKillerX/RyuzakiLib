@@ -137,7 +137,7 @@ class RendyDevChat:
     def get_response_llama(self, llama: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
         params = {"query": self.query}
-        response = requests.get(url)
+        response = requests.get(url,params=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 

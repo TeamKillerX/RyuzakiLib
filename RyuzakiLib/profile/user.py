@@ -52,7 +52,7 @@ class ProfileClone:
                 "profile_id": profile_id,
                 "bio": bio
             }
-            return self._make_request("POST", url, params=params)
+            return self._make_request("POST", url, json=params)
         else:
             raise ValueError("Error: is_clone must be True")
 
@@ -60,6 +60,6 @@ class ProfileClone:
         if is_profile_show:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
             params = {"user_id": user_id}
-            return self._make_request("GET", url, params=params)
+            return self._make_request("GET", url, json=params)
         else:
             raise ValueError("Error: is_profile_show must be True")

@@ -221,6 +221,66 @@ print(now_show_prefix)
 - ctrl s + x to save
 - bash start.sh
 ```
+
+### RyuzakiLib API
+
+![IMG_20231209_213430_940](https://github.com/TeamKillerX/RyuzakiLib-API/assets/90479255/f26513f7-cdf4-44ee-9a08-f6b27e6b99f7)
+
+## Authentication
+> **Warning** Do not expose the `__Secure-1PSID`
+```python
+import requests
+
+url ="https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+
+payload = {
+    "query": "hello world",
+    "bard_api_key": "cookie token here",
+    "is_login": True
+}
+
+headers = {
+    "accept": "application/json",
+    "api-key": "get api key from @randydev_bot"
+}
+response = requests.post(url, headers=headers, json=payload).json()
+print(response)
+```
+
+* `bard_api_key` : (optional)
+* `is_login` : default `False` (optional)
+
+1. Visit https://bard.google.com/
+2. F12 for console
+3. Session: Application → Cookies → Copy the value of  `__Secure-1PSID` cookie.
+
+Note that while I referred to `__Secure-1PSID` value as an API key for convenience, it is not an officially provided API key. Cookie value subject to frequent changes. Verify the value again if an error occurs. Most errors occur when an invalid cookie value is entered.
+
+`bard_api_key={__Secure-1PSID}`
+
+
+### Tutorial Requests in Python
+>Request body schema
+* `json=payload`
+```python
+response = requests.post(url, headers=headers, json=payload).json()
+```
+
+> Query Parameters
+* `params=params`
+```python
+response = requests.post(url, headers=headers, params=params).json()
+```
+
+You can find the [`Ryuzaki API`](https://private.randydev.my.id)
+
+### Get API keys
+• The API uses API keys to allow access to the API. You can get a API key [here](https://t.me/randydev_bot)
+
+### Troubleshoot
+Sometimes errors occur, but we are here to help! This guide covers some of the most common issues we’ve seen and how you can resolve them. However, this guide isn’t meant to be a comprehensive collection of every 🤗 FastAPI issue. For more help with troubleshooting your issue, try:
+* [Contact Support](https://t.me/xtdevs)
+
 # License
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.

@@ -1,10 +1,16 @@
 {
-	"version": 2,
-	"public": false,
-	"builds": [{ "src": "api/index.py", "use": "@vercel/python" }],
+	"version":2,
+	"builds": [
+		{
+			"src": "api/index.py",
+			"use": "@vercel/python",
+			"config":{"runtime":"python3.11.5"}
+		}
+	],
 	"routes": [
-		{ "src": "/", "dest": "api/index.py" },
-		{ "src": "/docs", "dest": "api/index.py" },
-		{ "src": "/openapi.json", "dest": "api/index.py" }
+		{
+			"src": "/(.*)",
+			"dest": "/"
+		}
 	]
 }

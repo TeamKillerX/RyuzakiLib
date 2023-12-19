@@ -207,16 +207,32 @@ class RendyDevChat:
         is_multi_chat: bool = False
     ):
         if is_multi_chat:
-            response = self.get_response_gemini_pro(
+            response_str = self.get_response_gemini_pro(
                 api_key=api_key,
                 re_json=True,
                 is_gemini_pro=True,
             )
+            response = response_str["randydev"].get("message")
+        elif not is_multi_chat:
+            response = self.get_response_llama(llama=True)
+        elif not is_multi_chat:
+            response = self.get_response_bing(bing=True)
+        elif not is_multi_chat:
+            response = self.get_response_beta(joke=True)
+        elif not is_multi_chat:
+            response_str = self.get_response_model(
+                model_id=5,
+                is_models=True,
+                re_json=True,
+                status_ok=True
+            )
+            response = response_str["randydev"].get("message")
         else:
-            response = self.get_response_google_ai(
+            response_str = self.get_response_google_ai(
                 api_key=api_key,
                 re_json=True,
                 is_chat_bison=True,
                 is_google=True
             )
+            response = response_str["randydev"].get("message")
         return response

@@ -1,8 +1,8 @@
 {
-    "version":2,
+    "version": 2,
 	"builds": [
         {
-            "src": "api/index.py",
+            "src": "./index.py",
             "use": "@vercel/python",
             "config":{"runtime":"python3.11.5"}
         }

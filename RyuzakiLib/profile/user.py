@@ -45,21 +45,21 @@ class ProfileClone:
     ):
         if is_clone:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
-            params = {
+            payload = {
                 "user_id": user_id,
                 "first_name": first_name,
                 "last_name": last_name,
                 "profile_id": profile_id,
                 "bio": bio
             }
-            return self._make_request("POST", url, json=params)
+            return self._make_request("POST", url, json_data=payload)
         else:
             raise ValueError("Error: is_clone must be True")
 
     def get_profile_clone(self, user_id: int=None, is_profile_show: bool=False):
         if is_profile_show:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
-            params = {"user_id": user_id}
-            return self._make_request("GET", url, json=params)
+            payload = {"user_id": user_id}
+            return self._make_request("GET", url, json_data=payload)
         else:
             raise ValueError("Error: is_profile_show must be True")

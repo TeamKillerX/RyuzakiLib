@@ -150,9 +150,9 @@ message_output_5 = code.get_response_llama(llama=True)
 message_output_6 = code.get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
 message_output_7 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
 message_output_8 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
+image_data = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
 
 print(message_output)
-print(message_output_1)
 print(message_output_2)
 print(message_output_3)
 print(message_output_4)
@@ -160,6 +160,7 @@ print(message_output_5)
 print(message_output_6)
 print(message_output_7)
 print(message_output_8)
+print(image_data)
 ```
 
 ### Example Chatgpt

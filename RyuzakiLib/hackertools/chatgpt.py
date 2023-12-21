@@ -201,6 +201,26 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
+    def get_risma_image_generator(
+        self,
+        api_key: str=None,
+        is_opendalle: bool = False
+    ):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
+        headers = {
+            "accept": "application/json",
+            "api-key": api_key
+        }
+        payload = {"query": self.query}
+        response = requests.post(url, headers=headers, json=payload)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if is_opendalle:
+            return response.text
+        else:
+            return f"WTF THIS {self.query}"
+
     def multi_chat_response(
         self,
         api_key: str=None,

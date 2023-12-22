@@ -24,10 +24,9 @@ import os
 import requests
 import shutil
 
-
 class RemoveBg:
-    def __init__(self, apikey, image):
-        self.apikey = apikey
+    def __init__(self, api_key: str=None, image=None):
+        self.api_key = apikey
         self.image = image
 
     def remove_background(self):
@@ -37,7 +36,7 @@ class RemoveBg:
             response = requests.post(
                 endpoint,
                 data=payload,
-                headers={"X-Api-Key": self.apikey},
+                headers={"X-Api-Key": self.api_key},
                 files={"image_file": image_file},
                 stream=True,
             )

@@ -91,6 +91,19 @@ results = clients.get_all_banlist()
 print(results)
 ```
 
+### Profile Clone
+• Example usage
+```python
+from RyuzakiLib.profile.user import ProfileClone
+
+clients = ProfileClone(api_key="your_api_key_here")
+
+message = clients.add_profile_clone() # need parameter
+
+showing = clients.get_profile_clone() # need parameter
+print(showing)
+```
+
 ### Learn Telegram Bot API
 ```python
 
@@ -127,11 +140,42 @@ print(response.text)
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
+
 code = RendyDevChat(query)
 message_output = code.get_response(message, latest_version=True)
 message_output_2 = code.get_response_beta(joke=True)
 message_output_3 = code.get_response_bing(bing=True)
 message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
+message_output_5 = code.get_response_llama(llama=True)
+message_output_6 = code.get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
+message_output_7 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
+message_output_8 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
+
+print(message_output)
+print(message_output_2)
+print(message_output_3)
+print(message_output_4)
+print(message_output_5)
+print(message_output_6)
+print(message_output_7)
+print(message_output_8)
+```
+
+### AI image Generator New?
+* AI image Generator new features are available here
+- parameter
+```python
+import base64
+from io import BytesIO
+from PIL import Image
+from RyuzakiLib.hackertools.chatgpt import RendyDevChat
+
+query = "Hello World"
+code = RendyDevChat(query)
+response = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
+
+image_data = base64.b64decode(response["randydev"].get("data"))
+image = Image.open(BytesIO(image_data))
 ```
 
 ### Example Chatgpt
@@ -193,6 +237,66 @@ print(now_show_prefix)
 - ctrl s + x to save
 - bash start.sh
 ```
+
+### RyuzakiLib API
+
+![IMG_20231209_213430_940](https://github.com/TeamKillerX/RyuzakiLib-API/assets/90479255/f26513f7-cdf4-44ee-9a08-f6b27e6b99f7)
+
+## Authentication
+> **Warning** Do not expose the `__Secure-1PSID`
+```python
+import requests
+
+url ="https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+
+payload = {
+    "query": "hello world",
+    "bard_api_key": "cookie token here",
+    "is_login": True
+}
+
+headers = {
+    "accept": "application/json",
+    "api-key": "get api key from @randydev_bot"
+}
+response = requests.post(url, headers=headers, json=payload).json()
+print(response)
+```
+
+* `bard_api_key` : (optional)
+* `is_login` : default `False` (optional)
+
+1. Visit https://bard.google.com/
+2. F12 for console
+3. Session: Application → Cookies → Copy the value of  `__Secure-1PSID` cookie.
+
+Note that while I referred to `__Secure-1PSID` value as an API key for convenience, it is not an officially provided API key. Cookie value subject to frequent changes. Verify the value again if an error occurs. Most errors occur when an invalid cookie value is entered.
+
+`bard_api_key={__Secure-1PSID}`
+
+
+### Tutorial Requests in Python
+>Request body schema
+* `json=payload`
+```python
+response = requests.post(url, headers=headers, json=payload).json()
+```
+
+> Query Parameters
+* `params=params`
+```python
+response = requests.post(url, headers=headers, params=params).json()
+```
+
+You can find the [`Ryuzaki API`](https://private.randydev.my.id)
+
+### Get API keys
+• The API uses API keys to allow access to the API. You can get a API key [here](https://t.me/randydev_bot)
+
+### Troubleshoot
+Sometimes errors occur, but we are here to help! This guide covers some of the most common issues we’ve seen and how you can resolve them. However, this guide isn’t meant to be a comprehensive collection of every 🤗 FastAPI issue. For more help with troubleshooting your issue, try:
+* [Contact Support](https://t.me/xtdevs)
+
 # License
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.

@@ -35,28 +35,28 @@ class SibylBan:
         except requests.RequestException:
             pass
 
-    def add_ban(self, user_id: int, reason: str, is_banned: bool = False) -> str:
+    def add_ban(self, user_id: int=None, reason: str=None, is_banned: bool = False) -> str:
         if is_banned:
             url = "https://randydev-ryuzaki-api.hf.space/sibylban"
-            params = {"user_id": user_id, "reason": reason}
-            response = self._make_request("POST", url, params=params)
+            payload = {"user_id": user_id, "reason": reason}
+            response = self._make_request("POST", url, json_data=payload)
             return response.get("randydev", {}).get("message", response.get("message", "Unknown error"))
         else:
             raise ValueError("Error: is_banned must be True")
 
-    def get_ban(self, user_id: int, banlist: bool = False) -> Union[dict, str]:
+    def get_ban(self, user_id: int=None, banlist: bool = False) -> Union[dict, str]:
         if banlist:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
-            params = {"user_id": user_id}
-            return self._make_request("GET", url, params=params)
+            payload = {"user_id": user_id}
+            return self._make_request("GET", url, json_data=payload)
         else:
             raise ValueError("Error: banlist must be True")
 
-    def unban_del(self, user_id: int, delete: bool = False) -> Union[dict, str]:
+    def unban_del(self, user_id: int=None, delete: bool = False) -> Union[dict, str]:
         if delete:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
-            params = {"user_id": user_id}
-            return self._make_request("DELETE", url, params=params)
+            payload = {"user_id": user_id}
+            return self._make_request("DELETE", url, json_data=payload)
         else:
             raise ValueError("Error: delete must be True")
 

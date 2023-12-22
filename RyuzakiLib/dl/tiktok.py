@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 import requests
 import os
 from pyrogram import Client, filters
@@ -25,9 +24,8 @@ from pyrogram.types import Message
 
 from RyuzakiLib.api.fullstack import FullStackDev
 
-
 class TiktokUrl:
-    def __init__(self, url):
+    def __init__(self, url: str=None):
         self.url = url
 
     def tiktok_downloader(self, ryuzaki: bool = None):
@@ -56,7 +54,6 @@ class TiktokUrl:
             return "Error: TikTok data not found or unsupported format"
         except Exception as e:
             return f"Error: {e}"
-
 
 def faster_tiktok_downloader(link: str = None, ryuzaki_default: str = "ryuzaki.mp4"):
     if not link:

@@ -19,7 +19,7 @@
 
 import requests
 
-class ProfileClone:
+class Monitors:
     def __init__(self, api_key: str = None):
         self.api_key = api_key
 
@@ -34,32 +34,21 @@ class ProfileClone:
         except requests.RequestException:
             pass
 
-    def add_profile_clone(
+    def add_checking_monitor(
         self,
-        user_id: int=None,
-        first_name: str=None,
-        last_name=None,
-        profile_id=None,
-        bio=None,
-        is_clone: bool=False
+        url: str=None,
+        is_monitor: bool=False
     ):
-        if is_clone:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
-            payload = {
-                "user_id": user_id,
-                "first_name": first_name,
-                "last_name": last_name,
-                "profile_id": profile_id,
-                "bio": bio
-            }
-            return self._make_request("POST", url, json_data=payload)
+        if is_monitor:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/new-monitor"
+            params = {"url": url}
+            return self._make_request("POST", url, params=params)
         else:
-            raise ValueError("Error: is_clone must be True")
+            raise ValueError("Error: is_monitor must be True")
 
-    def get_profile_clone(self, user_id: int=None, is_profile_show: bool=False):
-        if is_profile_show:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
-            payload = {"user_id": user_id}
-            return self._make_request("GET", url, json_data=payload)
+    def get_monitors(self, is_show: bool=False):
+        if is_show:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-monitors"
+            return self._make_request("POST", url)
         else:
-            raise ValueError("Error: is_profile_show must be True")
+            raise ValueError("Error: is_show must be True")

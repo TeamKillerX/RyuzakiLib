@@ -42,7 +42,7 @@ async def setting_github():
     except Exception as e:
         print(str(e))
         return
-    runner_up()
+    # runner_up()
 
 
 if __name__ == "__main__":

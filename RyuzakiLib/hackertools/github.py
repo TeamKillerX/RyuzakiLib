@@ -25,7 +25,7 @@ import os
 
 
 class GithubUsername:
-    def __init__(self, username):
+    def __init__(self, username: str=None):
         self.username = username
 
     async def get_github_data(self):

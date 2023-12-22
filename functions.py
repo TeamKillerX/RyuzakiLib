@@ -17,42 +17,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# JANGAN COPAS INI LU KEK KONTOL
-# TANYA KE SUPPORT @KillerXSupport
-
 import requests
-import json
-from flask import Flask
+import os
+from dotenv import load_dotenv
 
-app = Flask(__name__)
+load_dotenv()
+HUGGING_TOKEN = os.environ["HUGGING_TOKEN"]
+SOURCE_ALPHA_URL = os.environ["SOURCE_ALPHA_URL"]
 
-BLACKLIST = [
-    -1001050982793,
-    -1001387666944,
-    -1001030379032,
-    -1001042324135,
-    -1001612784732,
-    -1001361294038,
-    -1001108308377,
-    -1001113421561,
-    -1001349472891,
-    -1001084578942,
-    -1001067163791,
-    -1001779729857,
-    -1001554560763,
-    -1001307868573,
-    -1001504193825,
-    -1001311056733,
-]
-
-
-@app.route("/", methods=["GET"])
-def root():
-    return "Check Api Endpoint: https://download.randydev.my.id"
-
-
-@app.route("/blacklist", methods=["GET"])
-def group_blacklist():
-    data_set = {"randydev": 1191668125, "gcast_blacklist": BLACKLIST}
-    json_dump = json.dumps(data_set)
-    return json_dump
+def ryuzaki_ai_text(text):
+    API_URL = SOURCE_ALPHA_URL
+    headers = {"Authorization": f"Bearer {HUGGING_TOKEN}"}
+    response = requests.post(API_URL, headers=headers, json={"inputs": text})
+    return response.json()

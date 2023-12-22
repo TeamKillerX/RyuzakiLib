@@ -13,3 +13,6 @@ Flask
 pymongo
 pytz
 urllib3
+pydantic
+typing-extensions
+typing

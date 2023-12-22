@@ -24,9 +24,12 @@ class AwesomeCoding(BaseModel):
     opendalle_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
     anime_styled_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/anime-styled"
     unsplash_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/unsplash"
+    chatgpt_model_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
+    gemini_pro_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+    default_url: Optional[str] = None
     extra_headers: Optional[Dict[str, Any]] = None
 
-__version__ = "0.6.5"
+__version__ = "0.6.6"
 
 from . import *
 from .pushdb import *

@@ -172,9 +172,9 @@ from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
 code = RendyDevChat(query)
-image_data = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
+response = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
 
-image_data = base64.b64decode(image_data)
+image_data = base64.b64decode(response["randydev"].get("data"))
 image = Image.open(BytesIO(image_data))
 ```
 

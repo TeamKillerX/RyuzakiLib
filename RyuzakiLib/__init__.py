@@ -17,6 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+
+class AwesomeCoding(BaseModel):
+    opendalle_url: str="https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
+    anime_styled_url: str="https://randydev-ryuzaki-api.hf.space/ryuzaki/anime-styled"
+    unsplash_url: str="https://randydev-ryuzaki-api.hf.space/ryuzaki/unsplash"
+    extra_headers: Optional[Dict, Any]
+    
 __version__ = "0.6.5"
 
 from . import *

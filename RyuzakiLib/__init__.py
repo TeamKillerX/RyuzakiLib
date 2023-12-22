@@ -44,24 +44,24 @@ from .bot import *
 from .decorator import *
 from .mental import *
 
-from .hackertools.chatgpt import RendyDevChat as RendyDevChat
-from .hackertools.github import GithubUsername as GithubUsername
-from .hackertools.openai_api import OpenAiToken as OpenAiToken
-from .hackertools.prefixes import CustomPrefixes as CustomPrefixes
-from .hackertools.reverse import GoogleReverseImage as GoogleReverseImage
-from .hackertools.rmbg import RemoveBg as RemoveBg
-from .hackertools.ocrapi import OcrApiUrl as OcrApiUrl
-from .hackertools.ipinfo import WhoisIpHacker as WhoisIpHacker
+from .hackertools.chatgpt import RendyDevChat
+from .hackertools.github import GithubUsername
+from .hackertools.openai_api import OpenAiToken
+from .hackertools.prefixes import CustomPrefixes
+from .hackertools.reverse import GoogleReverseImage
+from .hackertools.rmbg import RemoveBg
+from .hackertools.ocrapi import OcrApiUrl
+from .hackertools.ipinfo import WhoisIpHacker
 
-from .extreme.carbon import CarbonSuper as CarbonSuper
-from .extreme.chatbot import ChatbotAi as ChatbotAi
-from .extreme.quotestk import QouteSticker as QouteSticker
-from .extreme.rayso import CarbonRaySo as CarbonRaySo
-from .extreme.userinfo import TelegramUserInfo as TelegramUserInfo
-from .extreme.webshot import WebShotUrl as WebShotUrl
+from .extreme.carbon import CarbonSuper
+from .extreme.chatbot import ChatbotAi
+from .extreme.quotestk import QouteSticker
+from .extreme.rayso import CarbonRaySo
+from .extreme.userinfo import TelegramUserInfo
+from .extreme.webshot import WebShotUrl
 
-from .spamwatch.clients import SibylBan as SibylBan
-from .profile.user import ProfileClone as ProfileClone
+from .spamwatch.clients import SibylBan
+from .profile.user import ProfileClone
 
 __all__ = [
     "RendyDevChat",

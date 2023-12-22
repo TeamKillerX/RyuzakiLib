@@ -43,3 +43,12 @@ from .channels import *
 from .bot import *
 from .decorator import *
 from .mental import *
+
+from .hackertools.chatgpt import RendyDevChat as RendyDevChat
+from .hackertools.github import GithubUsername as GithubUsername
+from .hackertools.openai_api import OpenAiToken as OpenAiToken
+from .hackertools.prefixes import CustomPrefixes as CustomPrefixes
+from .hackertools.reverse import GoogleReverseImage as GoogleReverseImage
+from .hackertools.rmbg import RemoveBg as RemoveBg
+from .hackertools.ocrapi import OcrApiUrl as OcrApiUrl
+from .hackertools.ipinfo import WhoisIpHacker as WhoisIpHacker

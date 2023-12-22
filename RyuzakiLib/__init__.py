@@ -26,8 +26,10 @@ class AwesomeCoding(BaseModel):
     unsplash_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/unsplash"
     chatgpt_model_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
     gemini_pro_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+    translate_url: str="https://randydev-ryuzaki-api.hf.space/ryuzaki/translate"
     default_url: Optional[str] = None
     extra_headers: Optional[Dict[str, Any]] = None
+    extra_payload: Optional[Dict[str, Any]] = None
 
 __version__ = "0.6.6"
 

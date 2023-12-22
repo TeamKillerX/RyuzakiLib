@@ -52,3 +52,13 @@ from .hackertools.reverse import GoogleReverseImage as GoogleReverseImage
 from .hackertools.rmbg import RemoveBg as RemoveBg
 from .hackertools.ocrapi import OcrApiUrl as OcrApiUrl
 from .hackertools.ipinfo import WhoisIpHacker as WhoisIpHacker
+
+from .extreme.carbon import CarbonSuper as CarbonSuper
+from .extreme.chatbot import ChatbotAi as ChatbotAi
+from .extreme.quotestk import QouteSticker as QouteSticker
+from .extreme.rayso import CarbonRaySo as CarbonRaySo
+from .extreme.userinfo import TelegramUserInfo as TelegramUserInfo
+from .extreme.webshot import WebShotUrl as WebShotUrl
+
+from .spamwatch.clients import SibylBan as SibylBan
+from .profile.user import ProfileClone as ProfileClone

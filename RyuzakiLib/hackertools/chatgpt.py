@@ -217,9 +217,9 @@ class RendyDevChat:
             return f"Error status: {response.status_code}"
 
         if is_opendalle:
-            return response.text
+            return response.json()
         else:
-            return f"WTF THIS {self.query}"
+            return response
 
     def multi_chat_response(
         self,

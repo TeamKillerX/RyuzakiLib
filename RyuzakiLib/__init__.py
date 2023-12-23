@@ -21,6 +21,7 @@ from typing import Optional, Dict, Any
 from pydantic import BaseModel
 
 class AwesomeCoding(BaseModel):
+    google_ai_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
     opendalle_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
     anime_styled_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/anime-styled"
     unsplash_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/unsplash"

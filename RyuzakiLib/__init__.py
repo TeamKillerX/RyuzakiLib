@@ -19,6 +19,22 @@
 
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
+from . import *
+from .pushdb import *
+from .reminder import *
+from .story import *
+from .quote import *
+from .tr import *
+from .channels import *
+from .bot import *
+from .decorator import *
+from .mental import *
+from .custom_api import CustomApi
+from .py_tgcalls import PyTgCalls
+from .stream_type import StreamType
+from .sync import idle
+
+__version__ = "0.6.6"
 
 class AwesomeCoding(BaseModel):
     google_ai_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
@@ -31,19 +47,6 @@ class AwesomeCoding(BaseModel):
     default_url: Optional[str] = None
     extra_headers: Optional[Dict[str, Any]] = None
     extra_payload: Optional[Dict[str, Any]] = None
-
-__version__ = "0.6.6"
-
-from . import *
-from .pushdb import *
-from .reminder import *
-from .story import *
-from .quote import *
-from .tr import *
-from .channels import *
-from .bot import *
-from .decorator import *
-from .mental import *
 
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.github import GithubUsername
@@ -68,6 +71,10 @@ from .api.private import PrivateApiUrl
 from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
 
 __all__ = [
+    "__version__"
+    "CustomApi",
+    "PyTgCalls",
+    "StreamType",
     "RendyDevChat",
     "GithubUsername",
     "OpenAiToken",

@@ -62,6 +62,9 @@ from .extreme.webshot import WebShotUrl
 
 from .spamwatch.clients import SibylBan
 from .profile.user import ProfileClone
+from .api.fullstack import FullStackDev
+from .api.private import PrivateApiUrl
+from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
 
 __all__ = [
     "RendyDevChat",
@@ -79,5 +82,9 @@ __all__ = [
     "TelegramUserInfo",
     "WebShotUrl",
     "SibylBan",
-    "ProfileClone"
+    "ProfileClone",
+    "FullStackDev",
+    "PrivateApiUrl",
+    "TiktokUrl",
+    "faster_tiktok_downloader"
 ]

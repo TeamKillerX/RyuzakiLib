@@ -34,8 +34,6 @@ from .py_tgcalls import PyTgCalls
 from .stream_type import StreamType
 from .sync import idle
 
-__version__ = "0.6.6"
-
 class AwesomeCoding(BaseModel):
     google_ai_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
     opendalle_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"

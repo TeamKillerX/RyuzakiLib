@@ -29,6 +29,7 @@ from .channels import *
 from .bot import *
 from .decorator import *
 from .mental import *
+from .__version__ import __version__
 from .custom_api import CustomApi
 from .py_tgcalls import PyTgCalls
 from .stream_type import StreamType

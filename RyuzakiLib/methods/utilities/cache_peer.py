@@ -1,4 +1,4 @@
-from pytgcalls.scaffold import Scaffold
+from RyuzakiLib.scaffold import Scaffold
 
 
 class CachePeer(Scaffold):

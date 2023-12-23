@@ -89,5 +89,6 @@ __all__ = [
     "faster_tiktok_downloader",
     "BadWordsList",
     "Reminder",
-    "Translator"
+    "Translator",
+    "QuoteRandom"
 ]

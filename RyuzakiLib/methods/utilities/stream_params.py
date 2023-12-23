@@ -5,12 +5,11 @@ from ntgcalls import AudioDescription
 from ntgcalls import MediaDescription
 from ntgcalls import VideoDescription
 
-from pytgcalls.types.input_stream.audio_image_piped import AudioImagePiped
-from pytgcalls.types.input_stream.smart_stream import SmartStream
-from pytgcalls.types.input_stream.stream import Stream
+from RyuzakiLib.types.input_stream.audio_image_piped import AudioImagePiped
+from RyuzakiLib.types.input_stream.smart_stream import SmartStream
+from RyuzakiLib.types.input_stream.stream import Stream
 
-py_logger = logging.getLogger('pytgcalls')
-
+py_logger = logging.getLogger('ryuzakilib')
 
 class StreamParams:
     @staticmethod

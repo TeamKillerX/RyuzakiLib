@@ -7,7 +7,8 @@ from signal import signal as signal_fn
 from signal import SIGTERM
 
 
-py_logger = logging.getLogger('pytgcalls')
+py_logger = logging.getLogger('ryuzakilib')
+
 
 is_idling = False
 

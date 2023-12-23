@@ -1,5 +1,4 @@
-from pytgcalls.types.py_object import PyObject
-
+from RyuzakiLib.types.py_object import PyObject
 
 class GroupCall(PyObject):
     def __init__(

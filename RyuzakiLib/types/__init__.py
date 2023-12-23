@@ -1,6 +1,5 @@
 from .anime import *
 from .waifu import *
-from .facedark import *
 from .browsers import Browsers
 from .cache import Cache
 from .groups import AlreadyJoined

@@ -19,10 +19,8 @@ def my_test_suite():
     test_loader = unittest.TestLoader()
     return test_loader.discover("tests", pattern="test*.py")
 
-
-with open("RyuzakiLib/__init__.py", encoding="utf-8") as f:
+with open("RyuzakiLib/__version__.py", encoding="utf-8") as f:
     version = re.findall(r"__version__ = \"(.+)\"", f.read())[0]
-
 
 with open("README.md", encoding="utf-8") as f:
     readme = f.read()

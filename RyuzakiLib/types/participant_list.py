@@ -1,7 +1,7 @@
 from typing import Dict
 
-from pytgcalls.types.groups import GroupCallParticipant
-from pytgcalls.types.list import List
+from RyuzakiLib.types.groups import GroupCallParticipant
+from RyuzakiLib.types.list import List
 
 
 class ParticipantList:

@@ -8,9 +8,9 @@ from ntgcalls import StreamType
 from ...exceptions import PyTgCallsAlreadyRunning
 from ...pytgcalls_session import PyTgCallsSession
 from ...scaffold import Scaffold
-from pytgcalls.types import GroupCallParticipant
-from pytgcalls.types import StreamAudioEnded
-from pytgcalls.types import StreamVideoEnded
+from RyuzakiLib.types import GroupCallParticipant
+from RyuzakiLib.types import StreamAudioEnded
+from RyuzakiLib.types import StreamVideoEnded
 
 
 class Start(Scaffold):

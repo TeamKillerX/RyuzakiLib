@@ -34,10 +34,6 @@ from .custom_api import CustomApi
 from .py_tgcalls import PyTgCalls
 from .stream_type import StreamType
 from .sync import idle
-from .gpytranslate import Translator
-from .sync import SyncTranslator
-from .types.translated_object import TranslatedObject
-from .exceptions import GpytranslateException, TranslationError
 
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.github import GithubUsername
@@ -101,10 +97,5 @@ __all__ = [
     "BadWordsList",
     "Reminder",
     "_Translator_",
-    "QuoteRandom",
-    "Translator",
-    "SyncTranslator",
-    "TranslatedObject",
-    "GpytranslateException",
-    "TranslationError"
+    "QuoteRandom"
 ]

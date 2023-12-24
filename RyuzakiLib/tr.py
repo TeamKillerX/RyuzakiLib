@@ -17,10 +17,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from gpytranslate import SyncTranslator
+from RyuzakiLib import SyncTranslator
 
-
-class Translator:
+class _Translator_:
     def __init__(self, text: str = None):
         self.text = text
 

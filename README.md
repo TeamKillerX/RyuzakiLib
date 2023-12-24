@@ -344,3 +344,4 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 ### Credits
 * [![TeamKillerX-Devs](https://img.shields.io/static/v1?label=TeamkillerX&message=devs&color=critical)](https://t.me/xtdevs)
 * Pyrogram by : [Dan](https://github.com/pyrogram/pyrogram)
+* PY-Tgcalls by : [Pytgcalls](https://github.com/pytgcalls/pytgcalls)

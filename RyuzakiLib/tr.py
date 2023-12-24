@@ -19,8 +19,7 @@
 
 from gpytranslate import SyncTranslator
 
-
-class Translator:
+class _Translator_:
     def __init__(self, text: str = None):
         self.text = text
 

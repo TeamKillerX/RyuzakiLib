@@ -16,3 +16,9 @@ urllib3
 pydantic
 typing-extensions
 typing
+aiohttp
+deprecation
+ntgcalls>=1.0.2
+psutil
+screeninfo
+aiofiles

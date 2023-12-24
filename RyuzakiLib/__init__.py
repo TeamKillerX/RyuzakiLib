@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from typing import Optional, Dict, Any
+from pydantic import BaseModel
 from . import *
 from .pushdb import *
 from .reminder import *

@@ -27,5 +27,4 @@ class _Translator_:
         trans = SyncTranslator()
         source = trans.detect(self.text)
         translation = trans(self.text, sourcelang=source, targetlang=setlang)
-        tr = translation.text
-        return tr
+        return translation.text

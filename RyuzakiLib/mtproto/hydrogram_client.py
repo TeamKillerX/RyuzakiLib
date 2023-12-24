@@ -126,13 +126,7 @@ class HydrogramClient(BridgedClient):
                                 'KICK_HANDLER',
                                 chat_id,
                             )
-            if isinstance(
-                    update,
-                    UpdateNewChannelMessage,
-            ) or isinstance(
-                update,
-                UpdateNewMessage,
-            ):
+            if isinstance(update, (UpdateNewChannelMessage, UpdateNewMessage)):
                 if isinstance(
                         update.message,
                         MessageService,
@@ -171,23 +165,13 @@ class HydrogramClient(BridgedClient):
             ):
                 for group_id in data2:
                     if isinstance(
-                            update,
-                            UpdateNewChannelMessage,
-                    ) or isinstance(
-                        update,
-                        UpdateNewMessage,
+                        update, (UpdateNewChannelMessage, UpdateNewMessage)
                     ):
                         if isinstance(
                                 update.message,
                                 MessageService,
                         ):
-                            if isinstance(
-                                    data2[group_id],
-                                    Channel,
-                            ) or isinstance(
-                                data2[group_id],
-                                Chat,
-                            ):
+                            if isinstance(data2[group_id], (Channel, Chat)):
                                 chat_id = self.chat_id(data2[group_id])
                                 if data2[group_id].left:
                                     self._cache.drop_cache(

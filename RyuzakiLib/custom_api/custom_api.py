@@ -40,8 +40,7 @@ class CustomApi:
                 })
             if self._handler is not None:
                 result = await self._handler(params)
-                if isinstance(result, dict) or \
-                        isinstance(result, list):
+                if isinstance(result, (dict, list)):
                     return web.json_response(result)
                 else:
                     return web.json_response({

@@ -33,7 +33,7 @@ class Cache:
         )
 
     def keys(self):
-        return [key for key in self._store]
+        return list(self._store)
 
     def pop(self, chat_id: int) -> Optional[Any]:
         return self._store.pop(chat_id, None)

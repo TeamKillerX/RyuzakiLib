@@ -117,7 +117,7 @@ class ClientCache:
             if participants is not None:
                 last_update = participants.last_mtproto_update
                 curr_time = int(time())
-                if not (last_update - curr_time > 0):
+                if last_update - curr_time <= 0:
                     py_logger.debug(
                         'GetParticipant cache miss for %d', chat_id,
                     )
@@ -140,7 +140,7 @@ class ClientCache:
                                 participant['left'],
                             )
                         participants.last_mtproto_update = \
-                            curr_time + self._cache_duration
+                                curr_time + self._cache_duration
                     except Exception as e:
                         py_logger.error('Error for %s in %d', e, chat_id)
                 else:

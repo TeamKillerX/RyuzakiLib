@@ -126,13 +126,7 @@ class TelethonClient(BridgedClient):
                             chat_id,
                         )
 
-            if isinstance(
-                update,
-                UpdateNewChannelMessage,
-            ) or isinstance(
-                update,
-                UpdateNewMessage,
-            ):
+            if isinstance(update, (UpdateNewChannelMessage, UpdateNewMessage)):
                 if isinstance(
                     update.message,
                     MessageService,

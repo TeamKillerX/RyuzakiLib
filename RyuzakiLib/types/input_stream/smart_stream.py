@@ -24,7 +24,6 @@ class SmartStream(Stream):
             List[str],
             Optional[Dict[str, str]],
         ]
-        pass
 
     async def check_stream(self):
         pass

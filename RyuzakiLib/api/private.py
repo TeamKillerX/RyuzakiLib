@@ -34,8 +34,7 @@ class PrivateApiUrl:
         self.allow_web = allow_web
 
     def checking(self):
-        api_url = f"{self.allow_web}://{self.url}/{self.method}{self.punctuation}{self.parameter}"
-        return api_url
+        return f"{self.allow_web}://{self.url}/{self.method}{self.punctuation}{self.parameter}"
 
 class WaifuApiUrl:
     def __init__(
@@ -51,5 +50,4 @@ class WaifuApiUrl:
         self.allow_web = allow_web
 
     def checking(self):
-        api_url = f"{self.allow_web}://{self.url}/{self.method}/{self.parameter}"
-        return api_url
+        return f"{self.allow_web}://{self.url}/{self.method}/{self.parameter}"

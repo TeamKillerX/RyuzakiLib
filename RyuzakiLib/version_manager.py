@@ -6,6 +6,5 @@ class VersionManager:
         list_version = []
         for vmj in v.split('.'):
             list_d = re.findall('[0-9]+', vmj)
-            for vmn in list_d:
-                list_version.append(int(vmn))
+            list_version.extend(int(vmn) for vmn in list_d)
         return tuple(list_version)

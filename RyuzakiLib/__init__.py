@@ -35,8 +35,8 @@ from .py_tgcalls import PyTgCalls
 from .stream_type import StreamType
 from .sync import idle
 from .gpytranslate import Translator
-from .sync import SyncTranslator
-from .types import TranslatedObject
+from .sync.sync_translator import SyncTranslator
+from .types.translated_object import TranslatedObject
 from .exceptions import GpytranslateException, TranslationError
 
 from .hackertools.chatgpt import RendyDevChat

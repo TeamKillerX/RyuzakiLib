@@ -17,23 +17,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Optional, Dict, Any
-from pydantic import BaseModel
-
-class AwesomeCoding(BaseModel):
-    google_ai_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
-    opendalle_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
-    anime_styled_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/anime-styled"
-    unsplash_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/unsplash"
-    chatgpt_model_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
-    gemini_pro_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
-    translate_url: str = "https://randydev-ryuzaki-api.hf.space/ryuzaki/translate"
-    default_url: Optional[str] = None
-    extra_headers: Optional[Dict[str, Any]] = None
-    extra_payload: Optional[Dict[str, Any]] = None
-
-__version__ = "0.6.6"
-
 from . import *
 from .pushdb import *
 from .reminder import *

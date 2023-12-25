@@ -145,19 +145,6 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         else:
-            return f"WTF THIS {self.query}"
-
-    def get_response_turbo3(self, turbo3: bool = False):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
-        params = {"query": self.query}
-        response = requests.get(url, json=params)
-        if response.status_code != 200:
-            return f"Error status: {response.status_code}"
-
-        if turbo3:
-            check_response = response.json()
-            return check_response["randydev"]["message"]
-        else:
             return f"WTF THIS {self.query}" 
     
     def get_response_gemini_pro(

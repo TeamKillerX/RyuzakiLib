@@ -159,7 +159,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         else:
             return f"WTF THIS {self.query}"
-    
+
     def get_response_gemini_pro(
         self,
         api_key: str=None,

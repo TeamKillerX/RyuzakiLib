@@ -145,8 +145,40 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         else:
-            return f"WTF THIS {self.query}" 
-    
+            return f"WTF THIS {self.query}"
+
+    def get_response_turbo3(self, turbo3: bool = False):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
+        params = {"query": self.query}
+        response = requests.post(url, json=params)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if turbo3:
+            check_response = response.json()
+            return check_response["randydev"]["message"]
+        else:
+            return f"WTF THIS {self.query}"
+
+    def _model_list(self, is_list_all=False):
+        if is_list_all:
+            text = """
+```python
+.get_response(message, latest_version=True)
+.get_response_beta(joke=True)
+.get_response_bing(bing=True)
+.get_response_model() # parameter model_id: integers and is_models: boolean
+.get_response_llama(llama=True)
+.get_response_turbo3(turbo3=True)
+.get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
+.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
+.multi_chat_response(api_key=api_key, is_multi_chat=True)
+```
+"""
+            return text
+        else:
+            return "you can check set is_list_all=True"
+
     def get_response_gemini_pro(
         self,
         api_key: str=None,

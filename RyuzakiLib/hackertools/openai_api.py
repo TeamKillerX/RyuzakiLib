@@ -123,13 +123,15 @@ class OpenAiToken:
                         conversation_history.append({"role": "user", "content": answer})
             return [answer, conversation_history]
         else:
+            conversation_history = []
+            conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
-                messages=[{"role": role, "content": query}],
-                model=model,
-                top_p=0.1,
-                timeout=2.5
+                messages=conversation_history,
+                model=model
             )
-            return chat_completion
+            answer = response["choices"][0]["message"]["content"]
+            conversation_history.append({"role": "user", "content": answer})
+            return [answer, conversation_history]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

@@ -59,7 +59,7 @@ from .api.fullstack import FullStackDev
 from .api.private import PrivateApiUrl
 from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
 
-from openai.error import APIError, InvalidRequestError, OpenAIError
+from .error import APIError, InvalidRequestError, OpenAIError
 from openai.version import VERSION
 from openai.api_resources import (
     Audio,

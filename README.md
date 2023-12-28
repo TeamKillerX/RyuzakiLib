@@ -178,6 +178,22 @@ image_data = base64.b64decode(response["randydev"].get("data"))
 image = Image.open(BytesIO(image_data))
 ```
 
+### Continue Conversation
+```python
+from RyuzakiLib import OpenAiToken
+
+api_base = "https://api.example.com/v1"
+api_key = ""
+query = "hello world"
+response = OpenAiToken(api_key=api_key, api_base=api_base).chat_message_turbo(
+    query=query,
+    model="gpt-4",
+    is_stream=False
+)
+
+print(response[0])
+```
+
 ### Example Chatgpt
 ```python
 from pyrogram import Client, filters

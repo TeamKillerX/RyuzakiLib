@@ -118,7 +118,7 @@ class OpenAiToken:
                     content = token["choices"][0]["delta"].get("content")
                     if content is not None:
                         answer += content
-                    return answer
+                        return answer
         else:
             chat_completion = openai.ChatCompletion.create(
                 messages=[{"role": role, "content": query}],

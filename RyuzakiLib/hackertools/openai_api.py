@@ -101,7 +101,7 @@ class OpenAiToken:
         self,
         query: str=None,
         role: str="user",
-        model: str="gpt-3.5-turbo",
+        model: str="gpt-3.5-long",
         is_stream=False
     ):
         if is_stream:

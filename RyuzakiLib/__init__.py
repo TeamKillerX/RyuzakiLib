@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
+import sys
 from typing import Optional, Dict, Any
 from pydantic import BaseModel
 from . import *
@@ -57,6 +59,38 @@ from .api.fullstack import FullStackDev
 from .api.private import PrivateApiUrl
 from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
 
+from openai.error import APIError, InvalidRequestError, OpenAIError
+from openai.version import VERSION
+from openai.api_resources import (
+    Audio,
+    ChatCompletion,
+    Completion,
+    Customer,
+    Deployment,
+    Edit,
+    Embedding,
+    Engine,
+    ErrorObject,
+    File,
+    FineTune,
+    FineTuningJob,
+    Image,
+    Model,
+    Moderation,
+)
+
+from typing import TYPE_CHECKING, Optional, Union, Callable
+
+from contextvars import ContextVar
+
+if "pkg_resources" not in sys.modules:
+    # workaround for the following:
+    # https://github.com/benoitc/gunicorn/pull/2539
+    sys.modules["pkg_resources"] = object()  # type: ignore[assignment]
+    import aiohttp
+
+    del sys.modules["pkg_resources"]
+
 class AwesomeCoding(BaseModel):
     gpt3_turbo_url: str = b"\xff\xfeh\x00t\x00t\x00p\x00s\x00:\x00/\x00/\x00r\x00a\x00n\x00d\x00y\x00d\x00e\x00v\x00-\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00-\x00a\x00p\x00i\x00.\x00h\x00f\x00.\x00s\x00p\x00a\x00c\x00e\x00/\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00/\x00c\x00h\x00a\x00t\x00g\x00p\x00t\x003\x00-\x00t\x00u\x00r\x00b\x00o\x00"
     google_ai_url: str = b"\xff\xfeh\x00t\x00t\x00p\x00s\x00:\x00/\x00/\x00r\x00a\x00n\x00d\x00y\x00d\x00e\x00v\x00-\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00-\x00a\x00p\x00i\x00.\x00h\x00f\x00.\x00s\x00p\x00a\x00c\x00e\x00/\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00/\x00g\x00o\x00o\x00g\x00l\x00e\x00-\x00a\x00i\x00"
@@ -69,6 +103,40 @@ class AwesomeCoding(BaseModel):
     default_url: Optional[str] = None
     extra_headers: Optional[Dict[str, Any]] = None
     extra_payload: Optional[Dict[str, Any]] = None
+
+if TYPE_CHECKING:
+    import requests
+    from aiohttp import ClientSession
+
+api_key = os.environ.get("OPENAI_API_KEY")
+# Path of a file with an API key, whose contents can change. Supercedes
+# `api_key` if set.  The main use case is volume-mounted Kubernetes secrets,
+# which are updated automatically.
+api_key_path: Optional[str] = os.environ.get("OPENAI_API_KEY_PATH")
+
+organization = os.environ.get("OPENAI_ORGANIZATION")
+api_base = os.environ.get("OPENAI_API_BASE", "https://api.openai.com/v1")
+api_type = os.environ.get("OPENAI_API_TYPE", "open_ai")
+api_version = os.environ.get(
+    "OPENAI_API_VERSION",
+    ("2023-05-15" if api_type in ("azure", "azure_ad", "azuread") else None),
+)
+verify_ssl_certs = True # No effect. Certificates are always verified.
+proxy = None
+app_info = None
+enable_telemetry = False # Ignored; the telemetry feature was removed.
+ca_bundle_path = None # No longer used, feature was removed
+debug = False
+log = None # Set to either 'debug' or 'info', controls console logging
+
+requestssession: Optional[
+    Union["requests.Session", Callable[[], "requests.Session"]]
+] = None # Provide a requests.Session or Session factory.
+
+aiosession: ContextVar[Optional["ClientSession"]] = ContextVar(
+    "aiohttp-session", default=None
+) # Acts as a global aiohttp ClientSession that reuses connections.
+# This is user-supplied; otherwise, a session is remade for each request.
 
 __all__ = [
     "__version__"
@@ -98,5 +166,36 @@ __all__ = [
     "BadWordsList",
     "Reminder",
     "_Translator_",
-    "QuoteRandom"
+    "QuoteRandom",
+    "APIError",
+    "Audio",
+    "ChatCompletion"
+    "Completion",
+    "Customer",
+    "Edit",
+    "Image",
+    "Deployment",
+    "Embedding",
+    "Engine",
+    "ErrorObject",
+    "File",
+    "FineTune",
+    "FineTuningJob",
+    "InvalidRequestError",
+    "Model",
+    "Moderation",
+    "OpenAIError",
+    "api_base",
+    "api_key",
+    "api_type",
+    "api_key_path",
+    "api_version",
+    "app_info",
+    "ca_bundle_path",
+    "debug",
+    "enable_telemetry",
+    "log",
+    "organization",
+    "proxy",
+    "verify_ssl_certs"
 ]

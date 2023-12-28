@@ -23,10 +23,17 @@ from pymongo import MongoClient
 from datetime import datetime as dt
 
 class OpenAiToken:
-    def __init__(self, api_key: str = None, mongo_url: str = None):
+    def __init__(
+        self,
+        api_key: str = None,
+        api_base: str = None,
+        mongo_url: str = None
+    ):
         self.api_key = api_key
+        self.api_base = api_base
         self.mongo_url = mongo_url
         openai.api_key = self.api_key
+        openai.api_base = self.api_base
 
     def connect_mongo(self):
         return MongoClient(self.mongo_url)["tiktokbot"]["users"]

@@ -105,9 +105,11 @@ class OpenAiToken:
         is_stream=False
     ):
         if is_stream:
+            conversation_history = []
+            conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
                 model=model,
-                messages=[{"role": "user", "content": query}],
+                messages=conversation_history,
                 stream=True
             )
             if isinstance(chat_completion, dict):
@@ -118,7 +120,8 @@ class OpenAiToken:
                     content = token["choices"][0]["delta"].get("content")
                     if content is not None:
                         answer += content
-                        return answer
+                        conversation_history.append({"role": "user", "content": answer})
+            return [answer, conversation_history]
         else:
             chat_completion = openai.ChatCompletion.create(
                 messages=[{"role": role, "content": query}],

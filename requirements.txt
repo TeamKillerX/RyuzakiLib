@@ -5,7 +5,7 @@ google-search-results
 httpx[http2]
 Python-IO
 Pillow
-openai==0.28.1
+openai==0.28
 tqdm
 pre-commit
 gpytranslate

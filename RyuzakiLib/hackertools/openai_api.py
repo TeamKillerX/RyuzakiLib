@@ -106,7 +106,7 @@ class OpenAiToken:
     ):
         if is_stream:
             chat_completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model=model,
                 messages=[{"role": "user", "content": query}],
                 stream=True
             )

@@ -26,7 +26,7 @@ class OpenAiToken:
     def __init__(
         self,
         api_key: str = None,
-        api_base: str = None,
+        api_base: str = "https://api.openai.com/v1",
         mongo_url: str = None
     ):
         self.api_key = api_key
@@ -101,15 +101,32 @@ class OpenAiToken:
         self,
         query: str=None,
         role: str="user",
-        model: str="gpt-3.5-turbo"
+        model: str="gpt-3.5-turbo",
+        is_stream=False
     ):
-        chat_completion = openai.ChatCompletion.create(
-            messages=[{"role": role, "content": query}],
-            model=model,
-            top_p=0.1,
-            timeout=2.5
-        )
-        return chat_completion
+        if is_stream:
+            chat_completion = openai.ChatCompletion.create(
+                model=model,
+                messages=[{"role": "user", "content": query}],
+                stream=True
+            )
+            if isinstance(chat_completion, dict):
+                answer = chat_completion.choices[0].message.content
+            else:
+                answer = ""
+                for token in chat_completion:
+                    content = token["choices"][0]["delta"].get("content")
+                    if content is not None:
+                        answer += content
+                    return answer
+        else:
+            chat_completion = openai.ChatCompletion.create(
+                messages=[{"role": role, "content": query}],
+                model=model,
+                top_p=0.1,
+                timeout=2.5
+            )
+            return chat_completion
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

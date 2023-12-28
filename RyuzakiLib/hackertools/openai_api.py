@@ -95,7 +95,7 @@ class OpenAiToken:
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-        return response.choices[0].text
+        return response
 
     def chat_message_turbo(
         self,

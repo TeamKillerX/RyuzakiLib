@@ -22,6 +22,8 @@ import requests
 from pymongo import MongoClient
 from datetime import datetime as dt
 
+conversation_history = []
+
 class OpenAiToken:
     def __init__(
         self,
@@ -104,8 +106,8 @@ class OpenAiToken:
         model: str="gpt-3.5-long",
         is_stream=False
     ):
+        global conversation_history
         if is_stream:
-            conversation_history = []
             conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
                 model=model,

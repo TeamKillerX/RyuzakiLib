@@ -120,7 +120,7 @@ class OpenAiToken:
                     content = token["choices"][0]["delta"].get("content")
                     if content is not None:
                         answer += content
-                        conversation_history.append({"role": "user", "content": answer})
+                        conversation_history.append({"role": "assistant", "content": answer})
             return [answer, conversation_history]
         else:
             conversation_history = []
@@ -130,7 +130,7 @@ class OpenAiToken:
                 model=model
             )
             answer = chat_completion["choices"][0]["message"]["content"]
-            conversation_history.append({"role": "user", "content": answer})
+            conversation_history.append({"role": "assistant", "content": answer})
             return [answer, conversation_history]
 
     def photo_output(self, query: str=None):

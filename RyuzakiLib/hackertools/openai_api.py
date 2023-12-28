@@ -129,7 +129,7 @@ class OpenAiToken:
                 messages=conversation_history,
                 model=model
             )
-            answer = response["choices"][0]["message"]["content"]
+            answer = chat_completion["choices"][0]["message"]["content"]
             conversation_history.append({"role": "user", "content": answer})
             return [answer, conversation_history]
 

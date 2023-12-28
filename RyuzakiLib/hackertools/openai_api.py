@@ -26,7 +26,7 @@ class OpenAiToken:
     def __init__(
         self,
         api_key: str = None,
-        api_base: str = None,
+        api_base: str = "https://api.openai.com/v1",
         mongo_url: str = None
     ):
         self.api_key = api_key

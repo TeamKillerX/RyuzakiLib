@@ -88,7 +88,7 @@ class OpenAiToken:
         return assistant_reply
 
     def message_output(self, query: str=None):
-        response = openai.Completion.create(
+        return openai.Completion.create(
             model="text-davinci-003",
             prompt=f"{query}\n:",
             temperature=0,
@@ -97,7 +97,6 @@ class OpenAiToken:
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-        return response
 
     def chat_message_turbo(
         self,
@@ -122,18 +121,16 @@ class OpenAiToken:
                     content = token["choices"][0]["delta"].get("content")
                     if content is not None:
                         answer += content
-            gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, gpt3_conversation_history]
         else:
-            gpt3_conversation_history = []
-            gpt3_conversation_history.append({"role": "user", "content": query})
+            gpt3_conversation_history = [{"role": "user", "content": query}]
             chat_completion = openai.ChatCompletion.create(
                 messages=gpt3_conversation_history,
                 model=model
             )
             answer = chat_completion["choices"][0].message.content
-            gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, gpt3_conversation_history]
+
+        gpt3_conversation_history.append({"role": "assistant", "content": answer})
+        return [answer, gpt3_conversation_history]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
@@ -147,14 +144,9 @@ class OpenAiToken:
         size: str="1024x1024",
         n: int=1
     ):
-        chat_image_generate = openai.Image.create(
-            prompt=query,
-            model=model,
-            quality=quality,
-            size=size,
-            n=n
+        return openai.Image.create(
+            prompt=query, model=model, quality=quality, size=size, n=n
         )
-        return chat_image_generate
 
     def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:

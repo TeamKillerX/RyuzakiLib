@@ -106,8 +106,8 @@ class OpenAiToken:
         model: str="gpt-3.5-turbo",
         is_stream=False
     ):
+        global gpt3_conversation_history
         if is_stream:
-            global gpt3_conversation_history
             gpt3_conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
                 model=model,

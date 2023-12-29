@@ -79,7 +79,7 @@ class SibylBan:
 
     def get_ufop_ban(self, user_id: int=None, banlist: bool = False) -> Union[dict, str]:
         if banlist:
-            url = "https://ufoptg-ufop-api.hf.space/UFoP/bans"
+            url = "https://api-5cqn.onrender.com/ryuzaki/sibyl"
             payload = {"user_id": user_id}
             return self._make_request("GET", url, json_data=payload)
         else:

@@ -125,11 +125,10 @@ class OpenAiToken:
                             answer += content
                             gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
-            except Exception as e:
-                errros_msg = f"Error responding: {e}"
+            except Exception:
+                errros_msg = f"Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            gpt3_conversation_history = []
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
@@ -139,8 +138,8 @@ class OpenAiToken:
                 answer = chat_completion["choices"][0].message.content
                 gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
-            except Exception as e:
-                errros_msg = f"Error responding: {e}"
+            except Exception:
+                errros_msg = f"Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
     def photo_output(self, query: str=None):

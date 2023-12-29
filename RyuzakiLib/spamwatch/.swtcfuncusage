@@ -1,0 +1,39 @@
+#IMPORTS
+from RyuzakiLib.spamwatch.clients import SibylBan
+#~<
+
+#Set API to use system and ban
+clients = SibylBan("your_api_key_here")
+
+message = clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
+await message.reply_text(message)
+
+# Part 2 ~ Check if user is banned
+showing = clients.get_ban(user_id=client.me.id, banlist=True)
+print(showing)
+
+# Part 3 ~ Unban user
+unban_str = clients.unban_del(user_id=client.me.id, delete=True)
+print(unban_str)
+
+# Part 4 ~ Get entire ban list
+results = clients.get_all_banlist()
+##############################################################
+#UFoP Functions
+################
+#Set API to use system and ban
+
+message = clients.add_ufop_ban(user_id=client.me.id, reason="scammer", is_banned=True)
+await message.reply_text(message)
+
+# Part 2 ~ Check if user is banned
+showing = clients.get_ufop_ban(user_id=client.me.id, banlist=True)
+print(showing)
+
+# Part 3 ~ Unban user
+unban_str = clients.ufopunban_del(user_id=client.me.id, delete=True)
+print(unban_str)
+
+# Part 4 ~ Get entire ban list
+results = clients.get_ufop_banlist()
+#<<<<<<<<<<<<<<<<<<<<<<<<<END OF

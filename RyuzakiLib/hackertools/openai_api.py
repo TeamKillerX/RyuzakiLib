@@ -106,8 +106,8 @@ class OpenAiToken:
         model: str="gpt-3.5-turbo",
         is_stream=False
     ):
+        global gpt3_conversation_history
         if is_stream:
-            global gpt3_conversation_history
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
@@ -129,7 +129,6 @@ class OpenAiToken:
                 errros_msg = f"Error responding: {e}"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            global gpt3_conversation_history
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(

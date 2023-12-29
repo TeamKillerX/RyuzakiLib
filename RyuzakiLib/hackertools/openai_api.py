@@ -142,6 +142,42 @@ class OpenAiToken:
                 errros_msg = f"Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
+    def chat_message_api(
+        self,
+        query: str=None,
+        request_url: str=None,
+        user_agent: str=None,
+        base_api_key: str=None,
+        model: str="gpt-3.5-turbo",
+        is_authorization: bool=False
+    ):
+        global gpt3_conversation_history
+        if is_authorization:
+            api_key = f"Bearer {base_api_key}"
+        else:
+            api_key = ""
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": api_key,
+            "User-Agent": user_agent
+        }
+        gpt3_conversation_history.append({"role": "user", "content": query})
+        json_data = {
+            "model": model,
+            "messages": gpt3_conversation_history
+        }
+        response = requests.post(request_url, headers=headers, json=json_data)
+        if response.status_code != 200:
+            return "Error responding: API limits"
+        response_data = response.json()
+        if response_data:
+            answer = response_data["choices"][0]["message"]["content"]
+            gpt3_conversation_history.append({"role": "assistant", "content": answer})
+            return [answer, gpt3_conversation_history]
+        else:
+            answer = "Not responding: Not Found Results"
+            return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]

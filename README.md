@@ -306,8 +306,34 @@ response = requests.post(url, headers=headers, params=params).json()
 
 You can find the [`Ryuzaki API`](https://private.randydev.my.id)
 
-### Get API keys
-• The API uses API keys to allow access to the API. You can get a API key [here](https://t.me/randydev_bot)
+### Ryuzaki API Request (API Keys)
+
+- Full Name : (...)
+- Email address : (...)
+- Telegram Username : (....)
+- Project Domain [Optional] : (....)
+
+- Why you want to use this API and or why we should give you access?
+
+(......)
+
+* Choose your one
+
+1. [ ] ChatGPT-4 Free Access
+2. [ ] I wont use this API for anything illegal
+3. [ ] 5 USD/Month - Etc
+
+~ Starting january 1, 2024, remove the `/token_api_key` command in [ryuzaki bots](https://t.me/randydev_bot)
+
+<u>Sorry, we are not taking any API requests at the moment<u>
+
+* Only Developed by
+- [@xtdevs](https://t.me/xtdevs)
+- [@TrueSaiyan](https://t.me/TrueSaiyan)
+- [@moiusrname](https://t.me/moiusrname)
+- [@Hackintush](https://t.me/Hackintush)
+
+* Contact Support: [@xtdevs](https://t.me/xtdevs)
 
 ### Troubleshoot
 Sometimes errors occur, but we are here to help! This guide covers some of the most common issues we’ve seen and how you can resolve them. However, this guide isn’t meant to be a comprehensive collection of every 🤗 FastAPI issue. For more help with troubleshooting your issue, try:

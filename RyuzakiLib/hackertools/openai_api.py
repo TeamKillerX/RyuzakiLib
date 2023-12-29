@@ -109,31 +109,37 @@ class OpenAiToken:
         if is_stream:
             global gpt3_conversation_history
             gpt3_conversation_history.append({"role": "user", "content": query})
-            chat_completion = openai.ChatCompletion.create(
-                model=model,
-                messages=gpt3_conversation_history,
-                stream=True
-            )
-            if isinstance(chat_completion, dict):
-                answer = chat_completion.choices[0].message.content
-            else:
-                answer = ""
-                for token in chat_completion:
-                    content = token["choices"][0]["delta"].get("content")
-                    if content is not None:
-                        answer += content
-            gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, gpt3_conversation_history]
+            try:
+                chat_completion = openai.ChatCompletion.create(
+                    model=model,
+                    messages=gpt3_conversation_history,
+                    stream=True
+                )
+                if isinstance(chat_completion, dict):
+                    answer = chat_completion.choices[0].message.content
+                else:
+                    answer = ""
+                    for token in chat_completion:
+                        content = token["choices"][0]["delta"].get("content")
+                        if content is not None:
+                            answer += content
+                            gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                return [answer, gpt3_conversation_history]
+            except Exception as e:
+                return f"Error responding: {e}"
         else:
             gpt3_conversation_history = []
             gpt3_conversation_history.append({"role": "user", "content": query})
-            chat_completion = openai.ChatCompletion.create(
-                messages=gpt3_conversation_history,
-                model=model
-            )
-            answer = chat_completion["choices"][0].message.content
-            gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, gpt3_conversation_history]
+            try:
+                chat_completion = openai.ChatCompletion.create(
+                    messages=gpt3_conversation_history,
+                    model=model
+                )
+                answer = chat_completion["choices"][0].message.content
+                gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                return [answer, gpt3_conversation_history]
+            except Exception as e:
+                return f"Error responding: {e}"
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

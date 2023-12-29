@@ -129,7 +129,7 @@ class OpenAiToken:
                 errros_msg = f"Error responding: {e}"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            gpt3_conversation_history = []
+            global gpt3_conversation_history
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(

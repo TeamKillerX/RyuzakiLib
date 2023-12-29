@@ -172,6 +172,7 @@ class OpenAiToken:
         response_data = response.json()
         if response_data:
             answer = response_data["choices"][0]["message"]["content"]
+            print(response_data)
             gpt3_conversation_history.append({"role": "assistant", "content": answer})
             return [answer, gpt3_conversation_history]
         else:

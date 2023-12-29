@@ -126,7 +126,8 @@ class OpenAiToken:
                             gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
             except Exception as e:
-                return f"Error responding: {e}"
+                errros_msg = f"Error responding: {e}"
+                return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
             gpt3_conversation_history = []
             gpt3_conversation_history.append({"role": "user", "content": query})
@@ -139,7 +140,8 @@ class OpenAiToken:
                 gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
             except Exception as e:
-                return f"Error responding: {e}"
+                errros_msg = f"Error responding: {e}"
+                return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

@@ -123,7 +123,7 @@ class OpenAiToken:
                     if content is not None:
                         answer += content
             gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, conversation_history]
+            return [answer, gpt3_conversation_history]
         else:
             gpt3_conversation_history = []
             gpt3_conversation_history.append({"role": "user", "content": query})

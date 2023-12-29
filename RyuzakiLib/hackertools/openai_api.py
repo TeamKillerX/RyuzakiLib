@@ -22,7 +22,7 @@ import requests
 from pymongo import MongoClient
 from datetime import datetime as dt
 
-conversation_history = []
+gpt3_conversation_history = []
 
 class OpenAiToken:
     def __init__(
@@ -75,7 +75,7 @@ class OpenAiToken:
                     top_p=0.1,
                     timeout=2.5
                 )
-                assistant_reply = response["choices"][0]["message"]["content"]
+                assistant_reply = response["choices"][0].message.content
                 collection.update_one(
                     {"user_id": user_id},
                     {"$push": {"conversation_history": {"user_message": user_message, "assistant_reply": assistant_reply}}}
@@ -103,15 +103,15 @@ class OpenAiToken:
         self,
         query: str=None,
         role: str="user",
-        model: str="gpt-3.5-long",
+        model: str="gpt-3.5-turbo",
         is_stream=False
     ):
-        global conversation_history
+        global gpt3_conversation_history
         if is_stream:
-            conversation_history.append({"role": "user", "content": query})
+            gpt3_conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
                 model=model,
-                messages=conversation_history,
+                messages=gpt3_conversation_history,
                 stream=True
             )
             if isinstance(chat_completion, dict):
@@ -122,18 +122,18 @@ class OpenAiToken:
                     content = token["choices"][0]["delta"].get("content")
                     if content is not None:
                         answer += content
-            conversation_history.append({"role": "assistant", "content": answer})
+            gpt3_conversation_history.append({"role": "assistant", "content": answer})
             return [answer, conversation_history]
         else:
-            conversation_history = []
-            conversation_history.append({"role": "user", "content": query})
+            gpt3_conversation_history = []
+            gpt3_conversation_history.append({"role": "user", "content": query})
             chat_completion = openai.ChatCompletion.create(
-                messages=conversation_history,
+                messages=gpt3_conversation_history,
                 model=model
             )
             answer = chat_completion["choices"][0].message.content
-            conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, conversation_history]
+            gpt3_conversation_history.append({"role": "assistant", "content": answer})
+            return [answer, gpt3_conversation_history]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

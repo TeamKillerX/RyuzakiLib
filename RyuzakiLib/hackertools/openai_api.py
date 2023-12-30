@@ -145,16 +145,19 @@ class OpenAiToken:
     def chat_message_api(
         self,
         query: str=None,
+        default_url: str=None,
         request_url: str=None,
         user_agent: str=None,
-        base_api_key: str=None,
+        _api_key: str=None,
+        bard_api_key: str=None,
         model: str="gpt-3.5-turbo",
         re_json: bool=False,
-        is_authorization: bool=False
+        is_authorization: bool=False,
+        need_auth_cookies: bool=False
     ):
         global gpt3_conversation_history
         if is_authorization:
-            api_key = f"Bearer {base_api_key}"
+            api_key = f"Bearer {_api_key}"
         else:
             api_key = ""
         headers = {
@@ -163,11 +166,19 @@ class OpenAiToken:
             "User-Agent": user_agent
         }
         gpt3_conversation_history.append({"role": "user", "content": query})
-        json_data = {
-            "model": model,
-            "messages": gpt3_conversation_history
-        }
-        method_url = request_url + "/chat/completions"
+        if need_auth_cookies:
+            cookies = {"__Secure-1PSID": bard_api_key}
+            json_data = {
+                "model": model,
+                "messages": gpt3_conversation_history,
+                "cookies": cookies
+            }
+        else:
+            json_data = {
+                "model": model,
+                "messages": gpt3_conversation_history,
+            }
+        method_url = request_url + "/chat/completions" or default_url
         response = requests.post(method_url, headers=headers, json=json_data)
         if response.status_code != 200:
             return "Error responding: API limits"

@@ -167,7 +167,8 @@ class OpenAiToken:
             "model": model,
             "messages": gpt3_conversation_history
         }
-        response = requests.post(request_url, headers=headers, json=json_data)
+        method_url = request_url + "/chat/completions" or request_url
+        response = requests.post(method_url, headers=headers, json=json_data)
         if response.status_code != 200:
             return "Error responding: API limits"
         response_data = response.json()

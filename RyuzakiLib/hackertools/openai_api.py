@@ -149,6 +149,7 @@ class OpenAiToken:
         user_agent: str=None,
         base_api_key: str=None,
         model: str="gpt-3.5-turbo",
+        re_json: bool=False,
         is_authorization: bool=False
     ):
         global gpt3_conversation_history
@@ -170,14 +171,16 @@ class OpenAiToken:
         if response.status_code != 200:
             return "Error responding: API limits"
         response_data = response.json()
-        if response_data:
-            answer = response_data["choices"][0]["message"]["content"]
-            print(response_data)
-            gpt3_conversation_history.append({"role": "assistant", "content": answer})
-            return [answer, gpt3_conversation_history]
+        if re_json:
+            if response_data:
+                answer = response_data["choices"][0]["message"]["content"]
+                gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                return [answer, gpt3_conversation_history]
+            else:
+                answer = "Not responding: Not Found Results"
+                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            answer = "Not responding: Not Found Results"
-            return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+            return response_data
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

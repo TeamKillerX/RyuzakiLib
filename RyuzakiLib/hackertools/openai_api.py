@@ -170,11 +170,12 @@ class OpenAiToken:
         _api_key: Optional[str] = None,
         bard_api_key: Optional[str] = None,
         model: str="gpt-3.5-turbo",
+        continue_conversation: Optional[list] = [],
         is_authorization: Optional[bool] = False,
         need_auth_cookies: Optional[bool] = False,
         is_different: Optional[bool] = False
     ):
-        global gpt3_conversation_history, list_user_agent
+        global continue_conversation, list_user_agent
         if is_authorization:
             api_key = f"Bearer {_api_key}"
         else:
@@ -185,10 +186,10 @@ class OpenAiToken:
             "Authorization": api_key,
             "User-Agent": selected_user_agent
         }
-        gpt3_conversation_history.append({"role": "user", "content": query})
+        continue_conversation.append({"role": "user", "content": query})
         json_data = {
             "model": model,
-            "messages": gpt3_conversation_history,
+            "messages": continue_conversation,
         }
         if is_different:
             method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
@@ -198,8 +199,8 @@ class OpenAiToken:
             response_data = response.json()
             if response_data:
                 answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
-                gpt3_conversation_history.append({"role": "assistant", "content": answer})
-                return [answer, gpt3_conversation_history]
+                continue_conversation.append({"role": "assistant", "content": answer})
+                return [answer, continue_conversation]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
@@ -208,12 +209,12 @@ class OpenAiToken:
                 selected_new_model = g4f.models.default or model
                 new_response = g4f.ChatCompletion.create(
                     model=selected_new_model,
-                    messages=gpt3_conversation_history,
+                    messages=continue_conversation,
                     provider=Bard,
                     cookies={"__Secure-1PSID": bard_api_key},
                     auth=True
                 )
-                return [new_response, gpt3_conversation_history]
+                return [new_response, continue_conversation]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]

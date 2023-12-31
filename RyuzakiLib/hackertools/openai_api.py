@@ -176,10 +176,8 @@ class OpenAiToken:
         is_different: Optional[bool] = False
     ):
         
-        global list_user_agent
         if continue_conversations is None:
             continue_conversations = []
-            global continue_conversations
         if is_authorization:
             api_key = f"Bearer {_api_key}"
         else:

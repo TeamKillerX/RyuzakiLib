@@ -22,3 +22,4 @@ ntgcalls>=1.0.2
 psutil
 screeninfo
 aiofiles
+g4f

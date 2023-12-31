@@ -17,12 +17,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import g4f
 import openai
 import requests
+import random
 from pymongo import MongoClient
 from datetime import datetime as dt
+from typing import Optional
+from g4f.Provider import Bard
 
 gpt3_conversation_history = []
+
+list_user_agent = [
+    "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 7.0; BV6000_RU) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 9; ELUGA U3 Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; U; Android 10; en-US; GM1901 Build/QKQ1.190716.003) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/12.14.0.1221 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 10; SM-T515 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36 YaApp_Android/10.51/apad YaSearchBrowser/10.51",
+    "Mozilla/5.0 (Linux; arm_64; Android 10; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 YaApp_Android/20.123.0 YaSearchBrowser/20.123.0 BroPP/1.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 9; BKL-AL20; HMSCore 5.1.1.303; GMSCore 21.02.14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.7.303 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; arm; Android 5.1.1; SM-J120F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 YaBrowser/20.12.3.116.00 SA/3 Mobile Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2670.9 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 OPR/74.0.3911.107 (Edition 360-1)",
+    "Mozilla/5.0 (Linux; Android 10; MAR-LX1B Build/HUAWEIMAR-L21B) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 SznProhlizec/7.12.2a"
+]
 
 class OpenAiToken:
     def __init__(
@@ -145,42 +164,62 @@ class OpenAiToken:
     def chat_message_api(
         self,
         query: str=None,
-        request_url: str=None,
-        user_agent: str=None,
-        base_api_key: str=None,
+        default_url: Optional[str] = None,
+        request_url: Optional[str] = None,
+        user_agent: Optional[str] = None,
+        _api_key: Optional[str] = None,
+        bard_api_key: Optional[str] = None,
         model: str="gpt-3.5-turbo",
-        re_json: bool=False,
-        is_authorization: bool=False
+        continue_conversations: Optional[list] = [],
+        is_authorization: Optional[bool] = False,
+        need_auth_cookies: Optional[bool] = False,
+        is_different: Optional[bool] = False
     ):
-        global gpt3_conversation_history
+        global continue_conversations, list_user_agent
+        if continue_conversations is None:
+            continue_conversations = []
         if is_authorization:
-            api_key = f"Bearer {base_api_key}"
+            api_key = f"Bearer {_api_key}"
         else:
             api_key = ""
+        selected_user_agent = random.choice(list_user_agent) or user_agent
         headers = {
             "Content-Type": "application/json",
             "Authorization": api_key,
-            "User-Agent": user_agent
+            "User-Agent": selected_user_agent
         }
-        gpt3_conversation_history.append({"role": "user", "content": query})
+        continue_conversations.append({"role": "user", "content": query})
         json_data = {
             "model": model,
-            "messages": gpt3_conversation_history
+            "messages": continue_conversations,
         }
-        response = requests.post(request_url, headers=headers, json=json_data)
-        if response.status_code != 200:
-            return "Error responding: API limits"
-        response_data = response.json()
-        if re_json:
+        if is_different:
+            method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
+            response = requests.post(method_url, headers=headers, json=json_data)
+            if response.status_code != 200:
+                return "Error responding: API limits"
+            response_data = response.json()
             if response_data:
                 answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
-                gpt3_conversation_history.append({"role": "assistant", "content": answer})
-                return [answer, gpt3_conversation_history]
+                continue_conversations.append({"role": "assistant", "content": answer})
+                return [answer, continue_conversations]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            return response_data
+            if need_auth_cookies:
+                selected_new_model = g4f.models.default or model
+                new_response = g4f.ChatCompletion.create(
+                    model=selected_new_model,
+                    messages=continue_conversations,
+                    provider=Bard,
+                    cookies={"__Secure-1PSID": bard_api_key},
+                    auth=True
+                )
+                return [new_response, continue_conversations]
+            else:
+                answer = "Not responding: Not Found Results"
+                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

@@ -170,14 +170,14 @@ class OpenAiToken:
         _api_key: Optional[str] = None,
         bard_api_key: Optional[str] = None,
         model: str="gpt-3.5-turbo",
-        continue_conversation: Optional[list] = [],
+        continue_conversations: Optional[list] = [],
         is_authorization: Optional[bool] = False,
         need_auth_cookies: Optional[bool] = False,
         is_different: Optional[bool] = False
     ):
-        global continue_conversation, list_user_agent
-        if continue_conversation is None:
-            continue_conversation = []
+        global continue_conversations, list_user_agent
+        if continue_conversations is None:
+            continue_conversations = []
         if is_authorization:
             api_key = f"Bearer {_api_key}"
         else:
@@ -188,10 +188,10 @@ class OpenAiToken:
             "Authorization": api_key,
             "User-Agent": selected_user_agent
         }
-        continue_conversation.append({"role": "user", "content": query})
+        continue_conversations.append({"role": "user", "content": query})
         json_data = {
             "model": model,
-            "messages": continue_conversation,
+            "messages": continue_conversations,
         }
         if is_different:
             method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
@@ -201,8 +201,8 @@ class OpenAiToken:
             response_data = response.json()
             if response_data:
                 answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
-                continue_conversation.append({"role": "assistant", "content": answer})
-                return [answer, continue_conversation]
+                continue_conversations.append({"role": "assistant", "content": answer})
+                return [answer, continue_conversations]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
@@ -211,12 +211,12 @@ class OpenAiToken:
                 selected_new_model = g4f.models.default or model
                 new_response = g4f.ChatCompletion.create(
                     model=selected_new_model,
-                    messages=continue_conversation,
+                    messages=continue_conversations,
                     provider=Bard,
                     cookies={"__Secure-1PSID": bard_api_key},
                     auth=True
                 )
-                return [new_response, continue_conversation]
+                return [new_response, continue_conversations]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]

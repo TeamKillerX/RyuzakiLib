@@ -17,11 +17,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import g4f
 import openai
 import requests
 import random
 from pymongo import MongoClient
 from datetime import datetime as dt
+from typing import Optional
+from g4f.Provider import Bard
 
 gpt3_conversation_history = []
 
@@ -161,15 +164,15 @@ class OpenAiToken:
     def chat_message_api(
         self,
         query: str=None,
-        default_url: str=None,
-        request_url: str=None,
-        user_agent: str=None,
-        _api_key: str=None,
-        bard_api_key: str=None,
+        default_url: Optional[str] = None,
+        request_url: Optional[str] = None,
+        user_agent: Optional[str] = None,
+        _api_key: Optional[str] = None,
+        bard_api_key: Optional[str] = None,
         model: str="gpt-3.5-turbo",
-        re_json: bool=False,
-        is_authorization: bool=False,
-        need_auth_cookies: bool=False
+        re_json: Optional[bool] = False,
+        is_authorization: Optional[bool] = False,
+        need_auth_cookies: Optional[bool] = False
     ):
         global gpt3_conversation_history, list_user_agent
         if is_authorization:
@@ -183,31 +186,34 @@ class OpenAiToken:
             "User-Agent": selected_user_agent
         }
         gpt3_conversation_history.append({"role": "user", "content": query})
-        if need_auth_cookies:
-            cookies = {"__Secure-1PSID": bard_api_key}
-            json_data = {
-                "model": model,
-                "messages": gpt3_conversation_history,
-                "cookies": cookies
-            }
-        else:
-            json_data = {
-                "model": model,
-                "messages": gpt3_conversation_history,
-            }
+        json_data = {
+            "model": model,
+            "messages": gpt3_conversation_history,
+        }
         method_url = request_url + "/chat/completions" or default_url
         response = requests.post(method_url, headers=headers, json=json_data)
         if response.status_code != 200:
             return "Error responding: API limits"
         response_data = response.json()
         if re_json:
-            if response_data:
-                answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
-                gpt3_conversation_history.append({"role": "assistant", "content": answer})
-                return [answer, gpt3_conversation_history]
+            if need_auth_cookies:
+                selected_new_model = g4f.models.default or model
+                response = g4f.ChatCompletion.create(
+                    model=selected_new_model,
+                    messages=gpt3_conversation_history,
+                    provider=Bard,
+                    cookies={"__Secure-1PSID": bard_api_key},
+                    auth=True
+                )
+                return [response, gpt3_conversation_history]
             else:
-                answer = "Not responding: Not Found Results"
-                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+                if response_data:
+                    answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
+                    gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                    return [answer, gpt3_conversation_history]
+                else:
+                    answer = "Not responding: Not Found Results"
+                    return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
             return response_data
 

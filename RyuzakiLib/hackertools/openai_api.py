@@ -170,7 +170,6 @@ class OpenAiToken:
         _api_key: Optional[str] = None,
         bard_api_key: Optional[str] = None,
         model: str="gpt-3.5-turbo",
-        re_json: Optional[bool] = False,
         is_authorization: Optional[bool] = False,
         need_auth_cookies: Optional[bool] = False,
         is_different: Optional[bool] = False
@@ -191,35 +190,34 @@ class OpenAiToken:
             "model": model,
             "messages": gpt3_conversation_history,
         }
-        method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
         if is_different:
+            method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
             response = requests.post(method_url, headers=headers, json=json_data)
             if response.status_code != 200:
                 return "Error responding: API limits"
             response_data = response.json()
-        else:
-            if re_json:
-                if need_auth_cookies:
-                    selected_new_model = g4f.models.default or model
-                    new_response = g4f.ChatCompletion.create(
-                        model=selected_new_model,
-                        messages=gpt3_conversation_history,
-                        provider=Bard,
-                        cookies={"__Secure-1PSID": bard_api_key},
-                        auth=True
-                    )
-                    return [new_response, gpt3_conversation_history]
-                else:
-                    if response_data:
-                        answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
-                        gpt3_conversation_history.append({"role": "assistant", "content": answer})
-                        return [answer, gpt3_conversation_history]
-                    else:
-                        answer = "Not responding: Not Found Results"
-                        return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+            if response_data:
+                answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
+                gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                return [answer, gpt3_conversation_history]
             else:
-                return response_data
-
+                answer = "Not responding: Not Found Results"
+                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+        else:
+            if need_auth_cookies:
+                selected_new_model = g4f.models.default or model
+                new_response = g4f.ChatCompletion.create(
+                    model=selected_new_model,
+                    messages=gpt3_conversation_history,
+                    provider=Bard,
+                    cookies={"__Secure-1PSID": bard_api_key},
+                    auth=True
+                )
+                return [new_response, gpt3_conversation_history]
+            else:
+                answer = "Not responding: Not Found Results"
+                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+    
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]

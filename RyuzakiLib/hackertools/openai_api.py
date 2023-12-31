@@ -175,7 +175,6 @@ class OpenAiToken:
         need_auth_cookies: Optional[bool] = False,
         is_different: Optional[bool] = False
     ):
-        global continue_conversations, list_user_agent
         if continue_conversations is None:
             continue_conversations = []
         if is_authorization:

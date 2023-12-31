@@ -220,7 +220,7 @@ class OpenAiToken:
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
-    
+
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]

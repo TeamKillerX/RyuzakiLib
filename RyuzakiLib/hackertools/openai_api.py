@@ -198,14 +198,14 @@ class OpenAiToken:
         if re_json:
             if need_auth_cookies:
                 selected_new_model = g4f.models.default or model
-                response = g4f.ChatCompletion.create(
+                new_response = g4f.ChatCompletion.create(
                     model=selected_new_model,
                     messages=gpt3_conversation_history,
                     provider=Bard,
                     cookies={"__Secure-1PSID": bard_api_key},
                     auth=True
                 )
-                return [response, gpt3_conversation_history]
+                return [new_response, gpt3_conversation_history]
             else:
                 if response_data:
                     answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]

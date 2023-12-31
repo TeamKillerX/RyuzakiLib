@@ -27,8 +27,6 @@ from typing import Optional
 from g4f.Provider import Bard
 
 gpt3_conversation_history = []
-continue_conversations = None
-list_user_agent = None
 
 list_user_agent = [
     "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36",
@@ -177,9 +175,11 @@ class OpenAiToken:
         need_auth_cookies: Optional[bool] = False,
         is_different: Optional[bool] = False
     ):
-        global continue_conversations, list_user_agent
+        
+        global list_user_agent
         if continue_conversations is None:
             continue_conversations = []
+            global continue_conversations
         if is_authorization:
             api_key = f"Bearer {_api_key}"
         else:

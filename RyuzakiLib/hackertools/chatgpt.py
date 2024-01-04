@@ -147,10 +147,18 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_turbo3(self, turbo3: bool = False):
+    def get_response_turbo3(
+        self,
+        api_key: str=None,
+        turbo3: bool = False
+    ):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
-        params = {"query": self.query}
-        response = requests.post(url, json=params)
+        headers = {
+            "accept": "application/json",
+            "api-key": api_key
+        }
+        payload = {"query": self.query}
+        response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
@@ -169,7 +177,7 @@ class RendyDevChat:
 .get_response_bing(bing=True)
 .get_response_model() # parameter model_id: integers and is_models: boolean
 .get_response_llama(llama=True)
-.get_response_turbo3(turbo3=True)
+.get_response_turbo3(api_key=api_key, turbo3=True)
 .get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
 .get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
 .multi_chat_response(api_key=api_key, is_multi_chat=True)

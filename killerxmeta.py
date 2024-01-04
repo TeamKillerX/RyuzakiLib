@@ -4,17 +4,17 @@ import subprocess
 import sys
 
 vars = [
-    "API_ID", 
-    "API_HASH", 
-    "STRING_SESSION1", 
-    "BOT_TOKEN", 
-    "LOG_GROUP_ID", 
-    "SUDO_USERS", 
-    "MONGO_DB_URI", 
-    "OWNER_ID", 
-    "DURATION_LIMIT", 
-    "SUPPORT_CHANNEL", 
-    "ASSISTANT_PREFIX", 
+    "API_ID",
+    "API_HASH",
+    "STRING_SESSION1",
+    "BOT_TOKEN",
+    "LOG_GROUP_ID",
+    "SUDO_USERS",
+    "MONGO_DB_URI",
+    "OWNER_ID",
+    "DURATION_LIMIT",
+    "SUPPORT_CHANNEL",
+    "ASSISTANT_PREFIX",
     "MUSIC_BOT_NAME"
 ]
 

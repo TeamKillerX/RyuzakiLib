@@ -1,4 +1,4 @@
-### Postgresql Database 
+### Postgresql Database
 
 If you wish to use a database-dependent module (eg: locks, notes, userinfo, users, filters, welcomes),
 you'll need to have a database installed on your system. I use postgres, so I recommend using it for optimal compatibility.
@@ -39,7 +39,7 @@ You should now be able to build your database URI. This will be:
 Replace sqldbtype with whichever db youre using (eg postgres, mysql, sqllite, etc)
 repeat for your username, password, hostname (localhost?), port (5432?), and db name.
 
-### Redis Server Database 
+### Redis Server Database
 
 <b>Step 1: Prerequisites</b>
 

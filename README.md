@@ -11,14 +11,8 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/TeamKillerX/RyuzakiLib/dev.svg)](https://results.pre-commit.ci/latest/github/TeamKillerX/RyuzakiLib/dev)
 
 # Disclaimer
-```
-        ⚠️ WARNING FOR YOU ️ ️⚠️
-RyuzakiLib is used to help your account activities on Telegram
-We are not responsible for what you misuse in this repository
-!  Be careful when using this repository!
-If one of the members misuses this repository, we are forced to ban you
-Never ever abuse this repository
-```
+> [!WARNING]
+> RyuzakiLib is used to help your account activities on Telegram<br>We are not responsible for what you misuse in this repository!<br>Be careful when using this repository!<br>If one of the members misuses this repository, we are forced to ban you<br>Never ever abuse this repository
 
 # Installing
 * `pip3 install -U RyuzakiLib`
@@ -325,7 +319,13 @@ You can find the [`Ryuzaki API`](https://private.randydev.my.id)
 
 ~ Starting january 1, 2024, remove the `/token_api_key` command in [ryuzaki bots](https://t.me/randydev_bot)
 
-<u>Sorry, we are not taking any API requests at the moment<u>
+### Ryuzaki API Pricing (API keys)
+> [!NOTE]
+> - Picsart Pro (7 days)
+> - Gemini Pro (7 days)
+> - Beta3 Google AI (7 days)
+> - Beta2 Google AI (7 days)
+> - Anime Styled (7 days)
 
 * Only Developed by
 - [@xtdevs](https://t.me/xtdevs)

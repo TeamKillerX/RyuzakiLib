@@ -17,10 +17,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from pyrogram import *
+from pyrogram import Client, filters
 from pyrogram.types import *
+from pyrogram.types import Message
 
 from RyuzakiLib.extreme.chatbot import ChatbotAi
 
@@ -34,9 +34,7 @@ async def chatbot_assistant(client: Client, message: Message):
         try:
             code = ChatbotAi(query=text, user_id=user_id)
             response = code.get_response_ai()
-            await client.send_message(
-                chat_id, text=response, reply_to_message_id=message.id
-            )
+            await client.send_message(chat_id, text=response, reply_to_message_id=message.id)
         except Exception as e:
             await message.reply_text(str(e))
             return

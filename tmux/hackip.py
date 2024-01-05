@@ -1,10 +1,11 @@
-import requests
-import os
-import sys
-from time import sleep
-from base64 import b64decode as kc
 import asyncio
+import os
 import random
+import sys
+from base64 import b64decode as kc
+from time import sleep
+
+import requests
 
 Red = "\33[0;31m"
 Green = "\33[0;32m"
@@ -41,14 +42,10 @@ def get_ipaddres_data(input):
     location_api = "api.ip2location.io"
     location_key = f"key={apikey}"
     location_search = f"ip={input}"
-    location_param = (
-        f"{location_link}://{location_api}/?{location_key}&{location_search}"
-    )
+    location_param = f"{location_link}://{location_api}/?{location_key}&{location_search}"
     response = requests.get(location_param)
     if response.status_code != 200:
-        return (
-            "Sorry, there was an error processing your request. Please try again later"
-        )
+        return "Sorry, there was an error processing your request. Please try again later"
     data_location = response.json()
     try:
         location_ip = data_location["ip"]

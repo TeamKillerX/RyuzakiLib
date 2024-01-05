@@ -1,10 +1,8 @@
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 from ntgcalls import InputMode
 
-from ...ffmpeg import build_command
-from ...ffmpeg import check_stream
+from ...ffmpeg import build_command, check_stream
 from .smart_stream import SmartStream
 from .video_parameters import VideoParameters
 from .video_stream import VideoStream
@@ -16,7 +14,7 @@ class VideoPiped(SmartStream):
         path: str,
         video_parameters: VideoParameters = VideoParameters(),
         headers: Optional[Dict[str, str]] = None,
-        additional_ffmpeg_parameters: str = '',
+        additional_ffmpeg_parameters: str = "",
     ):
         self._path = path
         self._video_data = (
@@ -29,9 +27,9 @@ class VideoPiped(SmartStream):
         super().__init__(
             stream_video=VideoStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *self._video_data,
                     ),
                 ),
@@ -43,9 +41,9 @@ class VideoPiped(SmartStream):
         await check_stream(
             *self._video_data,
         )
-        self.stream_video.path = ' '.join(
+        self.stream_video.path = " ".join(
             build_command(
-                'ffmpeg',
+                "ffmpeg",
                 *self._video_data,
             ),
         )

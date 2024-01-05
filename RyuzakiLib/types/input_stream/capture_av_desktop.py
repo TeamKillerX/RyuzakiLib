@@ -1,10 +1,8 @@
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 from ntgcalls import InputMode
 
-from ...ffmpeg import build_command
-from ...ffmpeg import check_stream
+from ...ffmpeg import build_command, check_stream
 from ...media_devices.screen_info import ScreenInfo
 from .audio_parameters import AudioParameters
 from .audio_stream import AudioStream
@@ -19,7 +17,7 @@ class CaptureAVDesktop(SmartStream):
         audio_path: str,
         screen_info: ScreenInfo,
         headers: Optional[Dict[str, str]] = None,
-        additional_ffmpeg_parameters: str = '',
+        additional_ffmpeg_parameters: str = "",
         audio_parameters: AudioParameters = AudioParameters(),
         video_parameters: VideoParameters = VideoParameters(),
     ):
@@ -37,9 +35,9 @@ class CaptureAVDesktop(SmartStream):
         super().__init__(
             AudioStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *self._audio_data,
                     ),
                 ),
@@ -47,10 +45,10 @@ class CaptureAVDesktop(SmartStream):
             ),
             VideoStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
-                        '',
+                        "ffmpeg",
+                        "",
                         self._video_path,
                         video_parameters,
                         screen_info.ffmpeg_parameters,

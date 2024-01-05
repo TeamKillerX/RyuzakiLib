@@ -1,5 +1,4 @@
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
 
 class AgentInfo:
@@ -26,16 +25,21 @@ class UserAgent:
         self.user_agents: List[AgentInfo] = user_agents
 
     def __str__(self):
-        return ' '.join([
-            f'{user_agent.name}/{user_agent.version}'
-            ' (' + '; '.join(
-                filter(
-                    bool, [
-                        user_agent.device,
-                        user_agent.os_name,
-                        user_agent.arch_type,
-                    ],
-                ),
-            ) + ');'
-            for user_agent in self.user_agents
-        ]).replace(' ()', '')
+        return " ".join(
+            [
+                f"{user_agent.name}/{user_agent.version}"
+                " ("
+                + "; ".join(
+                    filter(
+                        bool,
+                        [
+                            user_agent.device,
+                            user_agent.os_name,
+                            user_agent.arch_type,
+                        ],
+                    ),
+                )
+                + ");"
+                for user_agent in self.user_agents
+            ]
+        ).replace(" ()", "")

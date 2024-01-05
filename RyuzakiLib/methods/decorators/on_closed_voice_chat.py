@@ -5,7 +5,7 @@ from ...scaffold import Scaffold
 
 class OnClosedVoiceChat(Scaffold):
     def on_closed_voice_chat(self) -> Callable:
-        method = 'CLOSED_HANDLER'
+        method = "CLOSED_HANDLER"
 
         def decorator(func: Callable) -> Callable:
             if self is not None:
@@ -14,4 +14,5 @@ class OnClosedVoiceChat(Scaffold):
                     func,
                 )
             return func
+
         return decorator

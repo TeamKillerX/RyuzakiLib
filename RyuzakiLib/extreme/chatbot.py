@@ -21,10 +21,11 @@
 # TANYA KE SUPPORT @KillerXSupport
 
 import os
+from base64 import b64decode
+
 import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from base64 import b64decode
 
 
 class ChatbotAi:

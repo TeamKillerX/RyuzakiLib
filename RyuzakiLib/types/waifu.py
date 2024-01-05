@@ -17,10 +17,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from random import choice
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import requests
-from random import choice
 
 
 class SendWaifuRandom:

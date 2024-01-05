@@ -18,10 +18,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import json
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import json
-import requests
 
 
 class OcrApiUrl:
@@ -48,10 +49,7 @@ class OcrApiUrl:
         try:
             test_url = self.ocr_space_url()
             parsed_response = json.loads(test_url)
-            if (
-                "ParsedResults" in parsed_response
-                and len(parsed_response["ParsedResults"]) > 0
-            ):
+            if "ParsedResults" in parsed_response and len(parsed_response["ParsedResults"]) > 0:
                 return parsed_response["ParsedResults"][0]["ParsedText"]
             else:
                 return "No text found in the image."

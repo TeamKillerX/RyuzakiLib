@@ -18,9 +18,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import requests
 
 # Instagram rapidapi : https://rapidapi.com/maatootz/api/instagram-downloader-download-instagram-videos-stories
 

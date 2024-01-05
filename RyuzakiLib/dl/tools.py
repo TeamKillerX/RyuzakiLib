@@ -20,11 +20,12 @@
 # JANGAN COPAS INI LU KEK KONTOL
 # TANYA KE SUPPORT @KillerXSupport
 
+import base64
+from base64 import b64decode
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from base64 import b64decode
-import requests
-import base64
 
 
 class CustomUrl:
@@ -33,9 +34,7 @@ class CustomUrl:
         self.website = website
 
     def tools_downloader(self):
-        parameter = b64decode("aHR0cDovL2Rvd25sb2FkLnJhbmR5ZGV2Lm15Lmlk").decode(
-            "utf-8"
-        )
+        parameter = b64decode("aHR0cDovL2Rvd25sb2FkLnJhbmR5ZGV2Lm15Lmlk").decode("utf-8")
         api_url = f"{parameter}/{self.website}?link={self.url}"
         x = requests.get(api_url)
         if x.status_code != 200:

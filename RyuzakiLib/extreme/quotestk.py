@@ -19,11 +19,12 @@
 
 # add quote sticker by credits @xtdevs
 
-import requests
 import base64
 import os
 from base64 import b64decode as idk
 from io import BytesIO
+
+import requests
 from PIL import Image
 
 

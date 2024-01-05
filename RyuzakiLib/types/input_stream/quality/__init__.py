@@ -6,10 +6,10 @@ from .medium_quality_audio import MediumQualityAudio
 from .medium_quality_video import MediumQualityVideo
 
 __all__ = (
-    'HighQualityAudio',
-    'HighQualityVideo',
-    'LowQualityAudio',
-    'LowQualityVideo',
-    'MediumQualityAudio',
-    'MediumQualityVideo',
+    "HighQualityAudio",
+    "HighQualityVideo",
+    "LowQualityAudio",
+    "LowQualityVideo",
+    "MediumQualityAudio",
+    "MediumQualityVideo",
 )

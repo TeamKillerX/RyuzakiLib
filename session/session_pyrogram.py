@@ -19,8 +19,9 @@
 
 import asyncio
 import os
-from pyrogram import Client
 from time import sleep
+
+from pyrogram import Client
 
 
 def setting_telegram():

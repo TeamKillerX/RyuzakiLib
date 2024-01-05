@@ -1,8 +1,8 @@
+from pymongo import MongoClient
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from RyuzakiLib.hackertools import CustomPrefixes
-from pymongo import MongoClient
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client["your_database_name"]

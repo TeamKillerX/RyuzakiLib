@@ -1,10 +1,8 @@
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 from ntgcalls import InputMode
 
-from ...ffmpeg import build_command
-from ...ffmpeg import check_stream
+from ...ffmpeg import build_command, check_stream
 from .audio_parameters import AudioParameters
 from .audio_stream import AudioStream
 from .smart_stream import SmartStream
@@ -16,7 +14,7 @@ class AudioPiped(SmartStream):
         path: str,
         audio_parameters: AudioParameters = AudioParameters(),
         headers: Optional[Dict[str, str]] = None,
-        additional_ffmpeg_parameters: str = '',
+        additional_ffmpeg_parameters: str = "",
     ):
         self._path = path
         self._audio_data = (
@@ -29,9 +27,9 @@ class AudioPiped(SmartStream):
         super().__init__(
             AudioStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *self._audio_data,
                     ),
                 ),

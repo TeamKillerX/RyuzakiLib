@@ -1,13 +1,12 @@
 import string
-from math import ceil
-from math import log
+from math import ceil, log
 from os import urandom
 
 
 class Session:
     @staticmethod
     def generate_session_id(length: int = 21) -> str:
-        alphabet = f'_-{string.digits}{string.ascii_letters}'
+        alphabet = f"_-{string.digits}{string.ascii_letters}"
         alphabet_len = len(alphabet)
 
         mask = 1
@@ -15,7 +14,7 @@ class Session:
             mask = (2 << int(log(alphabet_len - 1) / log(2))) - 1
         step = int(ceil(1.6 * mask * length / alphabet_len))
 
-        session_id = ''
+        session_id = ""
         while True:
             random_bytes = bytearray(urandom(step))
 

@@ -1,7 +1,4 @@
-from typing import Any
-from typing import Callable
-from typing import List
-from typing import Optional
+from typing import Any, Callable, List, Optional
 
 from ..exceptions import InvalidMTProtoClient
 from ..types.groups.group_call_participant import GroupCallParticipant
@@ -15,20 +12,23 @@ class MtProtoClient:
         client: Any,
     ):
         self._bind_client: Optional[BridgedClient] = None
-        if client.__class__.__module__ == 'pyrogram.client':
+        if client.__class__.__module__ == "pyrogram.client":
             from .pyrogram_client import PyrogramClient
+
             self._bind_client = PyrogramClient(
                 cache_duration,
                 client,
             )
-        elif client.__class__.__module__ == 'telethon.client.telegramclient':
+        elif client.__class__.__module__ == "telethon.client.telegramclient":
             from .telethon_client import TelethonClient
+
             self._bind_client = TelethonClient(
                 cache_duration,
                 client,
             )
-        elif client.__class__.__module__ == 'hydrogram.client':
+        elif client.__class__.__module__ == "hydrogram.client":
             from .hydrogram_client import HydrogramClient
+
             self._bind_client = HydrogramClient(
                 cache_duration,
                 client,
@@ -39,14 +39,14 @@ class MtProtoClient:
     @property
     def client(self):
         client_name = self._bind_client.__class__.__name__
-        if client_name == 'PyrogramClient':
-            return 'pyrogram'
-        elif client_name == 'TelethonClient':
-            return 'telethon'
-        elif client_name == 'HydrogramClient':
-            return 'hydrogram'
+        if client_name == "PyrogramClient":
+            return "pyrogram"
+        elif client_name == "TelethonClient":
+            return "telethon"
+        elif client_name == "HydrogramClient":
+            return "hydrogram"
         else:
-            return 'unknown'
+            return "unknown"
 
     async def get_group_call_participants(
         self,

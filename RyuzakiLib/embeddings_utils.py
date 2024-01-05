@@ -2,21 +2,19 @@ import textwrap as tr
 from typing import List, Optional
 
 import matplotlib.pyplot as plt
+import openai
 import plotly.express as px
+from openai.datalib.numpy_helper import numpy as np
+from openai.datalib.pandas_helper import pandas as pd
 from scipy import spatial
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.metrics import average_precision_score, precision_recall_curve
 from tenacity import retry, stop_after_attempt, wait_random_exponential
 
-import openai
-from openai.datalib.numpy_helper import numpy as np
-from openai.datalib.pandas_helper import pandas as pd
-
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
 def get_embedding(text: str, engine="text-similarity-davinci-001", **kwargs) -> List[float]:
-
     # replace newlines, which can negatively affect performance.
     text = text.replace("\n", " ")
 
@@ -24,10 +22,7 @@ def get_embedding(text: str, engine="text-similarity-davinci-001", **kwargs) -> 
 
 
 @retry(wait=wait_random_exponential(min=1, max=20), stop=stop_after_attempt(6))
-async def aget_embedding(
-    text: str, engine="text-similarity-davinci-001", **kwargs
-) -> List[float]:
-
+async def aget_embedding(text: str, engine="text-similarity-davinci-001", **kwargs) -> List[float]:
     # replace newlines, which can negatively affect performance.
     text = text.replace("\n", " ")
 
@@ -66,9 +61,7 @@ def cosine_similarity(a, b):
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 
-def plot_multiclass_precision_recall(
-    y_score, y_true_untransformed, class_list, classifier_name
-):
+def plot_multiclass_precision_recall(y_score, y_true_untransformed, class_list, classifier_name):
     """
     Precision-Recall plotting for a multiclass problem. It plots average precision-recall, per class precision recall and reference f1 contours.
 
@@ -88,15 +81,11 @@ def plot_multiclass_precision_recall(
         average_precision[i] = average_precision_score(y_true[:, i], y_score[:, i])
 
     # A "micro-average": quantifying score on all classes jointly
-    precision_micro, recall_micro, _ = precision_recall_curve(
-        y_true.ravel(), y_score.ravel()
-    )
+    precision_micro, recall_micro, _ = precision_recall_curve(y_true.ravel(), y_score.ravel())
     average_precision_micro = average_precision_score(y_true, y_score, average="micro")
     print(
         str(classifier_name)
-        + " - Average precision score over all classes: {0:0.2f}".format(
-            average_precision_micro
-        )
+        + " - Average precision score over all classes: {0:0.2f}".format(average_precision_micro)
     )
 
     # setup plot details
@@ -114,9 +103,7 @@ def plot_multiclass_precision_recall(
     labels.append("iso-f1 curves")
     (l,) = plt.plot(recall_micro, precision_micro, color="gold", lw=2)
     lines.append(l)
-    labels.append(
-        "average Precision-recall (auprc = {0:0.2f})" "".format(average_precision_micro)
-    )
+    labels.append("average Precision-recall (auprc = {0:0.2f})" "".format(average_precision_micro))
 
     for i in range(n_classes):
         (l,) = plt.plot(recall[i], precision[i], lw=2)
@@ -149,8 +136,7 @@ def distances_from_embeddings(
         "Linf": spatial.distance.chebyshev,
     }
     distances = [
-        distance_metrics[distance_metric](query_embedding, embedding)
-        for embedding in embeddings
+        distance_metrics[distance_metric](query_embedding, embedding) for embedding in embeddings
     ]
     return distances
 
@@ -160,9 +146,7 @@ def indices_of_nearest_neighbors_from_distances(distances) -> np.ndarray:
     return np.argsort(distances)
 
 
-def pca_components_from_embeddings(
-    embeddings: List[List[float]], n_components=2
-) -> np.ndarray:
+def pca_components_from_embeddings(embeddings: List[List[float]], n_components=2) -> np.ndarray:
     """Return the PCA components of a list of embeddings."""
     pca = PCA(n_components=n_components)
     array_of_embeddings = np.array(embeddings)

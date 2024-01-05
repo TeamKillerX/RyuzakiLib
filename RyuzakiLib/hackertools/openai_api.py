@@ -17,14 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import random
+from datetime import datetime as dt
+from typing import Optional
+
 import g4f
 import openai
 import requests
-import random
-from pymongo import MongoClient
-from datetime import datetime as dt
-from typing import Optional
 from g4f.Provider import Bard
+from pymongo import MongoClient
 
 gpt3_conversation_history = []
 
@@ -40,15 +41,16 @@ list_user_agent = [
     "Mozilla/5.0 (Linux; arm; Android 5.1.1; SM-J120F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 YaBrowser/20.12.3.116.00 SA/3 Mobile Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2670.9 Safari/537.36",
     "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 OPR/74.0.3911.107 (Edition 360-1)",
-    "Mozilla/5.0 (Linux; Android 10; MAR-LX1B Build/HUAWEIMAR-L21B) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 SznProhlizec/7.12.2a"
+    "Mozilla/5.0 (Linux; Android 10; MAR-LX1B Build/HUAWEIMAR-L21B) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 SznProhlizec/7.12.2a",
 ]
+
 
 class OpenAiToken:
     def __init__(
         self,
         api_key: str = None,
         api_base: str = "https://api.openai.com/v1",
-        mongo_url: str = None
+        mongo_url: str = None,
     ):
         self.api_key = api_key
         self.api_base = api_base
@@ -60,10 +62,7 @@ class OpenAiToken:
         return MongoClient(self.mongo_url)["tiktokbot"]["users"]
 
     def continue_conversation(
-        self,
-        owner_author: str="Randy Dev",
-        user_id: int = None,
-        user_message: str = None
+        self, owner_author: str = "Randy Dev", user_id: int = None, user_message: str = None
     ):
         collection = self.connect_mongo()
         update_data = {"chat_user_id": user_id}
@@ -92,12 +91,19 @@ class OpenAiToken:
                     ],
                     model="gpt-3.5-turbo",
                     top_p=0.1,
-                    timeout=2.5
+                    timeout=2.5,
                 )
                 assistant_reply = response["choices"][0].message.content
                 collection.update_one(
                     {"user_id": user_id},
-                    {"$push": {"conversation_history": {"user_message": user_message, "assistant_reply": assistant_reply}}}
+                    {
+                        "$push": {
+                            "conversation_history": {
+                                "user_message": user_message,
+                                "assistant_reply": assistant_reply,
+                            }
+                        }
+                    },
                 )
             except Exception as e:
                 assistant_reply = f"Error processing request: {str(e)}"
@@ -106,7 +112,7 @@ class OpenAiToken:
 
         return assistant_reply
 
-    def message_output(self, query: str=None):
+    def message_output(self, query: str = None):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=f"{query}\n:",
@@ -119,20 +125,14 @@ class OpenAiToken:
         return response
 
     def chat_message_turbo(
-        self,
-        query: str=None,
-        role: str="user",
-        model: str="gpt-3.5-turbo",
-        is_stream=False
+        self, query: str = None, role: str = "user", model: str = "gpt-3.5-turbo", is_stream=False
     ):
         global gpt3_conversation_history
         if is_stream:
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
-                    model=model,
-                    messages=gpt3_conversation_history,
-                    stream=True
+                    model=model, messages=gpt3_conversation_history, stream=True
                 )
                 if isinstance(chat_completion, dict):
                     answer = chat_completion.choices[0].message.content
@@ -142,7 +142,9 @@ class OpenAiToken:
                         content = token["choices"][0]["delta"].get("content")
                         if content is not None:
                             answer += content
-                            gpt3_conversation_history.append({"role": "assistant", "content": answer})
+                            gpt3_conversation_history.append(
+                                {"role": "assistant", "content": answer}
+                            )
                 return [answer, gpt3_conversation_history]
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
@@ -151,8 +153,7 @@ class OpenAiToken:
             gpt3_conversation_history.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
-                    messages=gpt3_conversation_history,
-                    model=model
+                    messages=gpt3_conversation_history, model=model
                 )
                 answer = chat_completion["choices"][0].message.content
                 gpt3_conversation_history.append({"role": "assistant", "content": answer})
@@ -163,17 +164,17 @@ class OpenAiToken:
 
     def chat_message_api(
         self,
-        query: str=None,
+        query: str = None,
         default_url: Optional[str] = None,
         request_url: Optional[str] = None,
         user_agent: Optional[str] = None,
         _api_key: Optional[str] = None,
         bard_api_key: Optional[str] = None,
-        model: str="gpt-3.5-turbo",
+        model: str = "gpt-3.5-turbo",
         continue_conversations: Optional[list] = [],
         is_authorization: Optional[bool] = False,
         need_auth_cookies: Optional[bool] = False,
-        is_different: Optional[bool] = False
+        is_different: Optional[bool] = False,
     ):
         if continue_conversations is None:
             continue_conversations = []
@@ -185,7 +186,7 @@ class OpenAiToken:
         headers = {
             "Content-Type": "application/json",
             "Authorization": api_key,
-            "User-Agent": selected_user_agent
+            "User-Agent": selected_user_agent,
         }
         continue_conversations.append({"role": "user", "content": query})
         json_data = {
@@ -193,13 +194,23 @@ class OpenAiToken:
             "messages": continue_conversations,
         }
         if is_different:
-            method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
+            method_url = (
+                request_url + "/chat/completions"
+                if request_url
+                else default_url
+                if default_url
+                else None
+            )
             response = requests.post(method_url, headers=headers, json=json_data)
             if response.status_code != 200:
                 return "Error responding: API limits"
             response_data = response.json()
             if response_data:
-                answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
+                answer = (
+                    response_data["choices"][0]["message"]["content"]
+                    if response_data
+                    else response_data["error"]
+                )
                 continue_conversations.append({"role": "assistant", "content": answer})
                 return [answer, continue_conversations]
             else:
@@ -213,31 +224,27 @@ class OpenAiToken:
                     messages=continue_conversations,
                     provider=Bard,
                     cookies={"__Secure-1PSID": bard_api_key},
-                    auth=True
+                    auth=True,
                 )
                 return [new_response, continue_conversations]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
-    def photo_output(self, query: str=None):
+    def photo_output(self, query: str = None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
     def client_images_generate(
         self,
-        query: str=None,
-        model: str="dall-e-3",
-        quality: str="standard",
-        size: str="1024x1024",
-        n: int=1
+        query: str = None,
+        model: str = "dall-e-3",
+        quality: str = "standard",
+        size: str = "1024x1024",
+        n: int = 1,
     ):
         chat_image_generate = openai.Image.create(
-            prompt=query,
-            model=model,
-            quality=quality,
-            size=size,
-            n=n
+            prompt=query, model=model, quality=quality, size=size, n=n
         )
         return chat_image_generate
 

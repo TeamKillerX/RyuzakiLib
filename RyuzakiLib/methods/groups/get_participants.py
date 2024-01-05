@@ -1,6 +1,4 @@
-from typing import List
-from typing import Optional
-from typing import Union
+from typing import List, Optional, Union
 
 from ...scaffold import Scaffold
 from ...types.groups.group_call_participant import GroupCallParticipant
@@ -11,7 +9,6 @@ class GetParticipants(Scaffold):
         self,
         chat_id: Union[int, str],
     ) -> Optional[List[GroupCallParticipant]]:
-
         chat_id = await self._resolve_chat_id(chat_id)
         await self.get_call(chat_id)
 

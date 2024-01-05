@@ -31,11 +31,7 @@ class TelegramUserInfo:
             username = f"@{user.username}" if user.username else "-"
             first_name = f"{user.first_name}" if user.first_name else "-"
             last_name = f"{user.last_name}" if user.last_name else "-"
-            fullname = (
-                f"{user.first_name} {user.last_name}"
-                if user.last_name
-                else user.first_name
-            )
+            fullname = f"{user.first_name} {user.last_name}" if user.last_name else user.first_name
             user_details = (await client.get_chat(user.id)).bio
             bio = f"{user_details}" if user_details else "-"
             h = f"{user.status}"

@@ -8,9 +8,8 @@ from .stream import Stream
 
 
 @deprecated(
-    deprecated_in='1.0.0.dev1',
-    details='This class is no longer supported.'
-            'Use pytgcalls.types.Stream instead.',
+    deprecated_in="1.0.0.dev1",
+    details="This class is no longer supported." "Use pytgcalls.types.Stream instead.",
 )
 class InputStream(Stream):
     def __init__(

@@ -5,9 +5,9 @@ from ..audio_quality import AudioQuality
 
 
 @deprecated(
-    deprecated_in='1.0.0.dev6',
-    details='This class is no longer supported.'
-            'Use pytgcalls.types.AudioParameters.from_quality instead.',
+    deprecated_in="1.0.0.dev6",
+    details="This class is no longer supported."
+    "Use pytgcalls.types.AudioParameters.from_quality instead.",
 )
 class LowQualityAudio(AudioParameters):
     def __init__(self):

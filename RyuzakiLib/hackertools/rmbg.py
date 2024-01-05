@@ -18,14 +18,16 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
 import os
-import requests
 import shutil
 
+import requests
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+
 class RemoveBg:
-    def __init__(self, api_key: str=None, image=None):
+    def __init__(self, api_key: str = None, image=None):
         self.api_key = apikey
         self.image = image
 

@@ -1,10 +1,8 @@
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 
 from ntgcalls import InputMode
 
-from ...ffmpeg import build_command
-from ...ffmpeg import check_stream
+from ...ffmpeg import build_command, check_stream
 from .audio_parameters import AudioParameters
 from .audio_stream import AudioStream
 from .smart_stream import SmartStream
@@ -20,7 +18,7 @@ class AudioImagePiped(SmartStream):
         audio_parameters: AudioParameters = AudioParameters(),
         video_parameters: VideoParameters = VideoParameters(),
         headers: Optional[Dict[str, str]] = None,
-        additional_ffmpeg_parameters: str = '',
+        additional_ffmpeg_parameters: str = "",
     ):
         self._image_path = image_path
         self._audio_path = audio_path
@@ -37,9 +35,9 @@ class AudioImagePiped(SmartStream):
             self._image_path,
             video_parameters,
             [
-                '-loop',
-                '1',
-                '-framerate',
+                "-loop",
+                "1",
+                "-framerate",
                 str(video_parameters.frame_rate),
             ],
             headers,
@@ -47,9 +45,9 @@ class AudioImagePiped(SmartStream):
         super().__init__(
             AudioStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *self._audio_data,
                     ),
                 ),
@@ -57,9 +55,9 @@ class AudioImagePiped(SmartStream):
             ),
             VideoStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *self._video_data,
                     ),
                 ),
@@ -75,9 +73,9 @@ class AudioImagePiped(SmartStream):
             *self._video_data,
             need_image=True,
         )
-        self.stream_video.path = ' '.join(
+        self.stream_video.path = " ".join(
             build_command(
-                'ffmpeg',
+                "ffmpeg",
                 *self._video_data,
             ),
         )

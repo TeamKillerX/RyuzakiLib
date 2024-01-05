@@ -1,16 +1,13 @@
 import asyncio
 from asyncio.log import logger
 
-from ntgcalls import ConnectionNotFound
-from ntgcalls import MediaState
-from ntgcalls import StreamType
+from ntgcalls import ConnectionNotFound, MediaState, StreamType
+
+from RyuzakiLib.types import GroupCallParticipant, StreamAudioEnded, StreamVideoEnded
 
 from ...exceptions import PyTgCallsAlreadyRunning
 from ...pytgcalls_session import PyTgCallsSession
 from ...scaffold import Scaffold
-from RyuzakiLib.types import GroupCallParticipant
-from RyuzakiLib.types import StreamAudioEnded
-from RyuzakiLib.types import StreamVideoEnded
 
 
 class Start(Scaffold):
@@ -26,10 +23,12 @@ class Start(Scaffold):
         ):
             if chat_id in self._need_unmute:
                 need_unmute = self._need_unmute[chat_id]
-                if not just_joined and \
-                        not just_left and \
-                        need_unmute and \
-                        not participant.muted_by_admin:
+                if (
+                    not just_joined
+                    and not just_left
+                    and need_unmute
+                    and not participant.muted_by_admin
+                ):
                     try:
                         await update_status(
                             chat_id,
@@ -41,7 +40,8 @@ class Start(Scaffold):
 
         def stream_upgrade(chat_id: int, state: MediaState):
             asyncio.run_coroutine_threadsafe(
-                update_status(chat_id, state), loop,
+                update_status(chat_id, state),
+                loop,
             )
 
         async def update_status(chat_id: int, state: MediaState):
@@ -54,16 +54,18 @@ class Start(Scaffold):
                     self._cache_user_peer.get(chat_id),
                 )
             except Exception as e:
-                logger.error(f'SetVideoCallStatus: {e}')
+                logger.error(f"SetVideoCallStatus: {e}")
 
         def stream_ended(chat_id: int, stream: StreamType):
             async def async_stream_ended():
                 await self._on_event_update.propagate(
-                    'STREAM_END_HANDLER',
+                    "STREAM_END_HANDLER",
                     self,
                     StreamAudioEnded(
                         chat_id,
-                    ) if stream == stream.Audio else StreamVideoEnded(chat_id),
+                    )
+                    if stream == stream.Audio
+                    else StreamVideoEnded(chat_id),
                 )
 
             asyncio.run_coroutine_threadsafe(async_stream_ended(), loop)

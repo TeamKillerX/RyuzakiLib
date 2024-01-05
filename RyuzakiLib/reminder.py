@@ -17,7 +17,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from datetime import datetime as dt, timedelta
+from datetime import datetime as dt
+from datetime import timedelta
+
 from pytz import timezone
 
 

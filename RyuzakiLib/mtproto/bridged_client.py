@@ -1,17 +1,13 @@
-from typing import Any
-from typing import Callable
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Callable, Dict, List, Optional
 
 
 class BridgedClient:
     HANDLERS_LIST: Dict[str, List[Callable]] = {
-        'CLOSED_HANDLER': [],
-        'KICK_HANDLER': [],
-        'INVITE_HANDLER': [],
-        'LEFT_HANDLER': [],
-        'PARTICIPANTS_HANDLER': [],
+        "CLOSED_HANDLER": [],
+        "KICK_HANDLER": [],
+        "INVITE_HANDLER": [],
+        "LEFT_HANDLER": [],
+        "PARTICIPANTS_HANDLER": [],
     }
 
     async def get_call(
@@ -80,12 +76,14 @@ class BridgedClient:
 
     @staticmethod
     def chat_id(input_peer) -> int:
-        is_channel = hasattr(input_peer, 'channel_id')
-        is_channel_update = input_peer.__class__.__name__ == 'Channel'
-        is_chat = input_peer.__class__.__name__ == 'Chat'
-        is_user = input_peer.__class__.__name__ == 'PeerUser' or \
-            input_peer.__class__.__name__ == 'InputPeerUser'
-        is_forbidden = input_peer.__class__.__name__ == 'ChannelForbidden'
+        is_channel = hasattr(input_peer, "channel_id")
+        is_channel_update = input_peer.__class__.__name__ == "Channel"
+        is_chat = input_peer.__class__.__name__ == "Chat"
+        is_user = (
+            input_peer.__class__.__name__ == "PeerUser"
+            or input_peer.__class__.__name__ == "InputPeerUser"
+        )
+        is_forbidden = input_peer.__class__.__name__ == "ChannelForbidden"
         if is_user:
             return input_peer.user_id
         elif is_channel:

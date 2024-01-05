@@ -15,8 +15,9 @@ vars = [
     "DURATION_LIMIT",
     "SUPPORT_CHANNEL",
     "ASSISTANT_PREFIX",
-    "MUSIC_BOT_NAME"
+    "MUSIC_BOT_NAME",
 ]
+
 
 def _check(z):
     new = []
@@ -26,6 +27,7 @@ def _check(z):
             return False, new
         new.append(ent)
     return True, new
+
 
 for z in range(5):
     n = str(z + 1)

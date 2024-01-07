@@ -343,7 +343,7 @@ Sometimes errors occur, but we are here to help! This guide covers some of the m
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.
 
-<h4 align="center">Copyright (C) 2019 - 2023 The RyuzakiLib <a href="https://github.com/TeamKillerX">TeamKillerX</a>
+<h4 align="center">Copyright (C) 2019 - 2024 The RyuzakiLib <a href="https://github.com/TeamKillerX">TeamKillerX</a>
 <a href="https://t.me/xtdevs">@xtdevs</a>
 </h4>
 

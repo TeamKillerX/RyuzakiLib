@@ -107,7 +107,7 @@ class OpenAiToken:
         return assistant_reply
 
     def message_output(self, query: str=None):
-        response = openai.Completion.create(
+        return openai.Completion.create(
             model="text-davinci-003",
             prompt=f"{query}\n:",
             temperature=0,
@@ -116,7 +116,6 @@ class OpenAiToken:
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-        return response
 
     def chat_message_turbo(
         self,
@@ -145,7 +144,7 @@ class OpenAiToken:
                             gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
             except Exception:
-                errros_msg = f"Error responding: API long time (timeout 600)"
+                errros_msg = "Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
             gpt3_conversation_history.append({"role": "user", "content": query})
@@ -158,7 +157,7 @@ class OpenAiToken:
                 gpt3_conversation_history.append({"role": "assistant", "content": answer})
                 return [answer, gpt3_conversation_history]
             except Exception:
-                errros_msg = f"Error responding: API long time (timeout 600)"
+                errros_msg = "Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
     def chat_message_api(
@@ -178,10 +177,7 @@ class OpenAiToken:
         
         if continue_conversations is None:
             continue_conversations = []
-        if is_authorization:
-            api_key = f"Bearer {_api_key}"
-        else:
-            api_key = ""
+        api_key = f"Bearer {_api_key}" if is_authorization else ""
         selected_user_agent = random.choice(list_user_agent) or user_agent
         headers = {
             "Content-Type": "application/json",
@@ -194,32 +190,36 @@ class OpenAiToken:
             "messages": continue_conversations,
         }
         if is_different:
-            method_url = request_url + "/chat/completions" if request_url else default_url if default_url else None
+            method_url = (
+                f"{request_url}/chat/completions"
+                if request_url
+                else default_url
+                if default_url
+                else None
+            )
             response = requests.post(method_url, headers=headers, json=json_data)
             if response.status_code != 200:
                 return "Error responding: API limits"
-            response_data = response.json()
-            if response_data:
+            if response_data := response.json():
                 answer = response_data["choices"][0]["message"]["content"] if response_data else response_data["error"]
                 continue_conversations.append({"role": "assistant", "content": answer})
                 return [answer, continue_conversations]
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+        elif need_auth_cookies:
+            selected_new_model = g4f.models.default or model
+            new_response = g4f.ChatCompletion.create(
+                model=selected_new_model,
+                messages=continue_conversations,
+                provider=Bard,
+                cookies={"__Secure-1PSID": bard_api_key},
+                auth=True
+            )
+            return [new_response, continue_conversations]
         else:
-            if need_auth_cookies:
-                selected_new_model = g4f.models.default or model
-                new_response = g4f.ChatCompletion.create(
-                    model=selected_new_model,
-                    messages=continue_conversations,
-                    provider=Bard,
-                    cookies={"__Secure-1PSID": bard_api_key},
-                    auth=True
-                )
-                return [new_response, continue_conversations]
-            else:
-                answer = "Not responding: Not Found Results"
-                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+            answer = "Not responding: Not Found Results"
+            return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
 
     def photo_output(self, query: str=None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
@@ -233,14 +233,9 @@ class OpenAiToken:
         size: str="1024x1024",
         n: int=1
     ):
-        chat_image_generate = openai.Image.create(
-            prompt=query,
-            model=model,
-            quality=quality,
-            size=size,
-            n=n
+        return openai.Image.create(
+            prompt=query, model=model, quality=quality, size=size, n=n
         )
-        return chat_image_generate
 
     def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:

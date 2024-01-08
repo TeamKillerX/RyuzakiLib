@@ -42,23 +42,17 @@ class EngineAPIResource(APIResource):
                     "You must provide the deployment name in the 'engine' parameter to access the Azure OpenAI service"
                 )
             extn = quote_plus(engine)
-            return "/%s/%s/%s/%s?api-version=%s" % (
-                cls.azure_api_prefix,
-                cls.azure_deployments_prefix,
-                extn,
-                base,
-                api_version,
-            )
+            return f"/{cls.azure_api_prefix}/{cls.azure_deployments_prefix}/{extn}/{base}?api-version={api_version}"
 
         elif typed_api_type == ApiType.OPEN_AI:
             if engine is None:
-                return "/%s" % (base)
+                return f"/{base}"
 
             extn = quote_plus(engine)
-            return "/engines/%s/%s" % (extn, base)
+            return f"/engines/{extn}/{base}"
 
         else:
-            raise error.InvalidAPIType("Unsupported API type %s" % api_type)
+            raise error.InvalidAPIType(f"Unsupported API type {api_type}")
 
     @classmethod
     def __prepare_create_request(
@@ -81,17 +75,14 @@ class EngineAPIResource(APIResource):
         if typed_api_type in (util.ApiType.AZURE, util.ApiType.AZURE_AD):
             if deployment_id is None and engine is None:
                 raise error.InvalidRequestError(
-                    "Must provide an 'engine' or 'deployment_id' parameter to create a %s"
-                    % cls,
+                    f"Must provide an 'engine' or 'deployment_id' parameter to create a {cls}",
                     "engine",
                 )
-        else:
-            if model is None and engine is None:
-                raise error.InvalidRequestError(
-                    "Must provide an 'engine' or 'model' parameter to create a %s"
-                    % cls,
-                    "engine",
-                )
+        elif model is None and engine is None:
+            raise error.InvalidRequestError(
+                f"Must provide an 'engine' or 'model' parameter to create a {cls}",
+                "engine",
+            )
 
         if timeout is None:
             # No special timeout handling
@@ -272,27 +263,20 @@ class EngineAPIResource(APIResource):
                     "An API version is required for the Azure API type."
                 )
             base = self.OBJECT_NAME.replace(".", "/")
-            url = "/%s/%s/%s/%s/%s?api-version=%s" % (
-                self.azure_api_prefix,
-                self.azure_deployments_prefix,
-                self.engine,
-                base,
-                extn,
-                api_version,
-            )
+            url = f"/{self.azure_api_prefix}/{self.azure_deployments_prefix}/{self.engine}/{base}/{extn}?api-version={api_version}"
             params_connector = "&"
 
         elif self.typed_api_type == ApiType.OPEN_AI:
             base = self.class_url(self.engine, self.api_type, self.api_version)
-            url = "%s/%s" % (base, extn)
+            url = f"{base}/{extn}"
 
         else:
-            raise error.InvalidAPIType("Unsupported API type %s" % self.api_type)
+            raise error.InvalidAPIType(f"Unsupported API type {self.api_type}")
 
         timeout = self.get("timeout")
         if timeout is not None:
             timeout = quote_plus(str(timeout))
-            url += params_connector + "timeout={}".format(timeout)
+            url += f"{params_connector}timeout={timeout}"
         return url
 
     def wait(self, timeout=None):

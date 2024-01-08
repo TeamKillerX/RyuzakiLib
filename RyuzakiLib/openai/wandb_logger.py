@@ -67,9 +67,7 @@ class WandbLogger:
             ]
 
         # log starting from oldest fine_tune
-        show_individual_warnings = (
-            False if id is None and n_fine_tunes is None else True
-        )
+        show_individual_warnings = id is not None or n_fine_tunes is not None
         fine_tune_logged = [
             cls._log_fine_tune(
                 fine_tune,
@@ -121,8 +119,7 @@ class WandbLogger:
         run_path = f"{project}/{fine_tune_id}"
         if entity is not None:
             run_path = f"{entity}/{run_path}"
-        wandb_run = cls._get_wandb_run(run_path)
-        if wandb_run:
+        if wandb_run := cls._get_wandb_run(run_path):
             wandb_status = wandb_run.summary.get("status")
             if show_individual_warnings:
                 if wandb_status == "succeeded":

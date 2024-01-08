@@ -20,7 +20,7 @@ def main():
         "-V",
         "--version",
         action="version",
-        version="%(prog)s " + version.VERSION,
+        version=f"%(prog)s {version.VERSION}",
     )
     parser.add_argument(
         "-v",

@@ -19,16 +19,11 @@ class DeletableAPIResource(APIResource):
             api_type, api_version
         )
         if typed_api_type in (ApiType.AZURE, ApiType.AZURE_AD):
-            url = "/%s%s/%s?api-version=%s" % (
-                cls.azure_api_prefix,
-                base,
-                extn,
-                api_version,
-            )
+            url = f"/{cls.azure_api_prefix}{base}/{extn}?api-version={api_version}"
         elif typed_api_type == ApiType.OPEN_AI:
-            url = "%s/%s" % (base, extn)
+            url = f"{base}/{extn}"
         else:
-            raise error.InvalidAPIType("Unsupported API type %s" % api_type)
+            raise error.InvalidAPIType(f"Unsupported API type {api_type}")
         return url
 
     @classmethod

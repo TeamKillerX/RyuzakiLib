@@ -15,7 +15,7 @@ class Engine(ListableAPIResource, UpdateableAPIResource):
             try:
                 return self.request(
                     "post",
-                    self.instance_url() + "/generate",
+                    f"{self.instance_url()}/generate",
                     params,
                     stream=params.get("stream"),
                     plain_old_data=True,
@@ -32,7 +32,7 @@ class Engine(ListableAPIResource, UpdateableAPIResource):
             try:
                 return await self.arequest(
                     "post",
-                    self.instance_url() + "/generate",
+                    f"{self.instance_url()}/generate",
                     params,
                     stream=params.get("stream"),
                     plain_old_data=True,
@@ -47,4 +47,4 @@ class Engine(ListableAPIResource, UpdateableAPIResource):
         warnings.warn(
             "Engine.embeddings is deprecated, use Embedding.create", DeprecationWarning
         )
-        return self.request("post", self.instance_url() + "/embeddings", params)
+        return self.request("post", f"{self.instance_url()}/embeddings", params)

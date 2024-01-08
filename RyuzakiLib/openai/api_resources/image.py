@@ -111,9 +111,7 @@ class Image(APIResource):
 
         url = cls._get_url("variations", azure_action=None, api_type=api_type, api_version=api_version)
 
-        files: List[Any] = []
-        for key, value in params.items():
-            files.append((key, (None, value)))
+        files: List[Any] = [(key, (None, value)) for key, value in params.items()]
         files.append(("image", ("image", image, "application/octet-stream")))
         return requestor, url, files
 
@@ -200,9 +198,7 @@ class Image(APIResource):
 
         url = cls._get_url("edits", azure_action=None, api_type=api_type, api_version=api_version)
 
-        files: List[Any] = []
-        for key, value in params.items():
-            files.append((key, (None, value)))
+        files: List[Any] = [(key, (None, value)) for key, value in params.items()]
         files.append(("image", ("image", image, "application/octet-stream")))
         if mask is not None:
             files.append(("mask", ("mask", mask, "application/octet-stream")))

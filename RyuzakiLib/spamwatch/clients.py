@@ -28,7 +28,7 @@ class SibylBan:
 
     def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
         headers = {
-            "Content-Type": "application/json",
+            "accept": "application/json",
             "api-key": self.api_key
         }
         try:

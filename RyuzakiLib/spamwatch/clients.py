@@ -87,7 +87,7 @@ class SibylBan:
         if delete:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/bandel"
             payload = {"user_id": user_id}
-            return self._make_request("DELETE", url, json_data=payload)
+            return self._make_request("DELETE", url, params=payload)
         else:
             raise ValueError("Error: delete must be True")
 

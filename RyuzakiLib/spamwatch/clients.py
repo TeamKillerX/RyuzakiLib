@@ -28,7 +28,7 @@ class SibylBan:
 
     def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
         headers = {
-            "Content-Type": "application/json",
+            "accept": "application/json",
             "api-key": self.api_key
         }
         try:
@@ -41,7 +41,7 @@ class SibylBan:
 
     def add_ban(self, user_id: int = None, reason: str = None, is_banned: bool = False) -> str:
         if is_banned:
-            url = "https://randydev-ryuzaki-api.hf.space/sibylban"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibylban"
             payload = {"user_id": user_id, "reason": reason}
             response = self._make_request("POST", url, json_data=payload)
             return response.get("randydev", {}).get(
@@ -77,7 +77,9 @@ class SibylBan:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/banner"
             payload = {"user_id": user_id, "reason": reason}
             response = self._make_request("POST", url, json_data=payload)
-            return response.get("sukuna", {}).get("message", response.get("message", "Unknown error"))
+            return response.get("sukuna", {}).get(
+                "message", response.get("message", "Unknown error")
+            )
         else:
             raise ValueError("Error: is_banned must be True")
 

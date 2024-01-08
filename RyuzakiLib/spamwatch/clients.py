@@ -79,7 +79,7 @@ class SibylBan:
         if banlist:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/bans"
             payload = {"user_id": user_id}
-            return self._make_request("GET", url, json_data=payload)
+            return self._make_request("GET", url, params=payload)
         else:
             raise ValueError("Error: banlist must be True")
 

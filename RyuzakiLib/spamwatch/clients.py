@@ -70,7 +70,7 @@ class SibylBan:
         if is_banned:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/banner"
             payload = {"user_id": user_id, "reason": reason}
-            response = self._make_request("POST", url, params=payload, json_data=payload)
+            response = self._make_request("POST", url, params=payload)
             return response.get("sukuna", {}).get("message", response.get("message", "Unknown error"))
         else:
             raise ValueError("Error: is_banned must be True")

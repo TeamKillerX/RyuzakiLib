@@ -17,22 +17,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from pyrogram import *
+from pyrogram import Client, filters
 from pyrogram.types import *
+from pyrogram.types import Message
 
 
 @Client.on_message(filters.command("start"))
 async def startwb(client: Client, message: Message):
     text = "Welcome to Ryuzaki Library"
-    keyboard = [
-        [
-            InlineKeyboardButton(
-                text="Ryuzaki Library", url="https://docs.randydev.my.id"
-            )
-        ]
-    ]
+    keyboard = [[InlineKeyboardButton(text="Ryuzaki Library", url="https://docs.randydev.my.id")]]
     bttn = InlineKeyboardMarkup(keyboard)
     try:
         await client.send_message(

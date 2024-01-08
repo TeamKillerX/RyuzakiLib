@@ -12,16 +12,16 @@ from .updated_group_call_participant import UpdatedGroupCallParticipant
 from .upgrade_needed import UpgradeNeeded
 
 __all__ = (
-    'AlreadyJoined',
-    'ErrorDuringJoin',
-    'GroupCall',
-    'GroupCallParticipant',
-    'JoinedGroupCallParticipant',
-    'JoinedVoiceChat',
-    'LeftGroupCallParticipant',
-    'LeftVoiceChat',
-    'NotInGroupCall',
-    'UpdatedGroupCallParticipant',
-    'UpgradeNeeded',
-    'MutedCall',
+    "AlreadyJoined",
+    "ErrorDuringJoin",
+    "GroupCall",
+    "GroupCallParticipant",
+    "JoinedGroupCallParticipant",
+    "JoinedVoiceChat",
+    "LeftGroupCallParticipant",
+    "LeftVoiceChat",
+    "NotInGroupCall",
+    "UpdatedGroupCallParticipant",
+    "UpgradeNeeded",
+    "MutedCall",
 )

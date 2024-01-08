@@ -2,8 +2,8 @@ from deprecation import deprecated
 
 
 @deprecated(
-    deprecated_in='1.0.0.dev1',
-    details='This enum is no longer supported.',
+    deprecated_in="1.0.0.dev1",
+    details="This enum is no longer supported.",
 )
 class StreamType:
     def __init__(self):
@@ -26,6 +26,7 @@ class StreamType:
 
     Support: LiveStream, LocalStream
     """
+
     @property
     def pulse_stream(self):
         self._stream_type = 4

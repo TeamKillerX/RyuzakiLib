@@ -19,10 +19,10 @@ class CaptureVideoDesktop(SmartStream):
         super().__init__(
             stream_video=VideoStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
-                        '',
+                        "ffmpeg",
+                        "",
                         self._path,
                         video_parameters,
                         screen_info.ffmpeg_parameters,

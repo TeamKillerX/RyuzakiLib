@@ -1,17 +1,16 @@
 import logging
-from typing import Optional
-from typing import Union
+from typing import Optional, Union
 
-from ntgcalls import ConnectionError
-from ntgcalls import FileError
-from ntgcalls import InvalidParams
+from ntgcalls import ConnectionError, FileError, InvalidParams
 
-from ...exceptions import AlreadyJoinedError
-from ...exceptions import ClientNotStarted
-from ...exceptions import NoActiveGroupCall
-from ...exceptions import NoMTProtoClientSet
-from ...exceptions import TelegramServerError
-from ...exceptions import UnMuteNeeded
+from ...exceptions import (
+    AlreadyJoinedError,
+    ClientNotStarted,
+    NoActiveGroupCall,
+    NoMTProtoClientSet,
+    TelegramServerError,
+    UnMuteNeeded,
+)
 from ...mtproto import BridgedClient
 from ...scaffold import Scaffold
 from ...to_async import ToAsync
@@ -19,7 +18,7 @@ from ...types import JoinedVoiceChat
 from ...types.input_stream.stream import Stream
 from ..utilities.stream_params import StreamParams
 
-py_logger = logging.getLogger('ryuzakilib')
+py_logger = logging.getLogger("ryuzakilib")
 
 
 class JoinGroupCall(Scaffold):
@@ -79,12 +78,12 @@ class JoinGroupCall(Scaffold):
 
             for x in participants:
                 if x.user_id == BridgedClient.chat_id(
-                        self._cache_local_peer,
+                    self._cache_local_peer,
                 ):
                     self._need_unmute[chat_id] = x.muted_by_admin
 
             await self._on_event_update.propagate(
-                'RAW_UPDATE_HANDLER',
+                "RAW_UPDATE_HANDLER",
                 self,
                 JoinedVoiceChat(chat_id),
             )

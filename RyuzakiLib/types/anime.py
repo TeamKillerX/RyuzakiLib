@@ -18,13 +18,14 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from io import BytesIO
-from PIL import Image
-import requests
 import os
 from base64 import b64decode as what
+from io import BytesIO
+
+import requests
+from PIL import Image
+from pyrogram import Client, filters
+from pyrogram.types import Message
 
 
 class AnimeStyled:

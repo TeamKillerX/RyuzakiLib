@@ -11,6 +11,7 @@ from .scaffold import Scaffold
 from .types import Cache
 from .types.update_solver import UpdateSolver
 
+
 class PyTgCalls(Methods, Scaffold):
     def __init__(
         self,

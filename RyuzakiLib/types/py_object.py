@@ -1,8 +1,5 @@
 from json import dumps
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Union
+from typing import Any, Dict, List, Union
 
 
 class PyObject:
@@ -10,13 +7,10 @@ class PyObject:
     def default(obj) -> Union[str, Dict[str, str], List[Any]]:
         if isinstance(obj, bytes):
             return repr(obj)
-        if hasattr(obj, '__dict__'):
+        if hasattr(obj, "__dict__"):
             return {
-                '_': obj.__class__.__name__,
-                **{
-                    attr: vars(obj)[attr]
-                    for attr in vars(obj)
-                },
+                "_": obj.__class__.__name__,
+                **{attr: vars(obj)[attr] for attr in vars(obj)},
             }
         return {}
 

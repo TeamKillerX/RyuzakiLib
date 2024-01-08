@@ -1,38 +1,40 @@
 import asyncio
 import json
-from typing import Callable
-from typing import Optional
-from typing import Union
+from typing import Callable, Optional, Union
 
 from telethon import TelegramClient
 from telethon.errors import ChannelPrivateError
 from telethon.events import Raw
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.functions.messages import GetFullChatRequest
-from telethon.tl.functions.phone import EditGroupCallParticipantRequest
-from telethon.tl.functions.phone import GetGroupCallRequest
-from telethon.tl.functions.phone import GetGroupParticipantsRequest
-from telethon.tl.functions.phone import JoinGroupCallRequest
-from telethon.tl.functions.phone import LeaveGroupCallRequest
-from telethon.tl.types import ChatForbidden
-from telethon.tl.types import DataJSON
-from telethon.tl.types import GroupCall
-from telethon.tl.types import GroupCallDiscarded
-from telethon.tl.types import InputChannel
-from telethon.tl.types import InputGroupCall
-from telethon.tl.types import InputPeerChannel
-from telethon.tl.types import MessageActionChatDeleteUser
-from telethon.tl.types import MessageActionInviteToGroupCall
-from telethon.tl.types import MessageService
-from telethon.tl.types import PeerChat
-from telethon.tl.types import TypeInputPeer
-from telethon.tl.types import UpdateChannel
-from telethon.tl.types import UpdateGroupCall
-from telethon.tl.types import UpdateGroupCallConnection
-from telethon.tl.types import UpdateGroupCallParticipants
-from telethon.tl.types import UpdateNewChannelMessage
-from telethon.tl.types import UpdateNewMessage
-from telethon.tl.types import Updates
+from telethon.tl.functions.phone import (
+    EditGroupCallParticipantRequest,
+    GetGroupCallRequest,
+    GetGroupParticipantsRequest,
+    JoinGroupCallRequest,
+    LeaveGroupCallRequest,
+)
+from telethon.tl.types import (
+    ChatForbidden,
+    DataJSON,
+    GroupCall,
+    GroupCallDiscarded,
+    InputChannel,
+    InputGroupCall,
+    InputPeerChannel,
+    MessageActionChatDeleteUser,
+    MessageActionInviteToGroupCall,
+    MessageService,
+    PeerChat,
+    TypeInputPeer,
+    UpdateChannel,
+    UpdateGroupCall,
+    UpdateGroupCallConnection,
+    UpdateGroupCallParticipants,
+    UpdateNewChannelMessage,
+    UpdateNewMessage,
+    Updates,
+)
 
 from .bridged_client import BridgedClient
 from .client_cache import ClientCache
@@ -64,17 +66,16 @@ class TelethonClient(BridgedClient):
                         participant.muted,
                         participant.volume,
                         participant.can_self_unmute,
-                        participant.video is not None or
-                        participant.presentation is not None,
+                        participant.video is not None or participant.presentation is not None,
                         participant.presentation is not None,
                         participant.video is not None,
                         participant.raise_hand_rating,
                         participant.left,
                     )
                     if result is not None:
-                        if 'PARTICIPANTS_HANDLER' in self.HANDLERS_LIST:
+                        if "PARTICIPANTS_HANDLER" in self.HANDLERS_LIST:
                             await self._propagate(
-                                'PARTICIPANTS_HANDLER',
+                                "PARTICIPANTS_HANDLER",
                                 self._cache.get_chat_id(update.call.id),
                                 result,
                                 participant.just_joined,
@@ -106,9 +107,9 @@ class TelethonClient(BridgedClient):
                     self._cache.drop_cache(
                         chat_id,
                     )
-                    if 'CLOSED_HANDLER' in self.HANDLERS_LIST:
+                    if "CLOSED_HANDLER" in self.HANDLERS_LIST:
                         await self._propagate(
-                            'CLOSED_HANDLER',
+                            "CLOSED_HANDLER",
                             chat_id,
                         )
             if isinstance(
@@ -120,9 +121,9 @@ class TelethonClient(BridgedClient):
                     await self._app.get_entity(chat_id)
                 except ChannelPrivateError:
                     self._cache.drop_cache(chat_id)
-                    if 'KICK_HANDLER' in self.HANDLERS_LIST:
+                    if "KICK_HANDLER" in self.HANDLERS_LIST:
                         await self._propagate(
-                            'KICK_HANDLER',
+                            "KICK_HANDLER",
                             chat_id,
                         )
 
@@ -141,18 +142,18 @@ class TelethonClient(BridgedClient):
                         update.message.action,
                         MessageActionInviteToGroupCall,
                     ):
-                        if 'INVITE_HANDLER' in self.HANDLERS_LIST:
+                        if "INVITE_HANDLER" in self.HANDLERS_LIST:
                             await self._propagate(
-                                'INVITE_HANDLER',
+                                "INVITE_HANDLER",
                                 update.message.action,
                             )
                     if isinstance(update.message.out, bool):
                         if update.message.out:
                             chat_id = self.chat_id(update.message.peer_id)
                             self._cache.drop_cache(chat_id)
-                            if 'LEFT_HANDLER' in self.HANDLERS_LIST:
+                            if "LEFT_HANDLER" in self.HANDLERS_LIST:
                                 await self._propagate(
-                                    'LEFT_HANDLER',
+                                    "LEFT_HANDLER",
                                     chat_id,
                                 )
                     if isinstance(
@@ -169,9 +170,9 @@ class TelethonClient(BridgedClient):
                                 ChatForbidden,
                             ):
                                 self._cache.drop_cache(chat_id)
-                                if 'KICK_HANDLER' in self.HANDLERS_LIST:
+                                if "KICK_HANDLER" in self.HANDLERS_LIST:
                                     await self._propagate(
-                                        'KICK_HANDLER',
+                                        "KICK_HANDLER",
                                         chat_id,
                                     )
 
@@ -227,21 +228,22 @@ class TelethonClient(BridgedClient):
     ):
         return [
             {
-                'user_id': self.chat_id(participant.peer),
-                'muted': participant.muted,
-                'volume': participant.volume,
-                'can_self_unmute': participant.can_self_unmute,
-                'video': participant.video,
-                'presentation': participant.presentation,
-                'raise_hand_rating': participant.raise_hand_rating,
-                'left': participant.left,
-            } for participant in (
+                "user_id": self.chat_id(participant.peer),
+                "muted": participant.muted,
+                "volume": participant.volume,
+                "can_self_unmute": participant.can_self_unmute,
+                "video": participant.video,
+                "presentation": participant.presentation,
+                "raise_hand_rating": participant.raise_hand_rating,
+                "left": participant.left,
+            }
+            for participant in (
                 await self._app(
                     GetGroupParticipantsRequest(
                         call=input_call,
                         ids=[],
                         sources=[],
-                        offset='',
+                        offset="",
                         limit=500,
                     ),
                 )
@@ -281,8 +283,7 @@ class TelethonClient(BridgedClient):
                             participant.muted,
                             participant.volume,
                             participant.can_self_unmute,
-                            participant.video is not None or
-                            participant.presentation is not None,
+                            participant.video is not None or participant.presentation is not None,
                             participant.presentation is not None,
                             participant.video is not None,
                             participant.raise_hand_rating,
@@ -291,7 +292,7 @@ class TelethonClient(BridgedClient):
                 if isinstance(update, UpdateGroupCallConnection):
                     return update.params.data
 
-        return json.dumps({'transport': None})
+        return json.dumps({"transport": None})
 
     async def _propagate(self, event_name: str, *args, **kwargs):
         for event in self.HANDLERS_LIST[event_name]:
@@ -300,36 +301,41 @@ class TelethonClient(BridgedClient):
     def on_closed_voice_chat(self) -> Callable:
         def decorator(func: Callable) -> Callable:
             if self is not None:
-                self.HANDLERS_LIST['CLOSED_HANDLER'].append(func)
+                self.HANDLERS_LIST["CLOSED_HANDLER"].append(func)
             return func
+
         return decorator
 
     def on_kicked(self) -> Callable:
         def decorator(func: Callable) -> Callable:
             if self is not None:
-                self.HANDLERS_LIST['KICK_HANDLER'].append(func)
+                self.HANDLERS_LIST["KICK_HANDLER"].append(func)
             return func
+
         return decorator
 
     def on_receive_invite(self) -> Callable:
         def decorator(func: Callable) -> Callable:
             if self is not None:
-                self.HANDLERS_LIST['INVITE_HANDLER'].append(func)
+                self.HANDLERS_LIST["INVITE_HANDLER"].append(func)
             return func
+
         return decorator
 
     def on_left_group(self) -> Callable:
         def decorator(func: Callable) -> Callable:
             if self is not None:
-                self.HANDLERS_LIST['LEFT_HANDLER'].append(func)
+                self.HANDLERS_LIST["LEFT_HANDLER"].append(func)
             return func
+
         return decorator
 
     def on_participants_change(self) -> Callable:
         def decorator(func: Callable) -> Callable:
             if self is not None:
-                self.HANDLERS_LIST['PARTICIPANTS_HANDLER'].append(func)
+                self.HANDLERS_LIST["PARTICIPANTS_HANDLER"].append(func)
             return func
+
         return decorator
 
     async def leave_group_call(

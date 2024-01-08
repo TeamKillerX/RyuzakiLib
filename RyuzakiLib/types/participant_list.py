@@ -65,7 +65,4 @@ class ParticipantList:
     def get_participants(
         self,
     ):
-        return List([
-            self._list_participants[user_id]
-            for user_id in self._list_participants
-        ])
+        return List([self._list_participants[user_id] for user_id in self._list_participants])

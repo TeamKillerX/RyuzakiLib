@@ -19,10 +19,11 @@
 
 import asyncio
 import os
+from time import sleep
+
 import telethon
 from telethon.sessions import StringSession
 from telethon.sync import TelegramClient
-from time import sleep
 
 
 def setting_telegram():

@@ -17,8 +17,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import requests
 from io import BytesIO
+
+import requests
 from aiohttp import ClientSession
 from pyrogram import Client, filters
 from pyrogram.types import Message

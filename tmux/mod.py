@@ -1,8 +1,8 @@
+import asyncio
 import os
+import random
 import sys
 from time import sleep
-import asyncio
-import random
 
 Red = "\33[0;31m"
 Green = "\33[0;32m"

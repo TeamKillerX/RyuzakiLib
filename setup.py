@@ -1,5 +1,6 @@
 import os
 import re
+
 import setuptools
 
 
@@ -8,6 +9,7 @@ def read(fname, version=False):
     if version:
         return re.search(r'__version__ = "(.*?)"', text).group(1)
     return text
+
 
 setuptools.setup(
     name="RyuzakiLib",
@@ -45,7 +47,7 @@ setuptools.setup(
         "deprecation",
         "ntgcalls>=1.0.2",
         "psutil",
-        "screeninfo"
+        "screeninfo",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

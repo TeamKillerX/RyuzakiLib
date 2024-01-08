@@ -19,29 +19,29 @@
 
 import requests
 
+
 class ProfileClone:
     def __init__(self, api_key: str = None):
         self.api_key = api_key
 
     def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
-        headers = {
-            "accept": "application/json",
-            "api-key": self.api_key
-        }
+        headers = {"accept": "application/json", "api-key": self.api_key}
         try:
-            response = requests.request(method, url, headers=headers, params=params, json=json_data)
+            response = requests.request(
+                method, url, headers=headers, params=params, json=json_data
+            )
             return response.json()
         except requests.RequestException:
             pass
 
     def add_profile_clone(
         self,
-        user_id: int=None,
-        first_name: str=None,
+        user_id: int = None,
+        first_name: str = None,
         last_name=None,
         profile_id=None,
         bio=None,
-        is_clone: bool=False
+        is_clone: bool = False,
     ):
         if is_clone:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
@@ -50,13 +50,13 @@ class ProfileClone:
                 "first_name": first_name,
                 "last_name": last_name,
                 "profile_id": profile_id,
-                "bio": bio
+                "bio": bio,
             }
             return self._make_request("POST", url, json_data=payload)
         else:
             raise ValueError("Error: is_clone must be True")
 
-    def get_profile_clone(self, user_id: int=None, is_profile_show: bool=False):
+    def get_profile_clone(self, user_id: int = None, is_profile_show: bool = False):
         if is_profile_show:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
             payload = {"user_id": user_id}

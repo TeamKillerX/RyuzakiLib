@@ -1,19 +1,16 @@
 import logging
-from typing import Optional
-from typing import Union
+from typing import Optional, Union
 
 from ntgcalls import FileError
 
-from ...exceptions import ClientNotStarted
-from ...exceptions import NoMTProtoClientSet
-from ...exceptions import NotInGroupCallError
+from ...exceptions import ClientNotStarted, NoMTProtoClientSet, NotInGroupCallError
 from ...scaffold import Scaffold
 from ...to_async import ToAsync
 from ...types import ChangedStream
 from ...types.input_stream.stream import Stream
 from ..utilities.stream_params import StreamParams
 
-py_logger = logging.getLogger('ryuzakilib')
+py_logger = logging.getLogger("ryuzakilib")
 
 
 class ChangeStream(Scaffold):
@@ -41,7 +38,7 @@ class ChangeStream(Scaffold):
             raise NotInGroupCallError()
 
         await self._on_event_update.propagate(
-            'RAW_UPDATE_HANDLER',
+            "RAW_UPDATE_HANDLER",
             self,
             ChangedStream(chat_id),
         )

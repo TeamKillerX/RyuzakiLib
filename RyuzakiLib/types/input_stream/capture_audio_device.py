@@ -17,10 +17,10 @@ class CaptureAudioDevice(SmartStream):
         super().__init__(
             AudioStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
-                        '',
+                        "ffmpeg",
+                        "",
                         self._audio_path,
                         audio_parameters,
                         audio_info.ffmpeg_parameters,

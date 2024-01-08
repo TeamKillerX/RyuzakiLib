@@ -18,18 +18,16 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import json
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import requests
-import json
 from serpapi import GoogleSearch
 
+
 class GoogleReverseImage:
-    def __init__(
-        self,
-        image_url: str=None,
-        api_key: str=None
-    ):
+    def __init__(self, image_url: str = None, api_key: str = None):
         self.image_url = image_url
         self.api_key = api_key
 

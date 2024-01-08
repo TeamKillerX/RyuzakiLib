@@ -17,18 +17,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
+from base64 import b64decode as kc
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from base64 import b64decode as kc
-import requests
-import os
 
 # DO NOT SHARE THIS MODULE
 # THIS DANGER IS TRACKED
 
 
 class WhoisIpHacker:
-    def __init__(self, address: str=None):
+    def __init__(self, address: str = None):
         self.address = address
 
     def get_ipaddres_data(self):
@@ -37,9 +38,7 @@ class WhoisIpHacker:
         location_api = "api.ip2location.io"
         location_key = f"key={apikey}"
         location_search = f"ip={self.address}"
-        location_param = (
-            f"{location_link}://{location_api}/?{location_key}&{location_search}"
-        )
+        location_param = f"{location_link}://{location_api}/?{location_key}&{location_search}"
         response = requests.get(location_param)
         if response.status_code != 200:
             return "Sorry, there was an error processing your request. Please try again later"

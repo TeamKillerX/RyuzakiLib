@@ -17,13 +17,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import requests
 import os
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 HUGGING_TOKEN = os.environ["HUGGING_TOKEN"]
 SOURCE_ALPHA_URL = os.environ["SOURCE_ALPHA_URL"]
+
 
 def ryuzaki_ai_text(text):
     API_URL = SOURCE_ALPHA_URL

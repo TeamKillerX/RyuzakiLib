@@ -23,7 +23,7 @@ class CaptureAVDeviceDesktop(SmartStream):
             video_parameters.frame_rate,
         )
         audio_data = (
-            '',
+            "",
             self._audio_path,
             audio_parameters,
             audio_info.ffmpeg_parameters,
@@ -31,9 +31,9 @@ class CaptureAVDeviceDesktop(SmartStream):
         super().__init__(
             AudioStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
+                        "ffmpeg",
                         *audio_data,
                     ),
                 ),
@@ -41,10 +41,10 @@ class CaptureAVDeviceDesktop(SmartStream):
             ),
             VideoStream(
                 InputMode.Shell,
-                ' '.join(
+                " ".join(
                     build_command(
-                        'ffmpeg',
-                        '',
+                        "ffmpeg",
+                        "",
                         self._video_path,
                         video_parameters,
                         screen_info.ffmpeg_parameters,

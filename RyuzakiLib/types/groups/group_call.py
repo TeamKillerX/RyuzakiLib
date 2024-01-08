@@ -1,5 +1,6 @@
 from RyuzakiLib.types.py_object import PyObject
 
+
 class GroupCall(PyObject):
     def __init__(
         self,
@@ -8,10 +9,10 @@ class GroupCall(PyObject):
     ):
         self.chat_id: int = chat_id
         self.is_playing: bool = binary_status != 3
-        self.status: str = 'unknown'
+        self.status: str = "unknown"
         if binary_status == 1:
-            self.status = 'playing'
+            self.status = "playing"
         elif binary_status == 2:
-            self.status = 'paused'
+            self.status = "paused"
         elif binary_status == 3:
-            self.status = 'not_playing'
+            self.status = "not_playing"

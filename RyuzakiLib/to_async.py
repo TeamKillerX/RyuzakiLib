@@ -1,7 +1,7 @@
 import asyncio
 from asyncio import AbstractEventLoop
-from typing import Any
-from typing import Callable
+from typing import Any, Callable
+
 
 class ToAsync:
     def __init__(self, function: Callable, *args):

@@ -24,17 +24,18 @@ class CallHolder(Scaffold):
     @property
     def calls(self):
         calls_list: dict = self._binding.calls()
-        return List([
-            GroupCall(x, self._conversions[calls_list[x]]) for x in calls_list
-        ])
+        return List([GroupCall(x, self._conversions[calls_list[x]]) for x in calls_list])
 
     @property
     def active_calls(self):
         calls_list: dict = self._binding.calls()
-        return List([
-            GroupCall(x, self._conversions[calls_list[x]]) for x in calls_list
-            if calls_list[x] != StreamStatus.Idling
-        ])
+        return List(
+            [
+                GroupCall(x, self._conversions[calls_list[x]])
+                for x in calls_list
+                if calls_list[x] != StreamStatus.Idling
+            ]
+        )
 
     async def get_active_call(
         self,
@@ -46,7 +47,8 @@ class CallHolder(Scaffold):
         if chat_id in calls_list:
             if calls_list[chat_id] != StreamStatus.Idling:
                 return GroupCall(
-                    chat_id, self._conversions[calls_list[chat_id]],
+                    chat_id,
+                    self._conversions[calls_list[chat_id]],
                 )
 
         raise GroupCallNotFound(chat_id)

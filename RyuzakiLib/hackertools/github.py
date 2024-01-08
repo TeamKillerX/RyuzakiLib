@@ -18,22 +18,21 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
+import os
+
+from httpx import AsyncClient
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from httpx import AsyncClient
-import os
 
 
 class GithubUsername:
-    def __init__(self, username: str=None):
+    def __init__(self, username: str = None):
         self.username = username
 
     async def get_github_data(self):
         base_msg = ""
         async with AsyncClient() as gpx:
-            req = (
-                await gpx.get(f"https://api.github.com/users/{self.username}")
-            ).json()
+            req = (await gpx.get(f"https://api.github.com/users/{self.username}")).json()
             try:
                 avatar = req["avatar_url"]
                 twitter = req["twitter_username"]
@@ -45,7 +44,9 @@ class GithubUsername:
                 base_msg += f"**Location:** `{req['location']}` \n"
                 base_msg += f"**Company:** `{req['company']}` \n"
                 base_msg += f"**Blog:** `{req['name']}` \n"
-                base_msg += f"**Twitter:** `{f'https://twitter.com/{twitter}' if twitter else 'None'}` \n"
+                base_msg += (
+                    f"**Twitter:** `{f'https://twitter.com/{twitter}' if twitter else 'None'}` \n"
+                )
                 base_msg += f"**Bio:** `{req['bio']}` \n"
                 base_msg += f"**Public Repos:** `{req['public_repos']}` \n"
                 base_msg += f"**Public Gists:** `{req['public_gists']}` \n"

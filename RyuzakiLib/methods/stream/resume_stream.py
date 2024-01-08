@@ -2,9 +2,7 @@ from typing import Union
 
 from ntgcalls import ConnectionError
 
-from ...exceptions import ClientNotStarted
-from ...exceptions import NoMTProtoClientSet
-from ...exceptions import NotInGroupCallError
+from ...exceptions import ClientNotStarted, NoMTProtoClientSet, NotInGroupCallError
 from ...scaffold import Scaffold
 from ...to_async import ToAsync
 from ...types import ResumedStream
@@ -28,7 +26,7 @@ class ResumeStream(Scaffold):
                 chat_id,
             )
             await self._on_event_update.propagate(
-                'RAW_UPDATE_HANDLER',
+                "RAW_UPDATE_HANDLER",
                 self,
                 ResumedStream(chat_id),
             )

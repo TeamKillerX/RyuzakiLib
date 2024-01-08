@@ -1,8 +1,6 @@
 from typing import Union
 
-from ...exceptions import ClientNotStarted
-from ...exceptions import NoActiveGroupCall
-from ...exceptions import NoMTProtoClientSet
+from ...exceptions import ClientNotStarted, NoActiveGroupCall, NoMTProtoClientSet
 from ...scaffold import Scaffold
 
 

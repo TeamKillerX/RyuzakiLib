@@ -17,18 +17,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import requests
-import os
-import json
 import base64
+import json
+import os
+from base64 import b64decode as idk
+
+import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from base64 import b64decode as idk
+
 
 class RendyDevChat:
     def __init__(
         self,
-        query: str=None,
+        query: str = None,
         binary="01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100",
     ):
         self.query = query
@@ -84,17 +86,13 @@ class RendyDevChat:
 
     def get_response_model(
         self,
-        model_id: int=None,
-        is_models: bool=False,
-        re_json: bool=False,
-        status_ok: bool=False
+        model_id: int = None,
+        is_models: bool = False,
+        re_json: bool = False,
+        status_ok: bool = False,
     ):
         url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
-        params = {
-            "query": self.query,
-            "model_id": model_id,
-            "is_models": is_models
-        }
+        params = {"query": self.query, "model_id": model_id, "is_models": is_models}
         response = requests.post(url, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -147,10 +145,11 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_turbo3(self, turbo3: bool = False):
+    def get_response_turbo3(self, api_key: str = None, turbo3: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
-        params = {"query": self.query}
-        response = requests.post(url, json=params)
+        headers = {"accept": "application/json", "api-key": api_key}
+        payload = {"query": self.query}
+        response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
@@ -169,7 +168,7 @@ class RendyDevChat:
 .get_response_bing(bing=True)
 .get_response_model() # parameter model_id: integers and is_models: boolean
 .get_response_llama(llama=True)
-.get_response_turbo3(turbo3=True)
+.get_response_turbo3(api_key=api_key, turbo3=True)
 .get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
 .get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
 .multi_chat_response(api_key=api_key, is_multi_chat=True)
@@ -180,16 +179,10 @@ class RendyDevChat:
             return "you can check set is_list_all=True"
 
     def get_response_gemini_pro(
-        self,
-        api_key: str=None,
-        re_json: bool = False,
-        is_gemini_pro: bool = False
+        self, api_key: str = None, re_json: bool = False, is_gemini_pro: bool = False
     ):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
-        headers = {
-            "accept": "application/json",
-            "api-key": api_key
-        }
+        headers = {"accept": "application/json", "api-key": api_key}
         params = {"query": self.query}
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
@@ -206,19 +199,16 @@ class RendyDevChat:
 
     def get_response_google_ai(
         self,
-        api_key: str=None,
+        api_key: str = None,
         re_json: bool = False,
         is_chat_bison: bool = False,
-        is_google: bool = False
+        is_google: bool = False,
     ):
         if is_chat_bison:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
         else:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
-        headers = {
-            "accept": "application/json",
-            "api-key": api_key
-        }
+        headers = {"accept": "application/json", "api-key": api_key}
         params = {"query": self.query}
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
@@ -233,16 +223,9 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_risma_image_generator(
-        self,
-        api_key: str=None,
-        is_opendalle: bool = False
-    ):
+    def get_risma_image_generator(self, api_key: str = None, is_opendalle: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
-        headers = {
-            "accept": "application/json",
-            "api-key": api_key
-        }
+        headers = {"accept": "application/json", "api-key": api_key}
         payload = {"query": self.query}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
@@ -253,11 +236,7 @@ class RendyDevChat:
         else:
             return response
 
-    def multi_chat_response(
-        self,
-        api_key: str=None,
-        is_multi_chat: bool = False
-    ):
+    def multi_chat_response(self, api_key: str = None, is_multi_chat: bool = False):
         if is_multi_chat:
             response_str = self.get_response_gemini_pro(
                 api_key=api_key,
@@ -273,18 +252,12 @@ class RendyDevChat:
             response = self.get_response_beta(joke=True)
         elif not is_multi_chat:
             response_str = self.get_response_model(
-                model_id=5,
-                is_models=True,
-                re_json=True,
-                status_ok=True
+                model_id=5, is_models=True, re_json=True, status_ok=True
             )
             response = response_str["randydev"].get("message")
         else:
             response_str = self.get_response_google_ai(
-                api_key=api_key,
-                re_json=True,
-                is_chat_bison=True,
-                is_google=True
+                api_key=api_key, re_json=True, is_chat_bison=True, is_google=True
             )
             response = response_str["randydev"].get("message")
         return response

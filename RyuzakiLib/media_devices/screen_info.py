@@ -19,27 +19,27 @@ class ScreenInfo(PyObject):
         self.height = height
         self.is_primary = is_primary
         self.title = title
-        self.ffmpeg_parameters = ['-f']
+        self.ffmpeg_parameters = ["-f"]
 
     def build_ffmpeg_command(self, frame_rate: int):
-        if platform == 'win32':
-            path = 'desktop'
+        if platform == "win32":
+            path = "desktop"
 
             self.ffmpeg_parameters += [
-                'gdigrab',
-                '-offset_x',
+                "gdigrab",
+                "-offset_x",
                 str(self.offset_x),
-                '-offset_y',
+                "-offset_y",
                 str(self.offset_y),
             ]
         else:
-            path = f':0.0+{self.offset_x},{self.offset_y}'
-            self.ffmpeg_parameters += ['x11grab']
+            path = f":0.0+{self.offset_x},{self.offset_y}"
+            self.ffmpeg_parameters += ["x11grab"]
 
         self.ffmpeg_parameters += [
-            '-video_size',
-            f'{self.width}x{self.height}',
-            '-framerate',
+            "-video_size",
+            f"{self.width}x{self.height}",
+            "-framerate",
             str(frame_rate),
         ]
         return path

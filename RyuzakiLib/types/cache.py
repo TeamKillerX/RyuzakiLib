@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 from time import time
-from typing import Any
-from typing import Dict
-from typing import Optional
+from typing import Any, Dict, Optional
 
 
 @dataclass
@@ -18,8 +16,7 @@ class Cache:
 
     def get(self, chat_id: int) -> Optional[Any]:
         if chat_id in self._store:
-            if self._store[chat_id].time == 0 or \
-                    self._store[chat_id].time - int(time()) > 0:
+            if self._store[chat_id].time == 0 or self._store[chat_id].time - int(time()) > 0:
                 return self._store[chat_id].data
             else:
                 self._store.pop(chat_id, None)

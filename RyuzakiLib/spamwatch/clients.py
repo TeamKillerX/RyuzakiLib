@@ -26,7 +26,7 @@ class SibylBan:
 
     def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
         headers = {
-            "accept": "application/json",
+            "Content-Type": "application/json",
             "api-key": self.api_key
         }
         try:
@@ -87,7 +87,7 @@ class SibylBan:
         if delete:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/bandel"
             payload = {"user_id": user_id}
-            return self._make_request("DELETE", url, params=payload)
+            return self._make_request("DELETE", url, json_data=payload)
         else:
             raise ValueError("Error: delete must be True")
 

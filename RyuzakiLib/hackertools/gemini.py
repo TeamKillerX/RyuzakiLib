@@ -26,11 +26,10 @@ class GeminiLatest:
             if response.status_code != 200:
                 return "Error responding"
             response_data = response.json()
-            answer = response_data["candidates"]
-            for results in answer:
-                message = results.get("text") or results
-            gemini_chat.append({"role": "model", "parts": [{"text": message}]})
+            answer = response_data["candidates"][0]["content"]["text"]
+            gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
-            return [message, gemini_chat]
+            return [answer, gemini_chat]
         except Exception as e:
-            return f"Error response: {e}"
+            stuck_lol = f"Error response: {e}"
+            return [stuck_lol, "https://telegra.ph/file/e5eb5d8e5a1aba26c0014.jpg"]

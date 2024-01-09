@@ -322,7 +322,7 @@ You can find the [`Ryuzaki API`](https://private.randydev.my.id)
 ### Ryuzaki API Pricing (API keys)
 > [!NOTE]
 > - Picsart Pro (7 days)
-> - Gemini Pro (7 days)
+> - Gemini Ultra (7 days)
 > - Beta3 Google AI (7 days)
 > - Beta2 Google AI (7 days)
 > - Anime Styled (7 days)

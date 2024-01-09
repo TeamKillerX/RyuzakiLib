@@ -23,3 +23,4 @@ psutil
 screeninfo
 aiofiles
 g4f
+google-generativeai

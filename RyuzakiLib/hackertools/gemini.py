@@ -15,7 +15,7 @@ class GeminiLatest:
         self.api_key = api_key
         genai.configure(api_key=self.api_key)
 
-    def _get_response_gemini(query: str=None):
+    def _get_response_gemini(self, query: str=None):
         global gemini_chat
         try:
             gemini_chat.append({"role": "user", "parts": [owner_base]})

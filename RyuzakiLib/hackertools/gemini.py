@@ -22,7 +22,7 @@ class GeminiLatest:
             gemini_chat.append({"role": "user", "parts": [{"text": owner_base}]})
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
-            response = requests.post(url, headers data=payload)
+            response = requests.post(url, headers=headers, data=payload)
             if response.status_code != 200:
                 return "Error responding"
             response_data = response.json()

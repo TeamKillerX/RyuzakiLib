@@ -125,11 +125,17 @@ class OpenAiToken:
         return response
 
     def chat_message_turbo(
-        self, query: str = None, role: str = "user", model: str = "gpt-3.5-turbo", is_stream=False
+        self,
+        query: str = None,
+        role: str = "user",
+        model: str = "gpt-3.5-turbo",
+        user_id: int=None,
+        is_stream=False
     ):
         global gpt3_conversation_history
         if is_stream:
-            gpt3_conversation_history.append({"role": "user", "content": query})
+            stored_messages = f"[USER ID: {user_id}]\n\n{query}"
+            gpt3_conversation_history.append({"role": "user", "content": stored_messages})
             try:
                 chat_completion = openai.ChatCompletion.create(
                     model=model, messages=gpt3_conversation_history, stream=True
@@ -150,7 +156,7 @@ class OpenAiToken:
                 errros_msg = f"Error responding: API long time (timeout 600)"
                 return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
         else:
-            gpt3_conversation_history.append({"role": "user", "content": query})
+            gpt3_conversation_history.append({"role": "user", "content": stored_messages})
             try:
                 chat_completion = openai.ChatCompletion.create(
                     messages=gpt3_conversation_history, model=model

@@ -39,6 +39,7 @@ from .extreme.rayso import CarbonRaySo
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .hackertools.chatgpt import RendyDevChat
+from .hackertools.gemini import GeminiLatest
 from .hackertools.github import GithubUsername
 from .hackertools.ipinfo import WhoisIpHacker
 from .hackertools.ocrapi import OcrApiUrl
@@ -79,6 +80,7 @@ __all__ = [
     "PyTgCalls",
     "StreamType",
     "RendyDevChat",
+    "GeminiLatest",
     "GithubUsername",
     "OpenAiToken",
     "CustomPrefixes",

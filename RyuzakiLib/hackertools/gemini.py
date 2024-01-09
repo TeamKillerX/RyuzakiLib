@@ -29,7 +29,7 @@ class GeminiLatest:
             answer = response_data["candidates"][0]["content"]["parts"][0]["text"]
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
-            return [answer, gemini_chat]
+            return answer, gemini_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
-            return [error_msg, "https://telegra.ph/file/e5eb5d8e5a1aba26c0014.jpg"]
+            return error_msg, "https://telegra.ph/file/e5eb5d8e5a1aba26c0014.jpg"

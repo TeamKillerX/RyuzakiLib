@@ -179,11 +179,15 @@ class RendyDevChat:
             return "you can check set is_list_all=True"
 
     def get_response_gemini_pro(
-        self, api_key: str = None, re_json: bool = False, is_gemini_pro: bool = False
+        self,
+        api_key: str = None,
+        re_json: bool = False,
+        is_multi_chat: bool = False,
+        is_gemini_pro: bool = False
     ):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
         headers = {"accept": "application/json", "api-key": api_key}
-        params = {"query": self.query}
+        params = {"query": self.query, "is_multi_chat": is_multi_chat}
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"

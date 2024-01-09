@@ -129,7 +129,7 @@ class OpenAiToken:
         query: str = None,
         role: str = "user",
         model: str = "gpt-3.5-turbo",
-        user_id: int,
+        user_id: int=None,
         is_stream=False
     ):
         global gpt3_conversation_history

@@ -28,9 +28,9 @@ class GeminiLatest:
             response_data = response.json()
             answer = response_data["candidates"]
             for results in answer:
-                message = results.get("text")
+                message = results.get("text") or results
             gemini_chat.append({"role": "model", "parts": [{"text": message}]})
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
-            return [response_data, gemini_chat]
+            return [message, gemini_chat]
         except Exception as e:
             return f"Error response: {e}"

@@ -5,7 +5,7 @@ class GeminiLatest:
         self.api_key = api_key
         self.api_base = api_base
 
-    def _get_response_gemini(self, query: str = None, gemini_chat: list = None):
+    def _get_response_gemini(self, query: str = None, gemini_chat: list = None, append_text: str = None):
         if gemini_chat is None:
             gemini_chat = []
         try:
@@ -17,7 +17,10 @@ class GeminiLatest:
                 return "Error responding"
             response_data = response.json()
             for candidate in response_data["candidates"]:
-                answer = candidate["content"]["parts"][0]["text"]
+                for x in candidate.get("content", {}).get("parts", []):
+                    answer = x.get("text", "")
+            if append_text is not None:
+                gemini_chat.append({"role": "model", "parts": [{"text": append_text}]})
             return answer, gemini_chat
         except Exception as e:
             error_msg = f"Error response: {e}"

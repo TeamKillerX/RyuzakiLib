@@ -17,7 +17,7 @@ class GeminiLatest:
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
-    def _get_response_gemini(self, query: str = None):
+    def _get_response_gemini(self, query: str = None, append_text=None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()
 
@@ -33,6 +33,8 @@ class GeminiLatest:
             for candidate in response_data["candidates"]:
                 for x in candidate.get("content", {}).get("parts", []):
                     answer = x.get("text", "")
+            if append_text is not None:
+                gemini_chat.append({"role": "model", "parts": append_text})
             self._update_gemini_chat_in_db(gemini_chat)
             return answer, gemini_chat
         except Exception as e:

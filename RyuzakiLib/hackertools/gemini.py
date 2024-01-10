@@ -1,17 +1,15 @@
 import requests
 
-gemini_chat = []
-
 class GeminiLatest:
     def __init__(self, api_key: str = None, api_base="https://generativelanguage.googleapis.com"):
         self.api_key = api_key
         self.api_base = api_base
 
-    def _get_response_gemini(self, query: str = None):
-        global gemini_chat
+    def _get_response_gemini(self, query: str = None, gemini_chat: list = None):
+        if gemini_chat is None:
+            gemini_chat = []
         try:
             api_method = f"{self.api_base}/v1beta/models/gemini-pro:generateContent?key={self.api_key}"
-            gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
             response = requests.post(api_method, headers=headers, json=payload)
@@ -20,7 +18,6 @@ class GeminiLatest:
             response_data = response.json()
             for candidate in response_data["candidates"]:
                 answer = candidate["content"]["parts"][0]["text"]
-            gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             return answer, gemini_chat
         except Exception as e:
             error_msg = f"Error response: {e}"

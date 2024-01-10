@@ -3,7 +3,8 @@ from pymongo import MongoClient
 
 class GeminiLatest:
     def __init__(
-        self, api_key: str = None,
+        self,
+        api_key: str = None,
         mongo_url: str=None,
         api_base="https://generativelanguage.googleapis.com",
         user_id: int=None

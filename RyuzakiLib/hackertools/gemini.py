@@ -18,7 +18,8 @@ class GeminiLatest:
             if response.status_code != 200:
                 return "Error responding"
             response_data = response.json()
-            answer = response_data["candidates"][0]["content"]["parts"][0]["text"]
+            for candidate in response_data["candidates"]:
+                answer = candidate["content"]["parts"][0]["text"]
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             return answer, gemini_chat
         except Exception as e:

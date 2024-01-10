@@ -183,7 +183,6 @@ class RendyDevChat:
         api_key: str = None,
         user_id: int = None,
         mongo_url: str = None,
-        gemini_chat: list = None,
         re_json: bool = False,
         is_multi_chat: bool = False,
         is_gemini_pro: bool = False
@@ -195,7 +194,6 @@ class RendyDevChat:
             "mongo_url": mongo_url,
             "user_id": user_id,
             "is_multi_chat": is_multi_chat,
-            "gemini_chat": gemini_chat
         }
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:

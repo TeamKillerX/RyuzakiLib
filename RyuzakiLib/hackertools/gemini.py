@@ -17,8 +17,8 @@ class GeminiLatest:
                 return "Error responding"
             response_data = response.json()
             for candidate in response_data["candidates"]:
-                for x in candidate["content"]["parts"]:
-                    answer = x["text"]
+                for x in candidate.get("content", {}).get("parts", []):
+                    answer = x.get("text", "")
             if append_text is not None:
                 gemini_chat.append({"role": "model", "parts": [{"text": append_text}]})
             return answer, gemini_chat

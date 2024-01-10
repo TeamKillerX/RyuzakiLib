@@ -194,6 +194,7 @@ class RendyDevChat:
             "mongo_url": mongo_url,
             "user_id": user_id,  # Updated parameter name
             "is_multi_chat": is_multi_chat,
+            "gemini_api_key": GEMAPI,
         }
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:

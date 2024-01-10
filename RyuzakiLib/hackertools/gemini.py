@@ -17,6 +17,9 @@ class GeminiLatest:
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
+    def __del__(self):
+        self.client.close()
+
     def _get_response_gemini(self, query: str = None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()
@@ -31,9 +34,8 @@ class GeminiLatest:
                 return "Error responding", gemini_chat
 
             response_data = response.json()
-            for candidate in response_data["candidates"]:
-                for x in candidate.get("content", {}).get("parts", []):
-                    answer = x.get("text", "")
+            answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             self._update_gemini_chat_in_db(gemini_chat)
             return answer, gemini_chat
@@ -52,4 +54,4 @@ class GeminiLatest:
         if document:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"gemini_chat": gemini_chat}})
         else:
-            self.collection.insert_one({"gemini_chat": gemini_chat})
+            self.collection.insert_one({"user_id": self.user_id, "gemini_chat": gemini_chat})

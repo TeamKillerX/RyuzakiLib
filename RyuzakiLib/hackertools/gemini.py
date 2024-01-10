@@ -48,7 +48,7 @@ class GeminiLatest:
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
             response = requests.post(api_method, headers=headers, json=payload)
-            
+    
             if response.status_code != 200:
                 return "Error responding", gemini_chat
 

@@ -14,7 +14,7 @@ class GeminiLatest:
             payload = {"contents": gemini_chat}
             response = requests.post(api_method, headers=headers, json=payload)
             if response.status_code != 200:
-                return "Error responding"
+                return "Error responding", gemini_chat
             response_data = response.json()
             for candidate in response_data["candidates"]:
                 for x in candidate.get("content", {}).get("parts", []):
@@ -22,4 +22,4 @@ class GeminiLatest:
             return answer, gemini_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
-            return error_msg, "https://telegra.ph/file/e5eb5d8e5a1aba26c0014.jpg"
+            return error_msg, gemini_chat

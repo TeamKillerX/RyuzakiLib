@@ -181,6 +181,7 @@ class RendyDevChat:
     def get_response_gemini_pro(
         self,
         api_key: str = None,
+        user_id: int = None,
         mongo_url: str = None,
         gemini_chat: list = None,
         re_json: bool = False,
@@ -192,6 +193,7 @@ class RendyDevChat:
         params = {
             "query": self.query,
             "mongo_url": mongo_url,
+            "user_id": user_id,
             "is_multi_chat": is_multi_chat,
             "gemini_chat": gemini_chat
         }

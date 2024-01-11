@@ -241,7 +241,7 @@ print(now_show_prefix)
 - No authorization needed
 - Gemini Pro (Without RyuzakiLib API keys)
 - Multi-Turn Conversation
-- 
+
 ```python
 from RyuzakiLib import GeminiLatest
 

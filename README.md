@@ -240,7 +240,8 @@ print(now_show_prefix)
 ### Gemini AI Pro (Free)
 - No authorization needed
 - Gemini Pro (Without RyuzakiLib API keys)
-- Multi-Turn Conversation 
+- Multi-Turn Conversation
+- 
 ```python
 from RyuzakiLib import GeminiLatest
 
@@ -269,6 +270,7 @@ payload = {
 }
 response = requests.post(url, json=payload).json()
 ```
+
 - Gemini AI pro:  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
 
 - You can ask support [@KillerXSupport](https://t.me/KillerXSupport)

@@ -40,7 +40,7 @@ class GeminiLatest:
     def __del__(self):
         self.client.close()
 
-    def _get_response_gemini(self, query: str = None):
+    def __get_response_gemini__(self, query: str = None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()
 

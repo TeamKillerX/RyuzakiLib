@@ -141,9 +141,8 @@ message_output_2 = code.get_response_beta(joke=True)
 message_output_3 = code.get_response_bing(bing=True)
 message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
 message_output_5 = code.get_response_llama(llama=True)
-message_output_6 = code.get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
-message_output_7 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
-message_output_8 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
+message_output_6 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
+message_output_7 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
 
 print(message_output)
 print(message_output_2)
@@ -152,7 +151,6 @@ print(message_output_4)
 print(message_output_5)
 print(message_output_6)
 print(message_output_7)
-print(message_output_8)
 ```
 
 ### AI image Generator New?
@@ -247,13 +245,16 @@ from RyuzakiLib import GeminiLatest
 
 mongo_url = "....."
 user_id = 0
-gt = GeminiLatest(api_key=api_key, mongo_url=mongo_url, user_id=user_id)
+geni = GeminiLatest(api_key=api_key, mongo_url=mongo_url, user_id=user_id)
 
 # You don't use this Close
-gt.__del__()
+geni._close()
 
-# Get response
-message _, = gt._get_response_gemini(query)
+# Clear history in db
+geni._clear_history_in_db()
+
+# Get response (private in python)
+message _, = geni.<method_name>__get_response_gemini(query)
 
 # OR RyuzakiLib API
 import requests
@@ -304,7 +305,6 @@ payload = {
 
 headers = {
     "accept": "application/json",
-    "api-key": "get api key from @randydev_bot"
 }
 response = requests.post(url, headers=headers, json=payload).json()
 print(response)

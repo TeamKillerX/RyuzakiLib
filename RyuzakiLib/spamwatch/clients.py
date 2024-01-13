@@ -77,7 +77,7 @@ class SibylBan:
             url = "https://ufoptg-ufop-api.hf.space/UFoP/banner"
             payload = {"user_id": user_id, "reason": reason}
             response = self._make_request("POST", url, json_data=payload)
-            return response.get("randydev", {}).get(
+            return response.get("sukuna", {}).get(
                 "message", response.get("message", "Unknown error")
             )
         else:

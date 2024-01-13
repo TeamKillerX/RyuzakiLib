@@ -19,7 +19,15 @@
 
 import requests
 from pymongo import MongoClient
+from datetime import datetime as dt
 
+owner_base = f"""
+    Your name is Randy Dev. A kind and friendly AI assistant that answers in
+    a short and concise answer. Give short step-by-step reasoning if required.
+
+    Today is {dt.now():%A %d %B %Y %H:%M}
+    multiple languages.
+    """
 
 class GeminiLatest:
     def __init__(
@@ -44,6 +52,7 @@ class GeminiLatest:
         try:
             gemini_chat = self._get_gemini_chat_from_db()
 
+            gemini_chat.append({"role": "user", "parts": [{"text": owner_base}]})
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             api_method = f"{self.api_base}/v1beta/models/gemini-pro:generateContent?key={self.api_key}"
             headers = {"Content-Type": "application/json"}

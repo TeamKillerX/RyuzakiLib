@@ -178,7 +178,7 @@ class RendyDevChat:
         else:
             return "you can check set is_list_all=True"
 
-    def __get_response_gemini_pro(
+    def get_response_gemini_pro(
         self,
         api_key: str = None,
         user_id: int = None,

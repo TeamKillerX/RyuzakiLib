@@ -181,6 +181,7 @@ class RendyDevChat:
     def get_response_gemini_pro(
         self,
         api_key: str = None,
+        bard_api_key: str = None,
         user_id: int = None,
         mongo_url: str = None,
         re_json: bool = False,
@@ -192,6 +193,7 @@ class RendyDevChat:
         headers = {"accept": "application/json", "api-key": api_key}
         params = {
             "query": self.query,
+            "bard_api_key": bard_api_key,
             "mongo_url": mongo_url,
             "user_id": user_id,  # Updated parameter name
             "is_multi_chat": is_multi_chat,

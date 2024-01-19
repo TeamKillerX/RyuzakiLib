@@ -178,7 +178,7 @@ class RendyDevChat:
         else:
             return "you can check set is_list_all=True"
 
-    def get_response_gemini_pro(
+    def __get_response_gemini_pro(
         self,
         api_key: str = None,
         user_id: int = None,
@@ -251,12 +251,7 @@ class RendyDevChat:
 
     def multi_chat_response(self, api_key: str = None, is_multi_chat: bool = False):
         if is_multi_chat:
-            response_str = self.get_response_gemini_pro(
-                api_key=api_key,
-                re_json=True,
-                is_gemini_pro=True,
-            )
-            response = response_str["randydev"].get("message")
+            pass
         elif not is_multi_chat:
             response = self.get_response_llama(llama=True)
         elif not is_multi_chat:

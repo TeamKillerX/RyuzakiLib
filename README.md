@@ -141,9 +141,8 @@ message_output_2 = code.get_response_beta(joke=True)
 message_output_3 = code.get_response_bing(bing=True)
 message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
 message_output_5 = code.get_response_llama(llama=True)
-message_output_6 = code.get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
-message_output_7 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
-message_output_8 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
+message_output_6 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
+message_output_7 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
 
 print(message_output)
 print(message_output_2)
@@ -152,7 +151,6 @@ print(message_output_4)
 print(message_output_5)
 print(message_output_6)
 print(message_output_7)
-print(message_output_8)
 ```
 
 ### AI image Generator New?
@@ -236,7 +234,47 @@ set_handler.add_prefixes()
 now_show_prefix = set_handler.get_prefix()
 print(now_show_prefix)
 ```
-* you can ask support [@KillerXSupport](https://t.me/KillerXSupport)
+
+### Gemini AI Pro (Free)
+- No authorization needed
+- Gemini Pro (Without RyuzakiLib API keys)
+- Multi-Turn Conversation
+
+```python
+from RyuzakiLib import GeminiLatest
+
+mongo_url = "....."
+user_id = 0
+geni = GeminiLatest(api_key=api_key, mongo_url=mongo_url, user_id=user_id)
+
+# You don't use this Close
+geni._close()
+
+# Clear history in db
+geni._clear_history_in_db()
+
+# Get response (private in python)
+message _, = geni.<method_name>__get_response_gemini(query)
+
+# OR RyuzakiLib API
+import requests
+
+url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+
+payload = {
+    "query": "string",
+    "user_id": 12345,
+    "mongo_url": "string",
+    "gemini_api_key": "string", # you can leave it empty
+    "is_login": False,
+    "is_multi_chat": True
+}
+response = requests.post(url, json=payload).json()
+```
+
+- Gemini AI pro:  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
+
+- You can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
 ### Test your bots
 ```bash
@@ -267,7 +305,6 @@ payload = {
 
 headers = {
     "accept": "application/json",
-    "api-key": "get api key from @randydev_bot"
 }
 response = requests.post(url, headers=headers, json=payload).json()
 print(response)
@@ -322,7 +359,7 @@ You can find the [`Ryuzaki API`](https://private.randydev.my.id)
 ### Ryuzaki API Pricing (API keys)
 > [!NOTE]
 > - Picsart Pro (7 days)
-> - Gemini Ultra (7 days)
+> - Gemini AI Ultra (7 days)
 > - Beta3 Google AI (7 days)
 > - Beta2 Google AI (7 days)
 > - Anime Styled (7 days)

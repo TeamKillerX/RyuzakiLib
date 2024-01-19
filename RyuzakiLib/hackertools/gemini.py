@@ -37,13 +37,12 @@ class GeminiLatest:
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
-    def __del__(self):
+    def _close(self):
         self.client.close()
 
-    def _get_response_gemini(self, query: str = None):
+    def __get_response_gemini(self, query: str = None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()
-
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             api_method = f"{self.api_base}/v1beta/models/gemini-pro:generateContent?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
@@ -75,3 +74,7 @@ class GeminiLatest:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"gemini_chat": gemini_chat}})
         else:
             self.collection.insert_one({"user_id": self.user_id, "gemini_chat": gemini_chat})
+
+    def _clear_history_in_db(self):
+        unset_clear = {"gemini_chat": None}
+        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})

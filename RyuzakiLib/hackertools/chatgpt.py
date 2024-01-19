@@ -185,8 +185,7 @@ class RendyDevChat:
         mongo_url: str = None,
         re_json: bool = False,
         is_multi_chat: bool = False,
-        is_gemini_pro: bool = False,
-        gemini_api_key: str = None
+        is_gemini_pro: bool = False
     ):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
         headers = {"accept": "application/json", "api-key": api_key}
@@ -195,7 +194,6 @@ class RendyDevChat:
             "mongo_url": mongo_url,
             "user_id": user_id,  # Updated parameter name
             "is_multi_chat": is_multi_chat,
-            "gemini_api_key": gemini_api_key,
         }
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:

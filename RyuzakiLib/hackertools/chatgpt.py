@@ -171,6 +171,8 @@ class RendyDevChat:
 .get_response_turbo3(api_key=api_key, turbo3=True)
 .get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
 .get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
+.get_risma_image_generator(api_key=api_key, is_opendalle=True)
+.get_risma_image_generator(api_key=api_key, is_dalle3xl=True)
 .multi_chat_response(api_key=api_key, is_multi_chat=True)
 ```
 """
@@ -234,15 +236,22 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_risma_image_generator(self, api_key: str = None, is_opendalle: bool = False):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
-        headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": self.query}
-        response = requests.post(url, headers=headers, json=payload)
+    def get_risma_image_generator(self, api_key: str = None, is_opendalle: bool = False, is_dalle3xl: bool = False):
+        if is_opendalle:
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
+            headers = {"accept": "application/json", "api-key": api_key}
+            payload = {"query": self.query}
+            response = requests.post(url, headers=headers, json=payload)
+        elif is_dalle3xl:
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
+            headers = {"accept": "application/json", "api-key": api_key}
+            payload = {"query": self.query}
+            response = requests.post(url, headers=headers, json=payload)
+            
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 
-        if is_opendalle:
+        if is_opendalle or is_dalle3xl:
             return response.json()
         else:
             return response

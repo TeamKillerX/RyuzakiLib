@@ -44,73 +44,56 @@ list_user_agent = [
     "Mozilla/5.0 (Linux; Android 10; MAR-LX1B Build/HUAWEIMAR-L21B) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 SznProhlizec/7.12.2a",
 ]
 
-
 class OpenAiToken:
     def __init__(
         self,
         api_key: str = None,
         api_base: str = "https://api.openai.com/v1",
         mongo_url: str = None,
+        user_id: int = None
     ):
         self.api_key = api_key
         self.api_base = api_base
+        self.user_id = user_id
         self.mongo_url = mongo_url
+        self.client = MongoClient(self.mongo_url)
+        self.db = self.client.tiktokbot
+        self.collection = self.db.users
         openai.api_key = self.api_key
         openai.api_base = self.api_base
 
-    def connect_mongo(self):
-        return MongoClient(self.mongo_url)["tiktokbot"]["users"]
+    def continue_conversation(self, user_message: str = None):
+        openai_chat = self._get_openai_chat_from_db()
+        openai_chat.append({"role": "user", "content": owner_base})
+        try:
+            response = openai.ChatCompletion.create(
+                messages=openai_chat,
+                model="gpt-3.5-turbo",
+                timeout=1.0,
+            )
+            assistant_reply = response["choices"][0].message.content
+            openai_chat.append({"role": "assistant", "content": assistant_reply})
+            return assistant_reply, openai_chat
+        except Exception as e:
+            error_msg = f"Error response: {e}"
+            return error_msg, openai_chat
 
-    def continue_conversation(
-        self, owner_author: str = "Randy Dev", user_id: int = None, user_message: str = None
-    ):
-        collection = self.connect_mongo()
-        update_data = {"chat_user_id": user_id}
+    def _get_openai_chat_from_db(self):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        return document.get("openai_chat", []) if document else []
 
-        collection.update_one({"user_id": user_id}, {"$set": update_data}, upsert=True)
-        user_data = collection.find_one({"user_id": user_id})
-        owner_base = f"""
-        Your name is {owner_author}. A kind and friendly AI assistant that answers in
-        a short and concise answer. Give short step-by-step reasoning if required.
-
-        Today is {dt.now():%A %d %B %Y %H:%M}
-        """
-        if user_data:
-            conversation_history = user_data.get("assistant_reply")
-            if conversation_history is None:
-                conversation = "No conversation history available"
-            else:
-                conversation = conversation_history
-            try:
-                response = openai.ChatCompletion.create(
-                    messages=[
-                        {"role": "assistant", "content": "You are a helpful assistant."},
-                        {"role": "user", "content": owner_base},
-                        {"role": "assistant", "content": conversation},
-                        {"role": "user", "content": user_message},
-                    ],
-                    model="gpt-3.5-turbo",
-                    top_p=0.1,
-                    timeout=2.5,
-                )
-                assistant_reply = response["choices"][0].message.content
-                collection.update_one(
-                    {"user_id": user_id},
-                    {
-                        "$push": {
-                            "conversation_history": {
-                                "user_message": user_message,
-                                "assistant_reply": assistant_reply,
-                            }
-                        }
-                    },
-                )
-            except Exception as e:
-                assistant_reply = f"Error processing request: {str(e)}"
+    def _update_openai_chat_in_db(self, openai_chat):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        if document:
+            self.collection.update_one({"_id": document["_id"]}, {"$set": {"openai_chat": openai_chat}})
         else:
-            assistant_reply = "User not found in the database."
+            self.collection.insert_one({"user_id": self.user_id, "openai_chat": openai_chat})
 
-        return assistant_reply
+    def _clear_history_in_db(self):
+        unset_clear = {"openai_chat": None}
+        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
     def message_output(self, query: str = None):
         response = openai.Completion.create(
@@ -127,18 +110,17 @@ class OpenAiToken:
     def chat_message_turbo(
         self,
         query: str = None,
-        role: str = "user",
         model: str = "gpt-3.5-turbo",
-        user_id: int=None,
         is_stream=False
     ):
-        global gpt3_conversation_history
         if is_stream:
-            stored_messages = f"[USER ID: {user_id}]\n\n{query}"
-            gpt3_conversation_history.append({"role": "user", "content": stored_messages})
+            openai_chat = self._get_openai_chat_from_db()
+            openai_chat.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
-                    model=model, messages=gpt3_conversation_history, stream=True
+                    model=model,
+                    messages=openai_chat,
+                    stream=True
                 )
                 if isinstance(chat_completion, dict):
                     answer = chat_completion.choices[0].message.content
@@ -148,25 +130,24 @@ class OpenAiToken:
                         content = token["choices"][0]["delta"].get("content")
                         if content is not None:
                             answer += content
-                            gpt3_conversation_history.append(
-                                {"role": "assistant", "content": answer}
-                            )
-                return [answer, gpt3_conversation_history]
+                            openai_chat.append({"role": "assistant", "content": answer})
+                return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
-                return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+                return errros_msg, openai_chat
         else:
-            gpt3_conversation_history.append({"role": "user", "content": stored_messages})
+            openai_chat.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
-                    messages=gpt3_conversation_history, model=model
+                    messages=openai_chat,
+                    model=model
                 )
                 answer = chat_completion["choices"][0].message.content
-                gpt3_conversation_history.append({"role": "assistant", "content": answer})
-                return [answer, gpt3_conversation_history]
+                openai_chat.append({"role": "assistant", "content": answer})
+                return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
-                return [errros_msg, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+                return errros_msg, openai_chat
 
     def chat_message_api(
         self,

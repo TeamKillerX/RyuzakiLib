@@ -138,6 +138,7 @@ class OpenAiToken:
                 errros_msg = f"Error responding: API long time (timeout 600)"
                 return errros_msg, openai_chat
         else:
+            openai_chat = self._get_openai_chat_from_db()
             openai_chat.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(

@@ -64,7 +64,7 @@ class OpenAiToken:
 
     def continue_conversation(self, user_message: str = None):
         openai_chat = self._get_openai_chat_from_db()
-        openai_chat.append({"role": "user", "content": owner_base})
+        openai_chat.append({"role": "user", "content": user_message})
         try:
             response = openai.ChatCompletion.create(
                 messages=openai_chat,
@@ -73,6 +73,7 @@ class OpenAiToken:
             )
             assistant_reply = response["choices"][0].message.content
             openai_chat.append({"role": "assistant", "content": assistant_reply})
+            self._update_openai_chat_in_db(openai_chat)
             return assistant_reply, openai_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
@@ -131,6 +132,7 @@ class OpenAiToken:
                         if content is not None:
                             answer += content
                             openai_chat.append({"role": "assistant", "content": answer})
+                            self._update_openai_chat_in_db(openai_chat)
                 return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
@@ -144,6 +146,7 @@ class OpenAiToken:
                 )
                 answer = chat_completion["choices"][0].message.content
                 openai_chat.append({"role": "assistant", "content": answer})
+                self._update_openai_chat_in_db(openai_chat)
                 return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"

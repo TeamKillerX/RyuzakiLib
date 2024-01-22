@@ -251,7 +251,6 @@ class RendyDevChat:
             headers = {"accept": "application/json", "api-key": api_key}
             payload = {"query": self.query}
             response = requests.post(url, headers=headers, json=payload)
-            
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
 

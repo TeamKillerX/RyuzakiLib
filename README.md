@@ -162,12 +162,17 @@ from io import BytesIO
 from PIL import Image
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
-query = "Hello World"
+query = "Cat in a Hat"
 code = RendyDevChat(query)
+
 response = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
+response_2 = code.get_risma_image_generator(api_key=api_key, is_dalle3xl=True)
 
 image_data = base64.b64decode(response["randydev"].get("data"))
+image_data_2 = base64.b64decode(response_2["randydev"].get("data"))
+
 image = Image.open(BytesIO(image_data))
+image_2 = Image.open(BytesIO(image_data_2))
 ```
 
 ### Continue Conversation

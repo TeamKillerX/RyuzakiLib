@@ -27,16 +27,10 @@ class GeminiLatest:
         api_key: str = None,
         mongo_url: str=None,
         api_base="https://generativelanguage.googleapis.com",
-        version: str="v1beta",
-        model: str="models/gemini-pro",
-        content: str="generateContent",
         user_id: int=None
     ):
         self.api_key = api_key
         self.api_base = api_base
-        self.version = version
-        self.model = model
-        self.content = content
         self.user_id = user_id
         self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
@@ -50,7 +44,7 @@ class GeminiLatest:
         try:
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
-            api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
+            api_method = f"{self.api_base}/v1beta/models/gemini-pro:generateContent?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
             response = requests.post(api_method, headers=headers, json=payload)

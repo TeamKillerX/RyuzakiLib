@@ -105,7 +105,7 @@ class GeminiLatest:
             answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
             oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
-            self._update_oracle_chat_in_db(oracle_chat)
+            self._update_oracle_chat_in_db(oracle_chat, oracle_base)
             self._finish_oracle_chat_in_db(oracle_chat)
             return answer, oracle_chat
         except Exception as e:
@@ -126,7 +126,7 @@ class GeminiLatest:
 #            pass
 
 
-    def _update_oracle_chat_in_db(self, oracle_chat):
+    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:

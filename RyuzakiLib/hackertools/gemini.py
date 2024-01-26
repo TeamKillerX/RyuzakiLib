@@ -19,7 +19,7 @@
 
 import requests
 from pymongo import MongoClient
-from RyuzakiLib import oracle_base
+from .prefixes import oracle_base
 
 
 class GeminiLatest:

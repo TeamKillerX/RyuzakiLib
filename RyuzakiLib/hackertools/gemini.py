@@ -19,7 +19,6 @@
 
 import requests
 from pymongo import MongoClient
-from .prefixes import oracle_base
 
 
 class GeminiLatest:
@@ -31,7 +30,8 @@ class GeminiLatest:
         version: str="v1beta",
         model: str="models/gemini-pro",
         content: str="generateContent",
-        user_id: int=None
+        user_id: int=None,
+        oracle_base: str = None,
     ):
         self.api_key = api_key
         self.api_base = api_base
@@ -39,6 +39,7 @@ class GeminiLatest:
         self.model = model
         self.content = content
         self.user_id = user_id
+        self.oracle_base = oracle_base
         self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
@@ -90,6 +91,7 @@ class GeminiLatest:
         
     def __get_response_oracle(self, query: str = None):
         try:
+            oracle_base = f"{self.oracle_base}"
             oracle_chat = self._get_oracle_chat_from_db()
             self._set_oracle_chat_in_db(oracle_chat)
             oracle_chat.append({"role": "user", "parts": [{"text": oracle_base + f"\n\n" + query}]})

@@ -121,7 +121,7 @@ class GeminiLatest:
         document = self.collection.find_one(get_data_user)
         if not document:
             try:
-                self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_base}})
+                self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
             except Exception as e:
                 error_msg = f"Error response: {e}"
                 return error_msg, oracle_chat

@@ -112,6 +112,8 @@ class GeminiLatest:
     def _get_oracle_chat_from_db(self):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
+        if not document:
+            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
         return document.get("oracle_chat", []) if document else []
 
     def _update_oracle_chat_in_db(self, oracle_chat):

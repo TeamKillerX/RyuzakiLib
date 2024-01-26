@@ -106,6 +106,7 @@ class GeminiLatest:
 
             oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
             self._update_oracle_chat_in_db(oracle_chat)
+            self._finish_oracle_chat_in_db(oracle_chat)
             return answer, oracle_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
@@ -125,13 +126,21 @@ class GeminiLatest:
 #            pass
 
 
-    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base: str = None):
+    def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
         else:
-            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
             self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
-            self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
+
+    def _finish_oracle_chat_in_db(self, oracle_chat):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        if document:
+            try:
+                self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
+            except Exception as e:
+                error_msg = f"Error response: {e}"
+                return error_msg, oracle_chat
     

@@ -142,7 +142,7 @@ class GeminiLatest:
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
-        if document
+        if document:
             try:
                 self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
             except Exception as e:

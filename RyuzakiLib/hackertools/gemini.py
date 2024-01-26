@@ -93,7 +93,7 @@ class GeminiLatest:
             oracle_chat.append({"role": "user", "parts": [{"text": query}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
-            payload = {"contents": gemini_chat}
+            payload = {"contents": oracle_chat}
             response = requests.post(api_method, headers=headers, json=payload)
 
             if response.status_code != 200:

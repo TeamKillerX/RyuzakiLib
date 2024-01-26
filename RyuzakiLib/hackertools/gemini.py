@@ -90,7 +90,7 @@ class GeminiLatest:
         
     def __get_response_oracle(self, query: str = None):
         try:
-            oracle_chatset = self._get_oracle_chat_from_db()
+            oracle_chatset = self._start_oracle_chat_from_db()
             self._set_oracle_chat_in_db(oracle_chatset)
             oracle_chatset.append({"role": "user", "parts": [{"text": oracle_base}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
@@ -100,6 +100,8 @@ class GeminiLatest:
 
             if setoracle.status_code != 200:
                 return "Error responding", oracle_chatset
+            else:
+                self._update_oracle_base_in_db(oracle_chatset)
             try:
                 oracle_chat = self._get_oracle_chat_from_db()
                 oracle_chat.append({"role": "user", "parts": [{"text": query}]})
@@ -123,10 +125,10 @@ class GeminiLatest:
             error_msg = f"Error response: {e}"
             return error_msg, oracle_chat
 
-    def _get_oracle_chat_from_db(self):
+    def _start_oracle_chat_from_db(self):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
-        return document.get("oracle_chat", []) if document else []
+        return document.get("oracle_chatset", []) if document else []
 
     def _set_oracle_chat_in_db(self, oracle_chatset):
         get_data_user = {"user_id": self.user_id}
@@ -140,6 +142,23 @@ class GeminiLatest:
             return None, oracle_chatset
         else:
             return oracle_chatset
+
+    def _update_oracle_base_in_db(self, oracle_chatset):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        if document:
+            try:
+                self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
+            except Exception as e:
+                error_msg = f"Error response: {e}"
+                return error_msg, oracle_chatset
+        else:
+            self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
+    
+    def _get_oracle_chat_from_db(self):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        return document.get("oracle_chat", []) if document else []
 
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}

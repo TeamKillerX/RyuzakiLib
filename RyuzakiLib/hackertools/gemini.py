@@ -125,7 +125,7 @@ class GeminiLatest:
 #            pass
 
 
-    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base):
+    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base: str = None):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:

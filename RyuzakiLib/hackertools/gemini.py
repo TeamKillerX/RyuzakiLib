@@ -99,18 +99,25 @@ class GeminiLatest:
             setoracle = requests.post(api_method, headers=headers, json=setpayload)
 
             if setoracle.status_code != 200:
-                return "Error responding", oracle_chat
-            else:
+                return "Error responding", oracle_chatset
+            try:
                 oracle_chat = self._get_oracle_chat_from_db()
                 oracle_chat.append({"role": "user", "parts": [{"text": query}]})
                 payload = {"contents": oracle_chat}
                 response = requests.post(api_method, headers=headers, json=payload)
 
-            response_data = response.json()
-            answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                if response.status_code != 200:
+                    return "Error responding", oracle_chatset
 
-            oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
-            self._update_oracle_chat_in_db(oracle_chat)
+                response_data = response.json()
+                answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+
+                oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
+                self._update_oracle_chat_in_db(oracle_chat)
+                return answer, oracle_chat
+            except Exception as e:
+                error_msg = f"Error response: {e}"
+                return error_msg, oracle_chat
             return answer, oracle_chat
         except Exception as e:
             error_msg = f"Error response: {e}"

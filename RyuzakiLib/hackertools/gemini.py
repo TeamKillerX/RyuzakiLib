@@ -131,7 +131,7 @@ class GeminiLatest:
         if document:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
         else:
-            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
+            self.oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
             self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
     

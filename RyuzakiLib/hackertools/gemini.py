@@ -92,11 +92,11 @@ class GeminiLatest:
     def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
-            self._set_oracle_chat_in_db(oracle_chat)
             if self._check_oracle_chat__db():
                 oracle_chat.append({"role": "user", "parts": [{"text": query}]})
             else:
                 oracle_chat.append({"role": "user", "parts": [{"text": self.oracle_base + f"\n\n" + query}]})
+            self._set_oracle_chat_in_db(oracle_chat)
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": oracle_chat}
@@ -119,7 +119,12 @@ class GeminiLatest:
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
-        
+
+    def _check_oracle_chat__db(self):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        return bool(document)
+
     def _set_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
@@ -132,11 +137,6 @@ class GeminiLatest:
             return None, oracle_chat
         else:
             return oracle_chat
-
-    def _check_oracle_chat__db(self):
-        get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
-        return bool(document)
 
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}

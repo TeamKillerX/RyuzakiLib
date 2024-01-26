@@ -91,7 +91,7 @@ class GeminiLatest:
     def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
-#            self._set_oracle_chat_base_db(oracle_chat)
+            self._set_oracle_chat_in_db(oracle_chat)
             oracle_chat.append({"role": "user", "parts": [{"text": query}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
@@ -106,7 +106,6 @@ class GeminiLatest:
 
             oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
             self._update_oracle_chat_in_db(oracle_chat, oracle_base)
-            self._finish_oracle_chat_in_db(oracle_chat)
             return answer, oracle_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
@@ -117,16 +116,19 @@ class GeminiLatest:
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
 
-#    def _set_oracle_chat_base_db(self, oracle_chat):
-#        get_data_user = {"user_id": self.user_id}
-#        document = self.collection.find_one(get_data_user)
-#        if not document:
-#            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
-#        else:
-#            pass
+    def _set_oracle_chat_in_db(self, oracle_chat):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        if not document:
+            try:
+                self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_base}})
+            except Exception as e:
+                error_msg = f"Error response: {e}"
+                return error_msg, oracle_chat
+        else:
+            pass
 
-
-    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base):
+    def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
@@ -134,13 +136,4 @@ class GeminiLatest:
         else:
             self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
 
-    def _finish_oracle_chat_in_db(self, oracle_chat):
-        get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
-        if document:
-            try:
-                self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
-            except Exception as e:
-                error_msg = f"Error response: {e}"
-                return error_msg, oracle_chat
     

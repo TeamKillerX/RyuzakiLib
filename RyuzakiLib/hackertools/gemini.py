@@ -105,7 +105,7 @@ class GeminiLatest:
             answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
             oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
-            self._update_oracle_chat_in_db(oracle_chat, oracle_base)
+            self._update_oracle_chat_in_db(oracle_chat)
             return answer, oracle_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
@@ -125,8 +125,9 @@ class GeminiLatest:
             except Exception as e:
                 error_msg = f"Error response: {e}"
                 return error_msg, oracle_chat
+            return None, oracle_chat
         else:
-            pass
+            return oracle_chat
 
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}

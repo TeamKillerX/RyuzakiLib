@@ -91,7 +91,7 @@ class GeminiLatest:
     def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
-            self._set_oracle_chat_in_db(oracle_chatset)
+            self._set_oracle_chat_in_db(oracle_chat)
             oracle_chat.append({"role": "user", "parts": [{"text": oracle_base + f"\n\n" + query}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}

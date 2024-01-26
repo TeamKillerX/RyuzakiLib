@@ -92,10 +92,10 @@ class GeminiLatest:
     def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
-            if self._check_oracle_chat__db():
-                oracle_chat.append({"role": "user", "parts": [{"text": query}]})
-            else:
-                oracle_chat.append({"role": "user", "parts": [{"text": self.oracle_base + f"\n\n" + query}]})
+            #if self._check_oracle_chat__db():
+            #    oracle_chat.append({"role": "user", "parts": [{"text": query}]})
+            #else:
+            oracle_chat.append({"role": "user", "parts": [{"text": self.oracle_base + f"\n\n" + query}]})
             self._set_oracle_chat_in_db(oracle_chat)
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}

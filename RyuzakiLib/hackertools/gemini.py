@@ -125,13 +125,13 @@ class GeminiLatest:
 #            pass
 
 
-    def _update_oracle_chat_in_db(self, oracle_chat):
+    def _update_oracle_chat_in_db(self, oracle_chat, oracle_base):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
         else:
-            self.oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
+            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
             self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
     

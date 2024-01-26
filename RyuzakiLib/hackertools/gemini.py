@@ -116,7 +116,7 @@ class GeminiLatest:
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
 
-    def _set_oracle_chat_base_db(self):
+    def _set_oracle_chat_base_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if not document:

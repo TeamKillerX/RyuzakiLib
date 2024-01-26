@@ -94,7 +94,10 @@ class GeminiLatest:
             oracle_base = f"{self.oracle_base}"
             oracle_chat = self._get_oracle_chat_from_db()
             self._set_oracle_chat_in_db(oracle_chat)
-            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base + f"\n\n" + query}]})
+            if self._check_oracle_chat__db():
+                oracle_chat.append({"role": "user", "parts": [{"text": query}]})
+            else:
+                oracle_chat.append({"role": "user", "parts": [{"text": oracle_base + f"\n\n" + query}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": oracle_chat}
@@ -131,10 +134,15 @@ class GeminiLatest:
         else:
             return oracle_chat
 
+    def _check_oracle_chat__db(self):
+        get_data_user = {"user_id": self.user_id}
+        document = self.collection.find_one(get_data_user)
+        return bool(document)
+
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
-        if document:
+        if document
             try:
                 self.collection.update_one({"_id": document["_id"]}, {"$set": {"oracle_chat": oracle_chat}})
             except Exception as e:

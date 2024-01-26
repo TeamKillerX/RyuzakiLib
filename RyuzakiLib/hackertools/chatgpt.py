@@ -170,6 +170,7 @@ class RendyDevChat:
 .get_response_llama(llama=True)
 .get_response_turbo3(api_key=api_key, turbo3=True)
 .get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
+.get_response_gemini_oracle(api_key=api_key, re_json=True, is_gemini_oracle=True)
 .get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
 .get_risma_image_generator(api_key=api_key, is_opendalle=True)
 .get_risma_image_generator(api_key=api_key, is_dalle3xl=True)
@@ -179,6 +180,40 @@ class RendyDevChat:
             return text
         else:
             return "you can check set is_list_all=True"
+
+    def get_response_gemini_oracle(
+        self,
+        api_key: str = None,
+        user_id: int = None,
+        mongo_url: str = None,
+        re_json: bool = False,
+        is_login: bool = False,
+        is_multi_chat: bool = False,
+        is_gemini_oracle: bool = False,
+        gemini_api_key: str = None
+    ):
+        url = f"https://ufoptg-ufop-api.hf.space/UFoP/gemini-the-oracle"
+        headers = {"accept": "application/json", "api-key": api_key}
+        params = {
+            "query": self.query,
+            "mongo_url": mongo_url,
+            "user_id": user_id,  # Updated parameter name
+            "is_logon": is_login,
+            "is_multi_chat": is_multi_chat,
+            "gemini_api_key": gemini_api_key,
+        }
+        response = requests.post(url, headers=headers, json=params)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+
+        if is_gemini_oracle:
+            if re_json:
+                check_response = response.json()
+            else:
+                check_response = response
+            return check_response
+        else:
+            return f"WTF THIS {self.query}"
 
     def get_response_gemini_pro(
         self,

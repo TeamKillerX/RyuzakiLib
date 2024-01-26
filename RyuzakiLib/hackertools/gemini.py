@@ -90,17 +90,21 @@ class GeminiLatest:
         
     def __get_response_oracle(self, query: str = None):
         try:
-            oracle_chat = self._get_oracle_chat_from_db()
-            self._set_oracle_chat_in_db(oracle_chat)
-            oracle_chat.append({"role": "user", "parts": [{"text": oracle_base}]})
-            oracle_chat.append({"role": "user", "parts": [{"text": query}]})
+            oracle_chatset = self._get_oracle_chat_from_db()
+            self._set_oracle_chat_in_db(oracle_chatset)
+            oracle_chatset.append({"role": "user", "parts": [{"text": oracle_base}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
-            payload = {"contents": oracle_chat}
-            response = requests.post(api_method, headers=headers, json=payload)
+            setpayload = {"contents": oracle_chatset}
+            setoracle = requests.post(api_method, headers=headers, json=setpayload)
 
-            if response.status_code != 200:
+            if setoracle.status_code != 200:
                 return "Error responding", oracle_chat
+            else:
+                oracle_chat = self._get_oracle_chat_from_db()
+                oracle_chat.append({"role": "user", "parts": [{"text": query}]})
+                payload = {"contents": oracle_chat}
+                response = requests.post(api_method, headers=headers, json=payload)
 
             response_data = response.json()
             answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
@@ -117,7 +121,7 @@ class GeminiLatest:
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
 
-    def _set_oracle_chat_in_db(self, oracle_chat):
+    def _set_oracle_chat_in_db(self, oracle_chatset):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if not document:
@@ -125,10 +129,10 @@ class GeminiLatest:
                 self.collection.insert_one({"user_id": self.user_id, "oracle_chat": oracle_base})
             except Exception as e:
                 error_msg = f"Error response: {e}"
-                return error_msg, oracle_chat
-            return None, oracle_chat
+                return error_msg, oracle_chatset
+            return None, oracle_chatset
         else:
-            return oracle_chat
+            return oracle_chatset
 
     def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": self.user_id}

@@ -100,12 +100,22 @@ class GeminiLatest:
             response = requests.post(api_method, headers=headers, json=payload)
 
             if response.status_code != 200:
-                return "Error responding", oracle_chatset
+                return "Error responding", oracle_chat
 
             response_data = response.json()
             answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
-            oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
+            if "I am a large language model, trained by Google." in answer:
+                asyncio.sleep(3)
+                headers = {"Content-Type": "application/json"}
+                payload = {"contents": self.oracle_base}
+                response = requests.post(api_method, headers=headers, json=payload)
+                if response.status_code != 200:
+                    return "Error responding", oracle_chat               
+                response_data = response.json()
+                answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+            else:
+                oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
             self._update_oracle_chat_in_db(oracle_chat)
             return answer, oracle_chat
         except Exception as e:

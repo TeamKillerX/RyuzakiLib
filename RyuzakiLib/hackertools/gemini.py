@@ -85,8 +85,6 @@ class GeminiLatest:
     def _clear_history_in_db(self):
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
-        unset_clear2 = {"oracle_chat": None}
-        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear2})
         
     def __get_response_oracle(self, query: str = None):
         try:
@@ -149,4 +147,6 @@ class GeminiLatest:
         else:
             self.collection.insert_one({"user_id": self.user_id, "oracle_chat": self.oracle_base})
 
-    
+    def _clear_oracle_history_in_db(self):
+        unset_clear = {"oracle_chat": None}
+        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})

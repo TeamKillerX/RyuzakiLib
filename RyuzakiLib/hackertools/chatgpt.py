@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import aiohttp
+import asyncio
 import base64
 import json
 import os
@@ -164,12 +166,15 @@ class RendyDevChat:
             text = """
 ```python
 .get_response(message, latest_version=True)
+.get_respo```python
+.get_response(message, latest_version=True)
 .get_response_beta(joke=True)
 .get_response_bing(bing=True)
 .get_response_model() # parameter model_id: integers and is_models: boolean
 .get_response_llama(llama=True)
 .get_response_turbo3(api_key=api_key, turbo3=True)
 .get_response_gemini_pro(api_key=api_key, re_json=True, is_gemini_pro=True)
+.get_response_gemini_oracle(api_key=api_key, re_json=True, is_gemini_oracle=True)
 .get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
 .get_risma_image_generator(api_key=api_key, is_opendalle=True)
 .get_risma_image_generator(api_key=api_key, is_dalle3xl=True)
@@ -179,6 +184,41 @@ class RendyDevChat:
             return text
         else:
             return "you can check set is_list_all=True"
+
+    async def get_response_gemini_oracle(
+        self,
+        api_key: str = None,
+        user_id: int = None,
+        mongo_url: str = None,
+        re_json: bool = False,
+        is_login: bool = False,
+        is_multi_chat: bool = False,
+        is_gemini_oracle: bool = False,
+        gemini_api_key: str = None
+    ):
+        url = f"https://ufoptg-ufop-api.hf.space/UFoP/gemini-the-oracle"
+        headers = {"accept": "application/json", "api-key": api_key}
+        params = {
+            "query": self.query,
+            "mongo_url": mongo_url,
+            "user_id": user_id,  # Updated parameter name
+            "is_logon": is_login,
+            "is_multi_chat": is_multi_chat,
+            "gemini_api_key": gemini_api_key,
+        }
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, headers=headers, json=params) as response:
+                if response.status != 200:
+                    return f"Error status: {response.status}"
+
+                if is_gemini_oracle:
+                    if re_json:
+                        check_response = await response.json()
+                    else:
+                        check_response = await response.text()
+                    return check_response
+                else:
+                    return f"WTF THIS {self.query}"
 
     def __get_response_gemini_pro(
         self,
@@ -210,7 +250,7 @@ class RendyDevChat:
         else:
             return f"WTF THIS {self.query}"
 
-    def get_response_google_ai(
+   async def get_response_google_ai(
         self,
         api_key: str = None,
         re_json: bool = False,
@@ -221,21 +261,23 @@ class RendyDevChat:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
         else:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
-        headers = {"accept": "application/json", "api-key": api_key}
-        params = {"query": self.query}
-        response = requests.post(url, headers=headers, json=params)
-        if response.status_code != 200:
-            return f"Error status: {response.status_code}"
+            headers = {"accept": "application/json", "api-key": api_key}
+            params = {"query": self.query}
 
-        if is_google:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
-        else:
-            return f"WTF THIS {self.query}"
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, headers=headers, json=params) as response:
+                if response.status != 200:
+                    return f"Error status: {response.status}"
 
+                if is_google:
+                    if re_json:
+                        check_response = await response.json()
+                    else:
+                        check_response = response
+                    return check_response
+                else:
+                    return f"WTF THIS {self.query}"
+                    
     def get_risma_image_generator(self, api_key: str = None, is_opendalle: bool = False, is_dalle3xl: bool = False):
         if is_opendalle:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"

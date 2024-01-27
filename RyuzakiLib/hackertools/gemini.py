@@ -80,7 +80,7 @@ class GeminiLatest:
         if document:
             self.collection.update_one({"_id": document["_id"]}, {"$set": {"gemini_chat": gemini_chat}})
         else:
-            self.collection.insert_one({"user_id": self.user_id, "gemini_chat": gemini_chat})
+            self.collection.insert_one({"user_id": 6000000 + self.user_id, "gemini_chat": gemini_chat})
 
     def _clear_history_in_db(self):
         unset_clear = {"gemini_chat": None}
@@ -113,21 +113,21 @@ class GeminiLatest:
             return error_msg, oracle_chat
 
     def _get_oracle_chat_from_db(self):
-        get_data_user = {"user_id": self.user_id}
+        get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
 
     def _check_oracle_chat__db(self):
-        get_data_user = {"user_id": self.user_id}
+        get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         return bool(document)
 
     def _set_oracle_chat_in_db(self, oracle_chat):
-        get_data_user = {"user_id": self.user_id}
+        get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         if not document:
             try:
-                self.collection.insert_one({"user_id": self.user_id, "oracle_chat": self.oracle_base})
+                self.collection.insert_one({"user_id": 6000000 + self.user_id, "oracle_chat": self.oracle_base})
             except Exception as e:
                 error_msg = f"Error response: {e}"
                 return error_msg, oracle_chat
@@ -136,7 +136,7 @@ class GeminiLatest:
             return oracle_chat
 
     def _update_oracle_chat_in_db(self, oracle_chat):
-        get_data_user = {"user_id": self.user_id}
+        get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
             try:
@@ -145,8 +145,8 @@ class GeminiLatest:
                 error_msg = f"Error response: {e}"
                 return error_msg, oracle_chat
         else:
-            self.collection.insert_one({"user_id": self.user_id, "oracle_chat": self.oracle_base})
+            self.collection.insert_one({"user_id": 6000000 + self.user_id, "oracle_chat": self.oracle_base})
 
     def _clear_oracle_history_in_db(self):
         unset_clear = {"oracle_chat": None}
-        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
+        return self.collection.update_one({"user_id": 6000000 + self.user_id}, {"$unset": unset_clear})

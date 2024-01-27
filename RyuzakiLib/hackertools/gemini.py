@@ -48,14 +48,15 @@ class GeminiLatest:
     def _close(self):
         self.client.close()
 
-    def __get_response_gemini(self, query: str = None):
+    async def __get_response_gemini(self, query: str = None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
-            response = requests.post(api_method, headers=headers, json=payload)
+            response = await asyncio.to_thread(requests.post, api_method, headers=headers, json=payload)
+            #response = requests.post(api_method, headers=headers, json=payload)
 
             if response.status_code != 200:
                 return "Error responding", gemini_chat
@@ -70,12 +71,12 @@ class GeminiLatest:
             error_msg = f"Error response: {e}"
             return error_msg, gemini_chat
 
-    def _get_gemini_chat_from_db(self):
+    async def _get_gemini_chat_from_db(self):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         return document.get("gemini_chat", []) if document else []
 
-    def _update_gemini_chat_in_db(self, gemini_chat):
+    async def _update_gemini_chat_in_db(self, gemini_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
@@ -83,11 +84,11 @@ class GeminiLatest:
         else:
             self.collection.insert_one({"user_id": 6000000 + self.user_id, "gemini_chat": gemini_chat})
 
-    def _clear_history_in_db(self):
+    async def _clear_history_in_db(self):
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
         
-    def __get_response_oracle(self, query: str = None):
+    async def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
             if self._check_oracle_chat__db():
@@ -98,7 +99,8 @@ class GeminiLatest:
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": oracle_chat}
-            response = requests.post(api_method, headers=headers, json=payload)
+            response = await asyncio.to_thread(requests.post, api_method, headers=headers, json=payload)
+            #response = requests.post(api_method, headers=headers, json=payload)
 
             if response.status_code != 200:
                 return "Error responding", oracle_chat
@@ -107,10 +109,11 @@ class GeminiLatest:
             answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
             if "I am a large language model, trained by Google." in answer:
-                asyncio.sleep(3)
+                await asyncio.sleep(3)
+                answer = None
                 headers = {"Content-Type": "application/json"}
                 payload = {"contents": self.oracle_base}
-                response = requests.post(api_method, headers=headers, json=payload)
+                response = await asyncio.to_thread(requests.post, api_method, headers=headers, json=payload)
                 if response.status_code != 200:
                     return "Error responding", oracle_chat   
                 try:
@@ -132,17 +135,17 @@ class GeminiLatest:
             error_msg = f"Error response: {e}"
             return error_msg, oracle_chat
 
-    def _get_oracle_chat_from_db(self):
+    async def _get_oracle_chat_from_db(self):
         get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         return document.get("oracle_chat", []) if document else []
 
-    def _check_oracle_chat__db(self):
+    async def _check_oracle_chat__db(self):
         get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         return bool(document)
 
-    def _set_oracle_chat_in_db(self, oracle_chat):
+    async def _set_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         if not document:
@@ -155,7 +158,7 @@ class GeminiLatest:
         else:
             return oracle_chat
 
-    def _update_oracle_chat_in_db(self, oracle_chat):
+    async def _update_oracle_chat_in_db(self, oracle_chat):
         get_data_user = {"user_id": 6000000 + self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
@@ -167,6 +170,6 @@ class GeminiLatest:
         else:
             self.collection.insert_one({"user_id": 6000000 + self.user_id, "oracle_chat": self.oracle_base})
 
-    def _clear_oracle_history_in_db(self):
+    async def _clear_oracle_history_in_db(self):
         unset_clear = {"oracle_chat": None}
         return self.collection.update_one({"user_id": 6000000 + self.user_id}, {"$unset": unset_clear})

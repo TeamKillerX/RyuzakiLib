@@ -47,7 +47,7 @@ class GeminiLatest:
 
     def _close(self):
         self.client.close()
-
+#############################----Oracle----##################################
     async def __get_response_gemini(self, query: str = None):
         try:
             gemini_chat = self._get_gemini_chat_from_db()

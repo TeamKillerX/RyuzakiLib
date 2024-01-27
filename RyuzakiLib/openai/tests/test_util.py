@@ -1,9 +1,8 @@
 import json
 from tempfile import NamedTemporaryFile
 
-import pytest
-
 import openai
+import pytest
 from openai import util
 
 

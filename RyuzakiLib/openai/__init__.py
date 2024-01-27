@@ -4,9 +4,8 @@
 
 import os
 import sys
-from typing import TYPE_CHECKING, Optional, Union, Callable
-
 from contextvars import ContextVar
+from typing import TYPE_CHECKING, Callable, Optional, Union
 
 if "pkg_resources" not in sys.modules:
     # workaround for the following:

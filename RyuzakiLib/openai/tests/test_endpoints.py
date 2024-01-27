@@ -1,10 +1,9 @@
 import io
 import json
 
+import openai
 import pytest
 import requests
-
-import openai
 from openai import error
 
 

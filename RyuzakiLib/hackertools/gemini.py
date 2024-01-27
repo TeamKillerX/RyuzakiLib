@@ -18,8 +18,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import asyncio
+
 import requests
 from pymongo import MongoClient
+
 
 class GeminiLatest:
     def __init__(
@@ -87,7 +89,7 @@ class GeminiLatest:
     async def _clear_history_in_db(self):
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
-        
+
     async def __get_response_oracle(self, query: str = None):
         try:
             oracle_chat = self._get_oracle_chat_from_db()
@@ -115,7 +117,7 @@ class GeminiLatest:
                 payload = {"contents": self.oracle_base}
                 response = await asyncio.to_thread(requests.post, api_method, headers=headers, json=payload)
                 if response.status_code != 200:
-                    return "Error responding", oracle_chat   
+                    return "Error responding", oracle_chat
                 try:
                     response_data = response.json()
                     answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")

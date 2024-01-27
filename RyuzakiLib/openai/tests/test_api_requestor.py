@@ -2,10 +2,9 @@ import json
 
 import pytest
 import requests
-from pytest_mock import MockerFixture
-
 from openai import Model
 from openai.api_requestor import APIRequestor
+from pytest_mock import MockerFixture
 
 
 @pytest.mark.requestor

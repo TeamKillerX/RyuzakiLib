@@ -1,5 +1,5 @@
-from urllib.parse import quote_plus
 from typing import Awaitable
+from urllib.parse import quote_plus
 
 from openai import error
 from openai.api_resources.abstract.api_resource import APIResource

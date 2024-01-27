@@ -5,9 +5,8 @@ import sys
 import warnings
 from typing import Optional
 
-import requests
-
 import openai
+import requests
 from openai.upload_progress import BufferReader
 from openai.validators import (
     apply_necessary_remediation,

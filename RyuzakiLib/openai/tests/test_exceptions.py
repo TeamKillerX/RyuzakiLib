@@ -1,8 +1,7 @@
 import pickle
 
-import pytest
-
 import openai
+import pytest
 
 EXCEPTION_TEST_CASES = [
     openai.InvalidRequestError(

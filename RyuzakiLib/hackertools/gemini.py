@@ -112,13 +112,22 @@ class GeminiLatest:
                 payload = {"contents": self.oracle_base}
                 response = requests.post(api_method, headers=headers, json=payload)
                 if response.status_code != 200:
-                    return "Error responding", oracle_chat               
-                response_data = response.json()
-                answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                    return "Error responding", oracle_chat   
+                try:
+                    response_data = response.json()
+                    answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                    oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
+                    self._update_oracle_chat_in_db(oracle_chat)
+                    return answer, oracle_chat
+                except Exception as e:
+                    error_msg = f"Error response: {e}"
+                    return error_msg, oracle_chat
+                else:
+                    self._clear_oracle_history_in_db()
             else:
                 oracle_chat.append({"role": "model", "parts": [{"text": answer}]})
-            self._update_oracle_chat_in_db(oracle_chat)
-            return answer, oracle_chat
+                self._update_oracle_chat_in_db(oracle_chat)
+                return answer, oracle_chat
         except Exception as e:
             error_msg = f"Error response: {e}"
             return error_msg, oracle_chat

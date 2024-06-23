@@ -20,7 +20,6 @@
 import requests
 from pymongo import MongoClient
 
-
 class GeminiLatest:
     def __init__(
         self,
@@ -28,7 +27,7 @@ class GeminiLatest:
         mongo_url: str=None,
         api_base="https://generativelanguage.googleapis.com",
         version: str="v1beta",
-        model: str="models/gemini-pro",
+        model: str="models/gemini-1.5-flash-latest",
         content: str="generateContent",
         user_id: int=None
     ):

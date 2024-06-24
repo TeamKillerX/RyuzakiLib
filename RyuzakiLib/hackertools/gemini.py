@@ -17,10 +17,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import os
+
+import google.generativeai as genai
 import requests
 from pymongo import MongoClient
-import os
-import google.generativeai as genai
+
 
 class GeminiLatest:
     def __init__(

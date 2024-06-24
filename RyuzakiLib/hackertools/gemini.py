@@ -26,11 +26,11 @@ class GeminiLatest:
     def __init__(
         self,
         api_keys: str = None,
-        mongo_url: str=None,
-        model: str="gemini-1.5-flash-latest",
-        user_id: int=None
+        mongo_url: str = None,
+        model: str = "gemini-1.5-flash-latest",
+        user_id: int = None
     ):
-        self.api_keys = genai.configure(api_key=self.api_keys)
+        self.api_keys = api_keys
         self.model = model
         self.user_id = user_id
         self.mongo_url = mongo_url
@@ -40,6 +40,21 @@ class GeminiLatest:
 
     def _close(self):
         self.client.close()
+
+    def _get_gemini_chat_from_db(self):
+        user_data = self.collection.find_one({"user_id": self.user_id})
+        return user_data.get("gemini_chat", []) if user_data else []
+
+    def _update_gemini_chat_in_db(self, gemini_chat):
+        self.collection.update_one(
+            {"user_id": self.user_id},
+            {"$set": {"gemini_chat": gemini_chat}},
+            upsert=True
+        )
+
+    def _clear_history_in_db(self):
+        unset_clear = {"gemini_chat": None}
+        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
     def __get_response_gemini(self, query: str = None):
         try:
@@ -51,19 +66,12 @@ class GeminiLatest:
                 "response_mime_type": "text/plain",
             }
             model_flash = genai.GenerativeModel(
-                model_name=model,
+                model_name=self.model,
                 generation_config=generation_config,
             )
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             chat_session = model_flash.start_chat(history=gemini_chat)
-            api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
-            headers = {"Content-Type": "application/json"}
-            payload = {"contents": gemini_chat}
-            response = requests.post(api_method, headers=headers, json=payload)
-
-            if response.status_code != 200:
-                return "Error responding", gemini_chat
 
             response_data = chat_session.send_message(query)
             answer = response_data.text
@@ -73,20 +81,3 @@ class GeminiLatest:
         except Exception as e:
             error_msg = f"Error response: {e}"
             return error_msg, gemini_chat
-
-    def _get_gemini_chat_from_db(self):
-        get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
-        return document.get("gemini_chat", []) if document else []
-
-    def _update_gemini_chat_in_db(self, gemini_chat):
-        get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
-        if document:
-            self.collection.update_one({"_id": document["_id"]}, {"$set": {"gemini_chat": gemini_chat}})
-        else:
-            self.collection.insert_one({"user_id": self.user_id, "gemini_chat": gemini_chat})
-
-    def _clear_history_in_db(self):
-        unset_clear = {"gemini_chat": None}
-        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})

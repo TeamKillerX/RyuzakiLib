@@ -19,23 +19,19 @@
 
 import requests
 from pymongo import MongoClient
+import os
+import google.generativeai as genai
 
 class GeminiLatest:
     def __init__(
         self,
-        api_key: str = None,
+        api_keys: str = None,
         mongo_url: str=None,
-        api_base="https://generativelanguage.googleapis.com",
-        version: str="v1beta",
-        model: str="models/gemini-1.5-flash-latest",
-        content: str="generateContent",
+        model: str="gemini-1.5-flash-latest",
         user_id: int=None
     ):
-        self.api_key = api_key
-        self.api_base = api_base
-        self.version = version
+        self.api_keys = genai.configure(api_key=self.api_keys)
         self.model = model
-        self.content = content
         self.user_id = user_id
         self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
@@ -47,8 +43,20 @@ class GeminiLatest:
 
     def __get_response_gemini(self, query: str = None):
         try:
+            generation_config = {
+                "temperature": 1,
+                "top_p": 0.95,
+                "top_k": 64,
+                "max_output_tokens": 8192,
+                "response_mime_type": "text/plain",
+            }
+            model_flash = genai.GenerativeModel(
+                model_name=model,
+                generation_config=generation_config,
+            )
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
+            chat_session = model_flash.start_chat(history=gemini_chat)
             api_method = f"{self.api_base}/{self.version}/{self.model}:{self.content}?key={self.api_key}"
             headers = {"Content-Type": "application/json"}
             payload = {"contents": gemini_chat}
@@ -57,9 +65,8 @@ class GeminiLatest:
             if response.status_code != 200:
                 return "Error responding", gemini_chat
 
-            response_data = response.json()
-            answer = response_data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
-
+            response_data = chat_session.send_message(query)
+            answer = response_data.text
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
             self._update_gemini_chat_in_db(gemini_chat)
             return answer, gemini_chat

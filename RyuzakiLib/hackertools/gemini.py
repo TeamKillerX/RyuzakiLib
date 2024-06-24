@@ -37,6 +37,8 @@ class GeminiLatest:
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
+        
+        genai.configure(api_key=self.api_keys)
 
     def _close(self):
         self.client.close()

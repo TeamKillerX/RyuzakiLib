@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import time
 import requests
 from pymongo import MongoClient
 import os
@@ -28,16 +29,20 @@ class GeminiLatest:
         api_keys: str = None,
         mongo_url: str = None,
         model: str = "gemini-1.5-flash-latest",
-        user_id: int = None
+        user_id: int = None,
+        retry_attempts: int = 5,
+        retry_delay: int = 60
     ):
         self.api_keys = api_keys
         self.model = model
         self.user_id = user_id
         self.mongo_url = mongo_url
+        self.retry_attempts = retry_attempts
+        self.retry_delay = retry_delay
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
-        
+
         genai.configure(api_key=self.api_keys)
 
     def _close(self):
@@ -59,27 +64,34 @@ class GeminiLatest:
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
     def __get_response_gemini(self, query: str = None):
-        try:
-            generation_config = {
-                "temperature": 1,
-                "top_p": 0.95,
-                "top_k": 64,
-                "max_output_tokens": 8192,
-                "response_mime_type": "text/plain",
-            }
-            model_flash = genai.GenerativeModel(
-                model_name=self.model,
-                generation_config=generation_config,
-            )
-            gemini_chat = self._get_gemini_chat_from_db()
-            gemini_chat.append({"role": "user", "parts": [{"text": query}]})
-            chat_session = model_flash.start_chat(history=gemini_chat)
+        gemini_chat = self._get_gemini_chat_from_db()
+        gemini_chat.append({"role": "user", "parts": [{"text": query}]})
 
-            response_data = chat_session.send_message(query)
-            answer = response_data.text
-            gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
-            self._update_gemini_chat_in_db(gemini_chat)
-            return answer, gemini_chat
-        except Exception as e:
-            error_msg = f"Error response: {e}"
-            return error_msg, gemini_chat
+        for attempt in range(self.retry_attempts):
+            try:
+                generation_config = {
+                    "temperature": 1,
+                    "top_p": 0.95,
+                    "top_k": 64,
+                    "max_output_tokens": 8192,
+                    "response_mime_type": "text/plain",
+                }
+                model_flash = genai.GenerativeModel(
+                    model_name=self.model,
+                    generation_config=generation_config,
+                )
+                chat_session = model_flash.start_chat(history=gemini_chat)
+                response_data = chat_session.send_message(query)
+                answer = response_data.text
+                gemini_chat.append({"role": "model", "parts": [{"text": answer}]})
+                self._update_gemini_chat_in_db(gemini_chat)
+                return answer, gemini_chat
+            except Exception as e:
+                if "RATE_LIMIT_EXCEEDED" in str(e):
+                    print(f"Rate limit exceeded. Retrying in {self.retry_delay} seconds...")
+                    time.sleep(self.retry_delay)
+                else:
+                    error_msg = f"Error response: {e}"
+                    return error_msg, gemini_chat
+
+        return "Rate limit exceeded after multiple attempts.", gemini_chat

@@ -240,44 +240,25 @@ now_show_prefix = set_handler.get_prefix()
 print(now_show_prefix)
 ```
 
-### Gemini AI Pro (Free)
+### Gemini AI New (Free)
 - No authorization needed
-- Gemini Pro (Without RyuzakiLib API keys)
+- Gemini Pro and Gemini Flash (Without RyuzakiLib API keys)
 - Multi-Turn Conversation
 
 ```python
 from RyuzakiLib import GeminiLatest
 
 mongo_url = "....."
+api_key = "....."
 user_id = 0
-geni = GeminiLatest(api_key=api_key, mongo_url=mongo_url, user_id=user_id)
-
-# You don't use this Close
-geni._close()
-
-# Clear history in db
-geni._clear_history_in_db()
+geni = GeminiLatest(api_keys=api_key, mongo_url=mongo_url, user_id=user_id)
 
 # Get response (private in python)
-message _, = geni.<method_name>__get_response_gemini(query)
-
-# OR RyuzakiLib API
-import requests
-
-url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
-
-payload = {
-    "query": "string",
-    "user_id": 12345,
-    "mongo_url": "string",
-    "gemini_api_key": "string", # you can leave it empty
-    "is_login": False,
-    "is_multi_chat": True
-}
-response = requests.post(url, json=payload).json()
+answer, gemini_chat = geni._GeminiLatest__get_response_gemini(query)
+print(answer)
 ```
 
-- Gemini AI pro:  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
+- Gemini AI New :  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
 
 - You can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 

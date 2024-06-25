@@ -30,20 +30,12 @@ class GeminiLatest:
         api_keys: str = None,
         mongo_url: str = None,
         model: str = "gemini-1.5-flash-latest",
-        temperature: int = 1,
-        top_p: Union[float, int] = 0.95,
-        top_k: Union[float, int] = 64,
-        max_output_tokens: int = 8192,
-        response_mime_type: str = "text/plain",
+        generation_configs = {},
         user_id: int = None
     ):
         self.api_keys = api_keys
         self.model = model
-        self.temperature = temperature
-        self.top_p = top_p
-        self.top_k = top_k
-        self.max_output_tokens = max_output_tokens
-        self.response_mime_type = response_mime_type
+        self.generation_configs = generation_configs
         self.user_id = user_id
         self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
@@ -70,15 +62,18 @@ class GeminiLatest:
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
-    def __get_response_gemini(self, query: str = None):
+    def __get_response_gemini(self, query: str = None, settings_config: bool = False):
         try:
-            generation_config = {
-                "temperature": self.temperature,
-                "top_p": self.top_p,
-                "top_k": self.top_k,
-                "max_output_tokens": self.max_output_tokens,
-                "response_mime_type": self.response_mime_type,
-            }
+            if settings_config:
+                generation_config = self.generation_configs
+            else:
+                generation_config = {
+                    "temperature": 1,
+                    "top_p": 0.95,
+                    "top_k": 64,
+                    "max_output_tokens": 8192,
+                    "response_mime_type": "text/plain",
+                }
             model_flash = genai.GenerativeModel(
                 model_name=self.model,
                 generation_config=generation_config,

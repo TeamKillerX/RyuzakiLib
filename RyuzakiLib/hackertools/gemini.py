@@ -18,11 +18,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+from typing import Optional, Union
 
 import google.generativeai as genai
-import requests
 import motor.motor_asyncio
-from typing import Optional, Union
+import requests
+
 
 class GeminiLatest:
     def __init__(

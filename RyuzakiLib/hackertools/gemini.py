@@ -63,6 +63,14 @@ class GeminiLatest:
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
+    def clear_database(self):
+        """Clear the gemini_chat history for the current user."""
+        result = self._clear_history_in_db()
+        if result.modified_count > 0:
+            return "Chat history cleared successfully."
+        else:
+            return "No chat history found to clear."
+
     def __get_response_gemini(self, query: str = None, settings_config: bool = False):
         try:
             if settings_config:

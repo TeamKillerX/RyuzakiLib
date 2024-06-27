@@ -18,11 +18,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+from typing import Optional, Union
 
 import google.generativeai as genai
+import motor.motor_asyncio
 import requests
-from pymongo import MongoClient
-from typing import Optional, Union
+
 
 class GeminiLatest:
     def __init__(
@@ -38,7 +39,7 @@ class GeminiLatest:
         self.generation_configs = generation_configs
         self.user_id = user_id
         self.mongo_url = mongo_url
-        self.client = MongoClient(self.mongo_url)
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
@@ -61,6 +62,14 @@ class GeminiLatest:
     def _clear_history_in_db(self):
         unset_clear = {"gemini_chat": None}
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
+
+    def clear_database(self):
+        """Clear the gemini_chat history for the current user."""
+        result = self._clear_history_in_db()
+        if result.modified_count > 0:
+            return "Chat history cleared successfully."
+        else:
+            return "No chat history found to clear."
 
     def __get_response_gemini(self, query: str = None, settings_config: bool = False):
         try:

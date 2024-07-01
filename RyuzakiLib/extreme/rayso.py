@@ -34,18 +34,19 @@ class CarbonRaySo:
         code=None,
         title="Ryuzaki Dev",
         theme=None,
-        setlang="en",
+        padding=64,
+        auto_translate="auto",
         base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw==",
     ):
         self.code = code
         self.title = title
         self.theme = theme
-        self.setlang = setlang
+        self.padding = padding
+        self.auto_translate = auto_translate
         self.base = base
 
     def make_carbon_rayso(
         self,
-        auto_translate: bool = None,
         check_sticker: bool = None,
         darkmode: bool = None,
         ryuzaki: bool = None,
@@ -56,19 +57,15 @@ class CarbonRaySo:
             filename = "rayso.webp"
         else:
             filename = "rayso.jpg"
-        if auto_translate:
-            source = trans.detect(self.code)
-            translation = trans(self.code, sourcelang=source, targetlang=self.setlang)
-            code = translation.text
-        else:
-            code = self.code
         if ryuzaki:
             x = requests.post(
                 f"{api_url}",
                 json={
-                    "code": code,
+                    "code": self.code,
                     "title": self.title,
                     "theme": self.theme,
+                    "padding": self.padding,
+                    "language": self.auto_translate,
                     "darkMode": darkmode,
                 },
             )
@@ -86,9 +83,11 @@ class CarbonRaySo:
             x = requests.post(
                 f"{api_url}",
                 json={
-                    "code": code,
+                    "code": self.code,
                     "title": self.title,
                     "theme": "breeze",
+                    "padding": self.padding,
+                    "language": self.auto_translate,
                     "darkMode": darkmode,
                 },
             )

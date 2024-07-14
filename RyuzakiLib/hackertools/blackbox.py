@@ -3,7 +3,6 @@ import urllib
 from base64 import b64decode as m
 
 import requests
-from requests_html import HTMLSession
 
 
 class blackbox:

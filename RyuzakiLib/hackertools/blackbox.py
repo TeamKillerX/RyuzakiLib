@@ -1,7 +1,9 @@
+import json
 import urllib
 from base64 import b64decode as m
+
 import requests
-import json
+
 
 class Blackbox:
     def __init__(self) -> None:

@@ -1,14 +1,11 @@
-import random
 import urllib
 from base64 import b64decode as m
-
 import requests
+import json
 
-
-class blackbox:
-
+class Blackbox:
     def __init__(self) -> None:
-        """API Class for various purpose"""
+        """API Class for various purposes"""
         pass
 
     @staticmethod
@@ -31,19 +28,29 @@ class blackbox:
         }
 
         headers = {
-            "Content-Type": "application/json",
-            "Cookie": "sessionId=f77a91e1-cbe1-47d0-b138-c2e23eeb5dcf; intercom-id-jlmqxicb=4cf07dd8-742e-4e3f-81de-38669816d300; intercom-device-id-jlmqxicb=1eafaacb-f18d-402a-8255-b763cf390df6; intercom-session-jlmqxicb=",
+            "Content-Type": m("YXBwbGljYXRpb24vanNvbg==").decode("utf-8"),
+            "Cookie": m("c2Vzc2lvbklkPWY3N2E5MWUxLWNiZTEtNDdkMC1iMTM4LWMyZTIzZWViNWRjZjtpbnRlcmNvbS1pZC1qbG1xeGljYj00Y2YwN2RkOC03NDJlLTRlM2YtODFkZS0zODY2OTgxNmQzMDA7aW50ZXJjb20tZGV2aWNlLWlkLWpsbXF4aWNiPTFlYWZhYWNiLWYxOGQtNDAyYS04MjU1LWI3NjNjZjM5MGRmNjtpbnRlcmNvbS1zZXNzaW9uLWpsbXF4aWNiPQ==").decode("utf-8"),
             "Origin": m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWk=").decode("utf-8"),
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+            "User-Agent": m("TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCBsaWtlIEdlY2tvKUNocm9tZS8xMjEuMC4wLjAgU2FmYXJpLzUzNy4zNg==").decode("utf-8"),
         }
+
         try:
             response = requests.post(url, json=payload, headers=headers)
-            if response.status_code == 200:
-                clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
-                return {"results": clean_text, "success": True}
-        except Exception as e:
+            response.raise_for_status()
+            clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
+
+            split_text = clean_text.split("\n\n", 2)
+
+            if len(split_text) >= 3:
+                content_after_second_newline = split_text[2]
+            else:
+                content_after_second_newline = ""
+
+            return {"answer": content_after_second_newline, "success": True}
+
+        except requests.exceptions.RequestException as e:
             return {"results": str(e), "success": False}
 
-#EXAMPLE
-#response = blackbox.chat("Hello, how are you?")
-#print(response)
+# EXAMPLE
+# response = Blackbox.chat("What is today's date?")
+# print(response.get("answer"))

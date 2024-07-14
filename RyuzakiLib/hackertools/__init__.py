@@ -1,3 +1,4 @@
+from .blackbox import *
 from .chatgpt import *
 from .gemini import *
 from .github import *

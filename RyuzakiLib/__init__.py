@@ -38,6 +38,7 @@ from .extreme.quotestk import QouteSticker
 from .extreme.rayso import CarbonRaySo
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
+from .hackertools.blackbox import blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import GithubUsername

@@ -18,11 +18,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+from typing import Optional, Union
 
 import google.generativeai as genai
 import requests
 from pymongo import MongoClient
-from typing import Optional, Union
+
 
 class GeminiLatest:
     def __init__(

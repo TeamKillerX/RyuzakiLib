@@ -39,6 +39,7 @@ from .extreme.rayso import CarbonRaySo
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .hackertools.chatgpt import RendyDevChat
+from .hackertools.blackbox import blackbox
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import GithubUsername
 from .hackertools.ipinfo import WhoisIpHacker

@@ -1,19 +1,17 @@
 import random
 import urllib
 from base64 import b64decode as m
-
 import requests
 
 
 class blackbox:
 
-    def init(self) -> None:
+    def __init__(self) -> None:
         """API Class for various purpose"""
         pass
 
     @staticmethod
-    def chat(args: str) -> requests.Response:
-
+    def chat(args: str) -> dict:
         url = m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWkvYXBpL2NoYXQ=").decode("utf-8")
 
         payload = {
@@ -40,9 +38,10 @@ class blackbox:
         try:
             response = requests.post(url, json=payload, headers=headers)
             if response.status_code == 200:
-                return {"results": response.text, "success": True}
+                clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
+                return {"results": clean_text, "success": True}
         except Exception as e:
-            return e
+            return {"results": str(e), "success": False}
 
 #EXAMPLE
 #response = blackbox.chat("Hello, how are you?")

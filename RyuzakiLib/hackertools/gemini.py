@@ -18,12 +18,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-from typing import Optional, Union
 
 import google.generativeai as genai
-import motor.motor_asyncio
 import requests
-
+from pymongo import MongoClient
+from typing import Optional, Union
 
 class GeminiLatest:
     def __init__(
@@ -39,7 +38,7 @@ class GeminiLatest:
         self.generation_configs = generation_configs
         self.user_id = user_id
         self.mongo_url = mongo_url
-        self.client = motor.motor_asyncio.AsyncIOMotorClient(self.mongo_url)
+        self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 

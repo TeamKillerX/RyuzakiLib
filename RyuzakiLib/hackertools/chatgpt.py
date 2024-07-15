@@ -156,36 +156,22 @@ class RendyDevChat:
             check_response = response.json()
             return check_response
 
-    def get_risma_image_generator(args, api_key: str = None, is_opendalle: bool = False, re_json: bool = False):
+    def get_risma_image_generator(args, api_key: str = None):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
         headers = {"accept": "application/json", "api-key": api_key}
         payload = {"query": args}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
+        check_response = response.json()
+        return check_response
 
-        if is_opendalle:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
-        else:
-            return f"WTF THIS {args}"
-
-    def get_dallepro_generator(args, api_key: str = None, is_dalle: bool = False, re_json: bool = False):
+    def get_dallepro_generator(args, api_key: str = None):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
         headers = {"accept": "application/json", "api-key": api_key}
         payload = {"query": args}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
-
-        if is_dalle:
-            if re_json:
-                check_response = response.json()
-            else:
-                check_response = response
-            return check_response
-        else:
-            return f"WTF THIS {args}"
+        check_response = response.json()
+        return check_response

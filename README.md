@@ -260,6 +260,14 @@ print(answer)
 
 - Gemini AI New :  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
 
+### Blackbox AI New
+```python
+from RyuzakiLib import Blackbox
+
+results = Blackbox.chat(query)
+print(results)
+```
+
 - You can ask support [@KillerXSupport](https://t.me/KillerXSupport)
 
 ### Test your bots
@@ -322,33 +330,6 @@ response = requests.post(url, headers=headers, params=params).json()
 ```
 
 You can find the [`Ryuzaki API`](https://private.randydev.my.id)
-
-### Ryuzaki API Request (API Keys)
-
-- Full Name : (...)
-- Email address : (...)
-- Telegram Username : (....)
-- Project Domain [Optional] : (....)
-
-- Why you want to use this API and or why we should give you access?
-
-(......)
-
-* Choose your one
-
-1. [ ] ChatGPT-4 Free Access
-2. [ ] I wont use this API for anything illegal
-3. [ ] 5 USD/Month - Etc
-
-~ Starting january 1, 2024, remove the `/token_api_key` command in [ryuzaki bots](https://t.me/randydev_bot)
-
-### Ryuzaki API Pricing (API keys)
-> [!NOTE]
-> - Picsart Pro (7 days)
-> - Gemini AI Ultra (7 days)
-> - Beta3 Google AI (7 days)
-> - Beta2 Google AI (7 days)
-> - Anime Styled (7 days)
 
 * Only Developed by
 - [@xtdevs](https://t.me/xtdevs)

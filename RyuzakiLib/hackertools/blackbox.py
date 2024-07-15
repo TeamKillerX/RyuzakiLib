@@ -46,7 +46,7 @@ class Blackbox:
             if len(split_text) >= 3:
                 content_after_second_newline = split_text[2]
             else:
-                content_after_second_newline = ""
+                content_after_second_newline = clean_text
 
             return {"answer": content_after_second_newline, "success": True}
 

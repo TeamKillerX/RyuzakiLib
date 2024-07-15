@@ -27,20 +27,12 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from typing import Optional
 
-Binary = "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100"
-
 class RendyDevChat:
     def __init__(self) -> None:
         pass
 
     @staticmethod
-    def knowledge_hack(text_code):
-        you_dont_know = "".join(text_code)
-        number = you_dont_know.split()
-        return "".join(chr(int(binary, 2)) for binary in number)
-
     def chat_hacked(
-        self,
         args: str = None,
         latest_model: str = "openai-latest",
         model_id: Optional[int] = None,
@@ -52,7 +44,7 @@ class RendyDevChat:
         
     ):
         if latest_model == "openai-latest":
-            response_url = self.knowledge_hack(Binary)
+            response_url = "https://api.safone.dev/chatgpt"
             payloads = {
                 "message": args,
                 "version": 3,
@@ -61,7 +53,7 @@ class RendyDevChat:
             }
             try:
                 response = requests.post(
-                    f"{response_url}",
+                    response_url,
                     json=payloads,
                     headers={"Content-Type": "application/json"},
                 ).json()
@@ -156,6 +148,7 @@ class RendyDevChat:
             check_response = response.json()
             return check_response
 
+    @staticmethod
     def get_risma_image_generator(args, api_key: str = None):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
         headers = {"accept": "application/json", "api-key": api_key}
@@ -166,6 +159,7 @@ class RendyDevChat:
         check_response = response.json()
         return check_response
 
+    @staticmethod
     def get_dallepro_generator(args, api_key: str = None):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
         headers = {"accept": "application/json", "api-key": api_key}

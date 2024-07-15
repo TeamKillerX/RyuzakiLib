@@ -37,7 +37,7 @@ class RendyDevChat:
     def knowledge_hack(text_code):
         you_dont_know = "".join(text_code)
         number = you_dont_know.split()
-        return "".join(chr(int(Binary, 2)) for Binary in number)
+        return "".join(chr(int(binary, 2)) for binary in number)
 
     def chat_hacked(
         self,

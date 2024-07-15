@@ -37,8 +37,7 @@ class Clone:
         first_name: str = None,
         last_name=None,
         profile_id=None,
-        bio=None,
-        is_clone: bool = False,
+        bio=None
     ):
         url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
         payload = {

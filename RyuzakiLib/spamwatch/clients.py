@@ -22,37 +22,41 @@ from typing import List, Optional, Union
 import requests
 
 class SibylBan:
-    def __init__(self: str) -> None:
-        pass
-
+    @staticmethod
     def _make_request(method: str, url: str, params: dict = None, json_data: dict = None):
         headers = {"accept": "application/json", "api-key": ""}
         try:
             response = requests.request(
                 method, url, headers=headers, params=params, json=json_data
             )
+            response.raise_for_status()  # Raise an error for bad status codes
             return response.json()
-        except requests.RequestException:
-            pass
+        except requests.RequestException as e:
+            print(f"Request failed: {e}")
+            return None
 
+    @staticmethod
     def ban(user_id: int = None, reason: str = None) -> str:
         url = "https://randydev-ryuzaki-api.hf.space/sibylban"
         payload = {"user_id": user_id, "reason": reason}
-        response = _make_request("POST", url, json_data=payload)
+        response = SibylBan._make_request("POST", url, json_data=payload)
         return response.get("randydev", {}).get(
             "message", response.get("message", "Unknown error")
         )
 
+    @staticmethod
     def banlist(user_id: int = None) -> Union[dict, str]:
         url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
         payload = {"user_id": user_id}
-        return _make_request("GET", url, json_data=payload)
-    
-    def unban(user_id: int = None) -> Union[dict, str]:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
-            payload = {"user_id": user_id}
-            return _make_request("DELETE", url, json_data=payload)
+        return SibylBan._make_request("GET", url, json_data=payload)
 
+    @staticmethod
+    def unban(user_id: int = None) -> Union[dict, str]:
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyldel"
+        payload = {"user_id": user_id}
+        return SibylBan._make_request("DELETE", url, json_data=payload)
+
+    @staticmethod
     def banlist_all() -> Union[dict, str]:
         url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/getbanlist"
-        return _make_request("GET", url)
+        return SibylBan._make_request("GET", url)

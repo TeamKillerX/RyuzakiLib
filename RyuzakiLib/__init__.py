@@ -50,7 +50,6 @@ from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import RemoveBg
 from .mental import *
 from .profile.user import Clone
-from .system.read import System
 from .pushdb import *
 from .py_tgcalls import PyTgCalls
 from .quote import *
@@ -59,7 +58,9 @@ from .spamwatch.clients import SibylBan
 from .story import *
 from .stream_type import StreamType
 from .sync import idle
+from .system.read import System
 from .tr import *
+
 
 class AwesomeCoding(BaseModel):
     gpt3_turbo_url: str = b"\xff\xfeh\x00t\x00t\x00p\x00s\x00:\x00/\x00/\x00r\x00a\x00n\x00d\x00y\x00d\x00e\x00v\x00-\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00-\x00a\x00p\x00i\x00.\x00h\x00f\x00.\x00s\x00p\x00a\x00c\x00e\x00/\x00r\x00y\x00u\x00z\x00a\x00k\x00i\x00/\x00c\x00h\x00a\x00t\x00g\x00p\x00t\x003\x00-\x00t\x00u\x00r\x00b\x00o\x00"

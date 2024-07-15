@@ -19,6 +19,7 @@
 
 import requests
 
+
 class FullStackDev:
     @staticmethod
     def fast(url, filename, type_mode: str = "wb"):

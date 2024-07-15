@@ -19,6 +19,7 @@
 
 import os
 
+
 class System:
     @staticmethod
     def show(code):

@@ -24,9 +24,12 @@ from base64 import b64decode as idk
 
 import requests
 from pyrogram import Client, filters
-from RyuzakiLib import API_KEYS, Blackbox
+from RyuzakiLib.hackertools.blackbox import Blackbox
 from pyrogram.types import Message
 from typing import Optional
+
+# You can free api key this // only developer reset api key :)
+API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
 
 class RendyDevChat:
     def __init__(self) -> None:

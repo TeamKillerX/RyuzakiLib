@@ -24,6 +24,7 @@ from base64 import b64decode as idk
 
 import requests
 from pyrogram import Client, filters
+from RyuzakiLib import API_KEYS
 from pyrogram.types import Message
 from typing import Optional
 
@@ -37,7 +38,6 @@ class RendyDevChat:
         latest_model: str = "openai-latest",
         model_id: Optional[int] = None,
         user_id: Optional[int] = None,
-        api_key: Optional[str] = None,
         mongo_url: Optional[str] = None,
         list_model_all: Optional[bool] = False,
         is_google_beta: Optional[bool] = False
@@ -149,23 +149,22 @@ class RendyDevChat:
             return check_response
 
     @staticmethod
-    def get_risma_image_generator(args, api_key: str = None):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
-        headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": args}
-        response = requests.post(url, headers=headers, json=payload)
-        if response.status_code != 200:
-            return f"Error status: {response.status_code}"
-        check_response = response.json()
-        return check_response
-
-    @staticmethod
-    def get_dallepro_generator(args, api_key: str = None):
-        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
-        headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": args}
-        response = requests.post(url, headers=headers, json=payload)
-        if response.status_code != 200:
-            return f"Error status: {response.status_code}"
-        check_response = response.json()
-        return check_response
+    def image_generator(args, dalle_pro: bool = False):
+        if dalle_pro:
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            payload = {"query": args}
+            response = requests.post(url, headers=headers, json=payload)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response
+        else:
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            payload = {"query": args}
+            response = requests.post(url, headers=headers, json=payload)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response

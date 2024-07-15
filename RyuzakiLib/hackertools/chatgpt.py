@@ -67,7 +67,7 @@ class RendyDevChat:
             except Exception as e:
                 return f"Error Api {e}"
         elif latest_model == "openai-v2":
-            url = "https://codes.randydev.my.id/ryuzaki/chatgpt-old"
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
             params = {"query": args}
             response = requests.post(url, json=params)
             if response.status_code != 200:

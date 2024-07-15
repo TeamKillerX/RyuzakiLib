@@ -83,6 +83,11 @@ print(showing)
 # Part 3
 results = clients.get_all_banlist()
 print(results)
+
+SiblyBan.ban()
+SiblyBan.banlist()
+SiblyBan.unban()
+SiblyBan.banlist_all()
 ```
 
 ### Profile Clone

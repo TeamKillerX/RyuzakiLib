@@ -21,6 +21,7 @@ from typing import List, Optional, Union
 
 import requests
 
+
 class SibylBan:
     @staticmethod
     def _make_request(method: str, url: str, params: dict = None, json_data: dict = None):

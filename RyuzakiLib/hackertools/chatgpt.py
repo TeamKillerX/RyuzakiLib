@@ -83,7 +83,7 @@ class RendyDevChat:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
             return check_response["randydev"]["message"]
-        elif latest_model == "model-list":
+        elif latest_model == "list-model":
             if list_model_all:
                 text = """
                 ```python

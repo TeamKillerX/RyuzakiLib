@@ -49,7 +49,8 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import RemoveBg
 from .mental import *
-from .profile.user import ProfileClone
+from .profile.user import Clone
+from .system.read import System
 from .pushdb import *
 from .py_tgcalls import PyTgCalls
 from .quote import *
@@ -95,7 +96,8 @@ __all__ = [
     "TelegramUserInfo",
     "WebShotUrl",
     "SibylBan",
-    "ProfileClone",
+    "Clone",
+    "System",
     "FullStackDev",
     "PrivateApiUrl",
     "TiktokUrl",

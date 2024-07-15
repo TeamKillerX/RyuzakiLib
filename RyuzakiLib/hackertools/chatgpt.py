@@ -91,7 +91,7 @@ class RendyDevChat:
         else:
             return f"WTF THIS {args}"
 
-    def get_response_beta(args, args, joke: bool = False):
+    def get_response_beta(args, joke: bool = False):
         url = "https://freegptapi.hop.sh/neural/api"
         params = {"query": args}
         response = requests.get(url, params=params)

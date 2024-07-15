@@ -42,13 +42,13 @@ class RendyDevChat:
     def chat_hacked(
         self,
         args: str = None,
-        latest_model: str = None,
+        latest_model: str = "openai-latest",
         model_id: Optional[int] = None,
         user_id: Optional[int] = None,
         api_key: Optional[str] = None,
         mongo_url: Optional[str] = None,
         list_model_all: Optional[bool] = False,
-        is_google_beta: Optional[bool] = False,
+        is_google_beta: Optional[bool] = False
         
     ):
         if latest_model == "openai-latest":

@@ -19,13 +19,10 @@
 
 import requests
 
-
-class ProfileClone:
-    def __init__(self, api_key: str = None):
-        self.api_key = api_key
-
-    def _make_request(self, method: str, url: str, params: dict = None, json_data: dict = None):
-        headers = {"accept": "application/json", "api-key": self.api_key}
+class Clone:
+    @staticmethod
+    def _make_request(method: str, url: str, params: dict = None, json_data: dict = None):
+        headers = {"accept": "application/json", "api-key": "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"}
         try:
             response = requests.request(
                 method, url, headers=headers, params=params, json=json_data
@@ -34,8 +31,8 @@ class ProfileClone:
         except requests.RequestException:
             pass
 
-    def add_profile_clone(
-        self,
+    @staticmethod
+    def rclone(
         user_id: int = None,
         first_name: str = None,
         last_name=None,
@@ -43,23 +40,18 @@ class ProfileClone:
         bio=None,
         is_clone: bool = False,
     ):
-        if is_clone:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
-            payload = {
-                "user_id": user_id,
-                "first_name": first_name,
-                "last_name": last_name,
-                "profile_id": profile_id,
-                "bio": bio,
-            }
-            return self._make_request("POST", url, json_data=payload)
-        else:
-            raise ValueError("Error: is_clone must be True")
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/profile-clone"
+        payload = {
+            "user_id": user_id,
+            "first_name": first_name,
+            "last_name": last_name,
+            "profile_id": profile_id,
+            "bio": bio,
+        }
+        return Clone._make_request("POST", url, json_data=payload)
 
-    def get_profile_clone(self, user_id: int = None, is_profile_show: bool = False):
-        if is_profile_show:
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
-            payload = {"user_id": user_id}
-            return self._make_request("GET", url, json_data=payload)
-        else:
-            raise ValueError("Error: is_profile_show must be True")
+    @staticmethod
+    def sclone(user_id: int = None):
+        url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/get-profile-clone"
+        payload = {"user_id": user_id}
+        return Clone._make_request("GET", url, json_data=payload)

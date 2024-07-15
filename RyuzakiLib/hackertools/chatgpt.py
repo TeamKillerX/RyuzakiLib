@@ -24,7 +24,7 @@ from base64 import b64decode as idk
 
 import requests
 from pyrogram import Client, filters
-from RyuzakiLib import API_KEYS
+from RyuzakiLib import API_KEYS, Blackbox
 from pyrogram.types import Message
 from typing import Optional
 
@@ -64,40 +64,19 @@ class RendyDevChat:
             except Exception as e:
                 return f"Error Api {e}"
         elif latest_model == "openai-v2":
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
-            params = {"query": args, "model_id": model_id, "is_models": True}
-            response = requests.post(url, json=params)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            return check_response
-        elif latest_model == "openai-beta":
-            url = "https://freegptapi.hop.sh/neural/api"
+            url = "https://codes.randydev.my.id/ryuzaki/chatgpt-old"
             params = {"query": args}
             response = requests.post(url, json=params)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            answer = check_response.get("answer")
-            return answer
-        elif latest_model == "openai-bing":
-            url = f"https://api.freegpt4.ddns.net/?text={args}"
-            response = requests.get(url)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.text
-            return check_response
-        elif latest_model == "openai-llama":
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
-            params = {"query": args}
-            response = requests.get(url, json=params)
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
             return check_response["randydev"]["message"]
+        elif latest_model == "blackbox":
+            response = Blackbox.chat(args)
+            return response.get("answer")
         elif latest_model == "openai-turbo":
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
-            headers = {"accept": "application/json", "api-key": api_key}
+            headers = {"accept": "application/json", "api-key": API_KEYS}
             payload = {"query": args}
             response = requests.post(url, headers=headers, json=payload)
             if response.status_code != 200:
@@ -111,19 +90,17 @@ class RendyDevChat:
                 New Model List
                 openai-latest
                 openai-v2
-                openai-beta
                 openai-turbo
-                openai-llama
-                openai-bing
                 gemini-pro
                 google-ai
+                blackbox
                 """
                 return text
             else:
                 return "you can check set list_model_all=True"
         elif latest_model == "gemini-pro":
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
-            headers = {"accept": "application/json", "api-key": api_key}
+            headers = {"accept": "application/json", "api-key": API_KEYS}
             params = {
                 "query": args,
                 "mongo_url": mongo_url,
@@ -140,7 +117,7 @@ class RendyDevChat:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
-            headers = {"accept": "application/json", "api-key": api_key}
+            headers = {"accept": "application/json", "api-key": API_KEYS}
             params = {"query": args}
             response = requests.post(url, headers=headers, json=params)
             if response.status_code != 200:

@@ -147,7 +147,7 @@ class RendyDevChat:
             if is_google_beta:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
             else:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+                url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
             headers = {"accept": "application/json", "api-key": api_key}
             params = {"query": args}
             response = requests.post(url, headers=headers, json=params)

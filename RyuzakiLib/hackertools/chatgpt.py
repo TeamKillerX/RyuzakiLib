@@ -25,6 +25,7 @@ from base64 import b64decode as idk
 import requests
 from pyrogram import Client, filters
 from RyuzakiLib.hackertools.blackbox import Blackbox
+from RyuzakiLib.api.fullstack import FullStackDev
 from pyrogram.types import Message
 from typing import Optional
 
@@ -32,9 +33,6 @@ from typing import Optional
 API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
 
 class RendyDevChat:
-    def __init__(self) -> None:
-        pass
-
     @staticmethod
     def chat_hacked(
         args: str = None,
@@ -129,22 +127,23 @@ class RendyDevChat:
             return check_response
 
     @staticmethod
-    def image_generator(args, dalle_pro: bool = False):
-        if dalle_pro:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
-            headers = {"accept": "application/json", "api-key": API_KEYS}
-            payload = {"query": args}
-            response = requests.post(url, headers=headers, json=payload)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            return check_response
-        else:
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
-            headers = {"accept": "application/json", "api-key": API_KEYS}
-            payload = {"query": args}
-            response = requests.post(url, headers=headers, json=payload)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            return check_response
+    def download_images(image_urls):
+        downloaded_paths = []
+        for i, url in enumerate(image_urls, start=1):
+            filename = f"image_{i}.png"
+            FullStackDev.fast(url, filename=filename)
+        downloaded_paths.append(filename)
+        return downloaded_paths
+
+    @staticmethod
+    def image_generator(args):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
+        headers = {"accept": "application/json", "api-key": API_KEYS}
+        payload = {"query": args}
+        response = requests.post(url, headers=headers, json=payload)
+        if response.status_code != 200:
+            return f"Error status: {response.status_code}"
+        check_response = response.json()
+        x = check_response["randydev"].get("url")
+        results_image = RendyDevChat.download_images(x)
+        return results_image

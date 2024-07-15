@@ -26,45 +26,30 @@ import requests
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+Binary = "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100"
 
 class RendyDevChat:
-    def __init__(
-        self,
-        query: str = None,
-        binary="01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01100001 01110000 01101001 00101110 01110011 01100001 01100110 01101111 01101110 01100101 00101110 01100100 01100101 01110110 00101111 01100011 01101000 01100001 01110100 01100111 01110000 01110100",
-    ):
-        self.query = query
-        self.binary = binary
+    def __init__(self) -> None:
+        pass
 
     @staticmethod
     def knowledge_hack(text_code):
         you_dont_know = "".join(text_code)
         number = you_dont_know.split()
-        return "".join(chr(int(binary, 2)) for binary in number)
-
-    def get_blacklist_from_file(self):
-        try:
-            with open("blacklist.json", "r") as file:
-                blacklist = json.load(file)
-            return set(blacklist)
-        except FileNotFoundError:
-            return set()
+        return "".join(chr(int(Binary, 2)) for Binary in number)
 
     def get_response(
         self,
+        args,
         message,
         version: int = 3,
         chat_mode: str = "assistant",
         latest_version: bool = False,
     ):
-        if isinstance(message, Message):
-            blacklist = self.get_blacklist_from_file()
-            if message.from_user.id in blacklist:
-                return "Blocked User"
         if latest_version:
-            response_url = self.knowledge_hack(self.binary)
+            response_url = self.knowledge_hack(Binary)
             payloads = {
-                "message": self.query,
+                "message": args,
                 "version": version,
                 "chat_mode": chat_mode,
                 "dialog_messages": "[{'bot': '', 'user': ''}]",
@@ -82,17 +67,17 @@ class RendyDevChat:
             except Exception as e:
                 return f"Error Api {e}"
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
     def get_response_model(
-        self,
+        args,
         model_id: int = None,
         is_models: bool = False,
         re_json: bool = False,
         status_ok: bool = False,
     ):
         url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-model"
-        params = {"query": self.query, "model_id": model_id, "is_models": is_models}
+        params = {"query": args, "model_id": model_id, "is_models": is_models}
         response = requests.post(url, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -104,11 +89,11 @@ class RendyDevChat:
                 check_response = response
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_response_beta(self, joke: bool = False):
+    def get_response_beta(args, args, joke: bool = False):
         url = "https://freegptapi.hop.sh/neural/api"
-        params = {"query": self.query}
+        params = {"query": args}
         response = requests.get(url, params=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -118,10 +103,10 @@ class RendyDevChat:
             answer = check_response.get("answer")
             return answer
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_response_bing(self, bing: bool = False):
-        url = f"https://api.freegpt4.ddns.net/?text={self.query}"
+    def get_response_bing(args, args, bing: bool = False):
+        url = f"https://api.freegpt4.ddns.net/?text={args}"
         response = requests.get(url)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -130,11 +115,11 @@ class RendyDevChat:
             check_response = response.text
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_response_llama(self, llama: bool = False):
+    def get_response_llama(args, llama: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/llama"
-        params = {"query": self.query}
+        params = {"query": args}
         response = requests.get(url, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -143,12 +128,12 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_response_turbo3(self, api_key: str = None, turbo3: bool = False):
+    def get_response_turbo3(args, api_key: str = None, turbo3: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
         headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": self.query}
+        payload = {"query": args}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -157,9 +142,9 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def _model_list(self, is_list_all=False):
+    def _model_list(is_list_all=False):
         if is_list_all:
             text = """
 ```python
@@ -181,7 +166,7 @@ class RendyDevChat:
             return "you can check set is_list_all=True"
 
     def get_response_gemini_pro(
-        self,
+        args,
         api_key: str = None,
         user_id: int = None,
         mongo_url: str = None,
@@ -192,7 +177,7 @@ class RendyDevChat:
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
         headers = {"accept": "application/json", "api-key": api_key}
         params = {
-            "query": self.query,
+            "query": args,
             "mongo_url": mongo_url,
             "user_id": user_id,
             "is_multi_chat": is_multi_chat,
@@ -208,10 +193,10 @@ class RendyDevChat:
                 check_response = response
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
     def get_response_google_ai(
-        self,
+        args,
         api_key: str = None,
         re_json: bool = False,
         is_chat_bison: bool = False,
@@ -222,7 +207,7 @@ class RendyDevChat:
         else:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
         headers = {"accept": "application/json", "api-key": api_key}
-        params = {"query": self.query}
+        params = {"query": args}
         response = requests.post(url, headers=headers, json=params)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -234,12 +219,12 @@ class RendyDevChat:
                 check_response = response
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_risma_image_generator(self, api_key: str = None, is_opendalle: bool = False, re_json: bool = False):
+    def get_risma_image_generator(args, api_key: str = None, is_opendalle: bool = False, re_json: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/opendalle"
         headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": self.query}
+        payload = {"query": args}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -251,12 +236,12 @@ class RendyDevChat:
                 check_response = response
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def get_dallepro_generator(self, api_key: str = None, is_dalle: bool = False, re_json: bool = False):
+    def get_dallepro_generator(args, api_key: str = None, is_dalle: bool = False, re_json: bool = False):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
         headers = {"accept": "application/json", "api-key": api_key}
-        payload = {"query": self.query}
+        payload = {"query": args}
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
@@ -268,9 +253,9 @@ class RendyDevChat:
                 check_response = response
             return check_response
         else:
-            return f"WTF THIS {self.query}"
+            return f"WTF THIS {args}"
 
-    def multi_chat_response(self, api_key: str = None, is_multi_chat: bool = False):
+    def multi_chat_response(args, api_key: str = None, is_multi_chat: bool = False):
         if is_multi_chat:
             pass
         elif not is_multi_chat:

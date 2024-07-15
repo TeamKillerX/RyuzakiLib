@@ -32,7 +32,7 @@ from .channels import *
 from .custom_api import CustomApi
 from .decorator import *
 from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
-from .extreme.carbon import CarbonSuper
+from .extreme.carbon import Carbon
 from .extreme.chatbot import ChatbotAi
 from .extreme.quotestk import QouteSticker
 from .extreme.rayso import CarbonRaySo
@@ -88,7 +88,7 @@ __all__ = [
     "RemoveBg",
     "OcrApiUrl",
     "WhoisIpHacker",
-    "CarbonSuper",
+    "Carbon",
     "ChatbotAi",
     "QouteSticker",
     "CarbonRaySo",

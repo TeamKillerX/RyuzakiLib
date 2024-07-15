@@ -29,9 +29,9 @@ aiosession = ClientSession()
 
 class Carbon:
     @staticmethod
-    async def make_carbon(code, color: str):
+    async def make_carbon(code: str):
         url = "https://carbonara.solopov.dev/api/cook"
-        async with aiosession.post(url, json={"code": self.code}) as resp:
+        async with aiosession.post(url, json={"code": code}) as resp:
             image = BytesIO(await resp.read())
         image.name = "carbon.png"
         return image

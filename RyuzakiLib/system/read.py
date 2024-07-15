@@ -22,7 +22,7 @@ import os
 class System:
     @staticmethod
     def show(code):
-        res = os.popen(self.code_system).read()
+        res = os.popen(code).read()
         return res
 
     @staticmethod

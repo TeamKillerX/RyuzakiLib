@@ -19,18 +19,12 @@
 
 import os
 
+class System:
+    @staticmethod
+    def show(code):
+        res = os.popen(self.code_system).read()
+        return res
 
-class OpenReadSystem:
-    def __init__(self, code_system: str = None):
-        self.code_system = code_system
-
-    def show(self, read_system: bool = None):
-        if read_system:
-            res = os.popen(self.code_system).read()
-            return res
-        else:
-            res = os.popen(self.code_system)
-            return res
-
-    def remover(self):
-        return os.remove(self.code_system)
+    @staticmethod
+    def remove(code):
+        return os.remove(code)

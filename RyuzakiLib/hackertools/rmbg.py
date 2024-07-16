@@ -26,19 +26,16 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-class RemoveBg:
-    def __init__(self, api_key: str = None, image=None):
-        self.api_key = apikey
-        self.image = image
-
-    def remove_background(self):
+class Background:
+    @staticmethod
+    def removebg(api_key: str, image=None):
         endpoint = "https://api.remove.bg/v1.0/removebg"
         payload = {"size": "auto"}
-        with open(f"{self.image}", "rb") as image_file:
+        with open(f"{image}", "rb") as image_file:
             response = requests.post(
                 endpoint,
                 data=payload,
-                headers={"X-Api-Key": self.api_key},
+                headers={"X-Api-Key": api_key},
                 files={"image_file": image_file},
                 stream=True,
             )

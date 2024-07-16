@@ -25,10 +25,8 @@ from pyrogram.types import Message
 
 
 class SendWaifuRandom:
-    def __init__(self):
-        pass
-
-    def send_waifu_pics(self):
+    @staticmethod
+    def send_waifu_pics():
         LIST_SFW_JPG = ["neko", "waifu", "megumin"]
         waifu_api = "https://api.waifu.pics/sfw"
         waifu_category = choice(LIST_SFW_JPG)

@@ -17,18 +17,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from io import BytesIO
-
-import requests
-from aiohttp import ClientSession
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from typing import Optional
 import base64
 from base64 import b64decode
 from io import BytesIO
-from gpytranslate import SyncTranslator
+from typing import Optional
 
+import requests
+from aiohttp import ClientSession
+from gpytranslate import SyncTranslator
+from pyrogram import Client, filters
+from pyrogram.types import Message
 
 aiosession = ClientSession()
 

@@ -91,7 +91,6 @@ __all__ = [
     "Carbon",
     "ChatbotAi",
     "QouteSticker",
-    "CarbonRaySo",
     "TelegramUserInfo",
     "WebShotUrl",
     "SibylBan",

@@ -23,15 +23,54 @@ import requests
 from aiohttp import ClientSession
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from typing import Optional
+import base64
+from base64 import b64decode
+from io import BytesIO
+from gpytranslate import SyncTranslator
+
 
 aiosession = ClientSession()
 
 
 class Carbon:
     @staticmethod
-    async def make_carbon(code: str):
-        url = "https://carbonara.solopov.dev/api/cook"
-        async with aiosession.post(url, json={"code": code}) as resp:
-            image = BytesIO(await resp.read())
-        image.name = "carbon.png"
-        return image
+    async def make_carbon(
+        code: str = None,
+        title: Optional[str] = "Ryuzaki",
+        theme: Optional[str] = "breeze",
+        auto_translate: Optional[str] = "auto",
+        darkmode: Optional[bool] = True,
+        rayso=False
+    ):
+        base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9yYXlzbw=="
+        filename = "rayso.jpg"
+        if rayso:
+            api_url = b64decode(base).decode("utf-8")
+            x = requests.post(
+                f"{api_url}",
+                json={
+                    "code": code,
+                    "title": title,
+                    "theme": theme,
+                    "padding": 64,
+                    "language": auto_translate,
+                    "darkMode": darkmode,
+                },
+            )
+            if x.status_code != 200:
+                return "Error api Gay"
+            data = x.json()
+            try:
+                image_data = base64.b64decode(data["image"])
+                f = BytesIO(image_data)
+                f.name = filename
+                return f
+            except Exception as e:
+                return f"Error: {e}"
+        else:
+            url = "https://carbonara.solopov.dev/api/cook"
+            async with aiosession.post(url, json={"code": code}) as resp:
+                image = BytesIO(await resp.read())
+            image.name = "carbon.png"
+            return image

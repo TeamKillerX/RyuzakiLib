@@ -30,6 +30,10 @@ from RyuzakiLib.hackertools.reverse import GoogleReverseImage
 from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
 from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
 from RyuzakiLib.hackertools.prefixes import CustomPrefixes
+
+# or
+
+from RyuzakiLib import *
 ```
 
 ### Learn Python
@@ -37,15 +41,12 @@ from RyuzakiLib.hackertools.prefixes import CustomPrefixes
 import asyncio
 
 class example_python:
-      def __init__(self):
-         pass
-
-      def hello_world(self):
+      @staticmethod
+      def hello_world():
           asyncio.sleep(5)
 
 # examples usage
-ok = example_python()
-test = ok.hello_world()
+example_python.hello_world()
 ```
 
 ### Tutorial FastAPI
@@ -69,37 +70,22 @@ if __name__ == "__main__":
 ### Spamwatch
 • Example usage
 ```python
-from RyuzakiLib.spamwatch.clients import SibylBan
+from RyuzakiLib import SibylBan
 
-clients = SibylBan(api_key="your_api_key_here")
-
-message = clients.add_ban(user_id=client.me.id, reason="scammer", is_banned=True)
-await message.reply_text(message)
-
-# Part 2
-showing = clients.get_ban(user_id=client.me.id, banlist=True)
-print(showing)
-
-# Part 3
-results = clients.get_all_banlist()
-print(results)
-
-SiblyBan.ban()
-SiblyBan.banlist()
-SiblyBan.unban()
-SiblyBan.banlist_all()
+x = SiblyBan.ban(user_id)
+xb = SiblyBan.banlist(user_id)
+xub = SiblyBan.unban(user_id)
+results = SiblyBan.banlist_all()
 ```
 
 ### Profile Clone
 • Example usage
 ```python
-from RyuzakiLib.profile.user import ProfileClone
+from RyuzakiLib import Clone
 
-clients = ProfileClone(api_key="your_api_key_here")
+message = Clone.clone() # need parameter
 
-message = clients.add_profile_clone() # need parameter
-
-showing = clients.get_profile_clone() # need parameter
+showing = Clone.sclone() # need parameter
 print(showing)
 ```
 
@@ -136,48 +122,24 @@ print(response.text)
 - parameter
 
 ```python
-from RyuzakiLib.hackertools.chatgpt import RendyDevChat
+from RyuzakiLib import RendyDevChat
 
-query = "Hello World"
+results = RendyDevChat.chat_hacked(latest_model="list-model", list_model_all=True)
+print(results)
 
-code = RendyDevChat(query)
-message_output = code.get_response(message, latest_version=True)
-message_output_2 = code.get_response_beta(joke=True)
-message_output_3 = code.get_response_bing(bing=True)
-message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
-message_output_5 = code.get_response_llama(llama=True)
-message_output_6 = code.get_response_google_ai(api_key=api_key, re_json=True, is_chat_bison=True, is_google=True)
-message_output_7 = code.multi_chat_response(api_key=api_key, is_multi_chat=True)
-
-print(message_output)
-print(message_output_2)
-print(message_output_3)
-print(message_output_4)
-print(message_output_5)
-print(message_output_6)
-print(message_output_7)
+response = RendyDevChat.chat_hacked("hello world")
+print(response)
 ```
 
 ### AI image Generator New?
 * AI image Generator new features are available here
 - parameter
 ```python
-import base64
-from io import BytesIO
-from PIL import Image
-from RyuzakiLib.hackertools.chatgpt import RendyDevChat
+from RyuzakiLib import RendyDevChat
 
 query = "Cat in a Hat"
-code = RendyDevChat(query)
-
-response = code.get_risma_image_generator(api_key=api_key, is_opendalle=True)
-response_2 = code.get_risma_image_generator(api_key=api_key, is_dalle3xl=True)
-
-image_data = base64.b64decode(response["randydev"].get("data"))
-image_data_2 = base64.b64decode(response_2["randydev"].get("data"))
-
-image = Image.open(BytesIO(image_data))
-image_2 = Image.open(BytesIO(image_data_2))
+response = RendyDevChat.image_generator(query)
+print(response)
 ```
 
 ### Continue Conversation
@@ -196,24 +158,12 @@ response = OpenAiToken(api_key=api_key, api_base=api_base).chat_message_turbo(
 print(response[0])
 ```
 
-### Example Chatgpt
-```python
-from pyrogram import Client, filters
-from pyrogram.types import Message
-
-from RyuzakiLib.hackertools.chatgpt import RendyDevChat
-
-query = "Hello World"
-response = RendyDevChat(query).get_response(message, latest_version=True)
-await message.reply(response)
-```
-
 ### Example Google Reverse Image
 ```python
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from RyuzakiLib.hackertools.reverse import GoogleReverseImage
+from RyuzakiLib import GoogleReverseImage
 
 url = "https://example/jpg"
 apikey = "api key token"

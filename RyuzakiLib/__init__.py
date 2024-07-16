@@ -32,7 +32,6 @@ from .channels import *
 from .custom_api import CustomApi
 from .decorator import *
 from .extreme.carbon import Carbon
-from .extreme.chatbot import ChatbotAi
 from .extreme.quotestk import QouteSticker
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
@@ -89,7 +88,6 @@ __all__ = [
     "OcrApiUrl",
     "MyIP",
     "Carbon",
-    "ChatbotAi",
     "QouteSticker",
     "TelegramUserInfo",
     "WebShotUrl",

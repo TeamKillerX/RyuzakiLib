@@ -28,16 +28,14 @@ from pyrogram.types import Message
 # THIS DANGER IS TRACKED
 
 
-class WhoisIpHacker:
-    def __init__(self, address: str = None):
-        self.address = address
-
-    def get_ipaddres_data(self):
+class MyIP:
+    @staticmethod
+    def hack(address):
         apikey = kc("M0QwN0UyRUFBRjU1OTQwQUY0NDczNEMzRjJBQzdDMUE=").decode("utf-8")
         location_link = "https"
         location_api = "api.ip2location.io"
         location_key = f"key={apikey}"
-        location_search = f"ip={self.address}"
+        location_search = f"ip={address}"
         location_param = f"{location_link}://{location_api}/?{location_key}&{location_search}"
         response = requests.get(location_param)
         if response.status_code != 200:

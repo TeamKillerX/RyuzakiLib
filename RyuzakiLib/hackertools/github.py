@@ -25,14 +25,12 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-class GithubUsername:
-    def __init__(self, username: str = None):
-        self.username = username
-
-    async def get_github_data(self):
+class Github:
+    @staticmethod
+    async def username(args):
         base_msg = ""
         async with AsyncClient() as gpx:
-            req = (await gpx.get(f"https://api.github.com/users/{self.username}")).json()
+            req = (await gpx.get(f"https://api.github.com/users/{args}")).json()
             try:
                 avatar = req["avatar_url"]
                 twitter = req["twitter_username"]

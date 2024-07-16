@@ -96,6 +96,7 @@ class RendyDevChat:
                 gemini-pro
                 google-ai
                 blackbox
+                chatbot
                 """
                 return text
             else:
@@ -126,6 +127,24 @@ class RendyDevChat:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
             return check_response
+        elif latest_model == "chatbot":
+            base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9jaGF0Ym90",
+            api_url = b64decode(base).decode("utf-8")
+            params = {
+                "query": args,
+                "user_id": 0,
+                "bot_name": "Ryuzaki Dev",
+                "bot_master": "@Randydev_bot",
+            }
+            x = requests.get(f"{api_url}", params=params)
+            if x.status_code != 200:
+                return "Error api request"
+            try:
+                y = x.json()
+                response = y["response"]
+                return response
+            except Exception as e:
+                return f"Error {e}"
 
     @staticmethod
     def download_images(image_urls):

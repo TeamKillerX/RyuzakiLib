@@ -164,6 +164,4 @@ class RendyDevChat:
         if response.status_code != 200:
             return f"Error status: {response.status_code}"
         check_response = response.json()
-        x = check_response["randydev"].get("url")
-        results_image = RendyDevChat.download_images(x)
-        return results_image
+        return check_response

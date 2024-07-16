@@ -81,7 +81,7 @@ __all__ = [
     "StreamType",
     "RendyDevChat",
     "GeminiLatest",
-    "GithubUsername",
+    "Github",
     "OpenAiToken",
     "CustomPrefixes",
     "GoogleReverseImage",

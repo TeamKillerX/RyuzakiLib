@@ -31,23 +31,20 @@ from .bot import *
 from .channels import *
 from .custom_api import CustomApi
 from .decorator import *
-from .dl.tiktok import TiktokUrl, faster_tiktok_downloader
 from .extreme.carbon import Carbon
-from .extreme.chatbot import ChatbotAi
 from .extreme.quotestk import QouteSticker
-from .extreme.rayso import CarbonRaySo
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.gemini import GeminiLatest
-from .hackertools.github import GithubUsername
-from .hackertools.ipinfo import WhoisIpHacker
+from .hackertools.github import Github
+from .hackertools.ipinfo import MyIP
 from .hackertools.ocrapi import OcrApiUrl
 from .hackertools.openai_api import OpenAiToken
 from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
-from .hackertools.rmbg import RemoveBg
+from .hackertools.rmbg import Background
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
@@ -83,17 +80,15 @@ __all__ = [
     "StreamType",
     "RendyDevChat",
     "GeminiLatest",
-    "GithubUsername",
+    "Github",
     "OpenAiToken",
     "CustomPrefixes",
     "GoogleReverseImage",
-    "RemoveBg",
+    "Background",
     "OcrApiUrl",
-    "WhoisIpHacker",
+    "MyIP",
     "Carbon",
-    "ChatbotAi",
     "QouteSticker",
-    "CarbonRaySo",
     "TelegramUserInfo",
     "WebShotUrl",
     "SibylBan",
@@ -101,8 +96,6 @@ __all__ = [
     "System",
     "FullStackDev",
     "PrivateApiUrl",
-    "TiktokUrl",
-    "faster_tiktok_downloader",
     "BadWordsList",
     "Reminder",
     "_Translator_",

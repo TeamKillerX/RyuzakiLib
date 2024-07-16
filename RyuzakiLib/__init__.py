@@ -39,7 +39,7 @@ from .extreme.webshot import WebShotUrl
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.gemini import GeminiLatest
-from .hackertools.github import GithubUsername
+from .hackertools.github import Github
 from .hackertools.ipinfo import MyIP
 from .hackertools.ocrapi import OcrApiUrl
 from .hackertools.openai_api import OpenAiToken

@@ -17,16 +17,13 @@ class Blackbox:
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
-    @staticmethod
     def _close(self):
         self.client.close()
 
-    @staticmethod
     def _get_blackbox_chat_from_db(self):
         user_data = self.collection.find_one({"user_id": self.user_id})
         return user_data.get("blackbox_chat", []) if user_data else []
 
-    @staticmethod
     def _update_blackbox_chat_in_db(self, blackbox_chat):
         self.collection.update_one(
             {"user_id": self.user_id},
@@ -34,8 +31,7 @@ class Blackbox:
             upsert=True
         )
 
-    @staticmethod
-    def chat(self, args: str) -> dict:
+    def chat(self, args: str):
         url = m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWkvYXBpL2NoYXQ=").decode("utf-8")
 
         blackbox_chat = self._get_blackbox_chat_from_db()
@@ -79,7 +75,3 @@ class Blackbox:
 
         except requests.exceptions.RequestException as e:
             return {"results": str(e), "success": False}
-
-# EXAMPLE
-# response = Blackbox.chat("What is today's date?")
-# print(response.get("answer"))

@@ -30,7 +30,6 @@ from pyrogram.types import Message
 from RyuzakiLib.api.fullstack import FullStackDev
 from RyuzakiLib.hackertools.blackbox import Blackbox
 
-# You can free api key this // only developer reset api key :)
 API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
 
 class RendyDevChat:
@@ -39,7 +38,7 @@ class RendyDevChat:
         args: str = None,
         latest_model: str = "openai-latest",
         model_id: Optional[int] = None,
-        user_id: Optional[int] = None,
+        user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
         list_model_all: Optional[bool] = False,
         is_google_beta: Optional[bool] = False
@@ -103,14 +102,14 @@ class RendyDevChat:
                 return "you can check set list_model_all=True"
         elif latest_model == "gemini-pro":
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
-            headers = {"accept": "application/json", "api-key": API_KEYS}
-            params = {
-                "query": args,
-                "mongo_url": mongo_url,
+            payload = {
+                "query": query,
+                "mongo_url": MONGO_URL,
                 "user_id": user_id,
-                "is_multi_chat": True,
+                "is_multi_chat": True
             }
-            response = requests.post(url, headers=headers, json=params)
+            headers = {"accept": "application/json", "api-key": api_key}
+            response = requests.post(url, headers=headers, json=payload)
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()

@@ -48,7 +48,6 @@ setuptools.setup(
         "ntgcalls>=1.0.2",
         "psutil",
         "screeninfo",
-        "curl_cffi",
         "g4f",
         "google-generativeai",
     ],

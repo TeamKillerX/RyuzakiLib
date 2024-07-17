@@ -49,6 +49,7 @@ setuptools.setup(
         "psutil",
         "screeninfo",
         "g4f",
+        "curl_cffi",
         "google-generativeai",
     ],
     classifiers=[

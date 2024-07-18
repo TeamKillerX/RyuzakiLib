@@ -45,6 +45,7 @@ from .hackertools.openai_api import OpenAiToken
 from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
+from .hackertools.tiktok import Tiktok
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
@@ -101,4 +102,5 @@ __all__ = [
     "_Translator_",
     "QuoteRandom",
     "Blackbox",
+    "Tiktok",
 ]

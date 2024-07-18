@@ -7,8 +7,8 @@ class Tiktok:
         if response.status_code != 200:
             return "Error Response limits"
         data_json = response.json()
-        title_tiktok = data_json["data"].get("title")
-        author_tiktok = data_json["data"]["author"].get("nickname")
+        title_tiktok = data_json["data"].get("title") or "Powered by Tiktok"
+        author_tiktok = data_json["data"]["author"].get("nickname") or "Unknown"
         play_tiktok = data_json["data"].get("play")
         music_tiktok = data_json["data"]["music_info"].get("play")
         return [

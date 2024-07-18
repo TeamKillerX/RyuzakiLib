@@ -104,7 +104,7 @@ class RendyDevChat:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
             payload = {
                 "query": args,
-                "mongo_url": MONGO_URL,
+                "mongo_url": mongo_url,
                 "user_id": user_id,
                 "is_multi_chat": True
             }

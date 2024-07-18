@@ -108,7 +108,7 @@ class RendyDevChat:
                 "user_id": user_id,
                 "is_multi_chat": True
             }
-            headers = {"accept": "application/json", "api-key": api_key}
+            headers = {"accept": "application/json", "api-key": API_KEYS}
             response = requests.post(url, headers=headers, json=payload)
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"

@@ -103,7 +103,7 @@ class RendyDevChat:
         elif latest_model == "gemini-pro":
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
             payload = {
-                "query": query,
+                "query": args,
                 "mongo_url": MONGO_URL,
                 "user_id": user_id,
                 "is_multi_chat": True

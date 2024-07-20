@@ -21,6 +21,7 @@ import base64
 import json
 import os
 from base64 import b64decode as idk
+from base64 import b64decode
 from typing import Optional
 
 import requests
@@ -113,7 +114,7 @@ class RendyDevChat:
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
-            return check_response
+            return check_response["randydev"]["message"]
         elif latest_model == "google-ai":
             if is_google_beta:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
@@ -125,7 +126,7 @@ class RendyDevChat:
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
-            return check_response
+            return check_response["randydev"]["message"]
         elif latest_model == "chatbot":
             base="aHR0cHM6Ly9hcGkuc2Fmb25lLmRldi9jaGF0Ym90",
             api_url = b64decode(base).decode("utf-8")

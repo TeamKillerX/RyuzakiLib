@@ -82,7 +82,6 @@ class RendyDevChat:
                 openai-v2
                 gemini-pro
                 google-ai
-                blackbox
                 chatbot
                 """
                 return text

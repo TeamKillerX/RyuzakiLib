@@ -76,15 +76,6 @@ class RendyDevChat:
         elif latest_model == "blackbox":
             response = Blackbox.chat(args)
             return response.get("answer")
-        elif latest_model == "openai-turbo":
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt3-turbo"
-            headers = {"accept": "application/json", "api-key": API_KEYS}
-            payload = {"query": args}
-            response = requests.post(url, headers=headers, json=payload)
-            if response.status_code != 200:
-                return f"Error status: {response.status_code}"
-            check_response = response.json()
-            return check_response["randydev"]["message"]
         elif latest_model == "list-model":
             if list_model_all:
                 text = """
@@ -92,7 +83,6 @@ class RendyDevChat:
                 New Model List
                 openai-latest
                 openai-v2
-                openai-turbo
                 gemini-pro
                 google-ai
                 blackbox

@@ -23,6 +23,7 @@ from typing import Optional, Union
 import google.generativeai as genai
 import requests
 from pymongo import MongoClient
+import pathlib
 
 
 class GeminiLatest:
@@ -70,6 +71,21 @@ class GeminiLatest:
             return "Chat history cleared successfully."
         else:
             return "No chat history found to clear."
+
+    def geni_upload_file(self, file_image, mine_type="image/jpeg"):
+        cookie_picture = {
+            "mime_type": mine_type,
+            "data": pathlib.Path(file_image).read_bytes()
+        }
+        return cookie_picture
+
+    def get_response_image(self, query, file_image):
+        model_image = genai.GenerativeModel("gemini-1.5-flash")
+        cookie_picture = self.geni_upload_file(query, file_image)
+        response = model_image.generate_content(
+            contents=[query, cookie_picture]
+        )
+        return response.text
 
     def __get_response_gemini(self, query: str = None, settings_config: bool = False):
         try:

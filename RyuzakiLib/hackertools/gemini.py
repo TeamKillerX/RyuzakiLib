@@ -25,15 +25,14 @@ import requests
 from pymongo import MongoClient
 import pathlib
 
-
 class GeminiLatest:
     def __init__(
         self,
-        api_keys: str = None,
-        mongo_url: str = None,
-        model: str = "gemini-1.5-flash-latest",
-        generation_configs = {},
-        user_id: int = None
+        api_keys: Optional[str] = None,
+        mongo_url: Optional[str] = None,
+        model: Optional[str] = "gemini-1.5-flash-latest",
+        user_id: Optional[int] = None,
+        generation_configs = {}
     ):
         self.api_keys = api_keys
         self.model = model

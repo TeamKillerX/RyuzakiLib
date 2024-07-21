@@ -41,9 +41,7 @@ class RendyDevChat:
         model_id: Optional[int] = None,
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
-        list_model_all: Optional[bool] = False,
-        is_google_beta: Optional[bool] = False
-
+        list_model_all: Optional[bool] = False
     ):
         if latest_model == "openai-latest":
             response_url = "https://api.safone.dev/chatgpt"
@@ -82,6 +80,7 @@ class RendyDevChat:
                 openai-v2
                 gemini-pro
                 google-ai
+                betagoogle-ai
                 chatbot
                 """
                 return text
@@ -102,10 +101,16 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         elif latest_model == "google-ai":
-            if is_google_beta:
-                url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
-            else:
-                url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args}
+            response = requests.post(url, headers=headers, json=params)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response["randydev"]["message"]
+        elif latest_model == "betagoogle-ai":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
             headers = {"accept": "application/json", "api-key": API_KEYS}
             params = {"query": args}
             response = requests.post(url, headers=headers, json=params)

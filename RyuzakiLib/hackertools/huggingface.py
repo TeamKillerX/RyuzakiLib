@@ -39,18 +39,9 @@ class BetaRag:
         return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
     def rag_chat(self, args):
-        owner_base = f"""
-        Your name is Randy Dev. A kind and friendly AI assistant that answers in
-        a short and concise answer. Give short step-by-step reasoning if required.
-        Today is {dt.now():%A %d %B %Y %H:%M}
-        """
         try:
             rag_chat = self._get_rag_chat_from_db()
-            rag_chat.append(
-                {"role": "user", "content": owner_base},
-                {"role": "assistant", "content": "I'm ready if you need questions"},
-                {"role": "user", "content": args}
-            )
+            rag_chat.append({"role": "user", "content": args})
             client_face = InferenceClient(
                 self.clients_name.decode("utf-16"),
                 token=self.token

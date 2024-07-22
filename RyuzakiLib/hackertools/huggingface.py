@@ -15,8 +15,8 @@ class BetaRag:
     ):
         self.clients_name = clients_name
         self.token = token
-        self.user_id = url
-        self.mongo_url = url
+        self.user_id = user_id
+        self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users

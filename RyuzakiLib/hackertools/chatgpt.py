@@ -101,14 +101,17 @@ class RendyDevChat:
             check_response = response.json()
             return check_response["randydev"]["message"]
         elif latest_model == "beta-rag":
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag"
             payload = {
                 "query": args,
                 "mongo_url": mongo_url,
                 "user_id": user_id,
             }
             headers = {"accept": "application/json"}
-            response = requests.post(url, headers=headers, json=payload)
+            response = requests.post(
+                "https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag",
+                headers=headers,
+                json=payload
+            )
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()

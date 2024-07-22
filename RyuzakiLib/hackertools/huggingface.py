@@ -54,8 +54,8 @@ class BetaRag:
             ):
                 content = message.choices[0].delta.content
                 answer += content
-                rag_chat.append({"role": "assistant", "content": answer})
-                self._update_rag_chat_in_db(rag_chat)
+            rag_chat.append({"role": "assistant", "content": answer})
+            self._update_rag_chat_in_db(rag_chat)
             return answer
         except Exception:
             errros_msg = f"Error responding: API long time (timeout 600)"

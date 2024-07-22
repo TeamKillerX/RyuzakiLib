@@ -1,5 +1,6 @@
 import requests
 
+
 class Tiktok:
     @staticmethod
     def download(api_name, url):

@@ -18,12 +18,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import pathlib
 from typing import Optional, Union
 
 import google.generativeai as genai
 import requests
 from pymongo import MongoClient
-import pathlib
+
 
 class GeminiLatest:
     def __init__(

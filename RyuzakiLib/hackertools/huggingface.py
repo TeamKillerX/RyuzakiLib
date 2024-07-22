@@ -4,6 +4,7 @@
 from huggingface_hub import InferenceClient
 from pymongo import MongoClient
 
+
 class BetaRag:
     def __init__(
         self,

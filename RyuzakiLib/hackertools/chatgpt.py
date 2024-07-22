@@ -20,8 +20,8 @@
 import base64
 import json
 import os
-from base64 import b64decode as idk
 from base64 import b64decode
+from base64 import b64decode as idk
 from typing import Optional
 
 import requests

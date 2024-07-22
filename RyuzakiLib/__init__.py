@@ -39,6 +39,7 @@ from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import Github
+from .hackertools.huggingface import BetaRag
 from .hackertools.ipinfo import MyIP
 from .hackertools.ocrapi import OcrApiUrl
 from .hackertools.openai_api import OpenAiToken
@@ -46,7 +47,6 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
-from .hackertools.huggingface import BetaRag
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *

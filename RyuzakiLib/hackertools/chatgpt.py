@@ -103,8 +103,7 @@ class RendyDevChat:
         elif latest_model == "beta-rag":
             payload = {
                 "query": args,
-                "mongo_url": mongo_url,
-                "user_id": user_id,
+                "user_id": user_id
             }
             headers = {"accept": "application/json"}
             response = requests.post(

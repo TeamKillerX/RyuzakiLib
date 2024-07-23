@@ -1,9 +1,11 @@
 # Credits @xtdevs
 # Code updated 2024
 
+from datetime import datetime as dt
+
 from huggingface_hub import InferenceClient
 from pymongo import MongoClient
-from datetime import datetime as dt
+
 
 class BetaRag:
     def __init__(

@@ -47,6 +47,7 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
+from .hackertools.farfalle import FarFalle
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
@@ -105,4 +106,5 @@ __all__ = [
     "Blackbox",
     "Tiktok",
     "BetaRag",
+    "FarFalle",
 ]

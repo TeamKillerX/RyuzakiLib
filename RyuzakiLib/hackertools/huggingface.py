@@ -6,7 +6,6 @@ from datetime import datetime as dt
 from huggingface_hub import InferenceClient
 from pymongo import MongoClient
 
-
 class BetaRag:
     def __init__(
         self,
@@ -49,16 +48,14 @@ class BetaRag:
                 token=self.token
             )
             answer = ""
-            for message in client_face.chat_completion(
+            for messages in client_face.chat_completion(
                 messages=rag_chat,
                 max_tokens=500,
                 stream=True
             ):
-                content = message.choices[0].delta.content
-                answer += content
+                answer += messages.choices[0].delta.content
             rag_chat.append({"role": "assistant", "content": answer})
             self._update_rag_chat_in_db(rag_chat)
-            return answer
-        except Exception:
-            errros_msg = f"Error responding: API long time (timeout 600)"
-            return errros_msg
+        except:
+            pass
+        return answer

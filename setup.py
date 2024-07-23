@@ -51,6 +51,9 @@ setuptools.setup(
         "g4f",
         "curl_cffi",
         "google-generativeai",
+        "gradio-client",
+        "gradio",
+        "huggingface_hub==0.22.2",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

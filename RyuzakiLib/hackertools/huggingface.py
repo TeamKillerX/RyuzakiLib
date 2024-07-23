@@ -1,6 +1,8 @@
 # Credits @xtdevs
 # Code updated 2024
 
+from datetime import datetime as dt
+
 from huggingface_hub import InferenceClient
 from pymongo import MongoClient
 
@@ -15,8 +17,8 @@ class BetaRag:
     ):
         self.clients_name = clients_name
         self.token = token
-        self.user_id = url
-        self.mongo_url = url
+        self.user_id = user_id
+        self.mongo_url = mongo_url
         self.client = MongoClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
@@ -53,10 +55,9 @@ class BetaRag:
                 stream=True
             ):
                 content = message.choices[0].delta.content
-                if content is None:
-                    answer += content
-                    rag_chat.append({"role": "assistant", "content": answer})
-                    self._update_rag_chat_in_db(rag_chat)
+                answer += content
+            rag_chat.append({"role": "assistant", "content": answer})
+            self._update_rag_chat_in_db(rag_chat)
             return answer
         except Exception:
             errros_msg = f"Error responding: API long time (timeout 600)"

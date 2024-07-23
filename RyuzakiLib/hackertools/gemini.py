@@ -81,7 +81,7 @@ class GeminiLatest:
 
     def get_response_image(self, query, file_image):
         model_image = genai.GenerativeModel("gemini-1.5-flash")
-        cookie_picture = self.geni_upload_file(query, file_image)
+        cookie_picture = self.geni_upload_file(file_image)
         response = model_image.generate_content(
             contents=[query, cookie_picture]
         )

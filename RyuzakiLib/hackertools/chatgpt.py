@@ -71,6 +71,14 @@ class RendyDevChat:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
             return check_response["randydev"]["message"]
+        elif latest_model == "blackbox":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/blackbox"
+            params = {"query": args}
+            response = requests.post(url, json=params)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response["randydev"]["message"]
         elif latest_model == "list-model":
             if list_model_all:
                 text = """
@@ -96,6 +104,21 @@ class RendyDevChat:
             }
             headers = {"accept": "application/json", "api-key": API_KEYS}
             response = requests.post(url, headers=headers, json=payload)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response["randydev"]["message"]
+        elif latest_model == "beta-rag":
+            payload = {
+                "query": args,
+                "user_id": user_id
+            }
+            headers = {"accept": "application/json"}
+            response = requests.post(
+                "https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag",
+                headers=headers,
+                json=payload
+            )
             if response.status_code != 200:
                 return f"Error status: {response.status_code}"
             check_response = response.json()

@@ -71,6 +71,14 @@ class RendyDevChat:
                 return f"Error status: {response.status_code}"
             check_response = response.json()
             return check_response["randydev"]["message"]
+        elif latest_model == "blackbox":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/blackbox"
+            params = {"query": args}
+            response = requests.post(url, json=params)
+            if response.status_code != 200:
+                return f"Error status: {response.status_code}"
+            check_response = response.json()
+            return check_response["randydev"]["message"]
         elif latest_model == "list-model":
             if list_model_all:
                 text = """

@@ -18,6 +18,9 @@ class FarFalle:
     ):
         self.mongo_url = mongo_url
         self.user_id = user_id
+        self.client = MongoClient(self.mongo_url)
+        self.db = self.client.tiktokbot
+        self.collection = self.db.users
         """Initializes the FarFalle class with a session and the service URL."""
         self.session: requests.Session = requests.Session()
         self.url: str = "https://farfalle.onrender.com/chat"

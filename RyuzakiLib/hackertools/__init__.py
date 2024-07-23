@@ -10,3 +10,4 @@ from .prefixes import *
 from .reverse import *
 from .rmbg import *
 from .tiktok import *
+from .farfalle import *

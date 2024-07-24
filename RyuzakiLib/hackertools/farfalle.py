@@ -2,6 +2,7 @@ import requests
 import json
 import re
 from typing import List, Dict, Optional
+from pymongo import MongoClient
 
 class FarFalle:
     """A class to interact with the FarFalle chat service.

@@ -74,12 +74,12 @@ class Blackbox:
                 url, post=True, headers=headers, json=payload
             )
             if response:
-                clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
+                clean_text = response.replace("$@$v=undefined-rv1$@$", "")
 
                 split_text = clean_text.split("\n\n", 2)
 
                 if len(split_text) >= 3:
-                    content_after_second_newline = split_text[2]
+                    content_after_second_newline = split_text[2].strip()
                 else:
                     content_after_second_newline = clean_text
 

@@ -30,7 +30,7 @@ class Blackbox:
 
     async def _update_blackbox_chat_in_db(self, blackbox_chat):
         get_user_data = {"user_id": self.user_id}
-	    document = await self.collection.find_one(get_user_data)
+	document = await self.collection.find_one(get_user_data)
         if document:
             await self.collection.update_one(
 		        {"_id": document["_id"]}, {"$set": {"blackbox_chat": blackbox_chat}}

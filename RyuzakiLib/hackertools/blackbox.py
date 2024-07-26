@@ -99,4 +99,4 @@ class Blackbox:
 
 
         except Exception as e:
-            return {"results": str(e), "success": False}
+            return {"results": e, "success": False}

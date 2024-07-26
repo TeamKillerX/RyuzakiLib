@@ -1,8 +1,10 @@
-import requests
 import json
 import re
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
+
+import requests
 from pymongo import MongoClient
+
 
 class FarFalle:
     """A class to interact with the FarFalle chat service.

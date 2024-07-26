@@ -27,6 +27,7 @@ from . import *
 from .__version__ import __version__
 from .api.fullstack import FullStackDev
 from .api.private import PrivateApiUrl
+from .api.reqs import AsyicXSearcher
 from .bot import *
 from .channels import *
 from .custom_api import CustomApi
@@ -107,4 +108,5 @@ __all__ = [
     "Tiktok",
     "BetaRag",
     "FarFalle",
+    "AsyicXSearcher",
 ]

@@ -1,6 +1,7 @@
 import json
 import urllib
 from base64 import b64decode as m
+from RyuzakiLib.api.reqs import AsyicXSearcher
 
 import requests
 from pymongo import MongoClient
@@ -32,7 +33,7 @@ class Blackbox:
             upsert=True
         )
 
-    def chat(self, args: str):
+    async def chat(self, args: str):
         url = m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWkvYXBpL2NoYXQ=").decode("utf-8")
 
         blackbox_chat = self._get_blackbox_chat_from_db()
@@ -58,8 +59,12 @@ class Blackbox:
         }
 
         try:
-            response = requests.post(url, json=payload, headers=headers)
-            response.raise_for_status()
+            response = await AsyicXSearcher(
+                url,
+                post=True,
+                json=payload,
+                headers=headers
+            )
             clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
 
             split_text = clean_text.split("\n\n", 2)
@@ -74,5 +79,5 @@ class Blackbox:
 
             return {"answer": content_after_second_newline, "success": True}
 
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
             return {"results": str(e), "success": False}

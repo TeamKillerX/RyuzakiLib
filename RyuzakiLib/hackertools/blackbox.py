@@ -4,7 +4,7 @@ from base64 import b64decode as m
 from RyuzakiLib.api.reqs import AsyicXSearcher
 
 import requests
-from pymongo import MongoClient
+import motor.motor_asyncio
 
 User_Agent: str = b'\xff\xfem\x00(\x00"\x00T\x00W\x009\x006\x00a\x00W\x00x\x00s\x00Y\x00S\x008\x001\x00L\x00j\x00A\x00g\x00K\x00F\x00d\x00p\x00b\x00m\x00R\x00v\x00d\x003\x00M\x00g\x00T\x00l\x00Q\x00g\x00M\x00T\x00A\x00u\x00M\x00D\x00s\x00g\x00V\x002\x00l\x00u\x00N\x00j\x00Q\x007\x00I\x00H\x00g\x002\x00N\x00C\x00k\x00g\x00Q\x00X\x00B\x00w\x00b\x00G\x00V\x00X\x00Z\x00W\x00J\x00L\x00a\x00X\x00Q\x00v\x00N\x00T\x00M\x003\x00L\x00j\x00M\x002\x00I\x00C\x00h\x00L\x00S\x00F\x00R\x00N\x00T\x00C\x00B\x00s\x00a\x00W\x00t\x00l\x00I\x00E\x00d\x00l\x00Y\x002\x00t\x00v\x00K\x00U\x00N\x00o\x00c\x00m\x009\x00t\x00Z\x00S\x008\x00x\x00M\x00j\x00E\x00u\x00M\x00C\x004\x00w\x00L\x00j\x00A\x00g\x00U\x002\x00F\x00m\x00Y\x00X\x00J\x00p\x00L\x00z\x00U\x00z\x00N\x00y\x004\x00z\x00N\x00g\x00=\x00=\x00"\x00)\x00.\x00d\x00e\x00c\x00o\x00d\x00e\x00(\x00"\x00u\x00t\x00f\x00-\x008\x00"\x00)\x00'
 Origin: str = b'\xff\xfem\x00(\x00"\x00a\x00H\x00R\x000\x00c\x00H\x00M\x006\x00L\x00y\x009\x003\x00d\x003\x00c\x00u\x00Y\x00m\x00x\x00h\x00Y\x002\x00t\x00i\x00b\x003\x00g\x00u\x00Y\x00W\x00k\x00=\x00"\x00)\x00.\x00d\x00e\x00c\x00o\x00d\x00e\x00(\x00"\x00u\x00t\x00f\x00-\x008\x00"\x00)\x00'
@@ -15,41 +15,51 @@ class Blackbox:
     def __init__(self, mongo_url, user_id: int = None):
         self.user_id = user_id
         self.mongo_url = mongo_url
-        self.client = MongoClient(self.mongo_url)
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
-    def _close(self):
-        self.client.close()
+    async def _close(self):
+        await self.client.close()
 
-    def _get_blackbox_chat_from_db(self):
-        user_data = self.collection.find_one({"user_id": self.user_id})
-        return user_data.get("blackbox_chat", []) if user_data else []
+    async def _get_blackbox_chat_from_db(self):
+        get_user_data = {"user_id": self.user_id}
+        document = await self.collection.find_one(get_user_data)
+        return document.get("blackbox_chat", []) if document else []
 
-    def _update_blackbox_chat_in_db(self, blackbox_chat):
-        self.collection.update_one(
-            {"user_id": self.user_id},
-            {"$set": {"blackbox_chat": blackbox_chat}},
-            upsert=True
-        )
+    async def _update_blackbox_chat_in_db(self, blackbox_chat):
+        get_user_data = {"user_id": self.user_id}
+	    document = await self.collection.find_one(get_user_data)
+        if document:
+            await self.collection.update_one(
+		        {"_id": document["_id"]}, {"$set": {"blackbox_chat": blackbox_chat}}
+            )
+
+        else:
+            await self.collection.insert_one(
+                {"user_id": self.user_id, "blackbox_chat": blackbox_chat}
+            )
 
     async def chat(self, args: str):
         url = m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWkvYXBpL2NoYXQ=").decode("utf-8")
 
-        blackbox_chat = self._get_blackbox_chat_from_db()
-        blackbox_chat.append({"id": "XM7KpOE", "content": urllib.parse.unquote(args), "role": "user"})
         payload = {
             "agentMode": {},
             "codeModelMode": True,
             "id": "XM7KpOE",
             "isMicMode": False,
             "maxTokens": None,
-            "messages": blackbox_chat,
+            "messages": [
+                {"id": "XM7KpOE", "content": urllib.parse.unquote(args), "role": "user"}
+            ],
             "previewToken": None,
             "trendingAgentMode": {},
             "userId": "87cdaa48-cdad-4dda-bef5-6087d6fc72f6",
             "userSystemPrompt": None,
         }
+
+        blackbox_chat = await self._get_blackbox_chat_from_db()
+        payload["messages"] = blackbox_chat + payload["messages"]
 
         headers = {
             "Content-Type": Content_Type.decode("utf-16"),
@@ -59,25 +69,33 @@ class Blackbox:
         }
 
         try:
-            response = await AsyicXSearcher(
-                url,
-                post=True,
-                json=payload,
-                headers=headers
+            response = await AsyicXSearcher.search(
+                url, post=True, headers=headers, json=payload
             )
-            clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
+            if response:
+                clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
 
-            split_text = clean_text.split("\n\n", 2)
+                split_text = clean_text.split("\n\n", 2)
 
-            if len(split_text) >= 3:
-                content_after_second_newline = split_text[2]
+                if len(split_text) >= 3:
+                    content_after_second_newline = split_text[2]
+                else:
+                    content_after_second_newline = clean_text
+
+                blackbox_chat.append(payload["messages"] + [
+                    {
+                        "id": "XM7KpOE",
+                        "content": content_after_second_newline,
+                        "role": "assistant",
+                    }
+                ]
+                )
+                return {"answer": content_after_second_newline, "success": True}
             else:
-                content_after_second_newline = clean_text
+                return {"answer": "No Response", "success": False}
 
-            blackbox_chat.append({"id": "XM7KpOE", "content": content_after_second_newline, "role": "assistant"})
-            self._update_blackbox_chat_in_db(blackbox_chat)
+            await self._update_blackbox_chat_in_db(blackbox_chat)
 
-            return {"answer": content_after_second_newline, "success": True}
 
         except Exception as e:
             return {"results": str(e), "success": False}

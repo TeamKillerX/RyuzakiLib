@@ -27,6 +27,7 @@ from . import *
 from .__version__ import __version__
 from .api.fullstack import FullStackDev
 from .api.private import PrivateApiUrl
+from .api.reqs import AsyicXSearcher
 from .bot import *
 from .channels import *
 from .custom_api import CustomApi
@@ -37,6 +38,7 @@ from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
+from .hackertools.farfalle import FarFalle
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import Github
 from .hackertools.huggingface import BetaRag
@@ -105,4 +107,6 @@ __all__ = [
     "Blackbox",
     "Tiktok",
     "BetaRag",
+    "FarFalle",
+    "AsyicXSearcher",
 ]

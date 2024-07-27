@@ -1,5 +1,6 @@
 from .blackbox import *
 from .chatgpt import *
+from .farfalle import *
 from .gemini import *
 from .github import *
 from .huggingface import *

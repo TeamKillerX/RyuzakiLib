@@ -22,7 +22,7 @@ import requests
 
 class FullStackDev:
     @staticmethod
-    def fast(url, filename, type_mode: str = "wb"):
+    async def fast(url, filename, type_mode: str = "wb"):
         req = requests.get(url, allow_redirects=True)
         with open(filename, type_mode) as file:
             file.write(req.content)

@@ -6,21 +6,13 @@ from RyuzakiLib.api.fullstack import FullStackDev
 
 link_url = "https://example.jpg"
 
-FullStackDev(domain_url=link_url, filename="photo.jpg", type_mode="wb").faster_downloader()
+await FullStackDev.fast(url=link_url, filename="photo.jpg", type_mode="wb")
 ```
 - Now you've saved it, see for example photo.jpg
 
 * <b>parameter</b>
 - <code>filename="example.mp4"</code>
 - <code>type_mode="wb"</code>
-
-• <b>You can't do this</b>
-```python
-- FullStackDev().ryuzaki_get()
-- FullStackDev().ryuzaki_post()
-- FullStackDev().fastapi_get()
-- FullStackDev().faster_downloader()
-```
 
 * <b>Do something like example</b>
 ```python

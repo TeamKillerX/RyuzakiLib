@@ -144,7 +144,7 @@ class RendyDevChat:
         return downloaded_paths
 
     @staticmethod
-    def image_generator(args):
+    async def image_generator(args):
         url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
         headers = {"accept": "application/json", "api-key": API_KEYS}
         payload = {"query": args}

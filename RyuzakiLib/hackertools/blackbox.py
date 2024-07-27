@@ -98,7 +98,7 @@ class Blackbox:
                     }
                 ]
                 await self.save_conversation(user_id, new_conversation)
-                return return {"answer": response_content, "success": True}
+                return {"answer": response_content, "success": True}
             else:
                 return {"answer": "No Response", "success": False}
 

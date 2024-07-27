@@ -90,6 +90,7 @@ class RendyDevChat:
                 url,
                 post=True,
                 re_json=True,
+                headers=headers,
                 json=payload
             )
             return check_response["randydev"]["message"]

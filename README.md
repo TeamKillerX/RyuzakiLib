@@ -138,7 +138,7 @@ print(response)
 from RyuzakiLib import RendyDevChat
 
 query = "Cat in a Hat"
-response = RendyDevChat.image_generator(query)
+response = await RendyDevChat.image_generator(query)
 print(response)
 ```
 

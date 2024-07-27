@@ -1,5 +1,6 @@
 import aiohttp
 
+
 class AsyicXSearcher:
     """
     A class to handle asynchronous HTTP requests using aiohttp.

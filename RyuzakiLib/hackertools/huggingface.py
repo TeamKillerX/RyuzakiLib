@@ -6,6 +6,7 @@ from datetime import datetime as dt
 from huggingface_hub import InferenceClient
 from pymongo import MongoClient
 
+
 class BetaRag:
     def __init__(
         self,

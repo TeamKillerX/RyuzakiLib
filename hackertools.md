@@ -16,23 +16,8 @@ from pyrogram.types import Message
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 
 query = "Hello World"
-response = RendyDevChat(query).get_response(message, latest_version=True)
+response = await RendyDevChat.chat_hacked(query, latest_model="openai-v2")
 await message.reply(response)
-```
-
-### Chatgpt New?
-* Chatgpt's new features are available here
-- parameter
-
-```python
-from RyuzakiLib.hackertools.chatgpt import RendyDevChat
-
-query = "Hello World"
-code = RendyDevChat(query)
-message_output = code.get_response(message, latest_version=True)
-message_output_2 = code.get_response_beta(joke=True)
-message_output_3 = code.get_response_bing(bing=True)
-message_output_4 = code.get_response_model() # parameter model_id: integers and is_models: boolean
 ```
 
 ### Example Reverse
@@ -51,9 +36,9 @@ print(results)
 
 ### Github Info Data
 ```python
-# < class RyuzakiLib.hackertools.github.GithubUsername >
+# < class RyuzakiLib.hackertools.github.Github >
 
-hacking = await GithubUsername(username).get_github_data()
+hacking = await Github.username(username)
 # code here
 ```
 ### Ocr image to text
@@ -67,10 +52,9 @@ send = code.now_send_text()
 ```
 ### Whois Ip Address
 ```python
-# < class RyuzakiLib.hackertools.ipinfo.WhoisIpHacker >
+# < class RyuzakiLib.hackertools.ipinfo.MyIP >
 
-code = await WhoisIpHacker(1243003)
-test = code.get_ipaddres_data()
+response = await MyIP.hack(1243003)
 # code here
 ```
 

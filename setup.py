@@ -54,6 +54,7 @@ setuptools.setup(
         "gradio-client",
         "gradio",
         "huggingface_hub==0.22.2",
+        "motor",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

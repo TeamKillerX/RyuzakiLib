@@ -124,10 +124,10 @@ print(response.text)
 ```python
 from RyuzakiLib import RendyDevChat
 
-results = RendyDevChat.chat_hacked(latest_model="list-model", list_model_all=True)
+results = await RendyDevChat.chat_hacked(latest_model="list-model", list_model_all=True)
 print(results)
 
-response = RendyDevChat.chat_hacked("hello world")
+response = await RendyDevChat.chat_hacked("hello world")
 print(response)
 ```
 

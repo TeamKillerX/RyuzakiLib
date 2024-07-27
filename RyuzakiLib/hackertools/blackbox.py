@@ -33,9 +33,8 @@ class Blackbox:
         document = await self.collection.find_one(get_user_data)
         if document:
             await self.collection.update_one(
-		        {"_id": document["_id"]}, {"$set": {"blackbox_chat": blackbox_chat}}
+                {"_id": document["_id"]}, {"$set": {"blackbox_chat": blackbox_chat}}
             )
-
         else:
             await self.collection.insert_one(
                 {"user_id": self.user_id, "blackbox_chat": blackbox_chat}
@@ -59,6 +58,7 @@ class Blackbox:
             "userSystemPrompt": None,
         }
 
+        # Retrieve the chat history from the database and append to payload
         blackbox_chat = await self._get_blackbox_chat_from_db()
         payload["messages"] = blackbox_chat + payload["messages"]
 
@@ -75,7 +75,6 @@ class Blackbox:
             )
             if response:
                 clean_text = response.replace("$@$v=undefined-rv1$@$", "")
-
                 split_text = clean_text.split("\n\n", 2)
 
                 if len(split_text) >= 3:
@@ -83,20 +82,16 @@ class Blackbox:
                 else:
                     content_after_second_newline = clean_text
 
-                blackbox_chat.append(payload["messages"] + [
-                    {
-                        "id": "XM7KpOE",
-                        "content": content_after_second_newline,
-                        "role": "assistant",
-                    }
-                ]
-                )
+                # Update chat history with the new message from the assistant
+                blackbox_chat.append({
+                    "id": "XM7KpOE",
+                    "content": content_after_second_newline,
+                    "role": "assistant",
+                })
+                await self._update_blackbox_chat_in_db(blackbox_chat)
                 return {"answer": content_after_second_newline, "success": True}
             else:
                 return {"answer": "No Response", "success": False}
 
-            await self._update_blackbox_chat_in_db(blackbox_chat)
-
-
         except Exception as e:
-            return {"results": e, "success": False}
+            return {"results": str(e), "success": False}

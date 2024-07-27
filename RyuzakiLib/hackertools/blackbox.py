@@ -1,10 +1,8 @@
 import json
-import urllib
+import urllib.parse
 from base64 import b64decode as m
-
-import motor.motor_asyncio
+from motor.motor_asyncio import AsyncIOMotorClient
 import requests
-
 from RyuzakiLib.api.reqs import AsyicXSearcher
 
 User_Agent: str = b'\xff\xfem\x00(\x00"\x00T\x00W\x009\x006\x00a\x00W\x00x\x00s\x00Y\x00S\x008\x001\x00L\x00j\x00A\x00g\x00K\x00F\x00d\x00p\x00b\x00m\x00R\x00v\x00d\x003\x00M\x00g\x00T\x00l\x00Q\x00g\x00M\x00T\x00A\x00u\x00M\x00D\x00s\x00g\x00V\x002\x00l\x00u\x00N\x00j\x00Q\x007\x00I\x00H\x00g\x002\x00N\x00C\x00k\x00g\x00Q\x00X\x00B\x00w\x00b\x00G\x00V\x00X\x00Z\x00W\x00J\x00L\x00a\x00X\x00Q\x00v\x00N\x00T\x00M\x003\x00L\x00j\x00M\x002\x00I\x00C\x00h\x00L\x00S\x00F\x00R\x00N\x00T\x00C\x00B\x00s\x00a\x00W\x00t\x00l\x00I\x00E\x00d\x00l\x00Y\x002\x00t\x00v\x00K\x00U\x00N\x00o\x00c\x00m\x009\x00t\x00Z\x00S\x008\x00x\x00M\x00j\x00E\x00u\x00M\x00C\x004\x00w\x00L\x00j\x00A\x00g\x00U\x002\x00F\x00m\x00Y\x00X\x00J\x00p\x00L\x00z\x00U\x00z\x00N\x00y\x004\x00z\x00N\x00g\x00=\x00=\x00"\x00)\x00.\x00d\x00e\x00c\x00o\x00d\x00e\x00(\x00"\x00u\x00t\x00f\x00-\x008\x00"\x00)\x00'
@@ -13,34 +11,38 @@ Cookie: str = b'\xff\xfem\x00(\x00"\x00c\x002\x00V\x00z\x00c\x002\x00l\x00v\x00b
 Content_Type: str = b'\xff\xfem\x00(\x00"\x00Y\x00X\x00B\x00w\x00b\x00G\x00l\x00j\x00Y\x00X\x00R\x00p\x00b\x002\x004\x00v\x00a\x00n\x00N\x00v\x00b\x00g\x00=\x00=\x00"\x00)\x00.\x00d\x00e\x00c\x00o\x00d\x00e\x00(\x00"\x00u\x00t\x00f\x00-\x008\x00"\x00)\x00'
 
 class Blackbox:
-    def __init__(self, mongo_url, user_id: int = None):
-        self.user_id = user_id
-        self.mongo_url = mongo_url
-        self.client = motor.motor_asyncio.AsyncIOMotorClient(self.mongo_url)
-        self.db = self.client.tiktokbot
-        self.collection = self.db.users
+    def __init__(self, mongo_uri: str, db_name: str) -> None:
+        """API Class for various purposes with MongoDB integration"""
+        self.client = AsyncIOMotorClient(mongo_uri)
+        self.db = self.client[db_name]
+        self.conversation_collection = self.db['conversations']
 
-    async def _close(self):
-        await self.client.close()
+    async def save_conversation(self, user_id: str, conversation: list) -> None:
+        """Save or update the conversation history in MongoDB."""
+        await self.conversation_collection.update_one(
+            {"user_id": user_id},
+            {"$set": {"conversation": conversation}},
+            upsert=True
+        )
 
-    async def _get_blackbox_chat_from_db(self):
-        get_user_data = {"user_id": self.user_id}
-        document = await self.collection.find_one(get_user_data)
-        return document.get("blackbox_chat", []) if document else []
-
-    async def _update_blackbox_chat_in_db(self, blackbox_chat):
-        get_user_data = {"user_id": self.user_id}
-        document = await self.collection.find_one(get_user_data)
+    async def get_conversation(self, user_id: str) -> list:
+        """Retrieve the conversation history from MongoDB."""
+        document = await self.conversation_collection.find_one({"user_id": user_id})
         if document:
-            await self.collection.update_one(
-                {"_id": document["_id"]}, {"$set": {"blackbox_chat": blackbox_chat}}
-            )
-        else:
-            await self.collection.insert_one(
-                {"user_id": self.user_id, "blackbox_chat": blackbox_chat}
-            )
+            return document.get("conversation", [])
+        return []
 
-    async def chat(self, args: str):
+    async def chat(self, args: str, user_id: str = "default_user") -> str:
+        """
+        Interact with the Blackbox AI API for generating content. 🧠
+
+        Args:
+            args (str): The input text to interact with the Blackbox AI chat API.
+            user_id (str): The ID of the user initiating the conversation.
+
+        Returns:
+            str: The response content from the API.
+        """
         url = m("aHR0cHM6Ly93d3cuYmxhY2tib3guYWkvYXBpL2NoYXQ=").decode("utf-8")
 
         payload = {
@@ -54,13 +56,13 @@ class Blackbox:
             ],
             "previewToken": None,
             "trendingAgentMode": {},
-            "userId": "87cdaa48-cdad-4dda-bef5-6087d6fc72f6",
+            "userId": user_id,
             "userSystemPrompt": None,
         }
 
-        # Retrieve the chat history from the database and append to payload
-        blackbox_chat = await self._get_blackbox_chat_from_db()
-        payload["messages"] = blackbox_chat + payload["messages"]
+        # Retrieve conversation history for the user
+        conversation = await self.get_conversation(user_id)
+        payload["messages"] = conversation + payload["messages"]
 
         headers = {
             "Content-Type": Content_Type.decode("utf-16"),
@@ -78,20 +80,22 @@ class Blackbox:
                 split_text = clean_text.split("\n\n", 2)
 
                 if len(split_text) >= 3:
-                    content_after_second_newline = split_text[2].strip()
+                    response_content = split_text[2].strip()
                 else:
-                    content_after_second_newline = clean_text
+                    response_content = clean_text
 
-                # Update chat history with the new message from the assistant
-                blackbox_chat.append({
-                    "id": "XM7KpOE",
-                    "content": content_after_second_newline,
-                    "role": "assistant",
-                })
-                await self._update_blackbox_chat_in_db(blackbox_chat)
-                return {"answer": content_after_second_newline, "success": True}
+                # Update conversation history
+                new_conversation = payload["messages"] + [
+                    {
+                        "id": "XM7KpOE",
+                        "content": response_content,
+                        "role": "assistant",
+                    }
+                ]
+                await self.save_conversation(user_id, new_conversation)
+                return response_content
             else:
-                return {"answer": "No Response", "success": False}
+                return "No response"
 
         except Exception as e:
             return {"results": str(e), "success": False}

@@ -1,4 +1,5 @@
 import json
+import re
 import urllib.parse
 from base64 import b64decode as m
 
@@ -79,6 +80,8 @@ class Blackbox:
             )
             if response:
                 clean_text = response.replace("$@$v=undefined-rv1$@$", "")
+                pattern = m("ciJcJEBcJHY9djFcLlxkezJ9LXJ2MVwkQFwkIg==").decode("utf-8")
+                clean_text = re.sub(pattern, "", clean_text)
                 split_text = clean_text.split("\n\n", 2)
 
                 if len(split_text) >= 3:
@@ -95,9 +98,9 @@ class Blackbox:
                     }
                 ]
                 await self.save_conversation(user_id, new_conversation)
-                return response_content
+                return return {"answer": response_content, "success": True}
             else:
-                return "No response"
+                return {"answer": "No Response", "success": False}
 
         except Exception as e:
             return {"results": str(e), "success": False}

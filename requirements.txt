@@ -28,3 +28,4 @@ curl_cffi
 gradio-client
 gradio
 huggingface_hub==0.22.2
+motor

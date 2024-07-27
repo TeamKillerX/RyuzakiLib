@@ -1,8 +1,8 @@
 ### Carbon
 ```python
-# < class RyuzakiLib.extreme.carbon.CarbonSuper >
+# < class RyuzakiLib.extreme.carbon.Carbon >
 write = "Hello World"
-send_image = CarbonSuper(write)
+send_image = await Carbon.make_carbon(write)
 ```
 
 ### Carbon RaySo

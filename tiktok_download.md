@@ -1,6 +1,6 @@
 ### Tiktok Downloader
 ```python
-from RyuzakiLib.dl.tiktok import TiktokUrl
+from RyuzakiLib.dl.tiktok import Tiktok
 
 url = "https://www.tiktok.com/@memenyengir/video/7229996795965852955"
 

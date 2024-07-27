@@ -1,7 +1,157 @@
-import marshal
-import os
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright 2020-2023 (c) Randy W @xtdevs, @xtsea
+#
+# from : https://github.com/TeamKillerX
+# Channel : @RendyProjects
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-obfuscated_code = b'\xe3\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00@\x00\x00\x00s\x9a\x00\x00\x00d\x00d\x01l\x00Z\x00d\x00d\x01l\x01Z\x01d\x00d\x01l\x02Z\x02d\x00d\x02l\x00m\x03Z\x03\x01\x00d\x00d\x02l\x00m\x03Z\x04\x01\x00d\x00d\x03l\x05m\x06Z\x06\x01\x00d\x00d\x01l\x07Z\x07d\x00d\x04l\x08m\tZ\tm\nZ\n\x01\x00d\x00d\x05l\x0bm\x0cZ\x0c\x01\x00d\x00d\x06l\rm\x0eZ\x0e\x01\x00d\x00d\x07l\x0fm\x10Z\x10\x01\x00d\x00d\x08l\x11m\x12Z\x12\x01\x00d\tZ\x13G\x00d\nd\x0b\x84\x00d\x0b\x83\x02Z\x14d\x01S\x00)\x0c\xe9\x00\x00\x00\x00N)\x01\xda\tb64decode)\x01\xda\x08Optional)\x02\xda\x06Client\xda\x07filters)\x01\xda\x07Message)\x01\xda\x0cFullStackDev)\x01\xda\x0eAsyicXSearcher)\x01\xda\x08Blackbox\xda@29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49c\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x00@\x00\x00\x00sh\x00\x00\x00e\x00Z\x01d\x00Z\x02e\x03\t\x01\t\x02\t\x01\t\x03\t\x01\t\x04d\x11d\x05e\x04d\x06e\x04d\x07e\x05e\x06\x19\x00d\x08e\x05e\x06\x19\x00d\te\x05e\x04\x19\x00d\ne\x05e\x07\x19\x00f\x0cd\x0bd\x0c\x84\x05\x83\x01Z\x08e\x03d\rd\x0e\x84\x00\x83\x01Z\te\x03d\x0fd\x10\x84\x00\x83\x01Z\nd\x01S\x00)\x12\xda\x0cRendyDevChatN\xfa\ropenai-latestr\x01\x00\x00\x00F\xda\x04args\xda\x0clatest_model\xda\x08model_id\xda\x07user_id\xda\tmongo_url\xda\x0elist_model_allc\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x00\x07\x00\x00\x00\xc3\x00\x00\x00s\xa4\x01\x00\x00\x81\x01|\x01d\x01k\x02r\x1dd\x02}\x06d\x03|\x00i\x01}\x07t\x00j\x01|\x06d\x04d\x04|\x07d\x05\x8d\x04I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00|\x01d\x08k\x02r9d\t}\x06d\x03|\x00i\x01}\x07t\x00j\x01|\x06d\x04d\x04|\x07d\x05\x8d\x04I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00|\x01d\nk\x02rE|\x05rCd\x0b}\t|\tS\x00d\x0cS\x00|\x01d\rk\x02rjd\x0e}\x06|\x00|\x04|\x03d\x04d\x0f\x9c\x04}\nd\x10t\x02d\x11\x9c\x02}\x0bt\x00j\x01|\x06d\x04d\x04|\x0b|\nd\x12\x8d\x05I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00|\x01d\x13k\x02r\x8cd\x14}\x06|\x00|\x03d\x15\x9c\x02}\nd\x16d\x10i\x01}\x0bt\x00j\x01|\x06d\x04d\x04|\x0b|\nd\x12\x8d\x05I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00|\x01d\x17k\x02r\xaed\x18}\x06d\x10t\x02d\x11\x9c\x02}\x0bd\x03|\x00i\x01}\x07t\x00j\x01|\x06d\x04d\x04|\x0b|\x07d\x12\x8d\x05I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00|\x01d\x19k\x02r\xd0d\x1a}\x06d\x10t\x02d\x11\x9c\x02}\x0bd\x03|\x00i\x01}\x07t\x00j\x01|\x06d\x04d\x04|\x0b|\x07d\x12\x8d\x05I\x00d\x00H\x00}\x08|\x08d\x06\x19\x00d\x07\x19\x00S\x00d\x00S\x00)\x1bNz\topenai-v2z9https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old\xda\x05queryT)\x03\xda\x04post\xda\x07re_json\xda\x04json\xda\x08randydev\xda\x07message\xda\x08blackboxz6https://randydev-ryuzaki-api.hf.space/ryuzaki/blackboxz\nlist-modelz\x98\n                ```python\n                openai-v2\n                gemini-pro\n                google-ai\n                betagoogle-ai\n                z%you can check set list_model_all=Truez\ngemini-proz;https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro)\x04r\x13\x00\x00\x00r\x11\x00\x00\x00r\x10\x00\x00\x00\xda\ris_multi_chat\xfa\x10application/json\xa9\x02\xda\x06acceptz\x07api-key\xa9\x04r\x14\x00\x00\x00r\x15\x00\x00\x00\xda\x07headersr\x16\x00\x00\x00z\x08beta-ragz6https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag)\x02r\x13\x00\x00\x00r\x10\x00\x00\x00r\x1d\x00\x00\x00z\tgoogle-aiz7https://randydev-ryuzaki-api.hf.space/ryuzaki/google-aiz\rbetagoogle-aiz?https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai)\x03r\x08\x00\x00\x00\xda\x06search\xda\x08API_KEYS)\x0cr\r\x00\x00\x00r\x0e\x00\x00\x00r\x0f\x00\x00\x00r\x10\x00\x00\x00r\x11\x00\x00\x00r\x12\x00\x00\x00\xda\x03url\xda\x06params\xda\x0echeck_response\xda\x04text\xda\x07payloadr\x1f\x00\x00\x00\xa9\x00r\'\x00\x00\x00\xfa\x14downloads/chatgpt.py\xda\x0bchat_hacked&\x00\x00\x00s\xa2\x00\x00\x00\x02\x80\x08\t\x04\x01\x08\x01\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfc\x0c\x06\x08\x01\x04\x01\x08\x01\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfc\x0c\x06\x08\x01\x04\x01\x04\x01\x04\x07\x04\x02\x08\x01\x04\x01\x02\x02\x02\x01\x02\x01\x02\x01\x06\xfc\n\x06\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfb\x0c\x07\x08\x01\x04\x01\x02\x02\x02\x01\x06\xfe\x08\x04\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfb\x0c\x07\x08\x01\x04\x01\n\x01\x08\x01\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfb\x0c\x07\x08\x01\x04\x01\n\x01\x08\x01\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfb\x0c\x07\x04\xf5z\x18RendyDevChat.chat_hackedc\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x05\x00\x00\x00C\x00\x00\x00sB\x00\x00\x00g\x00}\x01t\x00|\x00d\x01d\x02\x8d\x02D\x00]\x11\\\x02}\x02}\x03d\x03|\x02\x9b\x00d\x04\x9d\x03}\x04t\x01j\x02|\x03|\x04d\x05\x8d\x02\x01\x00q\x08|\x01\xa0\x03|\x04\xa1\x01\x01\x00|\x01S\x00)\x06N\xe9\x01\x00\x00\x00)\x01\xda\x05start\xda\x06image_z\x04.png)\x01\xda\x08filename)\x04\xda\tenumerater\x07\x00\x00\x00\xda\x04fast\xda\x06append)\x05\xda\nimage_urls\xda\x10downloaded_paths\xda\x01ir"\x00\x00\x00r-\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r(\x00\x00\x00\xda\x0fdownload_images\x88\x00\x00\x00s\x0c\x00\x00\x00\x04\x02\x14\x01\x0c\x01\x10\x01\n\x01\x04\x01z\x1cRendyDevChat.download_imagesc\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x07\x00\x00\x00\xc3\x00\x00\x00s6\x00\x00\x00\x81\x01d\x01}\x01d\x02t\x00d\x03\x9c\x02}\x02d\x04|\x00i\x01}\x03t\x01j\x02|\x01d\x05d\x05|\x02|\x03d\x06\x8d\x05I\x00d\x00H\x00}\x04|\x04S\x00)\x07Nz6https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xlr\x1b\x00\x00\x00r\x1c\x00\x00\x00r\x13\x00\x00\x00Tr\x1e\x00\x00\x00)\x03r!\x00\x00\x00r\x08\x00\x00\x00r \x00\x00\x00)\x05r\r\x00\x00\x00r"\x00\x00\x00r\x1f\x00\x00\x00r&\x00\x00\x00r$\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r(\x00\x00\x00\xda\x0fimage_generator\x91\x00\x00\x00s\x18\x00\x00\x00\x02\x80\x04\x02\n\x01\x08\x01\x04\x01\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x0c\xfb\x04\x07z\x1cRendyDevChat.image_generator)\x06Nr\x0c\x00\x00\x00Nr\x01\x00\x00\x00NF)\x0b\xda\x08__name__\xda\n__module__\xda\x0c__qualname__\xda\x0cstaticmethod\xda\x03strr\x03\x00\x00\x00\xda\x03int\xda\x04boolr)\x00\x00\x00r4\x00\x00\x00r5\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r(\x00\x00\x00r\x0b\x00\x00\x00%\x00\x00\x00s2\x00\x00\x00\x08\x00\x02\x01\x02\x02\x02\x01\x02\x01\x02\x01\x02\x01\x02\x01\x04\xfa\x02\x01\x02\xff\x02\x02\x02\xfe\x06\x03\x02\xfd\x06\x04\x02\xfc\x06\x05\x02\xfb\x06\x06\x0c\xfa\x02a\n\x01\x02\x08\x0e\x01r\x0b\x00\x00\x00)\x15\xda\x06base64r\x16\x00\x00\x00\xda\x02osr\x02\x00\x00\x00\xda\x03idk\xda\x06typingr\x03\x00\x00\x00\xda\x08requests\xda\x08pyrogramr\x04\x00\x00\x00r\x05\x00\x00\x00Z\x0epyrogram.typesr\x06\x00\x00\x00Z\x18RyuzakiLib.api.fullstackr\x07\x00\x00\x00\xda\x13RyuzakiLib.api.reqsr\x08\x00\x00\x00Z\x1fRyuzakiLib.hackertools.blackboxr\t\x00\x00\x00r!\x00\x00\x00r\x0b\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r\'\x00\x00\x00r(\x00\x00\x00\xda\x08<module>\x01\x00\x00\x00s\x1c\x00\x00\x00\x08\x13\x08\x01\x08\x01\x0c\x01\x0c\x01\x0c\x01\x08\x02\x10\x01\x0c\x01\x0c\x02\x0c\x01\x0c\x01\x04\x02\x12\x02'
- 
-loaded_code = marshal.loads(obfuscated_code)
-exec(loaded_code)
+import base64
+import json
+import os
+from base64 import b64decode
+from base64 import b64decode as idk
+from typing import Optional
+
+import requests
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+from RyuzakiLib.api.fullstack import FullStackDev
+from RyuzakiLib.api.reqs import AsyicXSearcher
+from RyuzakiLib.hackertools.blackbox import Blackbox
+
+API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
+
+class RendyDevChat:
+    @staticmethod
+    async def chat_hacked(
+        args: str = None,
+        latest_model: str = "openai-latest",
+        model_id: Optional[int] = None,
+        user_id: Optional[int] = 0,
+        mongo_url: Optional[str] = None,
+        list_model_all: Optional[bool] = False
+    ):
+        if latest_model == "openai-v2":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
+            params = {"query": args}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "blackbox":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/blackbox"
+            params = {"query": args}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "list-model":
+            if list_model_all:
+                text = """
+                ```python
+                openai-v2
+                gemini-pro
+                google-ai
+                betagoogle-ai
+                """
+                return text
+            else:
+                return "you can check set list_model_all=True"
+        elif latest_model == "gemini-pro":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
+            payload = {
+                "query": args,
+                "mongo_url": mongo_url,
+                "user_id": user_id,
+                "is_multi_chat": True
+            }
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "beta-rag":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag"
+            payload = {
+                "query": args,
+                "user_id": user_id
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "google-ai":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "betagoogle-ai":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+
+    @staticmethod
+    def download_images(image_urls):
+        downloaded_paths = []
+        for i, url in enumerate(image_urls, start=1):
+            filename = f"image_{i}.png"
+            FullStackDev.fast(url, filename=filename)
+        downloaded_paths.append(filename)
+        return downloaded_paths
+
+    @staticmethod
+    async def image_generator(args):
+        url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
+        headers = {"accept": "application/json", "api-key": API_KEYS}
+        payload = {"query": args}
+        check_response = await AsyicXSearcher.search(
+            url,
+            post=True,
+            re_json=True,
+            headers=headers,
+            json=payload
+        )
+        return check_response

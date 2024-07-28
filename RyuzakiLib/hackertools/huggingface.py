@@ -4,13 +4,13 @@
 from datetime import datetime as dt
 
 from huggingface_hub import InferenceClient
-from pymongo import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class BetaRag:
     def __init__(
         self,
-        clients_name: str = b"\xff\xfeH\x00u\x00g\x00g\x00i\x00n\x00g\x00F\x00a\x00c\x00e\x00H\x004\x00/\x00z\x00e\x00p\x00h\x00y\x00r\x00-\x007\x00b\x00-\x00b\x00e\x00t\x00a\x00",
+        clients_name: str = "microsoft/Phi-3-mini-4k-instruct",
         token: str = None,
         user_id: str = None,
         mongo_url: str = None
@@ -19,16 +19,16 @@ class BetaRag:
         self.token = token
         self.user_id = user_id
         self.mongo_url = mongo_url
-        self.client = MongoClient(self.mongo_url)
+        self.client = AsyncIOMotorClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
 
-    def _get_rag_chat_from_db(self):
+    async def _get_rag_chat_from_db(self):
         get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
+        document = await self.collection.find_one(get_data_user)
         return document.get("rag_chat", []) if document else []
 
-    def _update_rag_chat_in_db(self, rag_chat):
+    async def _update_rag_chat_in_db(self, rag_chat):
         get_data_user = {"user_id": self.user_id}
         document = self.collection.find_one(get_data_user)
         if document:
@@ -36,16 +36,16 @@ class BetaRag:
         else:
             self.collection.insert_one({"user_id": self.user_id, "rag_chat": rag_chat})
 
-    def _clear_history_in_db(self):
+    async def _clear_history_in_db(self):
         unset_clear = {"rag_chat": None}
-        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
+        return await self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
-    def rag_chat(self, args):
+    async def rag_chat(self, args):
         try:
-            rag_chat = self._get_rag_chat_from_db()
+            rag_chat = await self._get_rag_chat_from_db()
             rag_chat.append({"role": "user", "content": args})
             client_face = InferenceClient(
-                self.clients_name.decode("utf-16"),
+                self.clients_name,
                 token=self.token
             )
             answer = ""
@@ -56,7 +56,7 @@ class BetaRag:
             ):
                 answer += messages.choices[0].delta.content
             rag_chat.append({"role": "assistant", "content": answer})
-            self._update_rag_chat_in_db(rag_chat)
+            await self._update_rag_chat_in_db(rag_chat)
+            return answer
         except:
             pass
-        return answer

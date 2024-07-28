@@ -93,11 +93,56 @@ class RendyDevChat:
                 json=payload
             )
             return check_response["randydev"]["message"]
-        elif latest_model == "beta-rag":
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag"
+        elif latest_model == "microsoft":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
                 "query": args,
-                "user_id": user_id
+                "clients_name": "microsoft/Phi-3-mini-4k-instruct",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "gemma":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "google/gemma-1.1-7b-it",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "mistralai":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "faceh4":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "HuggingFaceH4/zephyr-7b-beta",
             }
             headers = {"accept": "application/json"}
             check_response = await AsyicXSearcher.search(

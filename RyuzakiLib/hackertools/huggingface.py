@@ -7,7 +7,7 @@ from huggingface_hub import InferenceClient
 from motor.motor_asyncio import AsyncIOMotorClient
 
 
-class BetaRag:
+class FaceAI:
     def __init__(
         self,
         clients_name: str = "microsoft/Phi-3-mini-4k-instruct",
@@ -40,7 +40,7 @@ class BetaRag:
         unset_clear = {"rag_chat": None}
         return await self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
-    async def rag_chat(self, args):
+    async def chat(self, args):
         try:
             rag_chat = await self._get_rag_chat_from_db()
             rag_chat.append({"role": "user", "content": args})

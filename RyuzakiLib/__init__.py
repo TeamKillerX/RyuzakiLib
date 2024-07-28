@@ -41,7 +41,7 @@ from .hackertools.chatgpt import RendyDevChat
 from .hackertools.farfalle import FarFalle
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import Github
-from .hackertools.huggingface import BetaRag
+from .hackertools.huggingface import FaceAI
 from .hackertools.ipinfo import MyIP
 from .hackertools.ocrapi import OcrApiUrl
 from .hackertools.openai_api import OpenAiToken
@@ -106,7 +106,7 @@ __all__ = [
     "QuoteRandom",
     "Blackbox",
     "Tiktok",
-    "BetaRag",
+    "FaceAI",
     "FarFalle",
     "AsyicXSearcher",
 ]

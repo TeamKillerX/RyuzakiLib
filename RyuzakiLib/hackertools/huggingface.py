@@ -40,23 +40,33 @@ class FaceAI:
         unset_clear = {"rag_chat": None}
         return await self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
-    async def chat(self, args):
+    async def chat(self, args, no_db=False):
         try:
-            rag_chat = await self._get_rag_chat_from_db()
-            rag_chat.append({"role": "user", "content": args})
             client_face = InferenceClient(
                 self.clients_name,
                 token=self.token
             )
-            answer = ""
-            for messages in client_face.chat_completion(
-                messages=rag_chat,
-                max_tokens=500,
-                stream=True
-            ):
-                answer += messages.choices[0].delta.content
-            rag_chat.append({"role": "assistant", "content": answer})
-            await self._update_rag_chat_in_db(rag_chat)
-            return answer
+            if no_db:
+                answer = ""
+                for messages in client_face.chat_completion(
+                    messages=[{"role": "user", "content": args}],
+                    max_tokens=500,
+                    stream=True
+                ):
+                    answer += messages.choices[0].delta.content
+                return answer
+            else:
+                rag_chat = await self._get_rag_chat_from_db()
+                rag_chat.append({"role": "user", "content": args})
+                answer = ""
+                for messages in client_face.chat_completion(
+                    messages=rag_chat,
+                    max_tokens=500,
+                    stream=True
+                ):
+                    answer += messages.choices[0].delta.content
+                rag_chat.append({"role": "assistant", "content": answer})
+                await self._update_rag_chat_in_db(rag_chat)
+                return answer
         except:
             pass

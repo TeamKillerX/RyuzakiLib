@@ -180,6 +180,18 @@ class RendyDevChat:
         elif latest_model == "gpt-4-turbo":
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-custom"
             headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args, "model": "gpt-4-turbo"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "gpt-4o":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-4o"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
             params = {"query": args}
             check_response = await AsyicXSearcher.search(
                 url,

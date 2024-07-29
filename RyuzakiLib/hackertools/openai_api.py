@@ -131,12 +131,12 @@ class OpenAI:
                         content = token["choices"][0]["delta"].get("content")
                         if content is not None:
                             answer += content
-                    openai_chat.append({"role": "assistant", "content": answer})
-                    await self._update_openai_chat_in_db(openai_chat)
-                return answer, openai_chat
+                openai_chat.append({"role": "assistant", "content": answer})
+                await self._update_openai_chat_in_db(openai_chat)
+                return answer
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
-                return errros_msg, openai_chat
+                return errros_msg
         else:
             openai_chat = await self._get_openai_chat_from_db()
             openai_chat.append({"role": "user", "content": query})
@@ -235,10 +235,10 @@ class OpenAI:
                 answer = chat_completion.choices[0].message.content
             else:
                 answer = ""
-            for token in chat_completion:
-                content = token["choices"][0]["delta"].get("content")
-                if content is not None:
-                    answer += content
+                for token in chat_completion:
+                    content = token["choices"][0]["delta"].get("content")
+                    if content is not None:
+                        answer += content
             gpt_conversation_history.append({"role": "assistant", "content": answer})
             return answer
         except Exception as e:

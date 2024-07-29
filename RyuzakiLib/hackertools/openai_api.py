@@ -47,8 +47,8 @@ list_user_agent = [
 class OpenAI:
     def __init__(
         self,
-        api_key: str = None,
-        api_base: str = "https://api.openai.com/v1",
+        api_key: str = "",
+        api_base: str = None, #https://api.openai.com/v1
         mongo_url: str = None,
         user_id: int = None
     ):

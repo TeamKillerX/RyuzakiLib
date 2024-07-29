@@ -25,7 +25,7 @@ import g4f
 import openai
 import requests
 from g4f.Provider import Bard
-from pymongo import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient
 
 gpt3_conversation_history = []
 
@@ -56,14 +56,14 @@ class OpenAiToken:
         self.api_base = api_base
         self.user_id = user_id
         self.mongo_url = mongo_url
-        self.client = MongoClient(self.mongo_url)
+        self.client = AsyncIOMotorClient(self.mongo_url)
         self.db = self.client.tiktokbot
         self.collection = self.db.users
         openai.api_key = self.api_key
         openai.api_base = self.api_base
 
-    def continue_conversation(self, user_message: str = None):
-        openai_chat = self._get_openai_chat_from_db()
+    async def continue_conversation(self, user_message: str = None):
+        openai_chat = await self._get_openai_chat_from_db()
         openai_chat.append({"role": "user", "content": user_message})
         try:
             response = openai.ChatCompletion.create(
@@ -73,30 +73,30 @@ class OpenAiToken:
             )
             assistant_reply = response["choices"][0].message.content
             openai_chat.append({"role": "assistant", "content": assistant_reply})
-            self._update_openai_chat_in_db(openai_chat)
-            return assistant_reply, openai_chat
+            await self._update_openai_chat_in_db(openai_chat)
+            return assistant_reply
         except Exception as e:
             error_msg = f"Error response: {e}"
-            return error_msg, openai_chat
+            return error_msg
 
-    def _get_openai_chat_from_db(self):
+    async def _get_openai_chat_from_db(self):
         get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
+        document = await self.collection.find_one(get_data_user)
         return document.get("openai_chat", []) if document else []
 
-    def _update_openai_chat_in_db(self, openai_chat):
+    async def _update_openai_chat_in_db(self, openai_chat):
         get_data_user = {"user_id": self.user_id}
-        document = self.collection.find_one(get_data_user)
+        document = await self.collection.find_one(get_data_user)
         if document:
-            self.collection.update_one({"_id": document["_id"]}, {"$set": {"openai_chat": openai_chat}})
+            await self.collection.update_one({"_id": document["_id"]}, {"$set": {"openai_chat": openai_chat}})
         else:
-            self.collection.insert_one({"user_id": self.user_id, "openai_chat": openai_chat})
+            await self.collection.insert_one({"user_id": self.user_id, "openai_chat": openai_chat})
 
-    def _clear_history_in_db(self):
+    async def _clear_history_in_db(self):
         unset_clear = {"openai_chat": None}
-        return self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
+        return await self.collection.update_one({"user_id": self.user_id}, {"$unset": unset_clear})
 
-    def message_output(self, query: str = None):
+    async def message_output(self, query: str = None):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=f"{query}\n:",
@@ -108,14 +108,14 @@ class OpenAiToken:
         )
         return response
 
-    def chat_message_turbo(
+    async def chat_message_turbo(
         self,
         query: str = None,
         model: str = "gpt-3.5-turbo",
         is_stream=False
     ):
         if is_stream:
-            openai_chat = self._get_openai_chat_from_db()
+            openai_chat = await self._get_openai_chat_from_db()
             openai_chat.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
@@ -132,13 +132,13 @@ class OpenAiToken:
                         if content is not None:
                             answer += content
                     openai_chat.append({"role": "assistant", "content": answer})
-                    self._update_openai_chat_in_db(openai_chat)
+                    await self._update_openai_chat_in_db(openai_chat)
                 return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
                 return errros_msg, openai_chat
         else:
-            openai_chat = self._get_openai_chat_from_db()
+            openai_chat = await self._get_openai_chat_from_db()
             openai_chat.append({"role": "user", "content": query})
             try:
                 chat_completion = openai.ChatCompletion.create(
@@ -147,13 +147,13 @@ class OpenAiToken:
                 )
                 answer = chat_completion["choices"][0].message.content
                 openai_chat.append({"role": "assistant", "content": answer})
-                self._update_openai_chat_in_db(openai_chat)
-                return answer, openai_chat
+                await self._update_openai_chat_in_db(openai_chat)
+                return answer
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
-                return errros_msg, openai_chat
+                return errros_msg
 
-    def chat_message_api(
+    async def chat_message_api(
         self,
         query: str = None,
         default_url: Optional[str] = None,
@@ -203,10 +203,10 @@ class OpenAiToken:
                     else response_data["error"]
                 )
                 continue_conversations.append({"role": "assistant", "content": answer})
-                return [answer, continue_conversations]
+                return answer
             else:
                 answer = "Not responding: Not Found Results"
-                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+                return answer
         else:
             if need_auth_cookies:
                 selected_new_model = g4f.models.default or model
@@ -217,10 +217,10 @@ class OpenAiToken:
                     cookies={"__Secure-1PSID": bard_api_key},
                     auth=True,
                 )
-                return [new_response, continue_conversations]
+                return new_response
             else:
                 answer = "Not responding: Not Found Results"
-                return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+                return answer
 
             async def api_chat(self, query, model):
                 gpt_conversation_history = []
@@ -244,11 +244,11 @@ class OpenAiToken:
                 except Exception as e:
                     return f"Error requests: {e}"
 
-    def photo_output(self, query: str = None):
+    async def photo_output(self, query: str = None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")
         return response["data"][0]["url"]
 
-    def client_images_generate(
+    async def client_images_generate(
         self,
         query: str = None,
         model: str = "dall-e-3",
@@ -261,7 +261,7 @@ class OpenAiToken:
         )
         return chat_image_generate
 
-    def audio_transcribe(self, file_path):
+    async def audio_transcribe(self, file_path):
         with open(file_path, "rb") as path:
             transcript = openai.Audio.transcribe("whisper-1", path)
         return transcript

@@ -178,7 +178,7 @@ class RendyDevChat:
             )
             return check_response["randydev"]["message"]
         elif latest_model == "gpt-4-turbo":
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-custom"
             headers = {"accept": "application/json", "api-key": API_KEYS}
             params = {"query": args}
             check_response = await AsyicXSearcher.search(

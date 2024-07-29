@@ -25,6 +25,7 @@ from base64 import b64decode as idk
 from typing import Optional
 
 import requests
+from g4f.client import Client
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -93,11 +94,56 @@ class RendyDevChat:
                 json=payload
             )
             return check_response["randydev"]["message"]
-        elif latest_model == "beta-rag":
-            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/beta-rag"
+        elif latest_model == "microsoft":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
                 "query": args,
-                "user_id": user_id
+                "clients_name": "microsoft/Phi-3-mini-4k-instruct",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "gemma":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "google/gemma-1.1-7b-it",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "mistralai":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+            }
+            headers = {"accept": "application/json"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=payload
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "faceh4":
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
+            payload = {
+                "query": args,
+                "clients_name": "HuggingFaceH4/zephyr-7b-beta",
             }
             headers = {"accept": "application/json"}
             check_response = await AsyicXSearcher.search(
@@ -132,6 +178,25 @@ class RendyDevChat:
                 json=params
             )
             return check_response["randydev"]["message"]
+        elif latest_model == "gpt-4-turbo":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-custom"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args, "model": "gpt-4-turbo"}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=params
+            )
+            return check_response["randydev"]["message"]
+        elif latest_model == "gpt-4o":
+            client = Client()
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": args}],
+            )
+            return response.choices[0].message.content
 
     @staticmethod
     def download_images(image_urls):

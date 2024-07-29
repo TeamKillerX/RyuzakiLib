@@ -41,10 +41,10 @@ from .hackertools.chatgpt import RendyDevChat
 from .hackertools.farfalle import FarFalle
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import Github
-from .hackertools.huggingface import BetaRag
+from .hackertools.huggingface import FaceAI
 from .hackertools.ipinfo import MyIP
 from .hackertools.ocrapi import OcrApiUrl
-from .hackertools.openai_api import OpenAiToken
+from .hackertools.openai_api import OpenAI
 from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
@@ -85,7 +85,7 @@ __all__ = [
     "RendyDevChat",
     "GeminiLatest",
     "Github",
-    "OpenAiToken",
+    "OpenAI",
     "CustomPrefixes",
     "GoogleReverseImage",
     "Background",
@@ -106,7 +106,7 @@ __all__ = [
     "QuoteRandom",
     "Blackbox",
     "Tiktok",
-    "BetaRag",
+    "FaceAI",
     "FarFalle",
     "AsyicXSearcher",
 ]

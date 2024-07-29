@@ -124,10 +124,10 @@ print(response.text)
 ```python
 from RyuzakiLib import RendyDevChat
 
-results = RendyDevChat.chat_hacked(latest_model="list-model", list_model_all=True)
+results = await RendyDevChat.chat_hacked(latest_model="list-model", list_model_all=True)
 print(results)
 
-response = RendyDevChat.chat_hacked("hello world")
+response = await RendyDevChat.chat_hacked("hello world")
 print(response)
 ```
 
@@ -138,7 +138,7 @@ print(response)
 from RyuzakiLib import RendyDevChat
 
 query = "Cat in a Hat"
-response = RendyDevChat.image_generator(query)
+response = await RendyDevChat.image_generator(query)
 print(response)
 ```
 
@@ -252,7 +252,7 @@ from RyuzakiLib import BetaRag
 
 x = BetaRag(token="api key", user_id=0, mongo_url="your mongo")
 
-response = x.rag_chat("how to javascript code?")
+response = await x.rag_chat("how to javascript code?")
 print(response)
 ```
 
@@ -275,7 +275,7 @@ print(response)
 ## Authentication
 > **Warning** Do not expose the `__Secure-1PSID`
 ```python
-import requests
+from RyuzakiLib.api.reqs import AsyicXSearcher
 
 url ="https://randydev-ryuzaki-api.hf.space/ryuzaki/gemini-ai-pro"
 
@@ -288,7 +288,8 @@ payload = {
 headers = {
     "accept": "application/json",
 }
-response = requests.post(url, headers=headers, json=payload).json()
+
+response = await AsyicXSearcher.search(url, post=True, re_json=True, headers=headers, json=payload)
 print(response)
 ```
 

@@ -25,13 +25,13 @@ from base64 import b64decode as idk
 from typing import Optional
 
 import requests
+from g4f.client import Client
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from RyuzakiLib.api.fullstack import FullStackDev
 from RyuzakiLib.api.reqs import AsyicXSearcher
 from RyuzakiLib.hackertools.blackbox import Blackbox
-from g4f.client import Client
 
 API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
 

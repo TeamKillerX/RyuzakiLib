@@ -177,6 +177,18 @@ class RendyDevChat:
                 json=params
             )
             return check_response["randydev"]["message"]
+        elif latest_model == "gpt-4-turbo":
+            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
+            headers = {"accept": "application/json", "api-key": API_KEYS}
+            params = {"query": args}
+            check_response = await AsyicXSearcher.search(
+                url,
+                post=True,
+                re_json=True,
+                headers=headers,
+                json=params
+            )
+            return check_response["randydev"]["message"]
 
     @staticmethod
     def download_images(image_urls):

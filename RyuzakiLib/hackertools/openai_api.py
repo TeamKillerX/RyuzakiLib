@@ -222,27 +222,27 @@ class OpenAI:
                 answer = "Not responding: Not Found Results"
                 return answer
 
-            async def api_chat(self, query, model):
-                gpt_conversation_history = []
-                gpt_conversation_history.append({"role": "user", "content": query})
-                try:
-                    chat_completion = openai.ChatCompletion.create(
-                        model=model,
-                        messages=gpt_conversation_history,
-                        stream=False
-                    )
-                    if isinstance(chat_completion, dict):
-                        answer = chat_completion.choices[0].message.content
-                    else:
-                        answer = ""
-                    for token in chat_completion:
-                        content = token["choices"][0]["delta"].get("content")
-                        if content is not None:
-                            answer += content
-                    gpt_conversation_history.append({"role": "assistant", "content": answer})
-                    return answer
-                except Exception as e:
-                    return f"Error requests: {e}"
+    async def api_chat(self, query, model):
+        gpt_conversation_history = []
+        gpt_conversation_history.append({"role": "user", "content": query})
+        try:
+            chat_completion = openai.ChatCompletion.create(
+                model=model,
+                messages=gpt_conversation_history,
+                stream=False
+            )
+            if isinstance(chat_completion, dict):
+                answer = chat_completion.choices[0].message.content
+            else:
+                answer = ""
+            for token in chat_completion:
+                content = token["choices"][0]["delta"].get("content")
+                if content is not None:
+                    answer += content
+            gpt_conversation_history.append({"role": "assistant", "content": answer})
+            return answer
+        except Exception as e:
+            return f"Error requests: {e}"
 
     async def photo_output(self, query: str = None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

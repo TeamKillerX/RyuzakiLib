@@ -31,6 +31,7 @@ from pyrogram.types import Message
 from RyuzakiLib.api.fullstack import FullStackDev
 from RyuzakiLib.api.reqs import AsyicXSearcher
 from RyuzakiLib.hackertools.blackbox import Blackbox
+from g4f.client import Client
 
 API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
 
@@ -190,17 +191,12 @@ class RendyDevChat:
             )
             return check_response["randydev"]["message"]
         elif latest_model == "gpt-4o":
-            url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-4o"
-            headers = {"accept": "application/json", "api-key": API_KEYS}
-            params = {"query": args}
-            check_response = await AsyicXSearcher.search(
-                url,
-                post=True,
-                re_json=True,
-                headers=headers,
-                json=params
+            client = Client()
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": args}],
             )
-            return check_response["randydev"]["message"]
+            return response.choices[0].message.content
 
     @staticmethod
     def download_images(image_urls):

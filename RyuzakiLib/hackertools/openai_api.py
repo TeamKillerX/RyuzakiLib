@@ -131,8 +131,8 @@ class OpenAiToken:
                         content = token["choices"][0]["delta"].get("content")
                         if content is not None:
                             answer += content
-                            openai_chat.append({"role": "assistant", "content": answer})
-                            self._update_openai_chat_in_db(openai_chat)
+                    openai_chat.append({"role": "assistant", "content": answer})
+                    self._update_openai_chat_in_db(openai_chat)
                 return answer, openai_chat
             except Exception:
                 errros_msg = f"Error responding: API long time (timeout 600)"
@@ -221,6 +221,28 @@ class OpenAiToken:
             else:
                 answer = "Not responding: Not Found Results"
                 return [answer, "https://telegra.ph//file/32f69c18190666ea96553.jpg"]
+
+            async def api_chat(self, query, model):
+                gpt_conversation_history = []
+                gpt_conversation_history.append({"role": "user", "content": query})
+                try:
+                    chat_completion = openai.ChatCompletion.create(
+                        model=model,
+                        messages=gpt_conversation_history,
+                        stream=False
+                    )
+                    if isinstance(chat_completion, dict):
+                        answer = chat_completion.choices[0].message.content
+                    else:
+                        answer = ""
+                    for token in chat_completion:
+                        content = token["choices"][0]["delta"].get("content")
+                        if content is not None:
+                            answer += content
+                    gpt_conversation_history.append({"role": "assistant", "content": answer})
+                    return answer
+                except Exception as e:
+                    return f"Error requests: {e}"
 
     def photo_output(self, query: str = None):
         response = openai.Image.create(prompt=query, n=1, size="1024x1024")

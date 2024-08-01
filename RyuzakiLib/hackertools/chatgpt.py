@@ -25,7 +25,7 @@ from base64 import b64decode as idk
 from typing import Optional
 
 import requests
-from g4f.client import Client
+from g4f.client import Client as Clients_g4f
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
@@ -191,8 +191,8 @@ class RendyDevChat:
             )
             return check_response["randydev"]["message"]
         elif latest_model == "gpt-4o":
-            client = Client()
-            response = client.chat.completions.create(
+            clients_x = Clients_g4f()
+            response = clients_x.chat.completions.create(
                 model="gpt-4o",
                 messages=[{"role": "user", "content": args}],
             )

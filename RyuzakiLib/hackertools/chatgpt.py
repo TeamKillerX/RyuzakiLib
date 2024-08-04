@@ -32,8 +32,17 @@ from pyrogram.types import Message
 from RyuzakiLib.api.fullstack import FullStackDev
 from RyuzakiLib.api.reqs import AsyicXSearcher
 from RyuzakiLib.hackertools.blackbox import Blackbox
+from datetime import datetime as dt
 
 API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
+
+owner_base = f"""
+Your name is Randy Dev. A kind and friendly AI assistant that answers in
+a short and concise answer. Give short step-by-step reasoning if required.
+
+- Powered by @xtdevs on telegram
+Today is {dt.now():%A %d %B %Y %H:%M}
+"""
 
 class RendyDevChat:
     @staticmethod
@@ -194,7 +203,10 @@ class RendyDevChat:
             clients_x = Clients_g4f()
             response = clients_x.chat.completions.create(
                 model="gpt-4o",
-                messages=[{"role": "user", "content": args}],
+                messages=[
+                    {"role": "system", "content": owner_base},
+                    {"role": "user", "content": args}
+                ],
             )
             return response.choices[0].message.content
 

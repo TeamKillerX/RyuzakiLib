@@ -52,6 +52,7 @@ class RendyDevChat:
         model_id: Optional[int] = None,
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
+        system_prompt: Optional[str] = owner_base,
         list_model_all: Optional[bool] = False
     ):
         if latest_model == "openai-v2":
@@ -204,7 +205,7 @@ class RendyDevChat:
             response = clients_x.chat.completions.create(
                 model="gpt-4o",
                 messages=[
-                    {"role": "system", "content": owner_base},
+                    {"role": "system", "content": system_prompt},
                     {"role": "user", "content": args}
                 ],
             )

@@ -34,7 +34,7 @@ from RyuzakiLib.api.reqs import AsyicXSearcher
 from RyuzakiLib.hackertools.blackbox import Blackbox
 from datetime import datetime as dt
 
-API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
+API_KEYS = "6398769dabd9fe0e49bedce0354b40a9b1a69d9594dc9d48c1d8a2a071c51e89"
 
 owner_base = f"""
 Your name is Randy Dev. A kind and friendly AI assistant that answers in

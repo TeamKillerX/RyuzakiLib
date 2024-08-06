@@ -29,6 +29,7 @@ from .api.fullstack import FullStackDev
 from .api.private import PrivateApiUrl
 from .api.reqs import AsyicXSearcher
 from .api.yohasakura import SearchAPI
+from .api.jiosaavn import Jiosaavn
 from .bot import *
 from .channels import *
 from .custom_api import CustomApi
@@ -111,4 +112,5 @@ __all__ = [
     "FarFalle",
     "AsyicXSearcher",
     "SearchAPI",
+    "Jiosaavn",
 ]

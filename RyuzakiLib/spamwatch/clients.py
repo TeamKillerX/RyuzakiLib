@@ -25,7 +25,7 @@ import requests
 class SibylBan:
     @staticmethod
     def _make_request(method: str, url: str, params: dict = None, json_data: dict = None):
-        headers = {"accept": "application/json", "api-key": "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"}
+        headers = {"accept": "application/json", "api-key": "6398769dabd9fe0e49bedce0354b40a9b1a69d9594dc9d48c1d8a2a071c51e89"}
         try:
             response = requests.request(
                 method, url, headers=headers, params=params, json=json_data

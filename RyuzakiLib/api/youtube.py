@@ -9,7 +9,7 @@ class Youtube:
         return cookies
 
     @staticmethod
-    async def download(file_json=None, name_txt="youtube_cookies.txt"):
+    async def download(file_json=None, url: str, name_txt="youtube_cookies.txt"):
         with open('youtube_cookies.txt', 'w') as f:
             f.write("# Netscape HTTP Cookie File\n")
             f.write("# This is a generated file! Do not edit.\n\n")

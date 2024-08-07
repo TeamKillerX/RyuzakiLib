@@ -1,4 +1,5 @@
 import json
+import asyncio
 
 class Youtube:
     @staticmethod
@@ -23,5 +24,18 @@ class Youtube:
                     cookie.get('name', ''),
                     cookie.get('value', ''),
                 ]) + "\n")
-        os.system(f"yt-dlp --cookies youtube_cookies.txt {url}")
-        return "Successfully downloaded"
+        cmd = f"yt-dlp --cookies youtube_cookies.txt {url}"
+        process = await asyncio.create_subprocess_shell(
+        cmd, stdout = asyncio.subprocess.PIPE, stderr = asyncio.subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        e = stderr.decode()
+        if not e:
+            e = "No errors"
+        o = stdout.decode()
+        if not o:
+            o = "No output"
+        OUTPUT = ""
+        OUTPUT += f"<b>Output</b>: \n<code>{o}</code>\n"
+        OUTPUT += f"<b>Errors</b>: \n<code>{e}</code>"
+        return OUTPUT

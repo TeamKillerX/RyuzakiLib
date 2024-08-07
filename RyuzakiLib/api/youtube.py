@@ -3,7 +3,7 @@ import asyncio
 
 class Youtube:
     @staticmethod
-    async def cookies_loads(file_json=None):
+    async def cookies_loads(file_json: str):
         if file_json:
             try:
                 with open(file_json, "r") as f:
@@ -16,7 +16,7 @@ class Youtube:
         return []
 
     @staticmethod
-    async def download(file_json=None, url: str, name_txt="youtube_cookies.txt"):
+    async def download(file_json: str, url: str, name_txt="youtube_cookies.txt"):
         with open(name_txt, 'w') as f:
             f.write("# Netscape HTTP Cookie File\n")
             f.write("# This is a generated file! Do not edit.\n\n")

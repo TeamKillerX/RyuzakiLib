@@ -11,3 +11,12 @@ print(results)
 response = await RendyDevChat.chat_hacked("hello world")
 print(response)
 ```
+### BetaRag New (AI)
+```python
+from RyuzakiLib import BetaRag
+
+x = BetaRag(token="api key", user_id=0, mongo_url="your mongo")
+
+response = await x.rag_chat("how to javascript code?")
+print(response)
+```

@@ -49,24 +49,6 @@ class example_python:
 example_python.hello_world()
 ```
 
-### Tutorial FastAPI
-```python
-from fastapi import FastAPI
-from RyuzakiLib.hackertools.chatgpt import RendyDevChat
-from RyuzakiLib.hackertools.openai import OpenAiToken
-
-app = FastAPI()
-
-@app.get("/read")
-def hello():
-    return {"message": "Hello World"}
-
-if __name__ == "__main__":
-   uvicorn.run(app, host="0.0.0.0")
-```
-- Like example this [`RyuzakiLib API`](https://private.randydev.my.id)
-* [x] Requirements: `fastapi` and `RyuzakiLib`
-
 ### Spamwatch
 • Example usage
 ```python
@@ -144,12 +126,12 @@ print(response)
 
 ### Continue Conversation
 ```python
-from RyuzakiLib import OpenAiToken
+from RyuzakiLib import OpenAI
 
 api_base = "https://api.example.com/v1"
 api_key = ""
 query = "hello world"
-response = OpenAiToken(api_key=api_key, api_base=api_base).chat_message_turbo(
+response = await OpenAI(api_key=api_key, api_base=api_base).chat_message_turbo(
     query=query,
     model="gpt-4",
     is_stream=False

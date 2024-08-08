@@ -22,6 +22,7 @@ import json
 import os
 from base64 import b64decode
 from base64 import b64decode as idk
+from datetime import datetime as dt
 from typing import Optional
 
 import requests
@@ -33,7 +34,15 @@ from RyuzakiLib.api.fullstack import FullStackDev
 from RyuzakiLib.api.reqs import AsyicXSearcher
 from RyuzakiLib.hackertools.blackbox import Blackbox
 
-API_KEYS = "29db8322f22d425d7023c499610fc2419f8ff44e0bd3f63edd90d2994bf76b49"
+API_KEYS = "6398769dabd9fe0e49bedce0354b40a9b1a69d9594dc9d48c1d8a2a071c51e89"
+
+owner_base = f"""
+Your name is Randy Dev. A kind and friendly AI assistant that answers in
+a short and concise answer. Give short step-by-step reasoning if required.
+
+- Powered by @xtdevs on telegram
+Today is {dt.now():%A %d %B %Y %H:%M}
+"""
 
 class RendyDevChat:
     @staticmethod
@@ -43,6 +52,7 @@ class RendyDevChat:
         model_id: Optional[int] = None,
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
+        system_prompt: Optional[str] = owner_base,
         list_model_all: Optional[bool] = False
     ):
         if latest_model == "openai-v2":
@@ -194,7 +204,10 @@ class RendyDevChat:
             clients_x = Clients_g4f()
             response = clients_x.chat.completions.create(
                 model="gpt-4o",
-                messages=[{"role": "user", "content": args}],
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": args}
+                ],
             )
             return response.choices[0].message.content
 

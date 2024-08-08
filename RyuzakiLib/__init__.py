@@ -26,6 +26,7 @@ from pydantic import BaseModel
 from . import *
 from .__version__ import __version__
 from .api.fullstack import FullStackDev
+from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
 from .api.reqs import AsyicXSearcher
 from .api.yohasakura import SearchAPI
@@ -111,4 +112,5 @@ __all__ = [
     "FarFalle",
     "AsyicXSearcher",
     "SearchAPI",
+    "Jiosaavn",
 ]

@@ -1,5 +1,6 @@
-import json
 import asyncio
+import json
+
 
 class Youtube:
     @staticmethod
@@ -31,7 +32,7 @@ class Youtube:
                     cookie.get('name', ''),
                     cookie.get('value', ''),
                 ]) + "\n")
-        
+
         cmd = f"yt-dlp --cookies {name_txt} {url}"
         process = await asyncio.create_subprocess_shell(
             cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -43,7 +44,7 @@ class Youtube:
         o = stdout.decode()
         if not o:
             o = "No output"
-        
+
         OUTPUT = ""
         OUTPUT += f"<b>Output</b>: \n<code>{o}</code>\n"
         OUTPUT += f"<b>Errors</b>: \n<code>{e}</code>"

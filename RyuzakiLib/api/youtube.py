@@ -1,4 +1,5 @@
 import asyncio
+
 import uvloop
 
 asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
@@ -34,6 +35,6 @@ class Youtube:
         stdout, stderr = await process.communicate()
         e = stderr.decode() or "No errors"
         o = stdout.decode() or "No output"
-        
+
         OUTPUT = f"<b>Output</b>: \n<code>{o}</code>\n<b>Errors</b>: \n<code>{e}</code>"
         return OUTPUT

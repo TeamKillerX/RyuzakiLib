@@ -27,6 +27,6 @@ google-generativeai
 curl_cffi
 gradio-client
 gradio
-huggingface_hub==0.22.2
+huggingface-hub>=0.23.2
 motor
 nest-asyncio

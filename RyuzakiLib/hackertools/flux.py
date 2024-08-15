@@ -14,5 +14,3 @@ class FluxAi:
         }
         response = requests.post(API_URL, json=payload)
         return response.content if re_content else response.json()
-        else:
-            return response.json()

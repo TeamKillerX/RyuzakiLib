@@ -41,6 +41,7 @@ from .extreme.webshot import WebShotUrl
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.farfalle import FarFalle
+from .hackertools.flux import FluxAi
 from .hackertools.gemini import GeminiLatest
 from .hackertools.github import Github
 from .hackertools.huggingface import FaceAI
@@ -51,7 +52,6 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
-from .hackertools.flux import FluxAi
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *

@@ -1,5 +1,7 @@
 import requests
+
 from RyuzakiLib.api.reqs import AsyicXSearcher
+
 
 class FluxAi:
     @staticmethod

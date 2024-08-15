@@ -13,9 +13,6 @@ class FluxAi:
             "auto_enhancer": auto_enhancer
         }
         response = requests.post(API_URL, json=payload)
-        if response.status_code != 200:
-            return None
-        if re_content:
-            return response.content
+        return response.content if re_content else response.json()
         else:
             return response.json()

@@ -51,6 +51,7 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
+from .hackertools.flux import FluxAi
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
@@ -113,4 +114,5 @@ __all__ = [
     "AsyicXSearcher",
     "SearchAPI",
     "Jiosaavn",
+    "FluxAi",
 ]

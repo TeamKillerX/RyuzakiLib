@@ -21,7 +21,7 @@ class CloudFlare:
         }
         if account_id and api_token:
             API_BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/meta/llama-3-8b-instruct"
-            headers = {"Authorization": f"Bearer {API_TOKEN}"}
+            headers = {"Authorization": f"Bearer {api_token}"}
             response = requests.post(f"{API_BASE_URL}", headers=headers, json=payload)
             if response.status_code != 200:
                 return None

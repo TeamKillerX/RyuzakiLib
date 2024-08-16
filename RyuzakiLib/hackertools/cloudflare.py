@@ -25,6 +25,6 @@ class CloudFlare:
             response = requests.post(f"{API_BASE_URL}", headers=headers, json=payload)
             if response.status_code != 200:
                 return None
-            return response.json()["response"]
+            return response.json()["result"].get("response")
         else:
             return "Required account_id and api_token"

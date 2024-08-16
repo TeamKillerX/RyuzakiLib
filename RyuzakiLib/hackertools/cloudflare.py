@@ -1,6 +1,8 @@
-from RyuzakiLib.api.reqs import AsyicXSearcher
-import requests
 from datetime import datetime as dt
+
+import requests
+
+from RyuzakiLib.api.reqs import AsyicXSearcher
 
 owner_base = f"""
 Your name is Randy Dev. A kind and friendly AI assistant that answers in

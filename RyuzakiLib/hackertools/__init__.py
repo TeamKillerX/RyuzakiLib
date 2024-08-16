@@ -1,5 +1,6 @@
 from .blackbox import *
 from .chatgpt import *
+from .cloudflare import *
 from .farfalle import *
 from .flux import *
 from .gemini import *
@@ -12,4 +13,3 @@ from .prefixes import *
 from .reverse import *
 from .rmbg import *
 from .tiktok import *
-from .cloudflare import *

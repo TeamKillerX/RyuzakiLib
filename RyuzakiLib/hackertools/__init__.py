@@ -1,5 +1,6 @@
 from .blackbox import *
 from .chatgpt import *
+from .cloudflare import *
 from .farfalle import *
 from .flux import *
 from .gemini import *

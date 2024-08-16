@@ -40,6 +40,7 @@ from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
+from .hackertools.cloudflare import CloudFlare
 from .hackertools.farfalle import FarFalle
 from .hackertools.flux import FluxAi
 from .hackertools.gemini import GeminiLatest
@@ -115,4 +116,5 @@ __all__ = [
     "SearchAPI",
     "Jiosaavn",
     "FluxAi",
+    "CloudFlare",
 ]

@@ -12,3 +12,4 @@ from .prefixes import *
 from .reverse import *
 from .rmbg import *
 from .tiktok import *
+from .cloudflare import *

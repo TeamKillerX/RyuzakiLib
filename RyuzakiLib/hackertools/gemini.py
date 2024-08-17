@@ -101,12 +101,12 @@ class GeminiLatest:
                 }
             model_flash = genai.GenerativeModel(
                 model_name=self.model,
+                system_instruction="You are a funny. Your name is Randy",
                 generation_config=generation_config,
             )
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             chat_session = model_flash.start_chat(history=gemini_chat)
-
             response_data = chat_session.send_message(query)
             answer = response_data.text
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})

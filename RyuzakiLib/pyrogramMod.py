@@ -1,6 +1,6 @@
 from pyrogram import Client, enums
 
-class PyorgramMod:
+class PyrogramMod:
     @staticmethod
     async def chat_photos(client: Client, user, set_limit=None, is_limit: bool = False):
         if not isinstance(client, Client):

@@ -12,6 +12,7 @@ class PyorgramMod:
             async for photo in client.get_chat_photos(chat_id=user, limit=set_limit):
                 yield photo
 
+    @staticmethod
     async def chat_members(
         client: Client,
         chat=None,

@@ -6,10 +6,10 @@ class PyorgramMod:
         if not isinstance(client, Client):
             raise ValueError("Invalid client instance provided")
         if is_limit and set_limit:
-            async for photo in client.get_chat_photos(chat_id=user):
+            async for photo in client.get_chat_photos(chat_id=user, limit=set_limit):
                 yield photo
         else:
-            async for photo in client.get_chat_photos(chat_id=user, limit=set_limit):
+            async for photo in client.get_chat_photos(chat_id=user):
                 yield photo
 
     @staticmethod

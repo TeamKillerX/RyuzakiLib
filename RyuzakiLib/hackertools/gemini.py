@@ -30,7 +30,7 @@ class GeminiLatest:
         self,
         api_keys: Optional[str] = None,
         mongo_url: Optional[str] = None,
-        model: Optional[str] = "gemini-1.5-flash-latest",
+        model: Optional[str] = "gemini-1.5-flash",
         user_id: Optional[int] = None,
         generation_configs = {}
     ):

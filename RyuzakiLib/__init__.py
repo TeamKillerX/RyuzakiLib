@@ -25,7 +25,7 @@ from pydantic import BaseModel
 
 from . import *
 from .__version__ import __version__
-from .pyrogramMod import PyorgramMod
+from .pyrogramMod import PyrogramMod
 from .api.fullstack import FullStackDev
 from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
@@ -118,5 +118,5 @@ __all__ = [
     "Jiosaavn",
     "FluxAi",
     "CloudFlare",
-    "PyorgramMod",
+    "PyrogramMod",
 ]

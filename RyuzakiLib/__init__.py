@@ -57,6 +57,7 @@ from .mental import *
 from .profile.user import Clone
 from .pushdb import *
 from .py_tgcalls import PyTgCalls
+from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
 from .spamwatch.clients import SibylBan
@@ -117,4 +118,5 @@ __all__ = [
     "Jiosaavn",
     "FluxAi",
     "CloudFlare",
+    "PyrogramMod",
 ]

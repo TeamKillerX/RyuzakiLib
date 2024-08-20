@@ -31,7 +31,7 @@ class GeminiLatest:
         self,
         api_keys: Optional[str] = None,
         mongo_url: Optional[str] = None,
-        model: Optional[str] = "gemini-1.5-flash-latest",
+        model: Optional[str] = "gemini-1.5-flash",
         user_id: Optional[int] = None,
         generation_configs = {}
     ):
@@ -102,11 +102,16 @@ class GeminiLatest:
             model_flash = genai.GenerativeModel(
                 model_name=self.model,
                 generation_config=generation_config,
+                safety_settings={
+                    genai.types.HarmCategory.HARM_CATEGORY_HATE_SPEECH: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                    genai.types.HarmCategory.HARM_CATEGORY_HARASSMENT: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                    genai.types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                    genai.types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                }
             )
             gemini_chat = self._get_gemini_chat_from_db()
             gemini_chat.append({"role": "user", "parts": [{"text": query}]})
             chat_session = model_flash.start_chat(history=gemini_chat)
-
             response_data = chat_session.send_message(query)
             answer = response_data.text
             gemini_chat.append({"role": "model", "parts": [{"text": answer}]})

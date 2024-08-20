@@ -9,7 +9,7 @@ class YoutubeJsonConvert:
         return cookies
 
     @staticmethod
-    async def to_cookies(file_json: str, url: str, name_txt="cookies.txt"):
+    async def to_cookies(file_json: str, name_txt="cookies.txt"):
         with open(name_txt, 'w') as f:
             f.write("# Netscape HTTP Cookie File\n")
             f.write("# This is a generated file! Do not edit.\n\n")

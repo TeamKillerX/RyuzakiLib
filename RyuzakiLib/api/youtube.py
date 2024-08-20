@@ -13,7 +13,7 @@ class YoutubeJsonConvert:
         with open(name_txt, 'w') as f:
             f.write("# Netscape HTTP Cookie File\n")
             f.write("# This is a generated file! Do not edit.\n\n")
-            cookies = await Youtube.cookies_loads(file_json)
+            cookies = await YoutubeJsonConvert.cookies_loads(file_json)
             for cookie in cookies:
                 f.write("\t".join([
                     cookie.get('domain', ''),

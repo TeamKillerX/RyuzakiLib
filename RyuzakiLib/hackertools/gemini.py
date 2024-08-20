@@ -25,6 +25,7 @@ import google.generativeai as genai
 import requests
 from pymongo import MongoClient
 
+
 class GeminiLatest:
     def __init__(
         self,

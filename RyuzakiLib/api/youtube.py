@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+
 class YoutubeJsonConvert:
     @staticmethod
     async def cookies_loads(file_json: str):

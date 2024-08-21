@@ -32,7 +32,6 @@ from .api.reqs import AsyicXSearcher
 from .api.yohasakura import SearchAPI
 from .bot import *
 from .channels import *
-from .custom_api import CustomApi
 from .decorator import *
 from .extreme.carbon import Carbon
 from .extreme.quotestk import QouteSticker
@@ -82,7 +81,6 @@ class AwesomeCoding(BaseModel):
 
 __all__ = [
     "__version__"
-    "CustomApi",
     "RendyDevChat",
     "GeminiLatest",
     "Github",

@@ -56,14 +56,11 @@ from .hackertools.tiktok import Tiktok
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
-from .py_tgcalls import PyTgCalls
 from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
 from .spamwatch.clients import SibylBan
 from .story import *
-from .stream_type import StreamType
-from .sync import idle
 from .system.read import System
 from .tr import *
 
@@ -84,9 +81,8 @@ class AwesomeCoding(BaseModel):
 
 
 __all__ = [
-    "__version__" "CustomApi",
-    "PyTgCalls",
-    "StreamType",
+    "__version__"
+    "CustomApi",
     "RendyDevChat",
     "GeminiLatest",
     "Github",

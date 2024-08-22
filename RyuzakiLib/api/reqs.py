@@ -62,3 +62,34 @@ class AsyicXSearcher:
                     return await response.text()
         else:
             raise DependencyMissingError("Install 'aiohttp' to use this.")
+
+async def async_search(
+    url: str,
+    post: bool = False,
+    head: bool = False,
+    headers: dict = None,
+    evaluate=None,
+    object: bool = False,
+    re_json: bool = False,
+    re_content: bool = False,
+    *args,
+    **kwargs,
+):
+
+    if aiohttp:
+        async with aiohttp.ClientSession(headers=headers) as session:
+            method = (
+                session.head if head else (session.post if post else session.get)
+                )
+            async with method(url, *args, **kwargs) as response:
+                if evaluate:
+                    return await evaluate(response)
+                if re_json:
+                    return await response.json()
+                if re_content:
+                    return await response.read()
+                if head or object:
+                    return response
+                return await response.text()
+    else:
+        raise DependencyMissingError("Install 'aiohttp' to use this.")

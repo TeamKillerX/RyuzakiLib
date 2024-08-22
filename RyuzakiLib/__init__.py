@@ -28,11 +28,10 @@ from .__version__ import __version__
 from .api.fullstack import FullStackDev
 from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
-from .api.reqs import AsyicXSearcher
+from .api.reqs import AsyicXSearcher, async_search
 from .api.yohasakura import SearchAPI
 from .bot import *
 from .channels import *
-from .custom_api import CustomApi
 from .decorator import *
 from .extreme.carbon import Carbon
 from .extreme.quotestk import QouteSticker
@@ -53,17 +52,15 @@ from .hackertools.prefixes import CustomPrefixes
 from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
+from .hackertools.xnxx import PornoHub
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *
-from .py_tgcalls import PyTgCalls
 from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
 from .spamwatch.clients import SibylBan
 from .story import *
-from .stream_type import StreamType
-from .sync import idle
 from .system.read import System
 from .tr import *
 
@@ -84,9 +81,7 @@ class AwesomeCoding(BaseModel):
 
 
 __all__ = [
-    "__version__" "CustomApi",
-    "PyTgCalls",
-    "StreamType",
+    "__version__"
     "RendyDevChat",
     "GeminiLatest",
     "Github",
@@ -119,4 +114,6 @@ __all__ = [
     "FluxAi",
     "CloudFlare",
     "PyrogramMod",
+    "async_search",
+    "PornoHub",
 ]

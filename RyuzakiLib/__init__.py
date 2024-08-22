@@ -28,7 +28,7 @@ from .__version__ import __version__
 from .api.fullstack import FullStackDev
 from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
-from .api.reqs import AsyicXSearcher
+from .api.reqs import AsyicXSearcher, async_search
 from .api.yohasakura import SearchAPI
 from .bot import *
 from .channels import *
@@ -113,4 +113,5 @@ __all__ = [
     "FluxAi",
     "CloudFlare",
     "PyrogramMod",
+    "async_search",
 ]

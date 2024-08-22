@@ -1,5 +1,7 @@
-from RyuzakiLib.api.reqs import async_search
 import wget
+
+from RyuzakiLib.api.reqs import async_search
+
 
 class PornoHub:
     def __init__(self):

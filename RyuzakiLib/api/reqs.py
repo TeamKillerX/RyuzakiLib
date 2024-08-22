@@ -1,5 +1,6 @@
 import aiohttp
 
+
 class AsyicXSearcher:
     """
     A class to handle asynchronous HTTP requests using aiohttp.
@@ -74,7 +75,7 @@ async def async_search(
     *args,
     **kwargs,
 ):
-    
+
     if aiohttp:
         async with aiohttp.ClientSession(headers=headers) as session:
             method = (

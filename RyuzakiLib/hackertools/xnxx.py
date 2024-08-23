@@ -16,10 +16,17 @@ class PornoHub:
         title = y["title"]
         return [link, title, results]
 
-    async def x_download(self, query=None):
-        schub = await self.x_search(query=query)
-        url_dl = f"https://randydev-ryuzaki-api.hf.space/akeno/xnxx-dl?link={schub[0]}"
-        response = await async_search(url_dl, re_json=True)
-        file_path = wget.download(response["randydev"]["results"]["url"])
-        thumb = wget.download(response["randydev"]["results"]["thumb"])
-        return file_path, thumb
+    async def x_download(self, query=None, url=None, is_stream=False):
+        if is_stream and url:
+            url_ = f"https://randydev-ryuzaki-api.hf.space/akeno/xnxx-dl?link={url}"
+            response = await async_search(url_, re_json=True)
+            file_path = wget.download(response["randydev"]["results"]["url"])
+            thumb = wget.download(response["randydev"]["results"]["thumb"])
+            return file_path, thumb
+        else:
+            schub = await self.x_search(query=query)
+            url_dl = f"https://randydev-ryuzaki-api.hf.space/akeno/xnxx-dl?link={schub[0]}"
+            response = await async_search(url_dl, re_json=True)
+            file_path = wget.download(response["randydev"]["results"]["url"])
+            thumb = wget.download(response["randydev"]["results"]["thumb"])
+            return file_path, thumb

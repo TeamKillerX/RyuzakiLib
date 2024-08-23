@@ -22,11 +22,13 @@ class PornoHub:
             response = await async_search(url_, re_json=True)
             file_path = wget.download(response["randydev"]["results"]["url"])
             thumb = wget.download(response["randydev"]["results"]["thumb"])
-            return file_path, thumb
+            title = response["randydev"]["results"].get("title", "Powered by Randydev")
+            return file_path, thumb, title
         else:
             schub = await self.x_search(query=query)
             url_dl = f"https://randydev-ryuzaki-api.hf.space/akeno/xnxx-dl?link={schub[0]}"
             response = await async_search(url_dl, re_json=True)
             file_path = wget.download(response["randydev"]["results"]["url"])
             thumb = wget.download(response["randydev"]["results"]["thumb"])
-            return file_path, thumb
+            title = response["randydev"]["results"].get("title", "Powered by Randydev")
+            return file_path, thumb, title

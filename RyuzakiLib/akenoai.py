@@ -11,7 +11,7 @@ class AkenoAI:
         if not gmail.startswith("@gmail.com"):
             return "Invalid gmail"
         payload = {"gmail": gmail, "username": username}
-        response = await async_seach(
+        response = await async_search(
             self.base_api_dev + "/register",
             json=payload,
             post=True,
@@ -20,7 +20,7 @@ class AkenoAI:
         return response
 
     async def get_api_key(self, username: str):
-        response = await async_seach(
+        response = await async_search(
             f"{self.base_api_dev}/get_api_key?api_key={username}",
             re_json=True
         )

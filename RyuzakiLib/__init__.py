@@ -25,6 +25,7 @@ from pydantic import BaseModel
 
 from . import *
 from .__version__ import __version__
+from .akenoai import *
 from .api.fullstack import FullStackDev
 from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
@@ -59,7 +60,6 @@ from .pushdb import *
 from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
-from .akenoai import *
 from .spamwatch.clients import SibylBan
 from .story import *
 from .system.read import System

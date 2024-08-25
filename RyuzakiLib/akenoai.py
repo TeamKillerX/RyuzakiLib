@@ -1,5 +1,7 @@
 import requests
+
 from RyuzakiLib.api.reqs import async_search
+
 
 class AkenoAI:
     def __init__(self, base_api_dev: str = "https://akeno.randydev.my.id"):
@@ -25,7 +27,7 @@ class AkenoAI:
         return response
 
     async def delete_api_key(self, username: str, delete_project: str):
-        if delete_project == username": 
+        if delete_project == username":
             response = requests.delete(
                 f"{self.base_api_dev}/delete_api_key_by_username?username={username}"
             ).json()

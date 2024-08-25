@@ -24,8 +24,11 @@ class AkenoAi:
         )
         return response
 
-    async def delete_api_key(self, username: str):
-        response = requests.delete(
-            f"{self.base_api_dev}/delete_api_key_by_username?username={username}"
-        ).json()
-        return response
+    async def delete_api_key(self, username: str, delete_project: str):
+        if delete_project == username": 
+            response = requests.delete(
+                f"{self.base_api_dev}/delete_api_key_by_username?username={username}"
+            ).json()
+            return response
+        else:
+            return "Ok Done 🗿"

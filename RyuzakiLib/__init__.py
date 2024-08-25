@@ -25,6 +25,7 @@ from pydantic import BaseModel
 
 from . import *
 from .__version__ import __version__
+from .akenoai import *
 from .api.fullstack import FullStackDev
 from .api.jiosaavn import Jiosaavn
 from .api.private import PrivateApiUrl
@@ -116,4 +117,5 @@ __all__ = [
     "PyrogramMod",
     "async_search",
     "PornoHub",
+    "AkenoAI",
 ]

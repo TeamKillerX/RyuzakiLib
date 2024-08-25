@@ -4,7 +4,7 @@ from RyuzakiLib.api.reqs import async_search
 
 
 class PornoHub:
-    def __init__(self, base_api_dev: str = "https://akeno.randydev.my.id", token: str):
+    def __init__(self, token=None, base_api_dev: str = "https://akeno.randydev.my.id"):
         self.base_api_dev = base_api_dev
         self.token = token
 

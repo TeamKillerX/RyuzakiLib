@@ -1,7 +1,7 @@
 import requests
 from RyuzakiLib.api.reqs import async_search
 
-class AkenoAi:
+class AkenoAI:
     def __init__(self, base_api_dev: str = "https://akeno.randydev.my.id"):
         self.base_api_dev = base_api_dev
 

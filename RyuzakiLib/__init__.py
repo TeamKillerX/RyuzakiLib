@@ -59,6 +59,7 @@ from .pushdb import *
 from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
+from .akenoai import *
 from .spamwatch.clients import SibylBan
 from .story import *
 from .system.read import System
@@ -116,4 +117,5 @@ __all__ = [
     "PyrogramMod",
     "async_search",
     "PornoHub",
+    "AkenoAI",
 ]

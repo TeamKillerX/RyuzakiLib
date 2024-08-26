@@ -8,7 +8,7 @@ class AkenoAI:
         self.base_api_dev = base_api_dev
 
     async def signup(self, gmail: str, username: str):
-        if not gmail.startswith("@gmail.com"):
+        if not gmail.endswith("@gmail.com"):
             return "Invalid gmail"
         payload = {"gmail": gmail, "username": username}
         response = await async_search(

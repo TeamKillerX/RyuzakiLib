@@ -2,10 +2,11 @@ import requests
 
 from RyuzakiLib.api.reqs import async_search
 
-
 class AkenoAI:
     def __init__(self, base_api_dev: str = "https://akeno.randydev.my.id"):
         self.base_api_dev = base_api_dev
+        self.connected = False
+        self.api_key = None
 
     async def signup(self, gmail: str, username: str):
         if not gmail.endswith("@gmail.com"):
@@ -26,10 +27,30 @@ class AkenoAI:
         )
         return response
 
-    async def delete_api_key(self, username: str, delete_project: str):
-        if delete_project == username:
+    async def connect(self, username: str):
+        response = await self.get_api_key(username)
+        if response.get("requests_made", 0) >= 15:
+            return "The limit has been reached"
+        else:
+            self.connected = True
+            self.api_key = username
+            return None
+
+    async def hentai(self, query: str):
+        if not self.connected or not self.api_key:
+            return "Not connected or API key missing"
+        response = await async_search(
+            f"{self.base_api_dev}/akeno/hentai?query={query}&api_key={self.api_key}",
+            re_json=True
+        )
+        return response
+
+    async def delete_api_key(self, delete_project: str):
+        if not self.connected or not self.api_key:
+            return "Not connected or API key missing"
+        if delete_project == self.api_key:
             response = requests.delete(
-                f"{self.base_api_dev}/delete_api_key_by_username?username={username}"
+                f"{self.base_api_dev}/delete_api_key_by_username?username={self.api_key}"
             ).json()
             return response
         else:

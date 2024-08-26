@@ -66,6 +66,7 @@ class AkenoAI:
             return "Not connected or API key missing"
         url_ = f"{self.base_api_dev}/akeno/xnxx-dl-v2?link={url}&api_key={self.api_key}"
         response = await async_search(url_, re_json=True)
+        return response
         
     async def delete_api_key(self, delete_project: str):
         if not self.connected or not self.api_key:

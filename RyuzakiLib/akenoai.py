@@ -45,6 +45,15 @@ class AkenoAI:
         )
         return response
 
+    async def pornopics(self, query: str):
+        if not self.connected or not self.api_key:
+            return "Not connected or API key missing"
+        response = await async_search(
+            f"{self.base_api_dev}/akeno/pornpics?query={query}&api_key={self.api_key}",
+            re_json=True
+        )
+        return response
+
     async def delete_api_key(self, delete_project: str):
         if not self.connected or not self.api_key:
             return "Not connected or API key missing"

@@ -11,7 +11,7 @@ class AkenoAI:
     async def signup(self, gmail: str, username: str):
         if not gmail.endswith("@gmail.com"):
             return "Invalid gmail"
-        params = {"new_username": username, "gmail": gmail}
+        params = {"username": username, "gmail": gmail}
         response = requests.post(
             self.base_api_dev + "/register",
             params=params
@@ -71,7 +71,7 @@ class AkenoAI:
             return "Not connected or API key missing"
         if delete_project == self.api_key:
             response = requests.delete(
-                f"{self.base_api_dev}/delete_api_key_by_username?username={self.api_key}"
+                f"{self.base_api_dev}/delete_api_key_by_username?api_key={self.api_key}"
             ).json()
             return response
         else:

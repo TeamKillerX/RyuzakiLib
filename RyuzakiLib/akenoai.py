@@ -2,6 +2,7 @@ import requests
 
 from RyuzakiLib.api.reqs import async_search
 
+
 class AkenoAI:
     def __init__(self, base_api_dev: str = "https://akeno.randydev.my.id"):
         self.base_api_dev = base_api_dev
@@ -58,7 +59,7 @@ class AkenoAI:
         url_ = f"{self.base_api_dev}/akeno/xnxx-dl-v2?link={url}&api_key={self.api_key}"
         response = await async_search(url_, re_json=True)
         return response
-        
+
     async def delete_api_key(self, email: str):
         response = requests.delete(
             f"{self.base_api_dev}/delete_api_key_by_username?email={email}"

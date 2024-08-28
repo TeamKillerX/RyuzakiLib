@@ -18,13 +18,6 @@ class AkenoAI:
         ).json()
         return response
 
-    async def get_api_key(self, username: str):
-        response = await async_search(
-            f"{self.base_api_dev}/get_api_key?api_key={username}",
-            re_json=True
-        )
-        return response
-
     async def connect(self, username: str, requests_limit: int = 30):
         response = await self.get_api_key(username)
         if response.get("requests_made", 0) >= requests_limit:
@@ -66,13 +59,8 @@ class AkenoAI:
         response = await async_search(url_, re_json=True)
         return response
         
-    async def delete_api_key(self, delete_project: str):
-        if not self.connected or not self.api_key:
-            return "Not connected or API key missing"
-        if delete_project == self.api_key:
-            response = requests.delete(
-                f"{self.base_api_dev}/delete_api_key_by_username?api_key={self.api_key}"
-            ).json()
-            return response
-        else:
-            return "Ok Done 🗿"
+    async def delete_api_key(self, email: str):
+        response = requests.delete(
+            f"{self.base_api_dev}/delete_api_key_by_username?email={email}"
+        ).json()
+        return response

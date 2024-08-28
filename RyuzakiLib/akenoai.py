@@ -20,7 +20,10 @@ class AkenoAI:
         return response
 
     async def connect(self, username: str, requests_limit: int = 30):
-        response = await self.get_api_key(username)
+        response = await async_search(
+            f"{self.base_api_dev}/get_api_key?api_key={username}",
+            re_json=True
+        )
         if response.get("requests_made", 0) >= requests_limit:
             return "The limit has been reached"
         else:

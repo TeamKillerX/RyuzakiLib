@@ -36,7 +36,7 @@ class FastAPISuper:
             response_type="code"
         )
     
-    async def authorize_access_token(self, request):
+    async def authorize_access_token(self, request=None):
         token = await self.auth.auth0.authorize_access_token(request)
         return token
 

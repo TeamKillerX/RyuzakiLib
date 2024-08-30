@@ -30,3 +30,6 @@ huggingface-hub>=0.23.2
 motor
 nest-asyncio
 wget
+uvicorn[standard
+fastapi[all]
+authlib

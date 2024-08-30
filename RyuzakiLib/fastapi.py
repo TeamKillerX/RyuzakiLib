@@ -1,9 +1,11 @@
-from authlib.integrations.starlette_client import OAuth
-from fastapi import FastAPI, Request, HTTPException
 from functools import wraps
+
+from authlib.integrations.starlette_client import OAuth
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.sessions import SessionMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+from starlette.middleware.sessions import SessionMiddleware
+
 
 class FastAPISuper:
     def __init__(

@@ -54,7 +54,7 @@ class RendyDevChat:
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
         system_prompt: Optional[str] = owner_base,
-        list_model_all: Optional[bool] = False
+        list_model_all: Optional[bool] = False,
         is_working_dev: Optional[bool] = False
     ):
         if latest_model == "openai-v2":

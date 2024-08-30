@@ -23,10 +23,10 @@ class FastAPISuper:
         self.redoc_url = redoc_url
         self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
         self.auth = OAuth(config)
-        self.mongodb = AsyncIOMotorClient(mongo_url)
+        self.async_mongodb = AsyncIOMotorClient(mongo_url)
 
-    def client_db(self):
-        return self.mongodb
+    def async_motor_client(self):
+        return self.async_mongodb
 
     def logger(self):
         logging.basicConfig(level=logging.ERROR)

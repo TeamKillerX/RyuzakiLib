@@ -15,7 +15,7 @@ class FastAPISuper:
         auth0_client_id=None,
         auth0_client_secrect=None,
         auth0_domain=None,
-        domain_url=None,
+        domain_url=None
     ):
         self.auth.register(
             name="auth0",

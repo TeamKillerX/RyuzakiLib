@@ -58,6 +58,7 @@ from .mental import *
 from .profile.user import Clone
 from .pushdb import *
 from .pyrogramMod import PyrogramMod
+from .fastapi import FastAPISuper
 from .quote import *
 from .reminder import *
 from .spamwatch.clients import SibylBan
@@ -118,4 +119,5 @@ __all__ = [
     "async_search",
     "PornoHub",
     "AkenoAI",
+    "FastAPISuper",
 ]

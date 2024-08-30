@@ -253,7 +253,7 @@ class RendyDevChat:
         return downloaded_paths
 
     @staticmethod
-    async def image_generator(args):
+    async def image_generator(args, base_api_dev="https://akeno.randydev.my.id", is_working_dev=False):
         if is_working_dev:
             url = f"{base_api_dev}/ryuzaki/dalle3xl"
         else:

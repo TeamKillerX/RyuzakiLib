@@ -1,7 +1,8 @@
+from authlib.integrations.starlette_client import OAuth
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-from authlib.integrations.starlette_client import OAuth
+
 
 class FastAPISuper:
     def __init__(self, docs_url=None, redoc_url=None, config=None):
@@ -30,12 +31,12 @@ class FastAPISuper:
 
     async def authorize_redirect(self, request=None, redirect_uri=None):
         return await self.auth.auth0.authorize_redirect(
-            request, 
-            redirect_uri=redirect_uri, 
+            request,
+            redirect_uri=redirect_uri,
             scope="openid profile email",
             response_type="code"
         )
-    
+
     async def authorize_access_token(self, request=None):
         token = await self.auth.auth0.authorize_access_token(request)
         return token

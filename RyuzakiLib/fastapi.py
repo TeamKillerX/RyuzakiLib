@@ -3,14 +3,24 @@ from fastapi import FastAPI, Request, HTTPException
 from functools import wraps
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
-
+from motor.motor_asyncio import AsyncIOMotorClient
 
 class FastAPISuper:
-    def __init__(self, docs_url=None, redoc_url=None, config=None):
+    def __init__(
+        self,
+        docs_url=None,
+        redoc_url=None,
+        config=None,
+        mongo_url=None
+    ):
         self.docs_url = docs_url
         self.redoc_url = redoc_url
         self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
         self.auth = OAuth(config)
+        self.mongodb = AsyncIOMotorClient(mongo_url)
+
+    def client_db(self):
+        return self.mongodb
 
     def auth_register(
         self,

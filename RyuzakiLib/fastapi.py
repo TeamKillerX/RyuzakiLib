@@ -1,5 +1,6 @@
 from authlib.integrations.starlette_client import OAuth
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
+from functools import wraps
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -43,6 +44,18 @@ class FastAPISuper:
 
     def moderator(self):
         return self.fastapi
+
+    def only_apikey(self, valid_api_keys=None):
+        def decorator(func):
+            @wraps(func)
+            async def wrapper(*args, **kwargs):
+                request: Request = kwargs.get("request") or args[0]
+                api_key = request.headers.get("X-API-KEY")
+                if api_key not in valid_api_keys:
+                    raise HTTPException(status_code=403, detail="Invalid API Key")
+                return await func(*args, **kwargs)
+            return wrapper
+        return decorator
 
     def add_session_middleware(self, secret_key=None):
         self.fastapi.add_middleware(

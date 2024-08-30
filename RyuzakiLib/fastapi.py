@@ -1,15 +1,28 @@
+from functools import wraps
+
 from authlib.integrations.starlette_client import OAuth
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.sessions import SessionMiddleware
 
 
 class FastAPISuper:
-    def __init__(self, docs_url=None, redoc_url=None, config=None):
+    def __init__(
+        self,
+        docs_url=None,
+        redoc_url=None,
+        config=None,
+        mongo_url=None
+    ):
         self.docs_url = docs_url
         self.redoc_url = redoc_url
         self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
         self.auth = OAuth(config)
+        self.mongodb = AsyncIOMotorClient(mongo_url)
+
+    def client_db(self):
+        return self.mongodb
 
     def auth_register(
         self,
@@ -43,6 +56,18 @@ class FastAPISuper:
 
     def moderator(self):
         return self.fastapi
+
+    def only_apikey(self, valid_api_keys=None):
+        def decorator(func):
+            @wraps(func)
+            async def wrapper(*args, **kwargs):
+                request: Request = kwargs.get("request") or args[0]
+                api_key = request.headers.get("X-API-KEY")
+                if api_key not in valid_api_keys:
+                    raise HTTPException(status_code=403, detail="Invalid API Key")
+                return await func(*args, **kwargs)
+            return wrapper
+        return decorator
 
     def add_session_middleware(self, secret_key=None):
         self.fastapi.add_middleware(

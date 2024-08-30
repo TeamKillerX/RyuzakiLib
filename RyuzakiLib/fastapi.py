@@ -1,0 +1,59 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+from authlib.integrations.starlette_client import OAuth
+
+class FastAPISuper:
+    def __init__(self, docs_url=None, redoc_url=None, config=None):
+        self.docs_url = docs_url
+        self.redoc_url = redoc_url
+        self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
+        self.auth = OAuth(config)
+
+    def auth_register(
+        self,
+        auth0_client_id=None,
+        auth0_client_secrect=None,
+        auth0_domain=None,
+        domain_url=None,
+    ):
+        self.auth.register(
+            name="auth0",
+            client_id=auth0_client_id,
+            client_secret=auth0_client_secrect,
+            client_kwargs={
+                "scope": "openid profile email",
+                "redirect_url": f"{domain_url}/callback"
+            },
+            server_metadata_url=f"https://{auth0_domain}/.well-known/openid-configuration"
+        )
+
+    async def authorize_redirect(self, request=None, redirect_uri=None):
+        return await self.auth.auth0.authorize_redirect(
+            request, 
+            redirect_uri=redirect_uri, 
+            scope="openid profile email",
+            response_type="code"
+        )
+    
+    async def authorize_access_token(self, request):
+        token = await self.auth.auth0.authorize_access_token(request)
+        return token
+
+    def moderator(self):
+        return self.fastapi
+
+    def add_session_middleware(self, secret_key=None):
+        self.fastapi.add_middleware(
+            SessionMiddleware,
+            secret_key=secret_key
+        )
+
+    def add_cors_middleware(self):
+        self.fastapi.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )

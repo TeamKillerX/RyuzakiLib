@@ -38,6 +38,7 @@ from .extreme.carbon import Carbon
 from .extreme.quotestk import QouteSticker
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
+from .fastapi import FastAPISuper
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.cloudflare import CloudFlare
@@ -118,4 +119,5 @@ __all__ = [
     "async_search",
     "PornoHub",
     "AkenoAI",
+    "FastAPISuper",
 ]

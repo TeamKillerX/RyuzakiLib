@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 
 from authlib.integrations.starlette_client import OAuth
@@ -23,6 +24,12 @@ class FastAPISuper:
 
     def client_db(self):
         return self.mongodb
+
+    def logger(self):
+        logging.basicConfig(level=logging.ERROR)
+        logging.basicConfig(level=logging.INFO)
+        LOGS = logging.getLogger("[akeno]")
+        return LOGS
 
     def auth_register(
         self,

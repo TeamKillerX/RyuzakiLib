@@ -37,8 +37,11 @@ class SibylBan:
             return None
 
     @staticmethod
-    def ban(user_id: int = None, reason: str = None) -> str:
-        url = "https://akeno.randydev.my.id/sibylban"
+    def ban(user_id: int = None, reason: str = None, is_working_dev=False) -> str:
+        if is_working_dev:
+            url = "https://akeno.randydev.my.id/sibylban"
+        else:
+            url = "https://randydev-ryuzaki-api.hf.space/sibylban"
         payload = {"user_id": user_id, "reason": reason}
         response = SibylBan._make_request("POST", url, json_data=payload)
         return response.get("randydev", {}).get(
@@ -46,18 +49,27 @@ class SibylBan:
         )
 
     @staticmethod
-    def banlist(user_id: int = None) -> Union[dict, str]:
-        url = "https://akeno.randydev.my.id/ryuzaki/sibyl"
+    def banlist(user_id: int = None, is_working_dev=False) -> Union[dict, str]:
+        if is_working_dev:
+            url = "https://akeno.randydev.my.id/ryuzaki/sibyl"
+        else:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
         payload = {"user_id": user_id}
         return SibylBan._make_request("GET", url, json_data=payload)
 
     @staticmethod
-    def unban(user_id: int = None) -> Union[dict, str]:
-        url = "https://akeno.randydev.my.id/ryuzaki/sibyldel"
+    def unban(user_id: int = None, is_working_dev=False) -> Union[dict, str]:
+        if is_working_dev:
+            url = "https://akeno.randydev.my.id/ryuzaki/sibyldel"
+        else:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibydel"
         payload = {"user_id": user_id}
         return SibylBan._make_request("DELETE", url, json_data=payload)
 
     @staticmethod
-    def banlist_all() -> Union[dict, str]:
-        url = "https://akeno.randydev.my.id/ryuzaki/getbanlist"
+    def banlist_all(is_working_dev=False) -> Union[dict, str]:
+        if is_working_dev:
+            url = "https://akeno.randydev.my.id/ryuzaki/getbanlist"
+        else:
+            url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/getbanlist"
         return SibylBan._make_request("GET", url)

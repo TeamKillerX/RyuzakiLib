@@ -1,9 +1,9 @@
 import logging
 import smtplib
-from functools import wraps
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from functools import wraps
+
 from authlib.integrations.starlette_client import OAuth
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware

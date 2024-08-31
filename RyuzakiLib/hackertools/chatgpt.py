@@ -61,7 +61,7 @@ class RendyDevChat:
             if is_working_dev:
                 url = f"{base_api_dev}/ryuzaki/chatgpt-old"
             else:
-                url "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
+                url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
             params = {"query": args}
             check_response = await AsyicXSearcher.search(
                 url,

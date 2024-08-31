@@ -56,7 +56,7 @@ setuptools.setup(
         "huggingface-hub>=0.23.2",
         "motor",
         "wget",
-        "uvicorn[standard",
+        "uvicorn[standard]",
         "fastapi[all]",
         "authlib",
     ],

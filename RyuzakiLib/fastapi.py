@@ -1,3 +1,7 @@
+import logging
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from functools import wraps
 
 from authlib.integrations.starlette_client import OAuth
@@ -19,10 +23,49 @@ class FastAPISuper:
         self.redoc_url = redoc_url
         self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
         self.auth = OAuth(config)
-        self.mongodb = AsyncIOMotorClient(mongo_url)
+        self.async_mongodb = AsyncIOMotorClient(mongo_url)
 
-    def client_db(self):
-        return self.mongodb
+    def async_motor_client(self):
+        return self.async_mongodb
+
+    def logger(self):
+        logging.basicConfig(level=logging.ERROR)
+        logging.basicConfig(level=logging.INFO)
+        LOGS = logging.getLogger("[fastapi]")
+        return LOGS
+
+    def send_verification_email(
+        self,
+        sender_email=None,
+        password=None,
+        receiver_email=None,
+        custom_text=None,
+    ):
+        try:
+            LOGS = self.logger()
+            smtp_server = "smtp.gmail.com"
+            port = 587
+            msg = MIMEMultipart()
+            msg["From"] = 'RyuzakiLib <no-reply@gmail.com>'
+            msg["To"] = receiver_email
+            msg["Subject"] = "Verify Email - RyuzakiLib API"
+            html = f"""
+            <html>
+            <body>
+               <p>Click the button below to verify your email address:</p>
+               {custom_text}
+            </body>
+            </html>
+            """
+            msg.attach(MIMEText(html, 'html'))
+            server = smtplib.SMTP(smtp_server, port)
+            server.starttls()
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, msg.as_string())
+            server.quit()
+            LOGS.info("Email sent successfully!")
+        except Exception:
+            raise HTTPException(status_code=404, detail="can't send email issue")
 
     def auth_register(
         self,

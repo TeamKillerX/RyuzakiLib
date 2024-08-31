@@ -54,14 +54,14 @@ class RendyDevChat:
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
         system_prompt: Optional[str] = owner_base,
-        list_model_all: Optional[bool] = False
+        list_model_all: Optional[bool] = False,
         is_working_dev: Optional[bool] = False
     ):
         if latest_model == "openai-v2":
             if is_working_dev:
                 url = f"{base_api_dev}/ryuzaki/chatgpt-old"
             else:
-                url "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
+                url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/chatgpt-old"
             params = {"query": args}
             check_response = await AsyicXSearcher.search(
                 url,
@@ -253,7 +253,7 @@ class RendyDevChat:
         return downloaded_paths
 
     @staticmethod
-    async def image_generator(args):
+    async def image_generator(args, base_api_dev="https://akeno.randydev.my.id", is_working_dev=False):
         if is_working_dev:
             url = f"{base_api_dev}/ryuzaki/dalle3xl"
         else:

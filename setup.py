@@ -45,7 +45,6 @@ setuptools.setup(
         "typing-extensions",
         "typing",
         "deprecation",
-        "ntgcalls>=1.0.2",
         "psutil",
         "screeninfo",
         "g4f",

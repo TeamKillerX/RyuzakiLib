@@ -4,12 +4,12 @@ class Downloader:
     def __init__(self):
         pass
 
-    def _ok(self, use_name, link):
+    def _ok(self, use_name=None, link=None):
         if use_name == "fb":
             return {"link": link}
         return {}
 
-    def with_(open_files: str):
+    def with_(self, open_files=None):
         with open(open_files, "rb") as file:
             files = {"file": file}
             return files

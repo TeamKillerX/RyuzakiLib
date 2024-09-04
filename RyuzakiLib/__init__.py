@@ -42,6 +42,7 @@ from .fastapi import FastAPISuper
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.cloudflare import CloudFlare
+from .hackertools.downloader import Downloader
 from .hackertools.farfalle import FarFalle
 from .hackertools.flux import FluxAi
 from .hackertools.gemini import GeminiLatest
@@ -120,4 +121,5 @@ __all__ = [
     "PornoHub",
     "AkenoAI",
     "FastAPISuper",
+    "Downloader",
 ]

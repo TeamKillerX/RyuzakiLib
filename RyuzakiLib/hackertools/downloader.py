@@ -24,6 +24,7 @@ class Downloader:
     ):
         OPTIONS = {
             "fb": "https://randydev-ryuzaki-api.hf.space/akeno/fbdown",
+            "graph": "https://akeno.randydev.my.id/uploadfile/"
         }
         if is_get:
             if use_name in OPTIONS:

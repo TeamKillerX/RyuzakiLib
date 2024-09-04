@@ -9,12 +9,17 @@ class Downloader:
             return {"link": link}
         return {}
 
+    def with_(open_files: str):
+        with open(open_files, "rb") as file:
+            files = {"file": file}
+            return files
+
     async def optimized_plugins(
         self,
         use_name=None,
         json=None,
         params=None,
-        with_open_files=None,
+        files=None,
         is_get=True
     ):
         OPTIONS = {
@@ -25,7 +30,14 @@ class Downloader:
                 url = OPTIONS[use_name]
                 try:
                     async with httpx.AsyncClient() as client:
-                        response = await client.get(url, json=json, params=params)
+                        request_args = {}
+                        if json is not None:
+                            request_args["json"] = json
+                        if params is not None:
+                            request_args["params"] = params
+                        if files is not None:
+                            request_args["files"] = files
+                        response = await client.get(url, **request_args)
                         if response.status_code == 200:
                             return response.json()
                         else:
@@ -38,7 +50,14 @@ class Downloader:
                 url = OPTIONS[use_name]
                 try:
                     async with httpx.AsyncClient() as client:
-                        response = await client.post(url, json=json, params=params)
+                        request_args = {}
+                        if json is not None:
+                            request_args["json"] = json
+                        if params is not None:
+                            request_args["params"] = params
+                        if files is not None:
+                            request_args["files"] = files
+                        response = await client.post(url, **request_args)
                         if response.status_code == 200:
                             return response.json()
                         else:

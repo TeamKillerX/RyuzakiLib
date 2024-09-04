@@ -42,6 +42,7 @@ from .fastapi import FastAPISuper
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.cloudflare import CloudFlare
+from .hackertools.downloader import Downloader
 from .hackertools.farfalle import FarFalle
 from .hackertools.flux import FluxAi
 from .hackertools.gemini import GeminiLatest
@@ -55,7 +56,6 @@ from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
 from .hackertools.xnxx import PornoHub
-from .hackertools.downloader import Downloader
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *

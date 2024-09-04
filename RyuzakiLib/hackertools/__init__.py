@@ -1,6 +1,7 @@
 from .blackbox import *
 from .chatgpt import *
 from .cloudflare import *
+from .downloader import *
 from .farfalle import *
 from .flux import *
 from .gemini import *
@@ -14,4 +15,3 @@ from .reverse import *
 from .rmbg import *
 from .tiktok import *
 from .xnxx import *
-from .downloader import *

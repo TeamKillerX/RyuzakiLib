@@ -48,7 +48,7 @@ def read_root():
 Test your FastAPI app by running Uvicorn:
 
 ```bash
-uvicorn main:app --reload 
+uvicorn main:app --reload
 ```
 
 This will start FastAPI on `http://YOUR_VPS_IP:8000`. You should now be able to access your application using your VPS IP.

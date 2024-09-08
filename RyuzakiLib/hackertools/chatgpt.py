@@ -54,8 +54,9 @@ class RendyDevChat:
         user_id: Optional[int] = 0,
         mongo_url: Optional[str] = None,
         system_prompt: Optional[str] = owner_base,
+        api_key: Optional[str] = None,
         list_model_all: Optional[bool] = False,
-        is_working_dev: Optional[bool] = False
+        is_working_dev: Optional[bool] = True
     ):
         if latest_model == "openai-v2":
             if is_working_dev:
@@ -67,7 +68,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "blackbox":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/blackbox"
+                url = f"{base_api_dev}/ryuzaki/blackbox?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/blackbox"
             params = {"query": args}
@@ -101,7 +102,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "microsoft":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/faceai"
+                url = f"{base_api_dev}/ryuzaki/faceai?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
@@ -113,7 +114,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "gemma":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/faceai"
+                url = f"{base_api_dev}/ryuzaki/faceai?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
@@ -125,7 +126,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "mistralai":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/faceai"
+                url = f"{base_api_dev}/ryuzaki/faceai?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
@@ -137,7 +138,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "faceh4":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/faceai"
+                url = f"{base_api_dev}/ryuzaki/faceai?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/faceai"
             payload = {
@@ -149,7 +150,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "google-ai":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/google-ai"
+                url = f"{base_api_dev}/ryuzaki/google-ai?api_key={api_key}"
             else:
                 url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/google-ai"
             headers = {"accept": "application/json", "api-key": API_KEYS}
@@ -158,7 +159,7 @@ class RendyDevChat:
             return check_response["randydev"]["message"]
         elif latest_model == "betagoogle-ai":
             if is_working_dev:
-                url = f"{base_api_dev}/ryuzaki/v1beta2-google-ai"
+                url = f"{base_api_dev}/ryuzaki/v1beta2-google-ai?api_key={api_key}"
             else:
                 url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/v1beta2-google-ai"
             headers = {"accept": "application/json", "api-key": API_KEYS}
@@ -195,9 +196,14 @@ class RendyDevChat:
         return downloaded_paths
 
     @staticmethod
-    async def image_generator(args, base_api_dev="https://akeno.randydev.my.id", is_working_dev=False):
+    async def image_generator(
+        args,
+        api_key: str = None,
+        base_api_dev="https://akeno.randydev.my.id",
+        is_working_dev=True
+    ):
         if is_working_dev:
-            url = f"{base_api_dev}/ryuzaki/dalle3xl"
+            url = f"{base_api_dev}/ryuzaki/dalle3xl?api_key={api_key}"
         else:
             url = f"https://randydev-ryuzaki-api.hf.space/ryuzaki/dalle3xl"
         headers = {"accept": "application/json", "api-key": API_KEYS}

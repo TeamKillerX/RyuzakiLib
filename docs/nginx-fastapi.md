@@ -164,11 +164,6 @@ Now, you can access your FastAPI app via your domain at:
 ### Conclusion
 With these steps, you'll have FastAPI running on your VPS with your domain, and optionally secured with HTTPS via Let's Encrypt. You can scale this setup by using Docker, Gunicorn with Uvicorn workers, and more advanced deployment techniques if necessary.
 
-### Nginx Error 505
-The error message *15188 "upstream sent too big header while reading response header from upstream" usually occurs when Nginx receives a response from the upstream server (FastAPI in this case) with headers that are too large for Nginx to handle by default. This can happen due to large cookies, a large number of headers, or other large response headers.
-
-To resolve this issue, you can increase the buffer size for headers in the Nginx configuration.
-
 ### Solution: Increase Nginx Header Buffer Sizes
 
 1. **Edit the Nginx Configuration**:

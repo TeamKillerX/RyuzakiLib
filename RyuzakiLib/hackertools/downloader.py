@@ -10,7 +10,7 @@ class Downloader:
             return {"link": link}
         return {}
 
-    async def with_download(self, open_files=None, response_url):
+    async def with_download(self, open_files=None, response_url=None):
         response = requests.get(response_url).content 
         with open(open_files, "wb") as f:
             f.write(response)

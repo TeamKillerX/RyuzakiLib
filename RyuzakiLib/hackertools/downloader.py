@@ -10,6 +10,10 @@ class Downloader:
             return {"link": link}
         return {}
 
+    def with_download(self, open_files=None, response):
+        with open(open_files, "wb") as f:
+            f.write(response)
+
     def with_(self, open_files=None):
         with open(open_files, "rb") as file:
             files = {"file": file}

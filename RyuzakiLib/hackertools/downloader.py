@@ -1,5 +1,5 @@
 import httpx
-
+import requests
 
 class Downloader:
     def __init__(self):
@@ -10,7 +10,8 @@ class Downloader:
             return {"link": link}
         return {}
 
-    def with_download(self, open_files=None, response):
+    async def with_download(self, open_files=None, response_url):
+        response = requests.get(response_url).content 
         with open(open_files, "wb") as f:
             f.write(response)
 

@@ -1,6 +1,8 @@
 import os
+
 import httpx
 import requests
+
 
 class Downloader:
     def __init__(self):
@@ -13,7 +15,7 @@ class Downloader:
 
     async def with_download(self, open_files=None, response_url=None):
         try:
-            response = requests.get(response_url).content 
+            response = requests.get(response_url).content
             with open(open_files, "wb") as f:
                 f.write(response)
         except Exception as e:

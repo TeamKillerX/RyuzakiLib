@@ -230,4 +230,3 @@ With these steps, you'll have FastAPI running on your VPS with your domain, and 
 - Ensure your FastAPI application is not sending excessively large headers, such as very large cookies, unnecessary data, or multiple headers that can be optimized.
 
 By increasing the buffer size, Nginx should now be able to handle larger headers without throwing the "upstream sent too big header" error.
-

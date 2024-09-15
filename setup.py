@@ -59,6 +59,7 @@ setuptools.setup(
         "fastapi[all]",
         "authlib",
         "numpy",
+        "python-dateutil",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

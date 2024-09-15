@@ -163,3 +163,70 @@ Now, you can access your FastAPI app via your domain at:
 
 ### Conclusion
 With these steps, you'll have FastAPI running on your VPS with your domain, and optionally secured with HTTPS via Let's Encrypt. You can scale this setup by using Docker, Gunicorn with Uvicorn workers, and more advanced deployment techniques if necessary.
+
+### Solution: Increase Nginx Header Buffer Sizes
+
+1. **Edit the Nginx Configuration**:
+   You will need to modify your Nginx configuration file (`/etc/nginx/nginx.conf` or the specific configuration file for your site in `/etc/nginx/sites-available/`).
+
+   Add the following directives to increase the buffer sizes:
+
+   ```nginx
+   http {
+       ...
+
+       # Increase the buffer sizes for reading headers
+       proxy_buffer_size 16k;
+       proxy_buffers 4 32k;
+       proxy_busy_buffers_size 64k;
+       proxy_temp_file_write_size 64k;
+   }
+   ```
+
+   If you are working with a specific server block (e.g., `/etc/nginx/sites-available/fastapi`), you can also add these directives inside the `server` or `location` block:
+
+   ```nginx
+   server {
+       listen 80;
+       server_name your_domain_or_ip;
+
+       location / {
+           proxy_pass http://127.0.0.1:8000;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+
+           # Increase the buffer sizes for this location
+           proxy_buffer_size 16k;
+           proxy_buffers 4 32k;
+           proxy_busy_buffers_size 64k;
+           proxy_temp_file_write_size 64k;
+       }
+   }
+   ```
+
+2. **Save the Configuration**.
+
+3. **Test the Nginx Configuration**:
+   Always check if the Nginx configuration is valid before restarting it.
+
+   ```bash
+   sudo nginx -t
+   ```
+
+   If the output says `syntax is ok` and `test is successful`, you can proceed.
+
+4. **Restart Nginx**:
+   Restart Nginx to apply the changes.
+
+   ```bash
+   sudo systemctl restart nginx
+   ```
+
+### Additional Considerations:
+
+- If the error persists, you can further increase the buffer sizes (e.g., increase `proxy_buffer_size` to `32k` or adjust `proxy_buffers` accordingly).
+- Ensure your FastAPI application is not sending excessively large headers, such as very large cookies, unnecessary data, or multiple headers that can be optimized.
+
+By increasing the buffer size, Nginx should now be able to handle larger headers without throwing the "upstream sent too big header" error.

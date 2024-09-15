@@ -37,9 +37,9 @@ class SibylBan:
             return None
 
     @staticmethod
-    def ban(user_id: int = None, reason: str = None, is_working_dev=False) -> str:
+    def ban(api_key: str = None, user_id: int = None, reason: str = None, is_working_dev=True) -> str:
         if is_working_dev:
-            url = "https://akeno.randydev.my.id/sibylban"
+            url = f"https://akeno.randydev.my.id/sibylban?api_key={api_key}"
         else:
             url = "https://randydev-ryuzaki-api.hf.space/sibylban"
         payload = {"user_id": user_id, "reason": reason}
@@ -49,25 +49,25 @@ class SibylBan:
         )
 
     @staticmethod
-    def banlist(user_id: int = None, is_working_dev=False) -> Union[dict, str]:
+    def banlist(api_key: str = None, user_id: int = None, is_working_dev=True) -> Union[dict, str]:
         if is_working_dev:
-            url = "https://akeno.randydev.my.id/ryuzaki/sibyl"
+            url = f"https://akeno.randydev.my.id/ryuzaki/sibyl?api_key={api_key}"
         else:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibyl"
         payload = {"user_id": user_id}
         return SibylBan._make_request("GET", url, json_data=payload)
 
     @staticmethod
-    def unban(user_id: int = None, is_working_dev=False) -> Union[dict, str]:
+    def unban(api_key: str = None, user_id: int = None, is_working_dev=True) -> Union[dict, str]:
         if is_working_dev:
-            url = "https://akeno.randydev.my.id/ryuzaki/sibyldel"
+            url = f"https://akeno.randydev.my.id/ryuzaki/sibyldel?api_key={api_key}"
         else:
             url = "https://randydev-ryuzaki-api.hf.space/ryuzaki/sibydel"
         payload = {"user_id": user_id}
         return SibylBan._make_request("DELETE", url, json_data=payload)
 
     @staticmethod
-    def banlist_all(is_working_dev=False) -> Union[dict, str]:
+    def banlist_all(is_working_dev=True) -> Union[dict, str]:
         if is_working_dev:
             url = "https://akeno.randydev.my.id/ryuzaki/getbanlist"
         else:

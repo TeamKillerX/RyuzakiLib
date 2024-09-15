@@ -5,7 +5,7 @@
 # scope: hikka_only
 # requires: python-dateutil
 
-import asyncio, time
+import time
 import numpy as np
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
@@ -43,7 +43,6 @@ class UserDateEstimator:
     def _unpack_data(self):
         x_data = np.array(list(map(int, data.keys())))
         y_data = np.array(list(data.values()))
-
         return (x_data, y_data)
 
     def _fit_data(self):
@@ -52,10 +51,8 @@ class UserDateEstimator:
 
     def func(self, tg_id: int):
         value = self._func(tg_id)
-
         if value > time.time():
             value = time.time()
-
         return value
 
     def time_format(self, unix_time, fmt="%Y-%m-%d"):

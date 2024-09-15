@@ -1,44 +1,19 @@
-import json
-import pathlib
-from typing import Callable
-import time
-from datetime import datetime
 import numpy as np
+from datetime import datetime, timedelta
 
-class FunctionDate:
-    def __init__(self, order: int = 3):
-        self.order = order
-        self.data_path = pathlib.Path.cwd().joinpath("dates.json")
-
-        self.x, self.y = self._unpack_data()
-        self._func = self._fit_data()
-
-    def _unpack_data(self) -> (np.ndarray, np.ndarray):
-        with open(self.data_path) as string_data:
-            data = json.load(string_data)
-
-        x_data = np.array(list(map(int, data.keys())))
-        y_data = np.array(list(data.values()))
-
-        return (x_data, y_data)
-
-    def _fit_data(self) -> Callable[[int], float]:
-        fitted = np.polyfit(self.x, self.y, self.order)
-        func = np.poly1d(fitted)
-        return func
-
-    def add_datapoint(self, pair: tuple):
-        with open(self.data_path) as string_data:
-            data = json.load(string_data)
-        data[str(pair[0])] = pair[1]
-        with open(self.data_path, "w") as string_data:
-            json.dump(data, string_data)
-        self.x, self.y = self._unpack_data()
-        self._func = self._fit_data()
-
-    def func(self, tg_id: int) -> float:
-        value = self._func(tg_id)
-        current = time.time()
-        if value > current:
-            value = current
-        return value
+class UserDateEstimator:
+    def __init__(self):
+        self.user_data = {
+            1000000000: datetime(2019, 1, 1),
+            1100000000: datetime(2020, 1, 1),
+            1191668125: datetime(2020, 6, 15)
+        }
+        
+        self.user_ids = np.array(list(self.user_data.keys()))
+        self.timestamps = np.array([dt.timestamp() for dt in self.user_data.values()])
+        self.poly = np.poly1d(np.polyfit(self.user_ids, self.timestamps, 1))
+        
+    def estimate_registration_date(self, user_id):
+        estimated_timestamp = self.poly(user_id)
+        estimated_date = datetime.utcfromtimestamp(estimated_timestamp)
+        return estimated_date.strftime("%B %Y")

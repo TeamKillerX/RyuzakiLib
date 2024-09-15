@@ -58,6 +58,7 @@ setuptools.setup(
         "uvicorn[standard]",
         "fastapi[all]",
         "authlib",
+        "numpy",
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

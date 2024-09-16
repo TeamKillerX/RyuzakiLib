@@ -6,9 +6,10 @@
 # requires: python-dateutil
 
 import time
+from datetime import datetime
+
 import numpy as np
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
 
 data = {
     "7117444122": 1723429195,

@@ -11,6 +11,8 @@ from dateutil.relativedelta import relativedelta
 from datetime import datetime
 
 data = {
+    "7117444122": 1723429195,
+    "6602485156": 1723148395,
     "5396587273": 1648014800,
     "5336336790": 1646368100,
     "4317845111": 1620028800,
@@ -34,29 +36,31 @@ data = {
 }
 
 class UserDateEstimator:
-    def __init__(self, order = 3):
-        self.order = 3
-
+    def __init__(self, order=3):
+        self.order = order
         self.x, self.y = self._unpack_data()
         self._func = self._fit_data()
 
     def _unpack_data(self):
         x_data = np.array(list(map(int, data.keys())))
         y_data = np.array(list(data.values()))
-        return (x_data, y_data)
+        return x_data, y_data
 
     def _fit_data(self):
         fitted = np.polyfit(self.x, self.y, self.order)
         return np.poly1d(fitted)
 
     def func(self, tg_id: int):
+        # Check if tg_id exists in the data
+        if str(tg_id) in data:
+            return data[str(tg_id)]  # Return exact value if found
         value = self._func(tg_id)
         if value > time.time():
             value = time.time()
         return value
 
-    def time_format(self, unix_time, fmt="%Y-%m-%d"):
-        result = [str(datetime.utcfromtimestamp(unix_time).strftime(fmt))]
+    def time_format(self, unix_time):
+        formatted_date = datetime.utcfromtimestamp(unix_time).strftime("%Y-%m-%d %H:%M:%S")
         d = relativedelta(datetime.now(), datetime.utcfromtimestamp(unix_time))
-        result.append(f"{d.years} year{'s' if d.years != 1 else ''}, {d.months} month{'s' if d.months != 1 else ''}, {d.days} day{'s' if d.days != 1 else ''}")
-        return result
+        age = f"{d.years} year{'s' if d.years != 1 else ''}, {d.months} month{'s' if d.months != 1 else ''}, {d.days} day{'s' if d.days != 1 else ''}"
+        return formatted_date, age

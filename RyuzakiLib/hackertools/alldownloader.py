@@ -1,5 +1,7 @@
 import aiohttp
 import requests
+import wget
+import os
 
 
 class DictToObj:
@@ -21,6 +23,13 @@ class AkenoPlus:
         self.api_endpoint = "https://akeno.randydev.my.id"
         self.headers = {"x-akeno-key": key}
 
+    async def download_now(data, remove=False):
+        response = wget.download(data)
+        if remove:
+            return response
+            os.remove(response)
+        return response
+    
     async def terabox(self, link=None):
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.api_endpoint}/akeno/terabox-v1?link={link}", headers=self.headers) as response:

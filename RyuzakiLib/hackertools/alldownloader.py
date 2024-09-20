@@ -1,7 +1,8 @@
+import os
+
 import aiohttp
 import requests
 import wget
-import os
 
 
 class DictToObj:

@@ -4,9 +4,10 @@ from RyuzakiLib.api.reqs import async_search
 
 
 class PornoHub:
-    def __init__(self, token=None, base_api_dev: str = "https://akeno.randydev.my.id"):
+    def __init__(self, key=None, base_api_dev: str = "https://akeno.randydev.my.id"):
         self.base_api_dev = base_api_dev
-        self.headers = {"x-akeno-key": "randigithub356"} # auto ip banning
+        self.headers = {"x-akeno-key": key}
+
 
     async def x_search(self, query=None):
         url = f"{self.base_api_dev}/akeno/xnxxsearch-v2?query={query}"

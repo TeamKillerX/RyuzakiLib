@@ -39,6 +39,8 @@ from .extreme.quotestk import QouteSticker
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
 from .fastapi import FastAPISuper
+from .functions_date import UserDateEstimator
+from .hackertools.alldownloader import AkenoPlus
 from .hackertools.blackbox import Blackbox
 from .hackertools.chatgpt import RendyDevChat
 from .hackertools.cloudflare import CloudFlare
@@ -122,4 +124,6 @@ __all__ = [
     "AkenoAI",
     "FastAPISuper",
     "Downloader",
+    "UserDateEstimator",
+    "AkenoPlus",
 ]

@@ -33,3 +33,5 @@ wget
 uvicorn[standard]
 fastapi[all]
 authlib
+numpy
+python-dateutil

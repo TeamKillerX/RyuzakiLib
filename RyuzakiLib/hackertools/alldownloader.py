@@ -28,7 +28,7 @@ class AkenoPlus:
         if remove:
             os.remove(response)
         return response
-    
+
     async def terabox(self, link=None):
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.api_endpoint}/akeno/terabox-v1?link={link}", headers=self.headers) as response:
@@ -43,6 +43,12 @@ class AkenoPlus:
         payload={"query": query}
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{self.api_endpoint}/ryuzaki/chatgpt-old", json=payload, headers=self.headers) as response:
+                return await response.json()
+
+    async def blackbox(self, query=None):
+        params = {"query": query}
+        async with aiohttp.ClientSession() as session:
+            async with session.post(f"{self.api_endpoint}/ryuzaki/blackbox", params=params, headers=self.headers) as response:
                 return await response.json()
 
     async def hentai(self):

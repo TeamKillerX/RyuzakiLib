@@ -1,5 +1,6 @@
 import requests
 
+
 class DictToObj:
     def __init__(self, dictionary):
         for key, value in dictionary.items():
@@ -7,7 +8,7 @@ class DictToObj:
                 setattr(self, key, DictToObj(value))
             else:
                 setattr(self, key, value)
-    
+
     def __repr__(self):
         return f"{self.__dict__}"
 
@@ -15,7 +16,7 @@ class AkenoPlus:
     def __init__(self, key: str):
         self.api_endpoint = "https://akeno.randydev.my.id"
         self.headers = {"x-akeno-key": key}
-    
+
     async def terabox(self, link=None):
         url = f"https://akeno.randydev.my.id/akeno/terabox-v1?link={link}"
         response = requests.get(

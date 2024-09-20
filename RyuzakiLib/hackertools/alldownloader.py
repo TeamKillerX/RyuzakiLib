@@ -42,5 +42,17 @@ class AkenoPlus:
             async with session.get(f"{self.api_endpoint}/akeno/hentai", headers=self.headers) as response:
                 return await response.json()
 
+    async def fbdown(self):
+        params = {"link": link}
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"{self.api_endpoint}/akeno/fbdown-v2", params=params, headers=self.headers) as response:
+                return await response.json()
+
+    async def fdownloader(self):
+        params = {"link": link}
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"{self.api_endpoint}/akeno/fdownloader", params=params, headers=self.headers) as response:
+                return await response.json()
+
     async def get_json(self, response=None):
         return DictToObj(response)

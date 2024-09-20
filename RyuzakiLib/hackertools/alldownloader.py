@@ -26,7 +26,6 @@ class AkenoPlus:
     async def download_now(data, remove=False):
         response = wget.download(data)
         if remove:
-            return response
             os.remove(response)
         return response
     

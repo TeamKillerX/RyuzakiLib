@@ -1,5 +1,6 @@
-import requests
 import aiohttp
+import requests
+
 
 class DictToObj:
     def __init__(self, dictionary):

@@ -7,11 +7,14 @@ class DictToObj:
         for key, value in dictionary.items():
             if isinstance(value, dict):
                 setattr(self, key, DictToObj(value))
+            elif isinstance(value, list):
+                setattr(self, key, [DictToObj(item) if isinstance(item, dict) else item for item in value])
             else:
                 setattr(self, key, value)
 
     def __repr__(self):
         return f"{self.__dict__}"
+
 
 class AkenoPlus:
     def __init__(self, key: str):

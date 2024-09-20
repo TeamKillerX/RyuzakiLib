@@ -4,7 +4,7 @@ from RyuzakiLib import AkenoPlus
 
 key = "your_api_key_from_email"
 
-_ = AkenoPlus(key=ok)
+_ = AkenoPlus(key=key)
 
 response = await _.hentai()
 

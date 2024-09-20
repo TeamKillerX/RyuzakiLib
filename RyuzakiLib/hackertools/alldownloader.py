@@ -68,5 +68,11 @@ class AkenoPlus:
             async with session.get(f"{self.api_endpoint}/akeno/fdownloader", params=params, headers=self.headers) as response:
                 return await response.json()
 
+    async def capcut(self):
+        params = {"link": link}
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"{self.api_endpoint}/akeno/capcut-v1", params=params, headers=self.headers) as response:
+                return await response.json()
+
     async def get_json(self, response=None):
         return DictToObj(response)

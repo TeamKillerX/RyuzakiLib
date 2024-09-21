@@ -34,7 +34,7 @@ class AkenoPlus:
         else:
             self.ip_unban = []
 
-    async def all_blacklist(self):
+    def all_blacklist(self):
         response = requests.get("https://akeno.randydev.my.id/blacklist/list-ip/").json()
         return response["blacklisted_ips"]
 

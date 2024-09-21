@@ -26,12 +26,14 @@ class AkenoPlus:
         self.headers = {"x-akeno-key": key}
         self.headers_blacklist = {"x-blacklist-key": key}
 
-    async def download_now(self, data, time: int = 0, remove=False):
-        response = wget.download(data)
-        if remove:
-            await asyncio.sleep(time)
-            os.remove(response)
-        return response
+    async def download_now(self, data):
+        return wget.download(data)
+
+    async def clean(self, file_path: str):
+        try:
+            os.remove(file_path)
+        except OSError as e:
+            return f"Error removing file {file_path}: {e}")
 
     async def terabox(self, link=None):
         async with aiohttp.ClientSession() as session:

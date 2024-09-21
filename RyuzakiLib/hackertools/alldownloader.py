@@ -26,7 +26,7 @@ class AkenoPlus:
         self.headers = {"x-akeno-key": key}
         self.headers_blacklist = {"x-blacklist-key": key}
 
-    async def download_now(self, data, time: int, remove=False):
+    async def download_now(self, data, time: int = 0, remove=False):
         response = wget.download(data)
         if remove:
             await asyncio.sleep(time)

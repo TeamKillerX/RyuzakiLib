@@ -1,6 +1,7 @@
 import os
 
 import aiohttp
+import asyncio
 import requests
 import wget
 
@@ -25,9 +26,10 @@ class AkenoPlus:
         self.headers = {"x-akeno-key": key}
         self.headers_blacklist = {"x-blacklist-key": key}
 
-    async def download_now(self, data, remove=False):
+    async def download_now(self, data, time: int, remove=False):
         response = wget.download(data)
         if remove:
+            await asyncio.sleep(time)
             os.remove(response)
         return response
 

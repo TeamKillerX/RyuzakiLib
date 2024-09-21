@@ -81,8 +81,8 @@ class AkenoPlus:
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{self.api_endpoint}/add_to_blacklist_ip/", params=params, headers=self.headers_blacklist) as response:
                 return await response.json()
-
-   async def unblock_ip(self, ip=None):
+    
+    async def unblock_ip(self, ip=None):
         params = {"ip": ip}
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{self.api_endpoint}/remove_from_blacklist_ip", params=params, headers=self.headers_blacklist) as response:

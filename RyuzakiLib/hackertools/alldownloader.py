@@ -20,7 +20,6 @@ class DictToObj:
     def __repr__(self):
         return f"{self.__dict__}"
 
-
 class AkenoPlus:
     def __init__(self, key: str, issue: bool = False, ip_unban=None):
         self.issue = issue
@@ -35,9 +34,14 @@ class AkenoPlus:
         else:
             self.ip_unban = []
 
+    async def all_blacklist(self):
+        response = requests.get("https://akeno.randydev.my.id/blacklist/list-ip/").json()
+        return response["blacklisted_ips"]
+
     async def call_next(self, request, call_next):
-        client_ip = request.client.host
-        if self.issue and client_ip in self.banned_ips and client_ip not in self.ip_unban:
+        banned_ips = self.all_blacklist()
+        client_ip = request.headers.get("X-Real-IP") or request.client.host
+        if self.issue and client_ip in banned_ips and client_ip not in self.ip_unban:
             raise HTTPException(status_code=403, detail="Your IP is banned.")
         response = await call_next(request)
         return response

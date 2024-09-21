@@ -99,6 +99,6 @@ class AkenoPlus:
         async with aiohttp.ClientSession() as session:
             async with session.delete(f"{self.api_endpoint}/remove_allow_ip/", params=params, headers=self.headers_blacklist) as response:
                 return await response.json()
- 
+
     async def get_json(self, response=None):
         return DictToObj(response)

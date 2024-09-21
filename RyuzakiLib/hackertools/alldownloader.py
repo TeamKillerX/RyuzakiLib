@@ -4,6 +4,7 @@ import os
 import aiohttp
 import requests
 import wget
+from fastapi import HTTPException
 
 
 class DictToObj:
@@ -21,10 +22,25 @@ class DictToObj:
 
 
 class AkenoPlus:
-    def __init__(self, key: str):
+    def __init__(self, key: str, issue: bool = False, ip_unban=None):
+        self.issue = issue
         self.api_endpoint = "https://akeno.randydev.my.id"
         self.headers = {"x-akeno-key": key}
         self.headers_blacklist = {"x-blacklist-key": key}
+
+        if isinstance(ip_unban, str):
+            self.ip_unban = [ip_unban]
+        elif isinstance(ip_unban, list):
+            self.ip_unban = ip_unban
+        else:
+            self.ip_unban = []
+
+    async def call_next(self, request, call_next):
+        client_ip = request.client.host
+        if self.issue and client_ip in self.banned_ips and client_ip not in self.ip_unban:
+            raise HTTPException(status_code=403, detail="Your IP is banned.")
+        response = await call_next(request)
+        return response
 
     async def download_now(self, data):
         return wget.download(data)

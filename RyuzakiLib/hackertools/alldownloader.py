@@ -33,7 +33,7 @@ class AkenoPlus:
         try:
             os.remove(file_path)
         except OSError as e:
-            return f"Error removing file {file_path}: {e}")
+            return f"Error removing file {file_path}: {e}"
 
     async def terabox(self, link=None):
         async with aiohttp.ClientSession() as session:

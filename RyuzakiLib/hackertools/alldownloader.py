@@ -1,7 +1,7 @@
+import asyncio
 import os
 
 import aiohttp
-import asyncio
 import requests
 import wget
 

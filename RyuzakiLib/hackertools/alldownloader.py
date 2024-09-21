@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 import aiohttp
@@ -25,11 +26,14 @@ class AkenoPlus:
         self.headers = {"x-akeno-key": key}
         self.headers_blacklist = {"x-blacklist-key": key}
 
-    async def download_now(data, remove=False):
-        response = wget.download(data)
-        if remove:
-            os.remove(response)
-        return response
+    async def download_now(self, data):
+        return wget.download(data)
+
+    async def clean(self, file_path: str):
+        try:
+            os.remove(file_path)
+        except OSError as e:
+            return f"Error removing file {file_path}: {e}")
 
     async def terabox(self, link=None):
         async with aiohttp.ClientSession() as session:
@@ -82,7 +86,7 @@ class AkenoPlus:
             async with session.post(f"{self.api_endpoint}/add_to_blacklist_ip/", params=params, headers=self.headers_blacklist) as response:
                 return await response.json()
 
-   async def unblock_ip(self, ip=None):
+    async def unblock_ip(self, ip=None):
         params = {"ip": ip}
         async with aiohttp.ClientSession() as session:
             async with session.post(f"{self.api_endpoint}/remove_from_blacklist_ip", params=params, headers=self.headers_blacklist) as response:

@@ -26,7 +26,7 @@ class AkenoPlus:
         self.issue = issue
         self.api_endpoint = "https://akeno.randydev.my.id"
         self.headers = {"x-akeno-key": key}
-        
+
         if isinstance(ip_unban, str):
             self.ip_unban = [ip_unban]
         elif isinstance(ip_unban, list):

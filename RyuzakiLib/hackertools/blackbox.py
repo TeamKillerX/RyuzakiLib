@@ -73,33 +73,29 @@ class Blackbox:
             "userSystemPrompt": None,
         }
 
-        # Retrieve conversation history for the user
         conversation = await self.get_conversation(user_id)
         payload["messages"] = conversation + payload["messages"]
-
         headers = {
             "Content-Type": Content_Type.decode("utf-16"),
             "Cookie": Cookie.decode("utf-16"),
             "Origin": Origin.decode("utf-16"),
             "User-Agent": User_Agent.decode("utf-16"),
         }
-
         try:
-            response = await AsyicXSearcher.search(
-                url, post=True, headers=headers, json=payload
+            response = requests.post(
+                url,
+                headers=headers,
+                json=payload
             )
             if response:
-                clean_text = response.replace("$@$v=undefined-rv1$@$", "")
+                clean_text = response.text.replace("$@$v=undefined-rv1$@$", "")
                 pattern = m("ciJcJEBcJHY9djFcLlxkezJ9LXJ2MVwkQFwkIg==").decode("utf-8")
                 clean_text = re.sub(pattern, "", clean_text)
                 split_text = clean_text.split("\n\n", 2)
-
                 if len(split_text) >= 3:
                     response_content = split_text[2].strip()
                 else:
                     response_content = clean_text
-
-                # Update conversation history
                 new_conversation = payload["messages"] + [
                     {
                         "id": id,

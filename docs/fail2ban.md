@@ -145,3 +145,59 @@ This will show you all the recent bans and unbans performed by Fail2Ban.
 ---
 
 By following these steps, you should have a working setup of **Fail2Ban** to protect both **Nginx** and **FastAPI** from malicious activity, banning suspicious IP addresses based on your configured rules.
+
+### Custom Fail2ban
+```bash
+for jail in $(sudo fail2ban-client status | grep 'Jail list:' | sed 's/.*://;s/,//g'); do
+  echo "Jail: $jail";
+  sudo fail2ban-client status $jail | grep 'Banned IP';
+done
+```
+- Step 9: Add Jails to Your Configuration
+
+To add these jails to the Fail2Ban configuration in the custom.conf file, follow these steps:
+
+Open the configuration file: Use the command to open the file in a text editor:
+```sudo
+sudo nano /etc/fail2ban/jail.d/custom.conf
+```
+- Add jail configurations: Copy and paste the following configurations at the end of the file:
+```conf
+[sshd]
+enabled = true
+
+[nginx-4xx]
+enabled = true
+port     = http,https
+filter   = nginx-4xx
+logpath  = %(nginx_error_log)s
+
+[nginx-http-auth]
+enabled = true
+port     = http,https
+filter   = nginx-http-auth
+logpath  = %(nginx_error_log)s
+
+[nginx-botsearch]
+enabled = true
+port     = http,https
+filter   = nginx-botsearch
+logpath  = %(nginx_access_log)s
+
+[nginx-forbidden]
+enabled = true
+port    = http,https
+filter  = nginx-forbidden
+logpath = %(nginx_error_log)s
+
+[nginx-sslerror]
+enabled = true
+port    = http,https
+filter  = nginx-sslerror
+logpath = %(nginx_error_log)s
+
+[ufw]
+enabled = true
+filter  = ufw
+logpath = /var/log/ufw.log
+```

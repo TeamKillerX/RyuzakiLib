@@ -10,9 +10,9 @@ sudo apt install fail2ban
 Fail2Ban comes with default configurations for various services, including Nginx. However, you need to enable them and configure them to work with your specific setup.
 
 1. **Create a Local Jail Configuration File**:
-   
+
    To prevent your custom configuration from being overwritten by updates, create a local jail file:
-   
+
    ```bash
    sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
    ```
@@ -20,7 +20,7 @@ Fail2Ban comes with default configurations for various services, including Nginx
 2. **Enable Nginx Protection in Fail2Ban**:
 
    Open the `/etc/fail2ban/jail.local` file in a text editor:
-   
+
    ```bash
    sudo nano /etc/fail2ban/jail.local
    ```
@@ -69,7 +69,7 @@ Fail2Ban comes with default configurations for various services, including Nginx
 Fail2Ban uses filter files to define what logs it should look for. The filters for Nginx may already exist, but if not, you can create them.
 
 1. **Create a New Filter for 404 Errors**:
-   
+
    Create the filter file:
 
    ```bash

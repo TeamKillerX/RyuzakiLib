@@ -22,15 +22,10 @@ import requests
 
 url = "https://akeno.randydev.my.id/akeno/fluxai"
 
-headers = {
-  "x-akeno-key": "your api key"
-}
-
 data = {
     "args": "Generate an image of a futuristic city at sunset"
 }
 
-response = requests.post(url, json=data).json()
-print(response)
+response = requests.post(url, json=data).content
 ```
-• You also read this [`Docs-All`](https://akeno.randydev.my.id/tools)
+• You also read this [`Docs-All`](https://akeno.randydev.my.id/docs)

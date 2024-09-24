@@ -1,5 +1,3 @@
-To install and configure **Fail2Ban** with **Nginx** and **FastAPI** on a server, you can follow these steps. Fail2Ban is a security tool that helps protect your server from brute-force attacks and other malicious activities by banning IP addresses that show suspicious activity.
-
 ### Step 1: Install Fail2Ban
 First, install **Fail2Ban** on your server. Run the following commands:
 
@@ -143,9 +141,6 @@ sudo tail -f /var/log/fail2ban.log
 This will show you all the recent bans and unbans performed by Fail2Ban.
 
 ---
-
-By following these steps, you should have a working setup of **Fail2Ban** to protect both **Nginx** and **FastAPI** from malicious activity, banning suspicious IP addresses based on your configured rules.
-
 ### Custom Fail2ban
 ```bash
 for jail in $(sudo fail2ban-client status | grep 'Jail list:' | sed 's/.*://;s/,//g'); do
@@ -153,16 +148,37 @@ for jail in $(sudo fail2ban-client status | grep 'Jail list:' | sed 's/.*://;s/,
   sudo fail2ban-client status $jail | grep 'Banned IP';
 done
 ```
-- Step 9: Add Jails to Your Configuration
+- Default Parameter
+```bash
+sudo nano /etc/fail2ban/jail.d/custom.conf
+```
+**Override the base configurations**: All default parameters and configurations are found in the file `/etc/fail2ban/jail.conf`. Here is a list of important parameters to override and adapt according to the behavior you desire:
+- **bantime**: Defines the duration of an IP ban (default 10 minutes, recommended several hours or days).
+- **findtime**: Period during which anomalies are searched for in the logs.
+- **ignoreip**: List of IPs to ignore, including yours to avoid self-banning.
+- **maxretry**: Number of failed attempts allowed before banning.
+Also define the use of UFW to take control of the banning (banaction and banaction_allports).
 
-To add these jails to the Fail2Ban configuration in the custom.conf file, follow these steps:
+Here is an example of a drastic configuration, banning any first intrusion attempt for 1 day. We also define the use of UFW, (note the local IP addresses that you may need to adjust according to your local network configuration):
 
-Open the configuration file: Use the command to open the file in a text editor:
-```sudo
+```ini
+[DEFAULT]
+bantime = 1d
+findtime = 1d
+ignoreip = 127.0.0.1/8 192.168.0.0/16
+maxretry = 1
+
+banaction = ufw
+banaction_allports = ufw
+```
+- Step 8: Add Jails to Your Configuration
+
+To add these jails to the Fail2Ban configuration in the `custom.conf` file, follow these steps:
+```bash
 sudo nano /etc/fail2ban/jail.d/custom.conf
 ```
 - Add jail configurations: Copy and paste the following configurations at the end of the file:
-```conf
+```ini
 [sshd]
 enabled = true
 

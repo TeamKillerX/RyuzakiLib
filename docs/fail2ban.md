@@ -217,3 +217,8 @@ enabled = true
 filter  = ufw
 logpath = /var/log/ufw.log
 ```
+# UFW Ban IP
+You ban him manually by adding his IP to the firewall. If you are using UFW, then you write something like this in your command line:
+```bash
+ufw insert 1 deny from <ip> to any
+```

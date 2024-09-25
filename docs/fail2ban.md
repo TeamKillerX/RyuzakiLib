@@ -150,7 +150,8 @@ for jail in $(sudo fail2ban-client status | grep 'Jail list:' | sed 's/.*://;s/,
     echo "Jail: $jail"
     # Display banned IPs for the current jail
     sudo fail2ban-client status $jail | grep 'Banned IP'
-done```
+done
+```
 
 - Default Parameter
 ```bash

@@ -1,5 +1,6 @@
 ### Step 1: Install Fail2Ban
-First, install **Fail2Ban** on your server. Run the following commands:
+
+Fail2Ban is an intrusion prevention software framework that protects your server from brute-force attacks. It monitors log files and bans IP addresses that show malicious signs.
 
 ```bash
 sudo apt update
@@ -143,11 +144,14 @@ This will show you all the recent bans and unbans performed by Fail2Ban.
 ---
 ### Custom Fail2ban
 ```bash
+# Get list of all Fail2ban jails
 for jail in $(sudo fail2ban-client status | grep 'Jail list:' | sed 's/.*://;s/,//g'); do
-  echo "Jail: $jail";
-  sudo fail2ban-client status $jail | grep 'Banned IP';
-done
-```
+    # Print the current jail name
+    echo "Jail: $jail"
+    # Display banned IPs for the current jail
+    sudo fail2ban-client status $jail | grep 'Banned IP'
+done```
+
 - Default Parameter
 ```bash
 sudo nano /etc/fail2ban/jail.d/custom.conf
@@ -221,4 +225,10 @@ logpath = /var/log/ufw.log
 You ban him manually by adding his IP to the firewall. If you are using UFW, then you write something like this in your command line:
 ```bash
 ufw insert 1 deny from <ip> to any
+
+# Warning: Manual IP banning carries risks:
+# - Potential blocking of legitimate traffic
+# - Increased maintenance overhead
+# - Difficulty in managing multiple banned IPs
+# Consider using automated tools like fail2ban for better management
 ```

@@ -1,6 +1,7 @@
 import subprocess
 from typing import List, Union
 
+
 async def ufw_insert_deny_from(ip: str):
     block_command = ["sudo", "ufw", "insert", "1", "deny", "from", ip, "to", "any"]
     return subprocess.run(block_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)

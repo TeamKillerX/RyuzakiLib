@@ -56,8 +56,7 @@ class AkenoAI:
         if not self.connected or not self.api_key:
             return "Not connected or API key missing"
         url = f"{self.base_api_dev}/akeno/xnxxsearch-v2?query={query}"
-        response = await async_search(url, re_json=True, headers=self.headers)
-        return response
+        return await async_search(url, re_json=True, headers=self.headers)
 
     async def x_download(self, url: str):
         if not self.connected or not self.api_key:

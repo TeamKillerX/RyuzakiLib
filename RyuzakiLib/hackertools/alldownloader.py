@@ -24,7 +24,7 @@ class DictToObj:
 class AkenoPlus:
     def __init__(self, key: str = None, issue: bool = False, ip_unban=None):
         self.issue = issue
-        self.api_endpoint = "https://akeno.randydev.my.id"
+        self.api_endpoint = "https://private-akeno.randydev.my.id"
         self.headers = {"x-akeno-key": key}
 
         if isinstance(ip_unban, str):

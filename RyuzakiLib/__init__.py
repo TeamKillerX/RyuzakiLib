@@ -64,6 +64,7 @@ from .pushdb import *
 from .pyrogramMod import PyrogramMod
 from .quote import *
 from .reminder import *
+from .security.rules_users import *
 from .spamwatch.clients import SibylBan
 from .story import *
 from .system.read import System

@@ -47,7 +47,7 @@ Today is {dt.now():%A %d %B %Y %H:%M}
 class RendyDevChat:
     @staticmethod
     async def chat_hacked(
-        base_api_dev = "https://akeno.randydev.my.id",
+        base_api_dev = "https://private-akeno.randydev.my.id",
         args: str = None,
         latest_model: str = "openai-latest",
         model_id: Optional[int] = None,
@@ -199,7 +199,7 @@ class RendyDevChat:
     async def image_generator(
         args,
         api_key: str = None,
-        base_api_dev="https://akeno.randydev.my.id",
+        base_api_dev="https://private-akeno.randydev.my.id",
         is_working_dev=True
     ):
         if is_working_dev:

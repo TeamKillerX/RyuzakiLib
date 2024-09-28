@@ -8,7 +8,7 @@ class AkenoAI:
         self.base_api_dev = base_api_dev
         self.connected = False
         self.api_key = None
-        self.headers = {"x-akeno-key", self.api_key}
+        self.headers = {"x-akeno-key": self.api_key}
 
     async def signup(self, gmail: str, username: str):
         if not gmail.endswith("@gmail.com"):

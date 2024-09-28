@@ -1,16 +1,17 @@
 import logging
 import smtplib
-import requests
-from typing import *
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from functools import wraps
+from typing import *
 
+import requests
 from authlib.integrations.starlette_client import OAuth
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.sessions import SessionMiddleware
+
 
 class FastAPISuper:
     def __init__(

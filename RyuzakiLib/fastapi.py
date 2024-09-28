@@ -110,7 +110,13 @@ class FastAPISuper:
         payload = {
             "chat_id": chat_id,
             "text": text,
-            "parse_mode": "Markdown",
+def send_message(self, chat_id: int, text: str, parse_mode: str = "Markdown", disable_web_page_preview: bool = True) -> None:
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": parse_mode,
+        "disable_web_page_preview": disable_web_page_preview
+    }
             "disable_web_page_preview": True
         }
         return requests.post(

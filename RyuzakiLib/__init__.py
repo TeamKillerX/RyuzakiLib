@@ -58,6 +58,7 @@ from .hackertools.reverse import GoogleReverseImage
 from .hackertools.rmbg import Background
 from .hackertools.tiktok import Tiktok
 from .hackertools.xnxx import PornoHub
+from .security.rules_users import *
 from .mental import *
 from .profile.user import Clone
 from .pushdb import *

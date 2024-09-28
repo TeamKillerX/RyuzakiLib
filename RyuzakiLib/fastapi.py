@@ -104,7 +104,7 @@ class FastAPISuper:
 
     async def send_message_telegram(
         self,
-        chat_id: Optional[str, int] = None,
+        chat_id: Union[str, int] = None,
         text=None
     ):
         payload = {

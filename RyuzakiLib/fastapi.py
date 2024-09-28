@@ -101,23 +101,13 @@ class FastAPISuper:
     async def authorize_access_token(self, request=None):
         token = await self.auth.auth0.authorize_access_token(request)
         return token
-
-    async def send_message_telegram(
-        self,
-        chat_id: Union[str, int] = None,
-        text=None
-    ):
+        
+    async def send_message(self, chat_id: int, text: str, parse_mode: str = "Markdown", disable_web_page_preview: bool = True) -> None:
         payload = {
             "chat_id": chat_id,
             "text": text,
-def send_message(self, chat_id: int, text: str, parse_mode: str = "Markdown", disable_web_page_preview: bool = True) -> None:
-    payload = {
-        "chat_id": chat_id,
-        "text": text,
-        "parse_mode": parse_mode,
-        "disable_web_page_preview": disable_web_page_preview
-    }
-            "disable_web_page_preview": True
+            "parse_mode": parse_mode,
+            "disable_web_page_preview": disable_web_page_preview
         }
         return requests.post(
             f"{self.api_endpoint}/bot{self.bot_token}/sendMessage",

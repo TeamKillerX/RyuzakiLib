@@ -3,7 +3,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from functools import wraps
+from typing import *
 
+import requests
 from authlib.integrations.starlette_client import OAuth
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,15 +17,18 @@ class FastAPISuper:
     def __init__(
         self,
         docs_url=None,
-        redoc_url=None,
+        redoc_url="/",
         config=None,
-        mongo_url=None
+        mongo_url=None,
+        bot_token=None,
     ):
         self.docs_url = docs_url
         self.redoc_url = redoc_url
         self.fastapi = FastAPI(docs_url=self.docs_url, redoc_url=self.redoc_url)
         self.auth = OAuth(config)
         self.async_mongodb = AsyncIOMotorClient(mongo_url)
+        self.bot_token = bot_token
+        self.api_endpoint = "https://api.telegram.org"
 
     def async_motor_client(self):
         return self.async_mongodb
@@ -96,6 +101,28 @@ class FastAPISuper:
     async def authorize_access_token(self, request=None):
         token = await self.auth.auth0.authorize_access_token(request)
         return token
+
+    async def send_message_telegram(
+        self,
+        chat_id: Union[str, int] = None,
+        text=None
+    ):
+        payload = {
+            "chat_id": chat_id,
+            "text": text,
+def send_message(self, chat_id: int, text: str, parse_mode: str = "Markdown", disable_web_page_preview: bool = True) -> None:
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": parse_mode,
+        "disable_web_page_preview": disable_web_page_preview
+    }
+            "disable_web_page_preview": True
+        }
+        return requests.post(
+            f"{self.api_endpoint}/bot{self.bot_token}/sendMessage",
+            data=payload
+        )
 
     def moderator(self):
         return self.fastapi

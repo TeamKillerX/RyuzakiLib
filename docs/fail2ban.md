@@ -222,7 +222,7 @@ enabled = true
 filter  = ufw
 logpath = /var/log/ufw.log
 ```
-### Question?
+### Configuring Custom Logpaths in Fail2Ban
 In Fail2Ban, if you're creating a custom configuration file such as `custom.conf`, and you want to set the `logpath` for a specific jail to `/var/log/nginx/access.log`, you can do it directly under the jail configuration.
 
 For example, if you want to define the log path for monitoring Nginx access logs in your custom configuration (`custom.conf`), you can structure it like this:

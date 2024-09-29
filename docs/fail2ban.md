@@ -263,7 +263,11 @@ In this example:
 - Each `[nginx-*]` jail has a `logpath` specified, which points to `/var/log/nginx/access.log` for Nginx access logs.
 - Ensure that `/var/log/nginx/access.log` exists and is the correct file where Nginx logs access attempts.
 
-### Where to Place `custom.conf`:
+## Custom Configuration File Placement
+
+### Important: Place `custom.conf` in `/etc/fail2ban/jail.d/`
+
+Fail2Ban reads configuration files from this directory and combines them with the main configuration.
 - This custom configuration file should be placed in `/etc/fail2ban/jail.d/` as `custom.conf`. Fail2Ban reads configuration files from this directory and combines them with the main configuration.
 
 Example steps:

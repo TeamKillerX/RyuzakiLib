@@ -265,7 +265,7 @@ In this example:
 
 ### Where to Place `custom.conf`:
 - This custom configuration file should be placed in `/etc/fail2ban/jail.d/` as `custom.conf`. Fail2Ban reads configuration files from this directory and combines them with the main configuration.
-  
+
 Example steps:
 ```bash
 sudo nano /etc/fail2ban/jail.d/custom.conf

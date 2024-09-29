@@ -280,7 +280,7 @@ Add the custom jail configurations there, save the file, and restart Fail2Ban:
 sudo systemctl restart fail2ban
 ```
 
-### Important:
+> **Important Note:**
 - Make sure that `/var/log/nginx/access.log` is being actively written by Nginx. You can check this by running:
   ```bash
   tail -f /var/log/nginx/access.log

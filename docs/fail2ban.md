@@ -222,6 +222,73 @@ enabled = true
 filter  = ufw
 logpath = /var/log/ufw.log
 ```
+### Configuring Custom Logpaths in Fail2Ban
+In Fail2Ban, if you're creating a custom configuration file such as `custom.conf`, and you want to set the `logpath` for a specific jail to `/var/log/nginx/access.log`, you can do it directly under the jail configuration.
+
+For example, if you want to define the log path for monitoring Nginx access logs in your custom configuration (`custom.conf`), you can structure it like this:
+
+```ini
+[nginx-4xx]
+enabled = true
+port     = http,https
+filter   = nginx-4xx
+logpath  = /var/log/nginx/access.log
+
+[nginx-http-auth]
+enabled = true
+port     = http,https
+filter   = nginx-http-auth
+logpath  = /var/log/nginx/access.log
+
+[nginx-botsearch]
+enabled = true
+port     = http,https
+filter   = nginx-botsearch
+logpath  = /var/log/nginx/access.log
+
+[nginx-forbidden]
+enabled = true
+port    = http,https
+filter  = nginx-forbidden
+logpath = /var/log/nginx/access.log
+
+[nginx-sslerror]
+enabled = true
+port    = http,https
+filter  = nginx-sslerror
+logpath = /var/log/nginx/access.log
+```
+
+In this example:
+- Each `[nginx-*]` jail has a `logpath` specified, which points to `/var/log/nginx/access.log` for Nginx access logs.
+- Ensure that `/var/log/nginx/access.log` exists and is the correct file where Nginx logs access attempts.
+
+## Custom Configuration File Placement
+
+### Important: Place `custom.conf` in `/etc/fail2ban/jail.d/`
+
+Fail2Ban reads configuration files from this directory and combines them with the main configuration.
+- This custom configuration file should be placed in `/etc/fail2ban/jail.d/` as `custom.conf`. Fail2Ban reads configuration files from this directory and combines them with the main configuration.
+
+Example steps:
+```bash
+sudo nano /etc/fail2ban/jail.d/custom.conf
+```
+
+Add the custom jail configurations there, save the file, and restart Fail2Ban:
+```bash
+sudo systemctl restart fail2ban
+```
+
+> **Important Note:**
+- Make sure that `/var/log/nginx/access.log` is being actively written by Nginx. You can check this by running:
+  ```bash
+  tail -f /var/log/nginx/access.log
+  ```
+- The filters like `nginx-4xx`, `nginx-http-auth`, etc., should have matching patterns in `/etc/fail2ban/filter.d/` to detect suspicious behavior.
+
+This setup ensures Fail2Ban monitors the correct log file for blocking malicious access attempts.
+
 # UFW Ban IP
 You ban him manually by adding his IP to the firewall. If you are using UFW, then you write something like this in your command line:
 ```bash

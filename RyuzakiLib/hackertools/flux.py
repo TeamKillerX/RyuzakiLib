@@ -5,7 +5,7 @@ from RyuzakiLib.api.reqs import AsyicXSearcher
 
 class FluxAi:
     @staticmethod
-    async def schellwithflux(args, auto_enhancer=False, re_content=False):
+    async def schellwithflux(args: str):
         API_URL = "https://private-akeno.randydev.my.id/akeno/fluxai"
         payload = {
             "args": args

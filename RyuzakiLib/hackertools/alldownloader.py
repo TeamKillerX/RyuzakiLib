@@ -7,7 +7,6 @@ import requests
 import wget
 from fastapi import HTTPException
 
-
 class DictToObj:
     def __init__(self, dictionary):
         for key, value in dictionary.items():
@@ -73,9 +72,14 @@ class AkenoPlus:
                 return await response.json()
 
     async def chatgpt_old(self, query=None):
-        payload={"query": query}
+        payload = {"query": query}
         async with aiohttp.ClientSession() as session:
-            async with session.post(f"{self.api_endpoint}/ryuzaki/chatgpt-old", json=payload, headers=self.headers) as response:
+            async with session.post(f"{self.api_endpoint}/ryuzaki/chatgpt-old", json=payload) as response:
+                return await response.json()
+
+    async def chatgpt_mode_web(self, **params):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"{self.api_endpoint}/api/akeno-ai-web", params=params) as response:
                 return await response.json()
 
     async def blackbox(self, query=None):

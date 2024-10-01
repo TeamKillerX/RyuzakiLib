@@ -77,9 +77,11 @@ class AkenoPlus:
             async with session.post(f"{self.api_endpoint}/ryuzaki/chatgpt-old", json=payload) as response:
                 return await response.json()
 
-    async def chatgpt_mode_web(self, **params):
+    async def chatgpt_mode_web(self, query=None, **params):
+        combined_params = {"query": query}
+        combined_params.update(params)
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{self.api_endpoint}/api/akeno-ai-web", params=params) as response:
+            async with session.get(f"{self.api_endpoint}/api/akeno-ai-web", params=combined_params) as response:
                 return await response.json()
 
     async def blackbox(self, query=None):

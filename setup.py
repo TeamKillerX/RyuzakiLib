@@ -21,8 +21,18 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     author="TeamKillerX",
     author_email="killerx@randydev.my.id",
-    url="https://github.com/TeamKillerX/RyuzakiLib/",
-    keywords=["API", "RyuzakiLib", "Ryuzaki_Library", "Ryuzaki-API"],
+    url="https://api.randydev.my.id",
+    project_urls={
+        "Docs": "https//docs.randydev.my.id",
+        "Source": "https://github.com/TeamKillerX/RyuzakiLib/",
+        "Issues": "https://github.com/TeamKillerX/RyuzakiLib/issues",
+    },
+    keywords=[
+        "API",
+        "RyuzakiLib",
+        "Ryuzaki_Library",
+        "Ryuzaki-API"
+    ],
     install_requires=[
         "requests",
         "aiohttp",

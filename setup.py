@@ -23,7 +23,7 @@ setuptools.setup(
     author_email="killerx@randydev.my.id",
     url="https://api.randydev.my.id",
     project_urls={
-        "Docs": "https//docs.randydev.my.id",
+        "Docs": "https://docs.randydev.my.id/",
         "Source": "https://github.com/TeamKillerX/RyuzakiLib/",
         "Issues": "https://github.com/TeamKillerX/RyuzakiLib/issues",
     },

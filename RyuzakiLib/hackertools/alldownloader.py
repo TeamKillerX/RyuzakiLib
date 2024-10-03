@@ -100,7 +100,7 @@ class AkenoPlus:
                 filename=os.path.basename(files_open),
                 content_type='application/octet-stream'
             )
-            async with session.post(f"{self.api_endpoint}/paal-see", data=form_data, params=params) as response:
+            async with session.post(f"{self.api_endpoint}/akeno/paal-see", data=form_data, params=params) as response:
                 if response.status != 200:
                     raise Exception(f"Error occurred: {response.status}")
                 return await response.json()

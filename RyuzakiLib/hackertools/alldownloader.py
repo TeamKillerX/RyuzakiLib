@@ -93,10 +93,17 @@ class AkenoPlus:
 
     async def paal_see(self, files_open=None, **params):
         async with aiohttp.ClientSession() as session:
-            with open(files_open, "rb") as file:
-                files = {"file": file}
-                async with session.post(f"{self.api_endpoint}/paal-see", files=files, params=params) as response:
-                    return await response.json()
+            form_data = aiohttp.FormData()
+            form_data.add_field(
+                'file',
+                open(files_open, 'rb'),
+                filename=os.path.basename(files_open),
+                content_type='application/octet-stream'
+            )
+            async with session.post(f"{self.api_endpoint}/paal-see", data=form_data, params=params) as response:
+                if response.status != 200:
+                    raise Exception(f"Error occurred: {response.status}")
+                return await response.json()
 
     async def blackbox(self, query=None):
         params = {"query": query}

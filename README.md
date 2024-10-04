@@ -15,10 +15,12 @@
 > RyuzakiLib is used to help your account activities on Telegram<br>We are not responsible for what you misuse in this repository!<br>Be careful when using this repository!<br>If one of the members misuses this repository, we are forced to ban you<br>Never ever abuse this repository
 
 # Installing
-* `pip3 install -U RyuzakiLib`
+- example: `RyuzakiLib[porno]`, `RyuzakiLib[standard]`, `RyuzakiLib[all]`
+
+* `pip3 install -U RyuzakiLib[all]`
 * windows or linux
 ```
-pip3 install git+https://github.com/TeamKillerX/RyuzakiLib
+pip3 install git+https://github.com/TeamKillerX/RyuzakiLib.git#egg=RyuzakiLib[all]
 ```
 
 * Only Developed by

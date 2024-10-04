@@ -55,6 +55,11 @@ setuptools.setup(
             "motor",
             "typing-extensions",
             "huggingface-hub>=0.23.2",
+            "authlib",
+            "gpytranslate",
+            "fastapi[all]",
+            "uvicorn[standard]",
+            "pyrogram",
         ],
         "all": [
             "aiohttp",

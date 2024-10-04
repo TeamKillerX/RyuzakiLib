@@ -41,9 +41,11 @@ setuptools.setup(
             "aiohttp",
             "wget",
             "requests",
+            "httpx[http2]",
         ],
         "standard": [
             "g4f",
+            "httpx[http2]",
             "typing",
             "aiohttp",
             "bs4",

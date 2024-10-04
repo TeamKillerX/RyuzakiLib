@@ -44,11 +44,14 @@ setuptools.setup(
         ],
         "standard": [
             "g4f",
+            "typing",
             "aiohttp",
             "bs4",
             "openai",
             "google-generativeai",
             "curl_cffi",
+            "motor",
+            "typing-extensions",
             "huggingface-hub>=0.23.2",
         ],
         "all": [

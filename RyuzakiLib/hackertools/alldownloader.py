@@ -6,6 +6,7 @@ import httpx
 import requests
 import wget
 
+
 class DictToObj:
     def __init__(self, dictionary):
         for key, value in dictionary.items():

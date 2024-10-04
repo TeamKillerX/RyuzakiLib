@@ -22,9 +22,15 @@ class DictToObj:
         return f"{self.__dict__}"
 
 class AkenoPlus:
-    def __init__(self, key: str = None, issue: bool = False, ip_unban=None):
+    def __init__(
+        self,
+        key: str = None,
+        api_endpoint: str = "https://private-akeno.randydev.my.id",
+        issue: bool = False,
+        ip_unban=None
+    ):
         self.issue = issue
-        self.api_endpoint = "https://private-akeno.randydev.my.id"
+        self.api_endpoint = api_endpoint
         self.headers = {"x-akeno-key": key}
 
         if isinstance(ip_unban, str):
@@ -83,6 +89,20 @@ class AkenoPlus:
         combined_params.update(params)
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.api_endpoint}/api/akeno-ai-web", params=combined_params) as response:
+                return await response.json()
+
+    async def paal_see(self, files_open=None, **params):
+        async with aiohttp.ClientSession() as session:
+            form_data = aiohttp.FormData()
+            form_data.add_field(
+                'file',
+                open(files_open, 'rb'),
+                filename=os.path.basename(files_open),
+                content_type='application/octet-stream'
+            )
+            async with session.post(f"{self.api_endpoint}/akeno/paal-see", data=form_data, params=params) as response:
+                if response.status != 200:
+                    raise Exception(f"Error occurred: {response.status}")
                 return await response.json()
 
     async def blackbox(self, query=None):

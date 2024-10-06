@@ -24,7 +24,6 @@ from typing import Optional
 import g4f
 import openai
 import requests
-from g4f.Provider import Bard
 from motor.motor_asyncio import AsyncIOMotorClient
 
 gpt3_conversation_history = []
@@ -213,7 +212,7 @@ class OpenAI:
                 new_response = g4f.ChatCompletion.create(
                     model=selected_new_model,
                     messages=continue_conversations,
-                    provider=Bard,
+                    provider="",
                     cookies={"__Secure-1PSID": bard_api_key},
                     auth=True,
                 )

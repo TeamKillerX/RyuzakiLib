@@ -80,7 +80,15 @@ class GeminiLatest:
         return cookie_picture
 
     def get_response_image(self, query, file_image):
-        model_image = genai.GenerativeModel("gemini-1.5-flash")
+        model_image = genai.GenerativeModel(
+            "gemini-1.5-flash",
+            safety_settings={
+                genai.types.HarmCategory.HARM_CATEGORY_HATE_SPEECH: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                genai.types.HarmCategory.HARM_CATEGORY_HARASSMENT: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                genai.types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: genai.types.HarmBlockThreshold.BLOCK_NONE,
+                genai.types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: genai.types.HarmBlockThreshold.BLOCK_NONE
+            }
+        )
         cookie_picture = self.geni_upload_file(file_image)
         response = model_image.generate_content(
             contents=[query, cookie_picture]

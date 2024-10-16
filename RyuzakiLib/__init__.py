@@ -32,7 +32,6 @@ from .api.yohasakura import SearchAPI
 from .bot import *
 from .channels import *
 from .decorator import *
-from .extreme.carbon import Carbon
 from .extreme.quotestk import QouteSticker
 from .extreme.userinfo import TelegramUserInfo
 from .extreme.webshot import WebShotUrl
@@ -79,7 +78,6 @@ __all__ = [
     "Background",
     "OcrApiUrl",
     "MyIP",
-    "Carbon",
     "QouteSticker",
     "TelegramUserInfo",
     "WebShotUrl",

@@ -10,6 +10,7 @@
 ![Codeql](https://github.com/TeamKillerX/RyuzakiLib/actions/workflows/codeql.yml/badge.svg)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/TeamKillerX/RyuzakiLib/dev.svg)](https://results.pre-commit.ci/latest/github/TeamKillerX/RyuzakiLib/dev)
 
+### Note
 > [!NOTE]
 > The project is no longer maintained or supported. Thanks for appreciating it.
 > You can use [akenoai-lib](https://github.com/TeamKillerX/akenoai-lib)

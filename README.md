@@ -1,14 +1,4 @@
-# RyuzakiLib
-
-![pro](https://github.com/TeamKillerX/RyuzakiLib/assets/90479255/dfa2f321-9b36-4045-a321-bcfdd4366514)
-
-[![pykillerx - Version](https://img.shields.io/pypi/v/RyuzakiLib?style=round)](https://pypi.org/project/RyuzakiLib)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/RyuzakiLib?label=DOWNLOADS&style=round)](https://pypi.org/project/RyuzakiLib)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/TeamKillerX/RyuzakiLib/graphs/commit-activity)
-[![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/TeamKillerX/RyuzakiLib)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
-![Codeql](https://github.com/TeamKillerX/RyuzakiLib/actions/workflows/codeql.yml/badge.svg)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/TeamKillerX/RyuzakiLib/dev.svg)](https://results.pre-commit.ci/latest/github/TeamKillerX/RyuzakiLib/dev)
+# Ryzenth Docs
 
 ### Note
 > [!NOTE]
@@ -20,15 +10,6 @@
 # Disclaimer
 > [!WARNING]
 > RyuzakiLib is used to help your account activities on Telegram<br>We are not responsible for what you misuse in this repository!<br>Be careful when using this repository!<br>If one of the members misuses this repository, we are forced to ban you<br>Never ever abuse this repository
-
-# Installing
-- example: `RyuzakiLib[porno]`, `RyuzakiLib[standard]`, `RyuzakiLib[all]`
-
-* `pip3 install -U RyuzakiLib[all]`
-* windows or linux
-```
-pip3 install git+https://github.com/TeamKillerX/RyuzakiLib.git#egg=RyuzakiLib[all]
-```
 
 * Only Developed by
 - [@xtdevs](https://t.me/xtdevs)
@@ -45,7 +26,7 @@ Sometimes errors occur, but we are here to help! This guide covers some of the m
 [![License](https://www.gnu.org/graphics/agplv3-155x51.png)](LICENSE)
 TeamKillerX is licensed under [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) v3 or later.
 
-<h4 align="center">Copyright (C) 2019 - 2024 The RyuzakiLib <a href="https://github.com/TeamKillerX">TeamKillerX</a>
+<h4 align="center">Copyright (C) 2019 - 2025 The RyuzakiLib <a href="https://github.com/TeamKillerX">TeamKillerX</a>
 <a href="https://t.me/xtdevs">@xtdevs</a>
 </h4>
 

@@ -1,145 +1,147 @@
-### Postgresql Database
+---
+icon: square-reddit
+---
 
-If you wish to use a database-dependent module (eg: locks, notes, userinfo, users, filters, welcomes),
-you'll need to have a database installed on your system. I use postgres, so I recommend using it for optimal compatibility.
+# database
+
+#### Postgresql Database
+
+If you wish to use a database-dependent module (eg: locks, notes, userinfo, users, filters, welcomes), you'll need to have a database installed on your system. I use postgres, so I recommend using it for optimal compatibility.
 
 In the case of postgres, this is how you would set up a the database on a debian/ubuntu system. Other distributions may vary.
 
-- install postgresql:
+* install postgresql:
 
 `sudo apt-get update && sudo apt-get install postgresql`
 
-- change to the postgres user:
+* change to the postgres user:
 
 `sudo su - postgres`
 
-- create a new database user (change YOUR_USER appropriately):
+* create a new database user (change YOUR\_USER appropriately):
 
 `createuser -P -s -e YOUR_USER`
 
 This will be followed by you needing to input your password.
 
-- create a new database table:
+* create a new database table:
 
 `createdb -O YOUR_USER YOUR_DB_NAME`
 
-Change YOUR_USER and YOUR_DB_NAME appropriately.
+Change YOUR\_USER and YOUR\_DB\_NAME appropriately.
 
-- finally:
+* finally:
 
 `psql YOUR_DB_NAME -h YOUR_HOST YOUR_USER`
 
-This will allow you to connect to your database via your terminal.
-By default, YOUR_HOST should be 0.0.0.0:5432.
+This will allow you to connect to your database via your terminal. By default, YOUR\_HOST should be 0.0.0.0:5432.
 
 You should now be able to build your database URI. This will be:
 
 `sqldbtype://username:pw@hostname:port/db_name`
 
-Replace sqldbtype with whichever db youre using (eg postgres, mysql, sqllite, etc)
-repeat for your username, password, hostname (localhost?), port (5432?), and db name.
+Replace sqldbtype with whichever db youre using (eg postgres, mysql, sqllite, etc) repeat for your username, password, hostname (localhost?), port (5432?), and db name.
 
-### Redis Server Database
+#### Redis Server Database
 
-<b>Step 1: Prerequisites</b>
+Step 1: Prerequisites
 
-* System running <b>Ubuntu 22.04</b>
-* Access <b>Terminal</b> Command line
-* <b>Sudo</b> or <b>root</b> privileges on local or remote machines
+* System running Ubuntu 22.04
+* Access Terminal Command line
+* Sudo or root privileges on local or remote machines
 
-
-<b>Step 2: Install Redis</b>
+Step 2: Install Redis
 
 Redis packages are available under the default apt repository for the installation of Redis on an Ubuntu VPS.
 
 Start by updating the packages to the latest version. Run the following command:
 
-<code>sudo apt update</code>
+`sudo apt update`
 
-<b>Install Redis using the following command</b>
+Install Redis using the following command
 
-<code>sudo apt install redis-server</code>
+`sudo apt install redis-server`
 
-<b>Step 3: Configure Redis</b>
+Step 3: Configure Redis
 
-Redis can start without a configuration file using a built-in default configuration. Aim to make Any extra parameter exchange, you can use ict configuration file: <code>/etc/redis/redis.conf.</code> Edit the Redis configuration file in a text editor to make changes:
+Redis can start without a configuration file using a built-in default configuration. Aim to make Any extra parameter exchange, you can use ict configuration file: `/etc/redis/redis.conf.` Edit the Redis configuration file in a text editor to make changes:
 
-<code>sudo nano /etc/redis/redis.conf</code>
+`sudo nano /etc/redis/redis.conf`
 
-<b>Configure Memory</b>
+Configure Memory
 
-Update the following values ​​in the Redis configuration file. You can use its configuration file <code>/etc/redis/redis.conf::</code>
+Update the following values ​​in the Redis configuration file. You can use its configuration file `/etc/redis/redis.conf::`
 
+`maxmemory 256mb maxmemory-policy allkeys-lru`
 
-<code>maxmemory 256mb
-maxmemory-policy allkeys-lru</code>
+Configure supervisord
 
-<b>Configure supervisord</b>
+For Ubuntu, we can safely select the systemd as the supervised so that Redis can interact with your supervision tree. You can use its configuration file `/etc/redis/redis.conf::`
 
-For Ubuntu, we can safely select the systemd as the supervised so that Redis can interact with your supervision tree. You can use its configuration file <code>/etc/redis/redis.conf::</code>
+`supervisord systemd`
 
-<code>supervisord systemd</code>
-
-<b>Binding to localhost</b>
+Binding to localhost
 
 By default, the Redis server doesn't accept remote connections. You can connect to Redis only from 127.0.0.1 (localhost) - the machine where Redis is running.
 
-If you are using a single server setup where the client connecting to the database is also running on the same host, you should not enable remote access. You can use its configuration file <code>/etc/redis/redis.conf::</code>
+If you are using a single server setup where the client connecting to the database is also running on the same host, you should not enable remote access. You can use its configuration file `/etc/redis/redis.conf::`
 
-<code>bind 127.0.0.1 ::1</code>
+`bind 127.0.0.1 ::1`
 
-<b>Verify redis is listening on all interfaces on port 6379. Run the following command:</b>
+Verify redis is listening on all interfaces on port 6379. Run the following command:
 
-<code>ss -an | grep 6379</code>
+`ss -an | grep 6379`
 
-<b>Configure Password</b>
+Configure Password
 
-Configuring a Redis password enables one of its two built-in security features - the auth command, which requires clients to authenticate to access the database. You can use its configuration file <code>/etc/redis/redis.conf::</code>
+Configuring a Redis password enables one of its two built-in security features - the auth command, which requires clients to authenticate to access the database. You can use its configuration file `/etc/redis/redis.conf::`
 
-<code>requirepass HackByRandy</code>
+`requirepass HackByRandy`
 
-<b>Redis for the changes to take effect</b>
+Redis for the changes to take effect
 
-<code>sudo systemctl restart redis-server</code>
+`sudo systemctl restart redis-server`
 
-<b>Step 4: Connect to Redis Server</b>
+Step 4: Connect to Redis Server
 
 Redis provides redis-cli utility to connect to the Redis server. Run the following command:
 
-<code>redis-cli</code>
+`redis-cli`
 
-<b>Few more examples of the redis-cli command-line tool.</b>
+Few more examples of the redis-cli command-line tool.
+
 ```
 redis-cli info
 redis-cli info stats
 redis-cli info server
 ```
 
-<b>Step 5: Managing the Redis Service</b>
+Step 5: Managing the Redis Service
 
 Now that you have your service up and running, let's go over basic management commands
 
-To <b>stop</b> your service, run this command:
+To stop your service, run this command:
 
-<code>sudo systemctl stop redis-server</code>
+`sudo systemctl stop redis-server`
 
-To <b>start</b> your service, run this command:
+To start your service, run this command:
 
-<code>sudo systemctl start redis-server</code>
+`sudo systemctl start redis-server`
 
-To <b>disable</b> your service, run this command:
+To disable your service, run this command:
 
-<code>sudo systemctl disable redis-server</code>
+`sudo systemctl disable redis-server`
 
-To <b>enable</b> your service, run this command:
+To enable your service, run this command:
 
-<code>sudo systemctl enable redis-server</code>
+`sudo systemctl enable redis-server`
 
-To <b>status</b> your service, run this command:
+To status your service, run this command:
 
-<code>sudo systemctl status redis-server</code>
+`sudo systemctl status redis-server`
 
-<b>Active: active (running)</b>
+Active: active (running)
+
 ```
 ● redis-server.service - Advanced key-value store
      Loaded: loaded (/lib/systemd/system/redis-server.service; enabled; vendor preset:>
@@ -156,9 +158,10 @@ To <b>status</b> your service, run this command:
 
 ```
 
-### Mongo Database
+#### Mongo Database
+
 ```python
 db.createUser({user:"username", pwd:"password", roles:[{role:"root", db:"admin"}]})
 ```
 
-<b>Thank you</b> for reading this article !!
+Thank you for reading this article !!

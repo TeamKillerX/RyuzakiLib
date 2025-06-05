@@ -1,4 +1,11 @@
-### AkenoPlus Fast
+---
+icon: lastfm
+---
+
+# AkenoPlus
+
+#### AkenoPlus Fast
+
 ```python
 from RyuzakiLib import AkenoPlus
 
@@ -15,7 +22,9 @@ data = do.randydev.results[0].video_1
 vid = _.download_now(data, remove=True)
 await message.reply_video(vid, has_spoiler=True)
 ```
-### Attribute
+
+#### Attribute
+
 ```python
 _.terabox(link)
 _.terabox_v2(link)

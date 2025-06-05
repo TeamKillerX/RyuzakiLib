@@ -1,4 +1,9 @@
-### memes
+---
+icon: fondue-pot
+---
+
+# memes
+
 ```python
 from RyuzakiLib.memes.bully import WtfBro
 

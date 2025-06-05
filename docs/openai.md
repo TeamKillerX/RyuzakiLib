@@ -1,4 +1,9 @@
-### Continue Conversation
+---
+icon: person
+---
+
+# Continue Conversation
+
 ```python
 from RyuzakiLib import OpenAI
 

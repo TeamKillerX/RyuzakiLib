@@ -1,4 +1,9 @@
-### Tiktok Downloader
+---
+icon: chart-bullet
+---
+
+# Tiktok Downloader
+
 ```python
 from RyuzakiLib.dl.tiktok import Tiktok
 

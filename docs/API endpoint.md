@@ -1,7 +1,15 @@
-### API endpoint
-- don't ask [`@xtdevs`](https://t.me/xtdevs) on telegram
+---
+icon: fill-drip
+---
 
-### Short url Generator for tracking IP
+# API endpoint
+
+#### API endpoint
+
+* don't ask [`@xtdevs`](https://t.me/xtdevs) on telegram
+
+#### Short url Generator for tracking IP
+
 ```python
 import requests
 
@@ -16,7 +24,9 @@ url = "https://akeno.randydev.my.id/api/shorten_url"
 response = requests.post(url, json=payload, headers=headers).json()
 print(response)
 ```
-### Flux & Flux PRO
+
+#### Flux & Flux PRO
+
 ```python
 import requests
 
@@ -28,4 +38,5 @@ data = {
 
 response = requests.post(url, json=data).content
 ```
+
 • You also read this [`Docs-All`](https://akeno.randydev.my.id/docs)

@@ -1,5 +1,11 @@
-### Spamwatch
+---
+icon: helicopter
+---
+
+# Spamwatch
+
 • Example usage
+
 ```python
 from RyuzakiLib import SibylBan
 

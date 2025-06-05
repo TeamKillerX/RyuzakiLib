@@ -20,7 +20,6 @@
   * [Gemini AI New (Free)](docs/gemini.md)
   * [hackertools](docs/hackertools.md)
   * [AI image Generator New?](docs/imageai.md)
-  * [index](docs/index.md)
   * [memes](docs/memes.md)
   * [nginx-fastapi](docs/nginx-fastapi.md)
   * [Continue Conversation](docs/openai.md)

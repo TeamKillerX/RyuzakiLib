@@ -1,6 +1,13 @@
-### Chatgpt New?
+---
+icon: tree-palm
+---
+
+# chatgpt\_new
+
+#### Chatgpt New?
+
 * Chatgpt's new features are available here
-- parameter
+* parameter
 
 ```python
 from RyuzakiLib import RendyDevChat
@@ -11,7 +18,9 @@ print(results)
 response = await RendyDevChat.chat_hacked("hello world")
 print(response)
 ```
-### BetaRag New (AI)
+
+#### BetaRag New (AI)
+
 ```python
 from RyuzakiLib import BetaRag
 

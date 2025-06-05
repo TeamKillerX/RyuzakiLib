@@ -1,4 +1,9 @@
-### Blackbox New AI
+---
+icon: face-unamused
+---
+
+# Blackbox New AI
+
 ```python
 from RyuzakiLib import Blackbox
 import os

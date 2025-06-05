@@ -1,4 +1,11 @@
-### Import All
+---
+icon: folder-arrow-up
+---
+
+# hackertools
+
+#### Import All
+
 ```python
 from RyuzakiLib.hackertools.chatgpt import RendyDevChat
 from RyuzakiLib.hackertools.github import GithubUsername
@@ -8,7 +15,9 @@ from RyuzakiLib.hackertools.ipinfo import WhoisIpHacker
 from RyuzakiLib.hackertools.ocrapi import OcrApiUrl
 from RyuzakiLib.hackertools.prefixes import CustomPrefixes
 ```
-### Example Chatgpt
+
+#### Example Chatgpt
+
 ```python
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -20,7 +29,8 @@ response = await RendyDevChat.chat_hacked(query, latest_model="openai-v2")
 await message.reply(response)
 ```
 
-### Example Reverse
+#### Example Reverse
+
 ```python
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -34,14 +44,17 @@ results = response.get_reverse()
 print(results)
 ```
 
-### Github Info Data
+#### Github Info Data
+
 ```python
 # < class RyuzakiLib.hackertools.github.Github >
 
 hacking = await Github.username(username)
 # code here
 ```
-### Ocr image to text
+
+#### Ocr image to text
+
 ```python
 
 # < class RyuzakiLib.hackertools.ocrapi.OcrApiUrl >
@@ -50,7 +63,9 @@ code = await OcrApiUrl(api_key, url, language)
 send = code.now_send_text()
 # code here
 ```
-### Whois Ip Address
+
+#### Whois Ip Address
+
 ```python
 # < class RyuzakiLib.hackertools.ipinfo.MyIP >
 
@@ -58,7 +73,8 @@ response = await MyIP.hack(1243003)
 # code here
 ```
 
-### Openai Ai Token
+#### Openai Ai Token
+
 ```python
 # < class RyuzakiLib.hackertools.openai.OpenAiToken >
 

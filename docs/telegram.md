@@ -1,4 +1,9 @@
-### Learn Telegram Bot API
+---
+icon: face-kiss
+---
+
+# Learn Telegram Bot API
+
 ```python
 
 from RyuzakiLib.bot import API

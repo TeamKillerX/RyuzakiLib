@@ -1,7 +1,12 @@
-### Gemini AI New (Free)
-- No authorization needed
-- Gemini Pro and Gemini Flash (Without RyuzakiLib API keys)
-- Multi-Turn Conversation
+---
+icon: pear
+---
+
+# Gemini AI New (Free)
+
+* No authorization needed
+* Gemini Pro and Gemini Flash (Without RyuzakiLib API keys)
+* Multi-Turn Conversation
 
 ```python
 from RyuzakiLib import GeminiLatest
@@ -25,4 +30,5 @@ x = GeminiLatest(api_keys="api key here")
 response = x.get_response_image(caption, file_path)
 print(response)
 ```
-- Gemini AI New:  Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev
+
+* Gemini AI New: Get [API key Here](https://makersuite.google.com/app/apikey) from Google Dev

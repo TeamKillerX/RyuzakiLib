@@ -1,6 +1,12 @@
-### AI image Generator New?
+---
+icon: scalpel
+---
+
+# AI image Generator New?
+
 * AI image Generator new features are available here
-- parameter
+* parameter
+
 ```python
 from RyuzakiLib import RendyDevChat
 
